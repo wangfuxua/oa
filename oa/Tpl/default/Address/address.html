@@ -1,0 +1,88 @@
+<include file="Public:header" />
+<script>
+function add_detail(ADD_ID)
+{
+ URL="__URL__/detail/ADD_ID/"+ADD_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"detail","height=500,width=400,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+
+function delete_add(ADD_ID)
+{
+ msg='确认要删除该联系人么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/ADD_ID/" + ADD_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/address.gif" align="absmiddle"><span class="big3"> 新建联系人({$GROUP_NAME})</span><br>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+<input type="button" value="新建联系人" class="BigButton" onClick="location='__URL__/add/GROUP_ID/{$GROUP_ID}';" title="在“{$GROUP_NAME}”分组中创建新的联系人，录入相关信息">
+</div>
+
+<br>
+
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="../Public/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/address.gif" align="absmiddle"><span class="big3"> 管理联系人(<?=$GROUP_NAME?>)</span>
+    </td>
+  </tr>
+</table>
+
+<br>
+    <table>
+   <thead class="TableHeader">
+      <td nowrap align="center">姓名</td>
+      <td nowrap align="center">性别</td>
+      <td nowrap align="center">单位电话</td>
+      <td nowrap align="center">家庭电话</td>
+      <td nowrap align="center">手机</td>
+      <td nowrap align="center">电子邮件</td>
+      <td nowrap align="center">操作</td>
+   </thead>
+   
+   <volist name="list" id="vo">
+    <tr class="TableData">
+      <td nowrap align="center"><a href="javascript:add_detail('{$vo.ADD_ID}');" target="_blank">{$vo.PSN_NAME}</a></td>
+      <td nowrap align="center">
+      <if condition="$vo[SEX] eq 0">
+      男
+      <elseif condition="$vo[SEX] eq 1" />
+      女
+      </if> 
+      </td>
+      <td nowrap align="center">{$vo.TEL_NO_DEPT}</td>
+      <td nowrap align="center">{$vo.TEL_NO_HOME}</td>
+      <td nowrap align="center"><A href="/general/mobile_sms_personal/new?TO_ID1={$vo.MOBIL_NO},">{$vo.MOBIL_NO}</A></td>
+      <td nowrap align="center"><a href="mailto:{$vo.EMAIL}">{$vo.EMAIL}</a></td>
+      <td nowrap align="center" width="100">
+          <a href="javascript:add_detail('{$vo.ADD_ID}');"> 详情</a>
+          <a href="__URL__/edit/ADD_ID/{$vo.ADD_ID}"> 编辑</a>
+          <a href="javascript:delete_add({$vo.ADD_ID});"> 删除</a>
+      </td>
+    </tr>
+  </volist>  
+			<tfoot>
+			<tr>
+			<td colspan="7">{$page}</td>
+			</tr>
+			</tfoot>
+			  
+  </table>    
+<include file="Public:footer" />

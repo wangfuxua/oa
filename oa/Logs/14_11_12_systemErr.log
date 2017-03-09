@@ -1,0 +1,53 @@
+[ 14-11-12 10:14:03 ]
+
+错误信息：[ oa public login ]无法加载模块public
+错误页面：/index.php/public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-12 10:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-12 10:14:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-12 13:50:48 ]
+
+错误信息：[ oa Public script ]非法操作script
+错误页面：/index.php/Public/script/script/mudel.js/_/1415771680555/
+错误类型：ThinkException
+错误跟踪：
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(script, Array)
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->script()
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-12 13:50:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-12 13:50:48 ]
+
+错误信息：[ oa Public script ]非法操作script
+错误页面：/index.php/Public/script/script/mudel.js/_/1415771680978/
+错误类型：ThinkException
+错误跟踪：
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(script, Array)
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->script()
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-12 13:50:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-12 13:50:49 ]
+
+错误信息：[ oa Public script ]非法操作script
+错误页面：/index.php/Public/script/script/mudel.js/_/1415771681225/
+错误类型：ThinkException
+错误跟踪：
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(script, Array)
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->script()
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-12 13:50:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-12 13:50:49 ]
+
+错误信息：[ oa Public script ]非法操作script
+错误页面：/index.php/Public/script/script/mudel.js/_/1415771681712/
+错误类型：ThinkException
+错误跟踪：
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(script, Array)
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->script()
+[14-11-12 13:50:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-12 13:50:11] /www/web/oa/public_html/index.php (19) App->run()
+

@@ -1,0 +1,104 @@
+<include file="Public:header_module2" />
+<script>
+function delete_diary(DIA_ID)
+{
+ msg='确认要删除该日志么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/DIA_ID/" + DIA_ID;
+  window.location=URL;
+ }
+}
+
+function CheckForm()
+{
+   if(document.form1.BEGIN_DATE.value=="")
+   { alert("起始日期不能为空！");
+     return (false);
+   }
+
+   if(document.form1.END_DATE.value=="")
+   { alert("截止日期不能为空！");
+     return (false);
+   }
+   
+   return true;
+}
+
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "工作日志",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "日志列表", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "添加日志", Url: "__URL__/add", Cls: "", IconCls: "ico ico-add" },
+            { Title: "日志查询", Url: "__URL__/search", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56);
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="main">
+    <table>
+			<caption></caption>
+			<colgroup>
+				<col width="120"></col>
+				<col width="60"></col>
+				<col width=""></col>
+				<col width="60"></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>日志类型</th>
+					<th>日志标题</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="list" id="vo" key="k">
+				<tr class="tdcenter">
+					<td>{$vo.DIA_DATE}</td>
+					<td><if condition="$vo[DIA_TYPE] eq 1">工作日志<elseif condition="$vo[DIA_TYPE] eq 2"/>个人日志<elseif condition="$vo[DIA_TYPE] eq 3"/>工作周报<elseif condition="$vo[DIA_TYPE] eq 4"/>工作月报<elseif condition="$vo[DIA_TYPE] eq 5"/>年度总结</if></td>
+					<td><a href="__URL__/edit/DIA_ID/{$vo.DIA_ID}">{$vo.SUBJECT|strip_tags|csubstr=###,0,80}</a></td>
+					<td>
+					    <a href="__URL__/edit/DIA_ID/{$vo.DIA_ID}">查看</a>
+						<a href="javascript:delete_diary({$vo.DIA_ID});"> 删除</a>
+					</td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="4">{$page}</th>
+				</tr>
+			</tfoot>
+    </tr>
+    
+   </table>
+</di>
+<include file="Public:footer" />

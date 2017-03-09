@@ -1,0 +1,79 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active:2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "会议室列表", Url: "__URL__/meetingroom", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "{$desc}", Url: "__URL__/meetingroomform", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body onLoad="document.form1.CONTENT.focus();">
+
+
+<div class="KDStyle" id="KDMain">
+ <table>
+ <col width="120px" />
+  <form action="__URL__/meetingroomsubmit"  method="post" name="form1" onsubmit="return CheckForm();">
+    <tr>
+      <th> 会议室名称：</th>
+      <td>
+        <input type="text" name="MR_NAME" size="53" maxlength="100" class="BigInput" value="{$ROW.MR_NAME}">
+      </td>
+    </tr>
+    <tr>
+      <th> 可容纳人数：</th>
+      <td>
+        <input type="text" name="MR_CAPACITY" size="10" maxlength="10" class="BigInput" value="{$ROW.MR_CAPACITY}">
+      </td>
+    </tr> 
+    <tr>
+      <th> 会议室地点：</th>
+      <td>
+        <input type="text" name="MR_PLACE" size="53" maxlength="100" class="BigInput" value="{$ROW.MR_PLACE}">
+      </td>
+    </tr>     
+    <tr>
+      <th>设备情况：</th>
+      <td>
+        <textarea cols=50 name="MR_DEVICE" rows="3" class="BigInput" wrap="on">{$ROW.MR_DEVICE}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <th>会议室描述：</th>
+      <td>
+        <textarea cols=50 name="MR_DESC" rows="3" class="BigInput" wrap="on">{$ROW.MR_DESC}</textarea>
+      </td>
+    </tr>
+    <tfoot>       
+    <tr>
+      <th colspan="2" nowrap>
+        <input type="hidden" name="MR_ID" value="{$ROW.MR_ID}">
+        <button type="submit" value="提交" class="btnFnt">提交</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/meetingroom'">返回</button>
+      </th>
+    </tr>
+    </tfoot>
+  </table>
+</form>
+</div>
+<include file="Public:footer" />

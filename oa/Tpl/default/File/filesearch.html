@@ -1,0 +1,165 @@
+ 
+<script Language="JavaScript">
+function check_all()
+{
+ for (i=0;i<document.all("email_select").length;i++)
+ {
+   if(document.all("allbox").checked)
+      document.all("email_select").item(i).checked=true;
+   else
+      document.all("email_select").item(i).checked=false;
+ }
+
+ if(i==0)
+ {
+   if(document.all("allbox").checked)
+      document.all("email_select").checked=true;
+   else
+      document.all("email_select").checked=false;
+ }
+}
+
+function check_one(el)
+{
+   if(!el.checked)
+      document.all("allbox").checked=false;
+}
+function set_page()
+{
+ PAGE_START=(document.form1.PAGE_NUM.value-1)*{$PAGE_SIZE}+1;
+ location="folder.php?file_sort={$file_sort}&sort_id={$sort_id}&PAGE_START="+PAGE_START;
+}
+<?php
+if($RELOAD_TREE==1)
+{
+?>
+parent.file_tree.location.reload();
+<?php
+}
+?>
+
+</script>
+
+<script>				
+	function open_file(sort_id,CONTENT_ID)
+	{
+    URL="__URL__/fileread/sort_id/"+sort_id+"/CONTENT_ID/"+CONTENT_ID+"/close/1";		
+ 	myleft=(screen.availWidth-500)/2;
+ 	window.open(URL,"read_file","height=400,width=550,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+	}
+
+</script>
+
+<body>
+
+<div class="">
+<form name="form1">
+<table>
+<caption class="nostyle">{$SORT_NAME} （{$SORT_TYPE_DESC}）</caption>
+			<colgroup> 
+				<col></col>
+				<col></col>
+				<col></col>
+				<col></col>
+			</colgroup>
+  <thead>
+      <tr> 
+      <th>文件名称</th>
+      <th>附件文件</th>
+      <th>发布时间 <img border=0 src="../Public/images/arrow_down.gif" width="11" height="10"></th>
+      <?php if($manager_priv = 1){ ?>
+      <th>详情</th>
+      <?php }?>
+   </tr>
+   </thead>
+   <tbody>
+     <volist name="list" id="vo" key="k">
+   <tr>
+       <td><a href="javascript:open_file('{$vo.SORT_ID}','{$vo.CONTENT_ID}');">{$vo.SUBJECT|csubstr=###,0,30}</a></td>
+      <td> {$vo.ATTACHMENT_NAME|file_att_list=###,$vo[ATTACHMENT_ID],$manager_priv,$down_priv}</td>   
+      <td>{$vo.SEND_TIME}</td> 
+      <td><a href="javascript:open_file('{$vo.SORT_ID}','{$vo.CONTENT_ID}');">详情</a>
+      </td> 
+    </tr>  
+      </volist>
+    </tbody>
+  <tfoot>
+  <tr>
+  <td colspan="4">
+  <if condition="$k eq 0">
+  无您要搜索的结果，可输入新的搜索条件 
+  </if>
+  {$page}
+  </td>
+  </tr>    
+  </tfoot>
+ </table>     
+
+</div>
+
+</form>
+
+<script>
+function delete_content(CONTENT_ID)
+{
+  msg="确定要删除该文件吗？这将不可恢复！";
+  if(window.confirm(msg))
+  {
+    URL="__URL__/filedelete/file_sort/{$file_sort}/sort_id/{$sort_id}/CONTENT_ID/" + CONTENT_ID;
+    window.location=URL;
+  }
+}
+
+function delete_sort(SORT_ID)
+{
+  msg="确定要删除该文件夹吗？这将删除该文件夹中的所有文件和子文件夹，且不可恢复！";
+  if(window.confirm(msg))
+  {
+    URL="__URL__/sortdelete/file_sort/{$file_sort}/sort_id/{$sort_id}";
+    window.location=URL;
+  }
+}
+function change_sort(sort)
+{
+  delete_str="";
+  if(sort=="0")
+  {
+     for(i=0;i<document.all("email_select").length;i++)
+     {
+
+         el=document.all("email_select").item(i);
+         if(el.checked)
+         {  val=el.value;
+            delete_str+=val + ",";
+         }
+     }
+
+     if(i==0)
+     {
+         el=document.all("email_select");
+         if(el.checked)
+         {  val=el.value;
+            delete_str+=val + ",";
+         }
+     }
+
+     if(delete_str=="")
+     {
+        alert("要转移文件，请至少选择其中一个。");
+        document.form1.reset();
+        return;
+     }
+  }
+  if(sort=="0"){
+     sort_parent=document.all("SORT_PARENT").value;
+     if(sort_parent=="0"){alert("根目录下不允许存放文件！");return;}
+  }else{
+     sort_parent=document.all("SORT_ID").value;
+  }
+  url="__URL__/changesort/file_sort/{$file_sort}/sort_id/{$sort_id}/?FILE_STR="+ delete_str +"&SORT_PARENT="+sort_parent+"&SORT="+sort;
+
+  location=url;
+}
+</script>
+
+ 

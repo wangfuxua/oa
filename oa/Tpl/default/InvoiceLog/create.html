@@ -1,0 +1,145 @@
+<include file="Public:header2" />
+<title>新建发票记录</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script src ="../Public/js/crm_common.js"></script>
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/calendar.js"></script>
+<script src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/InvoiceLog/lists" title=""><span>发票记录列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/InvoiceLog/create" title=""><span><if condition="$update">修改<else/>新建</if>发票记录</span></a></li>
+	</ul>
+<form  method="post" name="form1" action='<if condition="$update">__APP__/InvoiceLog/update<else/>__APP__/InvoiceLog/save</if>' onSubmit="return idNull(Array('name','account_name','money','sel3','invoice_type'),Array('name_msg','account_msg','money_msg','date_msg','type_msg'),Array('名称不能为空！','客户名不能为空！','金额不能为空！','开票日期不能为空！','发票类型不能为空！'));">
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="current_id" value="{$invoiceLog_res['id']}" />
+			<button type="submit">保存</button>
+			<button  type="reset">重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+<tbody>
+	<tr><th colspan="4" class="tdtit">开票记录信息</th></tr>
+	 <tr>
+		<td>名称:
+		<span style="color:red;">*</span></td>
+		<td>
+			<input name="name" id="name" tabindex="1" size="35" maxlength="50" type="text" value="{$invoiceLog_res['name']}" onBlur="return idNull('name','name_msg','姓名不能为空！');" />
+	         	<span id="name_msg"></span>
+		</td>
+		<td>负责人:</td>
+		<td>
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$invoiceLog_res['uid']}" />
+		<input id="manager_name" name='manager_name' type="text" value="{$invoiceLog_res['USER_NAME']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>选择</button>	
+		</td>
+	</tr>
+	<tr>
+		<td>客户名称: <span style="color:red;">*</span></td>
+		<td>
+			<input  id="parent_name" name='account_name' type="text" size='30' value="{$invoiceLog_res['account_name']}" readonly />
+			<input id='parent_id' name='account_id' type="hidden" value="{$invoiceLog_res['account_id']}" />
+			<button title="选择 [Alt+T]"  type="button" tabindex='1' onClick="KDwin('__APP__/Account/lists/to_id/parent_id/to_name/parent_name',500,400);">选择</button><span id="account_msg"></span>
+		</td>
+		<td>票据金额: <span style="color:red;">*</span></td>
+		<td><input type='text' name='money' id='money' size='20' maxlength='20' value="{$invoiceLog_res['money']}" onBlur="return idNull('money','money_msg','金额不能为空！');" /><span id="money_msg"></span></td>
+	</tr><tr>     
+		 <td>开票日期: <span style="color:red;">*</span></td>
+		 <td>
+		 	<fieldset class="date">
+				<input name='invoice_date' id='sel3' type="text" tabindex='1' size='18' maxlength='20' value="{$invoiceLog_res['invoice_date']}" readonly /><img src="../Public/images/ico/calendar.png" alt="" onClick="return showCalendar('sel3', '%Y-%m-%d');"  />
+				<span class="dateFormat"></span><span id="date_msg"></span>
+			</fieldset>
+		</td>
+		<td >票据类型: <span style="color:red;">*</span></td>
+		<td>
+<!--			<script>
+			change_selected('invoice_type', invoice_type, "{$invoiceLog_res['invoice_type']}");
+			</script>	-->	
+		<input id="invoice_type_id" type="hidden" />
+		<input name='invoice_type' id="invoice_type" type="text" tabindex='2' size='20' maxlength='25' value="{$invoiceLog_res['invoice_type']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/invoice_type/to_id/invoice_type_id/to_name/invoice_type',400,300);">选择</button>	
+			<span id="type_msg"></span>
+		</td>
+	</tr><tr>
+		<td >期次:</td>
+		<td>
+<!--			<script>
+			change_selected('invoice_times', invoice_times, "{$invoiceLog_res['invoice_times']}");
+			</script>	-->	
+		<input id="invoice_times_id" type="hidden" />
+		<input name='invoice_times' id="invoice_times" type="text" tabindex='2' size='20' maxlength='25' value="{$invoiceLog_res['invoice_times']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/invoice_times/to_id/invoice_times_id/to_name/invoice_times',400,300);">选择</button>		
+		</td>
+		<td >经手人:</td>
+		<td><input type='text' name='handler' id='handler' size='20' maxlength='20' value="{$invoiceLog_res['handler']}" /></td>
+	</tr>
+	<tr>
+		<td>描述:</td>
+		<td colspan="3"><textarea name="description"  cols="60" rows="8" tabindex="4">{$invoiceLog_res['description']}</textarea></td>
+	</tr>
+</tbody>
+</table>
+</form>
+
+<include file="Public:alert_lable" />
+</body></html>

@@ -1,0 +1,12 @@
+﻿    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+				<ul class="ul1 ul4">
+			   <li class="li2">个人网址</li>
+			   <iterate name="perurl" id="vo">
+			   <li><a href="{$vo.URL}" target="_blank">{$vo.URL_DESC}</a></li>
+			   </iterate>
+			   <li class="li2">公共网址</li>
+			   <iterate name="comurl" id="vo">
+			   <li><a href="{$vo.URL}" target="_blank">{$vo.URL_DESC}</a><br></li>
+			   </iterate>
+				</ul>

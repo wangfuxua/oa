@@ -1,0 +1,81 @@
+<include file="Public:header_news" />
+<body>
+    <div id="titbar">
+        <h2>
+            <b class="ico ico-head-news"></b>工作流</h2>
+    </div>
+    <div id="tabbar">
+        <!-- funbar btn start -->
+        <ul>
+            <li><a href="__URL__/index" title=""><b class="ico ico-list"></b>待办工作</a></li>
+            <li><a href="news" title=""><b class="ico ico-add"></b>新建工作</a></li>
+            <li><a href="workControl" title="" class="on"><b class="ico ico-list2"></b>工作监控</a></li>
+        </ul>
+    </div>
+    
+ <div id="main" class="KDStyle">
+ 
+		<table>
+		    <caption>您发起的工作</caption>
+		    <thead>
+			<tr>
+				<th>创建时间</th>
+				<th>工作名称</th>
+				<th>等级</th>
+				<th>当前状态</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			<iterate name="zworkList" id="vo">
+			<tr class="tdcenter">
+				<td>{$vo['zworkTime']|formatdate}</td>
+				<td>{$vo['zworkName']}</td>
+				<td>{$vo['grade']|workGrade}</td>
+				<td>{$vo['state']|workState}</td>
+				<td>
+				<eq name="vo['state']" value="0">
+				<a href="flowIndex/workId/{$vo['zworkId']}">定义流程</a>/
+				</eq>
+				<a href="__URL__/flowView/workId/{$vo['zworkId']}">查看流程图</a>
+				<eq name="vo['state']" value="0"> 
+				/<a href="__URL__/del/workId/{$vo['zworkId']}">删除</a>
+				</eq>
+				</td> 
+			</tr>
+			</iterate>	
+			</tbody>
+			<tfoot>
+			    <tr><td colspan="5"></td></tr>
+			</tfoot>
+		</table>
+	
+		<table>
+		<caption>您被指派做的工作（完成的）</caption>
+		    <thead>
+			<tr>
+				<th>流程名称</th>
+				<th>流程步骤</th>
+				<th>查看工作内容</th>
+				<th>查看工作流程</th>
+				<th>完成情况</th>
+			</tr>
+			</thead>
+			<tbody>
+			<iterate name="workflowList" id="vo">
+			<tr class="tdcenter">
+				<td>{$vo['flowName']}</td>
+				<td>第{$vo['flowId']}步</td>
+				<td><a href="__URL__/flowView/workId/{$vo['zworkId']}">查看详细内容</a></td>
+				<td><a href="__URL__/flowView/workId/{$vo['zworkId']}">查看流程图</a></td>
+				<td>
+				{$vo['state']|flowState}
+				</td> 
+			</tr>
+			</iterate>	
+			</tbody>
+			<tfoot>
+			    <tr><td colspan="5"></td></tr>
+			</tfoot>
+		</table>
+<include file="Public:footer" />

@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>{$face.IE_TITLE}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script language="JavaScript">
+ self.moveTo(0,0);
+ self.resizeTo(screen.availWidth,screen.availHeight);
+ self.focus();
+</script>
+</head>
+
+<frameset rows="50,*,20"  cols="*" frameborder="NO" border="0" framespacing="0" id="frame1">
+    <frame name="banner" scrolling="no" noresize src="/index.php/index/generaltopbar" frameborder="0">
+    <frameset rows="*"  cols="200,8,*" frameborder="NO" border="0" framespacing="0" id="frame2">
+       <frame name="leftmenu" scrolling="auto" noresize src="/index.php/index/ipanel" frameborder="0">
+       <frame name="callleftmenu" scrolling="no" noresize src="/index.php/index/callleftmenu" frameborder="0">
+       <frame name="table_index" scrolling="auto" src="/index.php/index/table_index" frameborder="0">
+    </frameset>
+    <frame name="status_bar" scrolling="no" noresize src="/index.php/index/status" frameborder="0">
+</frameset>
+
+</html>

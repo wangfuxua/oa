@@ -1,0 +1,23 @@
+<include file="Public:header" />
+<div class="addr-main">
+<table>
+<caption class="nostyle"></caption>
+				<thead>
+					<tr>
+						<td>{$USER_NAME}&nbsp;{$row[DIA_DATE]}&nbsp;日志</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{$row[CONTENT]}</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td><button onclick="javascript:window.close();">关闭</button></td>
+					</tr>
+				</tfoot>				
+</table>
+
+</div>					
+<include file="Public:footer" />

@@ -1,0 +1,120 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function detail(DZYH_ID)
+{
+ URL="__URL__/detail/DZYH_ID/"+DZYH_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+function audit(LY_ID,AUDIT){
+	URL="__URL__/checkaudit/LY_ID/"+LY_ID+"/AUDIT/"+AUDIT;
+	window.location=URL;
+}
+function delete_DZYH(LY_ID)
+{
+ msg='确认要删除该低值易耗品领用申请么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/deletedzyhly/LY_ID/"+LY_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "低值易耗品领用审核",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: <if condition="$SH eq 0">1</if><if condition="$SH eq 1">2</if><if condition="$SH eq 2">3</if>,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待审核低值易耗品领用", Url: "__URL__/check/SH/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "未通过审核低值易耗品领用", Url: "__URL__/check/SH/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已审核低值易耗品领用", Url: "__URL__/check/SH/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "领用查询", Url: "__URL__/lysearch", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">
+
+<table>
+  <thead>
+      <tr>
+      <th>低值易耗品名称</th>
+      <th>数量</th>
+      <th>申请人</th>
+      <th>申请时间</th>
+      <th>已领用数量</th>
+      <th>剩余数量</th>
+      <th>申请领用数量</th>
+      <if condition="$SH gt 0">
+      <th>审核</th>
+      </if>
+      
+      <th></th>
+      </tr>
+  </thead>
+  
+  <volist name="list" id="vo" key="k" mod="2">
+  <tbody class="tcenter">
+    <tr>
+      <td>{$vo.MC}</td>
+      <td>{$vo.SL}</td>
+      <td>{$vo.LYR_NAME}</td>
+      <td>{$vo.LYSJ}</td>
+      <td>{$vo.DZYH_ID|check_ylysl}</td>
+      <td>{$vo.DZYH_ID|check_sysl}</td>
+      <td>{$vo.LYSL}</td>
+      <if condition="$SH gt 0">
+      <td>
+         <if condition="$vo[SH] eq 1">
+         未通过审核
+         <else />
+         通过审核
+         </if>
+      </td>
+      </if>
+      <td>
+        <a href="javascript:detail({$vo.DZYH_ID})"> 详细信息</a>&nbsp;
+        <if condition="$SH eq 0">
+        <a href="javascript:audit({$vo.LY_ID},2)">批准</a>&nbsp;
+		<a href="javascript:audit({$vo.LY_ID},1)">不准</a>&nbsp;
+		<elseif condition="$SH eq 1" />
+		<a href="javascript:audit({$vo.LY_ID},0)"> 已归还/撤消</a>&nbsp;
+		<elseif condition="$SH eq 2" />
+		<a href="javascript:audit({$vo.LY_ID},0)"> 已归还/撤消</a>&nbsp;
+		</if>		
+        <a href="javascript:delete_DZYH({$vo.LY_ID});"> 删除 </a>
+      </td>
+    </tr>
+  </tbody>
+  </volist>
+  
+  <tfoot>
+   <tr>
+   <th colspan="8">{$page}</th>
+   </tr>
+  </tfoot>
+  
+</table>  
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,202 @@
+<include file="Public:header" />
+	<script type="text/javascript" src="../Public/js/tree.js"></script>	
+<script type="text/javascript" src="../Public/js/js.js"></script>
+		<script type="text/javascript">
+		    function go(id, name) {
+		       window.parent.talkOnclick(id,name);
+		    }
+			////////////////////////////////
+	    $(document).ready(function() {
+	        // 下拉框选择
+	        $("#searchState").change(function() {
+	            formValue();
+	        });
+
+	        // input表单输入
+	        $("#searchKey").keyup(function() {
+	            formValue();
+	        });
+
+	        $(".sTreeNode").mouseover(function() {
+	            var offset = $(this).find("a").offset().left;
+	            var base = $(this).find(".onlinebar");
+	            var btn = $(this).find(".onlinebar a");
+	            base.show().css("margin-left", offset - 24);
+	            btn.eq(0).click(function() {
+	                //alert(1);
+	                go($(this).parent().attr("id"), $(this).parent().attr("title"));
+	            });
+	            btn.eq(1).click(function() {
+	                //alert(2);
+	                $(this).attr({ href: "/index.php/Sms/smsform/TO_ID/" + $(this).parent().attr("id") + ",/TO_NAME/" + $(this).parent().attr("title") + ",", target: "icontent" })
+	            });
+	            btn.eq(2).click(function() {
+	            //alert(3);
+	                $(this).attr({ href: "/index.php/Email/add/TO_ID/" + $(this).parent().attr("id") + "/TO_NAME/" + $(this).parent().attr("title") , target: "icontent" })
+	            });
+	        }).mouseout(function() {
+	            $(this).find("p.onlinebar").hide();
+	        });
+	        // 更换头像为离线
+	        var snode = $(".sTreeNode").find("img[name^='']");
+	        $.each(snode, function() {
+	            if ($(this).prev("a").length > 0) {
+
+	            } else {
+	                $(this).attr("src", "/oa/Tpl/default/Public/images/user/user_offline.gif");
+	            }
+	        });
+            getState();
+	        var checkStateID = setInterval("getState()", 60000);
+	        //userIco(101,"usLeave");
+	    });
+        
+
+
+	    function filterData(box, toBox, val) {
+	        var result = box.find("p[name*='" + val + "']").parents(".sTreeNode");
+	        result.each(function(i) {
+	            $(this).clone().appendTo(toBox);
+	        });
+	    }
+	    function sRemove(box) {
+	        box.find(".oTree-bg").remove().end()
+	             .find("img[src$='empty.gif']").remove();
+	    }
+	    function formValue() {
+	        var sValue = $("#searchState").val();
+	        var kValue = $("#searchKey").val();
+	        var uTree = $("#onlineTree");
+	        var vbox = $("#ResultBox");    // 结果box：valueBox
+	        var hbox = $("#StateBox");      // 中转box：hiddenBox
+
+	            uTree.hide();
+	            hbox.empty().hide();
+	            vbox.empty().show();
+	            
+	            if (sValue != "" && kValue != "") {
+	                filterData(uTree, hbox, sValue);
+	                filterData(hbox, vbox, kValue);
+	            } else if (sValue == "" && kValue != "") {
+	                filterData(uTree, vbox, kValue);
+	            } else if (sValue != "" && kValue == "") {
+	                filterData(uTree, vbox, sValue);
+	            } else {
+	                uTree.show();
+	                vbox.empty().hide();
+	            }
+	        sRemove(vbox);
+	    }
+	    // 请求服务器获得用户状态数据
+	    function getState() {
+	        var url = "__APP__/userOnline/refresh";
+	        var data = "";
+	        $.post(url, data, function(val) {
+	            //$("#test").text(val.length);
+				for (var i=0;i<val.length;i++){
+					var id=val[i].userid;
+					var s=val[i].user_status;
+					userIco(id, s);
+					onlineNum(val.length);
+					//$("#test").text(id+" || "+s);
+				}
+	        }, "json");
+	    }
+	    
+	    // 处理用户状态函数
+	    function userIco(id,type) {
+	        //
+	        var ico, text;
+	        var imgurl = "/oa/Tpl/default/Public/images/user/";
+	        //alert(type);
+	        switch (type) {
+	            case "": case "usOnline": case null:
+	                text = "On";
+	                ico = imgurl + "user_ico_online.gif";
+	                break;
+	            case "usLeave":
+	                text = "Leave";
+	                ico = imgurl + "user_ico_leave.gif";
+	                break;
+	            case "usBusy":
+	                text = "Busy";
+	                ico = imgurl + "user_ico_busy.gif";
+	                break;
+	            default:
+	                text = "Off";
+	                ico = imgurl + "user_offline.gif";
+	                break;
+	        }
+	        
+	        var node = $(".sTreeNode").find("p#" + id);
+			if (node.length>0){
+				var v = node.attr("name").split("&");
+				var newName = v[0] + "&" + v[1] + "&" + text + "&" + v[3] + "&" + v[4];
+				node.attr("name", newName);
+			}
+	        node.end().find("img[name='"+id+"']").attr("src",ico);
+			$("#test").text(id+" | "+type+" | "+text+" | "+ico);
+	    }
+	    function onlineNum(num) {
+	        $(window.parent.document).find("#onlineNum").text(num);
+	    }		
+		</script>
+		
+	<body>
+	<div id="userSearch">
+		<form action="" name="selectUser">
+		    <select name="userState" id="searchState">
+		        <option value="">全部</option>
+		        <option value="On">在线</option>
+		        <option value="Off">离线</option>
+		        <option value="Busy">忙碌</option>
+		        <option value="Leave">离开</option>
+
+		    </select>
+			<input type="text" value="" name="selectKey" id="searchKey"/>
+		</form>
+	</div>
+
+		<div class="onlineTree" id="onlineTree">
+	
+ <script type="text/javascript">
+			                <!--
+				            var user = new sTree('user');
+				            user.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            user.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+			 
+				            user.add('admin',0,'系统管理员','javascript:go(\'admin\',\'系统管理员\')','','','../Public/images/ico/user1.gif','','','',{UserState:{ Labor: "1001", Spell: "xitongguanliyuanadmin", State: "On" }, test: null});
+			 	            
+			<volist name="deptuserlist" id="vo" key="k">
+			    user.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','javascript:;','','','../Public/images/treeicon/t_ini.gif','../Public/images/treeicon/t_ini.gif','','oTree-bg');
+			    <sublist name="vo[user]" id="user">
+			      user.add('{$user[USER_ID]}',{$vo[DEPT_ID]},'{$user.USER_NAME}','javascript:go({$user[USER_ID]|addDyh},{$user[USER_NAME]|addDyh});','','','{$user[USER_ID]|getOnlineStatusImg}','','','',{$user[UserState]|json_encode});
+			    </sublist>
+			</volist>
+                     
+				            document.write(user);
+			                //-->
+		                </script>
+		                
+		</div>
+		<div id="StateBox"></div>
+        <div id="ResultBox">	</div>
+		<div id="test" style="display:none"></div>
+<include file="Public:footer" />
+

@@ -1,0 +1,13 @@
+<table cellpadding="2" cellspacing="1">
+	<tr> 
+      <td>选项列表</td>
+      <td colspan="2"><ul><li style="float:left;"><textarea name="setting[options]" rows="2" cols="20" id="options" style="height:100px;width:200px;"><?php if($setting['options']){echo $setting['options'];}?></textarea></li><li style="float:left;width:20px"></li><li style="float:left;">例如：<br>同意|同意<br>不同意|不同意</li></ul></td>
+    </tr>
+	<tr> 
+      <td>选项类型</td>
+      <td colspan="2">
+	  
+	  <input type="radio" name="setting[boxtype]" value="select" onclick="$('#setcols').hide();$('setsize').show();" checked/> 下拉菜单框 
+	  </td>
+    </tr>
+</table>

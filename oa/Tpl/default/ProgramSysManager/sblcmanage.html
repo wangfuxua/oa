@@ -1,0 +1,79 @@
+<include file="Public:header_module" />
+<script language="JavaScript" type="text/javascript">
+function refreshManage(){
+	document.form1.action='__URL__/refresh';
+	document.form1.submit();
+}
+function formSubmit(OP,LC_ID){
+	document.form1.OP.value = OP;
+	document.form1.LC_ID.value = LC_ID;
+	document.form1.submit();
+}
+</script>
+ 
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>申报属性</span></a></li>
+		<li class="dm_on"><a href="__URL__/sblc" title=""><span>申报流程</span></a></li>
+		<li><a href="__URL__/sbwt" title=""><span>问题类型</span></a></li>
+		<li><a href="__URL__/mbgl" title=""><span>模板管理</span></a></li>
+	</ul>
+
+	<div class="dm_conone">
+		<h2>管理{$TYPENAME}申报流程</h2>
+
+<form name="form1" action="__URL__/sblcmanagesubmit" method="post">
+<table>
+	<if condition="$_REQUEST[TYPE] eq 'CS'">
+  <tr>
+		<td colspan="3">
+			<select name="BM_ID" class="BigSelect" onchange="refreshManage()">
+			<option value=-1>所有</option>
+			{$mydepttree}
+            </select>
+		</td>
+	<tr>
+	</if>
+	<thead>
+     	<td>{$TYPENAME}人</td>
+      	<td>序号</td>
+      	<td>操作</td>
+	</thead>
+	<tbody>
+	<volist name="list" id="vo" key="k" mod="2">
+        <tr>
+     	<td>{$vo.USER_NAME}</td>
+      	<td>{$k}</td>
+      	<td>
+      		<a href="javascript:formSubmit('del','{$vo.LC_ID}')">删除</a>
+      		<if condition="$k lt count($list)">
+      		<a href="javascript:formSubmit('down','{$vo.LC_ID}')">下移</a>
+      		</if>
+      		<if condition="$k gt 1">
+      		<a href="javascript:formSubmit('up','{$vo.LC_ID}')">上移</a>
+      		</if>
+      	</td>
+	</tr>
+	</volist>
+	</tbody>
+    <tfoot>
+     	<td colspan="3">
+		  <select name="USER_ID" class="BigSelect">
+		  {$userlist}
+		  </select>&nbsp;&nbsp;
+		  <input type="button" name="add" value="添加" class="BigButton" onclick="formSubmit('add','')" />&nbsp;&nbsp;
+		  <input type="button" name="add" value="返回" class="BigButton" onclick="window.location='__URL__/sblc'" />
+		</td>
+	</tfoot>
+	
+</table>			
+<input type="hidden" name="OP"/>
+<input type="hidden" name="LC_ID"/>
+<input type="hidden" name="TYPE" value="{$TYPE}"/>
+<input type="hidden" name="TYPENAME" value="{$TYPENAME}"/>
+<input type="hidden" name="TYPEID" value="{$TYPEID}"/>
+
+</form>	
+</div>
+
+<include file="Public:footer" />

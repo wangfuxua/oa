@@ -1,0 +1,170 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.USER_ID.value=="")
+   { alert("用户名不能为空！");
+     return (false);
+   }
+   if(document.form1.USER_NAME.value=="")
+   { alert("真实姓名不能为空！");
+     return (false);
+   }
+}
+
+function delete_user(USER_ID,uid)
+{
+ msg='确认要删除用户 '+USER_ID+' 么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/?type={$type}&DEPT_ID={$users.DEPT_ID}&USER_ID=" + USER_ID + "&uid=" + uid;
+  window.location=URL;
+ }
+}
+
+
+function select_dept()
+{
+   if (form1.POST_PRIV.value=="2")
+       dept.style.display='';
+   else
+       dept.style.display="none";
+}
+</script>
+<body>
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/userlist/?DEPT_ID={$users[DEPT_ID]}" title=""><span>在职人员</span></a></li>
+		<li><a href="__URL__/userlist/type/other" title=""><span>离职人员</span></a></li>
+		<li><a href="__URL__/news/?DEPT_ID={$users[DEPT_ID]}" title=""><span>添加人员</span></a></li>
+		<li class="dm_on"><a href="__URL__/news/?DEPT_ID={$users[DEPT_ID]}" title=""><span>修改人员</span></a></li>
+	</ul>
+</div>
+	
+<form action="__URL__/update"  method="post" name="form1" onSubmit="return CheckForm();">
+<table>
+<colgroup>
+<col width="120"></col>
+<col></col>
+</colgroup>
+			<thead>
+				<tr>
+					<th colspan="2">用户管理</th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr>
+						<td width="40%">用户名：</td>
+						<td>{$users['USER_ID']} <input name="USER_ID" value="{$users['USER_ID']}"type="hidden" class="dm_number1" />
+						<input name="uid" value="{$users['uid']}"type="hidden" class="dm_number1" />
+						</td>
+					</tr>
+					<tr>
+						<td>真实姓名：</td><td><input name="USER_NAME" value="{$users['USER_NAME']}"type="text" class="dm_number1" /></td>
+					</tr>
+					<tr>
+						<td>姓名拼音：</td><td><input name="USER_SPELL" value="{$users['USER_SPELL']}"type="text" class="dm_number1" /></td>
+					</tr>					
+					<tr>
+						<td>工号：</td><td><input name="USER_LABOR" value="{$users['USER_LABOR']}"  type="text" class="dm_number1" /></td>
+					</tr>						
+					<tr>
+						<td>状态：</td>
+						<td>
+							<select name="job_status" class="BigSelect">
+									<option value="1" <equal name="users['job_status']" value='1'>selected</equal>>在职</option>
+									<option value="0" <equal name="users['job_status']" value='0'>selected</equal>>离职</option>
+							 </select></td>
+					</tr>
+
+					
+					<tr>
+						<td>性别：</td>
+						<td>
+							<select name="SEX" class="BigSelect">
+									<option value="0" <equal name="users['SEX']" value='0'>selected</equal>>男</option>
+									<option value="1" <equal name="users['SEX']" value='1'>selected</equal>>女</option>
+							 </select></td>
+					</tr>
+					<tr>
+						<td>部门：</td>
+						<td>
+							<select name="DEPT_ID" class="BigSelect">
+							{$select}
+							<if condition="$POST_PRIV eq 1">
+                              <option value="0" <equal name="users['DEPT_ID']" value='0'>selected</equal>>离职人员/外部人员</option>							
+							</if>
+							 </select></td>
+					</tr>
+					<tr>
+						<td>角色：</td>
+						<td>
+						        <select name="USER_PRIV" class="BigSelect">
+						        	<iterate name="userPriv1" id="vo">
+									  <option value="{$vo['USER_PRIV']}" <equal name="vo['USER_PRIV']" value="$users['USER_PRIV']">selected</equal>>{$vo['PRIV_NAME']}</option>
+									</iterate>
+								</select>
+						</td>
+					</tr>				
+					<!--
+					<tr>
+						<td>角色：</td>
+						<td>
+                       <iterate name="userprivs" id="vo">
+						 <input name="privs[]" type="checkbox" value="{$vo['USER_PRIV']}" <if condition="find_id($users[privs],$vo[USER_PRIV])">checked</if> >{$vo['PRIV_NAME']}
+						</iterate>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>用户组：</td>
+						<td>
+						<iterate name="usergroups" id="vo">
+						 <input name="groupid[]" type="checkbox" value="{$vo['groupid']}" <if condition="find_id($users[groupids],$vo[groupid])">checked</if> >{$vo['groupname']}
+						</iterate>
+								
+						</td>
+					</tr>-->
+					<tr>
+						<td>管理范围（如果有权限执行管理型模块）：</td>
+						<td>		<select name="POST_PRIV" OnChange="select_dept()">
+						            <option value="0">本部门</option>
+						            <if condition="$POST_PRIV eq 1">
+									<option value="1" <equal name="users['POST_PRIV']" value='1'>selected</equal>>全体</option>
+									<option value="2" <equal name="users['POST_PRIV']" value='2'>selected</equal>>指定部门</option>
+									<elseif condition="$POST_PRIV eq 2" />
+									<option value="2" <equal name="users['POST_PRIV']" value='2'>selected</equal>>指定部门</option>
+									</if>
+								</select>
+						</td>
+					</tr>
+				   <tr id="dept" style='display:<if condition="$users[POST_PRIV] neq 2">none</if>;'>
+				      <td>管理范围（部门）：</td>
+				      <td>
+				        <input type="hidden" name="TO_ID" value="{$users[POST_DEPT]}">
+				        <input type="text" name="TO_NAME" size="50" readonly value="{$POST_DEPT_NAME}">
+				        <input type="button" value="添 加" class="btnFnt" onClick="oWin('TO')" title="添加部门" name="button">
+				        <input type="button" value="清 空" class="btnFnt" onClick="chclear('TO')" title="清空部门" name="button">
+				      </td>
+				    </tr>
+			</tbody>
+			<tfoot>
+					<tr>
+						<td class="dm_btnzan" colspan="2">
+						<button name="Abutton1" type="submit">修改</button>
+						<if condition="$LOGIN_USER_ID eq 'admin'">
+						<button onclick="javascript:location.href='__URL__/editpass/USER_ID/{$users[USER_ID]}'">修改密码</button>
+						<button onclick="javascript:delete_user('{$users.USER_ID}','{$users.uid}');">删除用户</button>
+						</if>
+						<button onclick="javascript:window.history.back();">返回</button>
+						</td>
+					</tr>
+			</tfoot>
+		</table>
+		</form>
+		
+		<!--选择部门模块开始-->
+         <include file="Public:deptselect" />
+        <!--选择部门模块结束-->
+        		
+<include file="Public:footer" />

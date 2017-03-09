@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-J-Jay" />
+<title>待办工作</title>
+<link href="../public/style/default/css/form.css" rel="stylesheet" type="text/css" />
+<link href="../public/style/default/css/table.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="../public/style/default/css/style.css" />
+<script type="text/javascript" src="../public/style/default/js/KD.js" ></script>
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<script type="text/javascript">
+$(function() { 
+    createHeader({
+        Title: "工作流",
+        Icon: "",
+        IconCls: "ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+        ],
+        Items: [
+            { Title: "待办工作", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建工作", Url: "__URL__/news", Cls: "", IconCls: "ico ico-add" },
+            { Title: "工作监控", Url: "__URL__/workControl", Cls: "", IconCls: "ico ico-view" }
+        ]
+    });
+
+});
+</script>
+<body>
+
+		<div class="KDStyle" id="main"><form action="__URL__/stopSave" method="POST">
+		<input type="hidden" name="zworkId" value="{$zworkId}">
+		<input type="hidden" name="flowId" value="{$flowId}">
+		<table style="width:50%">
+		<col width="30%" />
+		<thead><tr><th colspan="2">中止</th></tr></thead>
+		<tbody>
+		<tr>
+			<th>原因</th>
+			<td><textarea name="remark" rows="2" cols="20" class="content"></textarea></td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr><th colspan="2"><button type="submit" name="submit"><div><span>中止</span></div></button></th></tr>
+		</tfoot>
+		</table></form>
+		</div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script type="text/javascript">
+function isNull(_sVal){
+	return (_sVal === "" || _sVal == null || _sVal == "undefined");
+}
+function Cookie()
+{
+	this.setcookie = function(n, v, e, p){
+		var cookiestr = n + "=" + escape(v) + "; ";
+		if (!isNull(e) && !isNaN(e)){
+			var d=new Date();
+			d.setTime(d.getTime() + e * 1000);
+			cookiestr += "expires=" + d.toGMTString() + "; ";
+		}
+		cookiestr += "domain=localhost; ";
+		if (!isNull(p)){
+			cookiestr += "path=" + p + "; ";
+		}
+		else{
+			cookiestr += "path=/; ";
+		}
+		document.cookie = cookiestr;
+	}
+	this.getcookie = function(n){
+		var aCookie = document.cookie.split("; ");
+		for (var i=0; i < aCookie.length; i++){
+			var aCrumb = aCookie[i].split("=");
+			if (n == aCrumb[0]){
+				return unescape(aCrumb[1]);
+			}
+		}
+		return null;
+	}
+	this.delcookie = function(n){
+		document.cookie = n + "=" + null + "; omain=localhost; path=/; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
+	}
+}
+function ET$Id(s){
+	if(document.getElementById){
+		return document.getElementById(s);
+	}
+	else{
+		return document.all[s];
+	}
+}
+function ET$TagName(s, o){
+	if (o == null){
+		return document.getElementsByTagName(s);
+	}
+	else{
+		return o.getElementsByTagName(s);
+	}
+}
+</script>
+<script type="text/javascript" src="dialog.js"></script>
+<script type="text/javascript">
+
+function test_show_error(){
+
+show_error('ssssssssssssssssssssssssssssssss',"call_back_fuc2()");
+}
+
+function test_show_confirm()
+{
+    show_confirm('您还不能使用修改字体等功能！请到<a href=\"/forum/myhome.php\" target=\"_blank\" style="color:red">我的家当</a>购买，或者点击确定按钮去掉这些样式后发表。','call_back_fuc()');
+}
+
+function test_show_send(){
+	show_send('帖子正在发表中,请耐心等待.如果2分钟后页面没有自动刷新,请点击确定按钮后<a href="about:resubmit" onclick="BbsSubmit();return false;" style="color:blue">重新发表</a>');
+}
+
+function call_back_fuc(){
+	show_error('回调操作执行完毕');
+}
+function call_back_fuc2(){
+	show_win("请您输入用户名", 'ET$("loginname").focus()');
+    return false;
+}
+</script>
+ 
+ 
+ 
+</head>
+
+<body style="background-color:#333333">
+<div style="color:#FFFFFF"><script type="text/javascript"> document.write(hello()+'肖军');</script></div>
+<br /><br />
+<div style="width:800px; height:700px;margin:0 auto;">
+<button onclick="test_show_error()">信息提示</button>
+<button onclick="test_show_confirm()">确认提示</button>
+<button onclick="show_loading('连接超时，请重试')">Loading</button>
+<button onclick="test_show_send()">表单发送</button>
+<button onclick="show_win('show_winshow_winshow_win<br>show_winshow_win','call_back_fuc()')">弹出一个全屏层</button>
+<button onclick="dialog.iframe('iframe.html',646,500); return false;">弹出一个iframe</button>
+
+<br /><br />
+<input type="text" name="loginname" />
+
+<br /><br />
+</div>
+</body>
+</html>

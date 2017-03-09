@@ -1,0 +1,51 @@
+<include file="Public:header" />
+<script>
+var menu_id=0;
+
+function setPointer(theRow, thePointerColor,menu_id_over)
+{
+  if(menu_id!=menu_id_over)
+     theRow.bgColor = thePointerColor;
+}
+
+function view_menu1()
+{
+  if(menu_id!=0)
+     parent.menu_main.location="arrangeIndex";
+   menu_id=1;
+   menu_1.bgColor='{$COLOR1}';
+   menu_2.bgColor='{$COLOR2}';
+}
+
+function view_menu2()
+{
+   parent.menu_main.location="affairIndex";
+   menu_id=2;
+   menu_1.bgColor='{$COLOR2}';
+   menu_2.bgColor='{$COLOR1}';
+}
+
+</script>
+
+<body topmargin="0" leftmargin="0" onload="view_menu1()">
+
+<TABLE class="big" cellspacing="0" height="100%" width="100%" bgcolor="{$COLOR2}" border="1" cellpadding="1" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+ <TR>
+
+   <TD width="150" title="日程安排" id="menu_1" onclick="view_menu1()" onmouseover="setPointer(this, '{$COLOR3}',1)" onmouseout="setPointer(this, '{$COLOR2}',1)" style="cursor:hand">
+       <img src="../Public/images/menu/calendar.gif" WIDTH="18" HEIGHT="18" align="absmiddle"><b><font color="#000000"> 日程安排</span>
+   </TD>
+
+   <TD width="150" title="日常事务" id="menu_2" onclick="view_menu2()" onmouseover="setPointer(this, '{$COLOR3}',2)" onmouseout="setPointer(this, '{$COLOR2}',2)" style="cursor:hand">
+       <img src="../Public/images/menu/calendar.gif" WIDTH="18" HEIGHT="18" align="absmiddle"><b><font color="#000000"> 日常事务</font></b
+   </TD>
+   
+   <td></td>
+
+   </TR>
+</TABLE>
+
+
+
+
+<include file="Public:footer" />

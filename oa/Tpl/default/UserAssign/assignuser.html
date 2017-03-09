@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title></title>
+				<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta http-equiv="Content-Language" content="zh-CN" />
+		<meta name="author" content="Jay" />
+		<link rel="stylesheet" type="text/css" href="/oa/Tpl/default/Public/css/default.css" />
+<link type="text/css" rel="stylesheet" href="/oa/Tpl/default/Public/css/validator.css"></link>
+	</head>
+<body>
+<table>
+     <thead>
+     <tr>
+      <td colspan="4">{$manager['manager_name']} 的管理用户</td>
+      </tr>
+     <tr>
+      <td>用户名</td>
+      <td>真实姓名</td>
+      <td>部门</td>
+      <td>角色</td>
+      </tr>
+    </thead>
+     <tbody>
+     <volist name="list" id="vo">
+     <tr>
+      <td>{$vo['USER_ID']}</td>
+      <td>{$vo['USER_NAME']}</td>
+      <td>{$vo['DEPT_NAME']}</td>
+      <td>{$vo['PRIV_NAME']}</td>
+      </tr>
+     </volist>
+    </tbody>
+     <tfoot>
+     <tr>
+      <td colspan="4">{$page}</td>
+      </tr>
+    </tfoot>
+</table>
+    
+</body>
+</html>

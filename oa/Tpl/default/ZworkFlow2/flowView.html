@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>待办工作</span></a></li>
+		<li><a href="__URL__/news" title=""><span>新建工作</span></a></li>
+		<li><a href="__URL__/workControl" title=""><span>工作监控</span></a></li>
+	</ul>
+	<h2 class="dm_schedule">流程信息</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<tr><th>步骤</th><th>流程名称</th><th>控制者</th><th>流程备注（例：转交提示）</th></tr>
+		<iterate name="flowList" id="vo">
+		<tr class="tdcenter"><td>第{$vo['flowId']}步</td><td>{$vo['flowName']}</td><td>{$vo['powerUser']}[{$vo['state']|flowState}]<br></td><td>{$vo['tag']}</td></tr>
+		</iterate>
+		</table>
+	</div>
+	
+	<h2 class="dm_schedule">表单内容</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<tr>
+		<th colspan="2" ><p class="wp1">{$workmoduleRow['modelName']}</p></th>
+		</tr>
+		<tr><th colspan="2">文号：{$workRow['zworkName']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：{$workRow['zworkTime']|formatdate}</th></tr>
+		<iterate name="moduleFiledList" id="vo">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>{$vo['name']}</strong><br />
+	  			</td>
+				<td>
+					{$vo['filedValue']}
+				</td>
+		</tr>
+		</iterate>
+  		</table>
+  	</div>
+</body>
+</html>

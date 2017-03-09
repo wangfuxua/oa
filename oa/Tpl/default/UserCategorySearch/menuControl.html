@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>用户选择</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/user_style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/js/tree.js"></script>
+<script type="text/javascript">
+var $ = function(id) {return document.getElementById(id);};
+var current_id=1;
+function clickMenu(id)
+{
+    var el=$("module_"+current_id);
+    var link=$("link_"+current_id);
+    if(id==current_id)
+    {
+       if(el.style.display=="none")
+       {
+           el.style.display='';
+           link.className="active";
+       }
+       else
+       {
+           el.style.display="none";
+           link.className="";
+       }
+    }
+    else
+    {
+       el.style.display="none";
+       link.className="";
+       $("module_"+id).style.display="";
+       $("link_"+id).className="active";
+    }
+
+    current_id=id;
+}
+
+var ctroltime=null,key="";
+function CheckSend()
+{
+	var kword=$("kword");
+	if(kword.value=="按用户名或姓名搜索...")
+	   kword.value="";
+  if(kword.value=="" && $('search_icon').src.indexOf("../Public/images/quicksearch.gif")==-1)
+	{
+	   $('search_icon').src="../Public/images/quicksearch.gif";
+	}
+	if(key!=kword.value && kword.value!="")
+	{
+     key=kword.value;
+	   parent.user_control.location="__APP__/UserCategorySearch/userControl/keywords/"+kword.value;
+	   if($('search_icon').src.indexOf("../Public/images/quicksearch.gif")>=0)
+	   {
+	   	   $('search_icon').src="../Public/images/closesearch.gif";
+	   	   $('search_icon').title="清除关键字";
+	   	   $('search_icon').onclick=function(){kword.value='按用户名或姓名搜索...';$('search_icon').src="../Public/images/quicksearch.gif";$('search_icon').title="";$('search_icon').onclick=null;};
+	   }
+  }
+  ctroltime=setTimeout(CheckSend,100);
+}
+</script>
+</head>
+<body class="bodycolor"  topmargin="1" leftmargin="0">
+<div style="border:1px solid #000000;margin-left:2px;background:#FFFFFF;">
+  <input type="text" id="kword" name="kword" value="按用户名或姓名搜索..." onfocus="ctroltime=setTimeout(CheckSend,100);" onblur="clearTimeout(ctroltime);if(this.value=='')this.value='按用户名或姓名搜索...';" class="SmallInput" style="border:0px; color:#A0A0A0;width:145px;"><img id="search_icon" src="../Public/images/quicksearch.gif" align=absmiddle style="cursor:pointer;">
+</div>
+<ul>
+<!--============================ 部门 =======================================-->
+  <li><a href="javascript:clickMenu('1');" id="link_1" class="active" title="点击伸缩列表"><span>按部门选择</span></a></li>
+  <div id="module_1" class="moduleContainer treeList">
+  			<div class="userTree">
+			        <script type="text/javascript">
+				        <!--
+			            var online = new sTree('online');
+	                    online.config.folderLinks = true;
+			            online.icon = {
+					       root: '../Public/images/ico/company-ico.gif', 			
+					        folder: '../Public/img/folder.gif', 			
+					        folderOpen: '../Public/img/folderopen.gif', 
+					        node: '../Public/images/bg_4x7.gif', 		
+					        empty: '../Public/img/empty.gif', 			
+					        line: '../Public/img/line.gif', 			
+					        join: '../Public/img/join.gif', 			
+					        joinBottom: '../Public/img/joinbottom.gif', 		
+					        plus: '../Public/img/plus.gif', 			
+					        plusBottom: '../Public/img/plusbottom.gif',
+					        minus: '../Public/img/minus.gif',
+					        minusBottom: '../Public/img/minusbottom.gif',
+					        nlPlus: '../Public/img/nolines_plus.gif',
+					        nlMinus: '../Public/img/nolines_minus.gif'
+					    };
+				        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            online.add(0, -1, '{$row['UNIT_NAME']}', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', '');
+//					        {$treeOnline}
+			<volist name="deptlist" id="vo" key="k">
+			    online.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','__URL__/userControl/DEPT_ID/{$vo[DEPT_ID]}','','user_control','../Public/images/treeicon/t_ini.gif','','','');
+			    <sublist name="vo[user]" id="user">
+			      online.add('{$user[USER_ID]}',{$vo[DEPT_ID]},'{$user.USER_NAME}','__URL__/userControl/USER_ID/{$user.USER_ID}','','user_control','../Public/images/ico/user.png','','','');
+			    </sublist>
+			</volist>
+				        document.write(online);
+				        //-->
+			        </script>
+			    </div>
+  </div>
+<!--============================ 角色 =======================================-->
+  <li><a href="javascript:clickMenu('2');" id="link_2" title="点击伸缩列表"><span>按角色选择</span></a></li>
+  <div id="module_2" class="moduleContainer" style="display:none">
+    <table class="TableBlock trHover" width="100%" align="center">
+    <volist name="role_list" id="role_vo">
+    <tr class="TableData">
+      <td align="center" onclick="javascript:parent.user_control.location='__APP__/UserCategorySearch/userControl/role_id/{$role_vo['USER_PRIV']}';" style="cursor:pointer">{$role_vo['PRIV_NAME']}</td>
+    </tr>
+    </volist>
+    </table>
+  </div>
+
+<!--============================ 自定义组 =======================================-->
+<!--  <li><a href="javascript:clickMenu('3');" id="link_3" title="点击伸缩列表"><span>自定义组</span></a></li>
+  <div id="module_3" class="moduleContainer" style="display:none">
+    <table class="TableBlock trHover" width="100%" align="center">
+    <tr class="TableControl">
+      <td align="center">个人自定义组</td>
+    </tr>
+    <tr class="TableData">
+      <td align="center" onclick="javascript:parent.user.location='user_define.php?MODULE_ID=2&TO_ID=TO_ID&TO_NAME=TO_NAME&FORM_NAME=form1&GROUP_ID=262';" style="cursor:pointer">华商</td>
+    </tr>
+    </table>
+  </div>-->
+<!--============================ 已选，在线人员 =======================================-->
+  <li><a href="__APP__/UserCategorySearch/userControl/selected/1" id="link_4" target="user_control"><span>已选人员</span></a></li>
+  <li><a href="__APP__/UserCategorySearch/userControl/online/1" id="link_5" target="user_control" title="点击伸缩列表"><span>在线人员</span></a></li>
+</ul>
+</body>
+</html>

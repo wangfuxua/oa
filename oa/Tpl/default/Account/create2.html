@@ -1,0 +1,208 @@
+<include file="Public:header" /> 
+<title>新建客户</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<script Language="JavaScript">
+$(function(){
+	$(":submit").click(function(){
+		managers = $('#manager_name').attr('value');
+		if (managers.indexOf(',') != -1)
+		{
+			$("#m_check").replaceWith("<font color='#FF0000'>您只能输入一个负责人</font>"); 
+			return  false;   
+		}
+	});
+});
+function Clear(id_1,id_2){
+	document.getElementById(id_1).value='';
+	document.getElementById(id_2).value='';
+}
+</script>
+</head>
+<body>
+<!--	<ul class="dm_submenuul">
+		<li><a href="__APP__/Account/lists" title=""><span>客户列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/Account/create" title=""><span><if condition="$update">修改<else/>新建</if>客户</span></a></li>
+	</ul>-->
+
+<form method="POST" name="form1" action='<if condition="$update">__APP__/Account/update<else/>__APP__/Account/save</if>' onsubmit="return idNull('name','name_msg','姓名不能为空！');">		
+<input type="hidden" name="current_id" value="{$account_res['id']}" />
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="account_id" value="{$account_res['id']}" />
+			<input type="hidden" name="address_id" value="{$address_res['id']}" />
+			<input type="hidden" name="bankinfo_id" value="{$bankinfo_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset" >重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+	<tr><th class="tdtit" colspan="4"><h4>客户信息</h4></th></tr>
+	<tr>
+		<td>客户名称： <span class="required" style="color:red;">*</span></td>
+		<td><input name='name' id="name" tabindex='1' size='35' maxlength='150' type="text" value="{$account_res['name']}" onblur="idNull('name','name_msg','名称不能为空！');" /><span id="name_msg"></span></td>
+		<td>联系人(客户方)：</td>
+		<td>
+		<input name="contact_man" type="text" maxlength="30" value="{$account_res['contact_man']}" /></td>
+	</tr>
+	<tr>
+		<td>联系人职务(客户方)：</td>
+		<td>
+		<input name="contact_post" type="text" maxlength="30" value="{$account_res['contact']}" /></td>
+	</tr>
+	<tr>
+		<td>客户来源：</td>
+		<td>
+		<input id="source_id" type="hidden" />
+		<input name='source' id="source" type="text" tabindex='2' size='20' maxlength='25' value="{$account_res['source']}" readonly />
+		<button title="选择"  type="button" onclick="OtherSelect('__APP__/XmlFile/lists/dis/account_source','source_id','source',400,300);">选择</button>	</td>
+		<td>客户网站：</td>
+		<td><input name='website' type="text" tabindex='1' size='28' maxlength='255' value="{$account_res['website']}" /></td>
+	</tr>
+	<tr>
+		<td>客户类型：</td>
+		<td  valign="top" >
+		<input id="type_id" type="hidden" />
+		<input name='type' id="type" type="text" tabindex='2' size='20' maxlength='25' value="{$account_res['type']}" readonly />
+		<button title="选择"  type="button" onclick="OtherSelect('__APP__/XmlFile/lists/dis/account_type','type_id','type',400,300);">选择</button></td>
+		<td>股票代码：</td>
+		<td><input name='stocks_code' type="text" tabindex='1' size='10' maxlength='10' value="{$account_res['stocks_code']}" /></td>
+	</tr>
+	<tr>
+		<td>客户行业：</td>
+		<td  valign="top"  >
+		<input id="industry_id" type="hidden" />
+		<input name='industry' id="industry" type="text" tabindex='2' size='20' maxlength='25' value="{$account_res['industry']}" readonly />
+		<button title="选择"  type="button" onclick="OtherSelect('__APP__/XmlFile/lists/dis/account_industry','industry_id','industry',400,300);">选择</button>
+		</td>
+		<td>办公电话：</td>
+		<td><input name='phone_work' type="text" tabindex='2' size='20' maxlength='25'  value="{$account_res['phone_work']}" /></td>
+	</tr>
+	<tr>
+		<td>状态：</td>
+		<td>
+		<input id="status_id" type="hidden" />
+		<input name='status' id="status" type="text" tabindex='2' size='20' maxlength='25' value="{$latent_res['status']}" readonly />
+		<button title="选择"  type="button" onclick="OtherSelect('__APP__/XmlFile/lists/dis/account_status','status_id','status',400,300);">选择</button>	
+		</td>
+		<td>移动电话：</td>
+		<td><input name='phone_mobile' type="text" tabindex='2' size='20' maxlength='25'  value="{$account_res['phone_mobile']}" onblur="checkMobile('phone_mobile','mobile_msg','请输入正确的手机号码');" /><span id='mobile_msg'></span></td>
+	</tr>
+	<tr>
+		<td>员工数(规模)：</td>
+		<td><input name='employees' id="employees" type="text" tabindex='1' size='10' maxlength='10' value="{$account_res['employees']}" onblur="checkNumber('employees','employees_msg','请填写数字!');" />人<span id='employees_msg'></span></td>
+		<td>传真：</td>
+		<td><input name='phone_fax' type="text" tabindex='2' size='20' maxlength='25' value="{$account_res['phone_fax']}" /></td>
+	</tr>
+	<tr>
+		<td>负责人：</td>
+		<td  >
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$account_res['uid']}" />
+		<input id="manager_name" type="text" value="{$account_res['USER_NAME']}" readonly/>
+		<button title="添加收信人" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>添加</button>	<span id='m_check'></span>
+		</td>
+		<td>电子邮件：</td>
+		<td><input name='mail' type="text" tabindex='2' size='35' maxlength='100' value="{$account_res['mail']}" onblur="checkEmail('mail','mail_msg','请输入正确的邮箱！');" />
+		<span id='mail_msg'></span></td>
+	</tr>
+	<tr><th class="tdtit" colspan="4"><h4>地址信息</h4></th></tr>
+	<tr>
+		<td >省份：</td>
+		<td >
+<script>showprovince('province', 'city', "{$address_res['province']}");</script>
+		</td>
+		<td>城市：</td>
+		<td >
+<script>showcity('city', "{$address_res['city']}", 'province');</script>
+		</td>
+    </tr>
+    <tr>
+		<td >地址：</td>
+		<td ><textarea name='street' rows="2" tabindex='3' cols="30">{$address_res['street']}</textarea></td>
+		<td >邮编：</td>
+		<td><input name='postcode' id="postcode" tabindex='3' size='15' maxlength='20' value="{$address_res['postcode']}" onblur="checkNumber('postcode','postcode_msg','请填写数字!');" /><span id='postcode_msg'></span></td>
+	</tr>
+	<tr><th class="tdtit" colspan="5"><h4>银行财务信息</h4></th></tr>
+	
+	<tr>
+		<td >开户银行1：</td>
+		<td ><input name='bank1_name' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_name']}" />
+		</td>
+		<td>开户银行2：</td>
+		<td ><input name='bank2_name' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank2_name']}" />
+		</td>
+    </tr>
+	<tr>
+		<td >开户名称1：</td>
+		<td ><input name='bank1_account_name' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_account_name']}" />
+		</td>
+		<td>开户名称2：</td>
+		<td ><input name='bank2_account_name' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank2_account_name']}" />
+		</td>
+    </tr>
+	<tr>
+		<td >银行帐号1：</td>
+		<td ><input name='bank1_account' id="bank1_account" type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_account']}" onblur="checkNumber('bank1_account','bank1_account_msg','请填写数字!');" /><span id='bank1_account_msg'></span></td>
+		<td>银行帐号2：</td>
+		<td ><input name='bank2_account' id="bank2_account" type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank2_account']}" onblur="checkNumber('bank2_account','bank2_account_msg','请填写数字!');" /><span id='bank2_account_msg'></span></td>
+    </tr>
+	<tr>
+		<td >纳税号1：</td>
+		<td ><input name='bank1_tariff' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_tariff']}" />
+		</td>
+		<td>纳税号2：</td>
+		<td ><input name='bank2_tariff' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank2_tariff']}" />
+		</td>
+    </tr>
+	<tr>
+		<td >支付方式：</td>
+		<td >
+<!--		<script>
+		change_selected('pay_type', payment_type, "{$bankinfo_res['pay_type']}");
+		</script>-->
+		<input id="pay_type_id" type="hidden" />
+		<input name='pay_type' id="pay_type" type="text" tabindex='2' size='20' maxlength='25' value="{$bankinfo_res['pay_type']}" readonly />
+		<button title="选择"  type="button" onclick="OtherSelect('__APP__/XmlFile/lists/dis/pay_type','pay_type_id','pay_type',400,300);">选择</button>
+		</td>
+		<td>信用额度：</td>
+		<td ><input name='credit' id="credit" type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['credit']}" onblur="checkNumber('credit','credit_msg','请填写数字!');" /><span id='credit_msg'></span>
+		</td>
+    </tr>
+    <tr><th class="tdtit" colspan="4"><h4>说明信息</h4></th></tr>
+	<tr>
+		<td>说明：</td>
+		<td colspan="3"><textarea name='description' tabindex='5' cols="60" rows="8">{$account_res['description']}</textarea></td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="4" class="tdleft">
+				<button type="submit" >保存</button>
+				<button  type="reset">重置</button>
+				<label>*代表必填项</label>
+	
+			</th>
+		</tr>
+	</tfoot>
+
+</table>
+
+</form>
+
+
+<include file="Public:alert_lable" />
+</body></html>

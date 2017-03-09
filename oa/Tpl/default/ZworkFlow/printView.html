@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-J-Jay" />
+<title></title>
+<link href="../public/style/default/css/form.css" rel="stylesheet" type="text/css" />
+<link href="../public/style/default/css/table.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="../public/style/default/css/style.css" />
+<head>
+<style type="text/css" media=print>
+.noprint{display : none }
+</style>
+<script language="javascript">
+function printsetup(){
+// 打印页面设置
+wb.execwb(8,1);
+}
+function printpreview(){
+// 打印页面预览
+
+wb.execwb(7,1);
+
+}
+
+function printit()
+{
+if (confirm('确定打印吗？')) {
+wb.execwb(6,6)
+}
+}
+</script>
+</head>
+<body><div id="main" class="KDStyle">
+		<table>
+		<caption>表单内容</caption>
+		<thead>
+		<tr>
+		<th colspan="2" ><p class="wp1">{$workmoduleRow['modelName']}</p></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr><th colspan="2"><span style="float:left">文号：{$workRow['zworkName']}</span><span style="float:right">时间：{$workRow['zworkTime']|formatdate}</span></th></tr>
+		<iterate name="moduleFiledList" id="vo">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>{$vo['name']}</strong><br />
+	  			</td>
+				<td>
+					{$vo['filedValue']}
+				</td>
+		</tr>
+		</iterate>
+		</tbody>
+		<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+		<tfoot><tr><th align="2" class="noprint">
+		<button type="submit" onclick="javascript:printit()"><div><span>打印</span></div></button>&nbsp;
+		<button type="submit" onclick="javascript:printsetup();"><div><span>打印页面设置</span></div></button>&nbsp;
+		<button type="submit" onclick="javascript:printpreview();"><div><span>打印预览</span></div></button>&nbsp;
+		</th>
+		</tr></tfoot>		
+  		</table>
+  		</div>
+</body>
+</html>

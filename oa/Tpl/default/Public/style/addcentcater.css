@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+/*popdiv添加联系人*/
+#addDrug{padding:8px; opacity:0.5; filter:alpha(opacity=50); position:absolute; top:100px; left:100px; width:480px; height:458px; background:#000}
+#addbox{ position:absolute; top:0; left:0;background:url(../newimg/mail_add_title_bg.gif) no-repeat; width:480px;}
+#titlebar{ height:31px; width:480px; line-height:31px; cursor:move}
+#titlebar h2{ float:left;padding-left:10px; font-size:14px; color:#0b3154; }
+#titlebar span{ float:right; padding:7px 10px 0 0; cursor:pointer}
+.selectbox{ padding:8px 8px 0; _height:1%;background:url(../newimg/addto_tend.gif) #f5f8fb no-repeat center}
+.selectbox:after{ content:'.'; display:block; height:0; clear:both; overflow:hidden;}
+.selectboxbder1{ float:left; width:218px; border:1px solid #cfcfcf}
+.selectboxbder2{ float:right;width:217px; border:1px solid #cfcfcf}
+#waitselect{ height:360px; padding:5px; background:#fff; border:1px solid #efefef;}
+#waitselect h3{ font-size:12px; font-weight:normal; color:#666; background:url(../newimg/mail_add_h3_bg.gif) no-repeat; height:31px; width:205px; line-height:31px; text-align:center}
+#waitselect h4{padding-left:17px; background:url(../newimg/mail_icon_hd__bg.gif) #eef3f6 no-repeat 3px 8px; font-size:12px; height:30px; font-weight:normal; border-top:1px solid #fff; color:#1f4559; line-height:30px; cursor:pointer}
+#waitselect h4.over{ background: url(../newimg/mail_icon_sw__bg.gif) #eef3f6 no-repeat 3px 8px; font-weight:bold}
+#waitselect h5{ width:150px; padding:5px 0 0 30px; height:18px; font-size:12px; line-height:18px; font-weight:normal;background:url(../images/bg_9_1.gif) no-repeat 17px center; cursor:pointer}
+#waitselect h5.down{background:url(../images/bg_9.gif) no-repeat 17px center;}
+#waitselect h5.up{background:url(../images/bg_9_1.gif) no-repeat 17px center; font-weight:bold; color:#036}
+#selected{ height:370px; width:215px;background:#fff; border:1px solid #efefef}
+#selected .tl h3{ float:left; padding-left:10px; color:#666;font-size:12px;}
+#selected .tl span{ float:right; padding-right:8px; color:#f60; cursor:pointer}
+#selected .tl{ height:29px;background:url(../newimg/mail_added_title_bg.gif) repeat-x;line-height:29px;}
+#selected ul{ padding:5px;height:330px;overflow-y:scroll;}
+#selected ul li{width:166px; height:29px; border-top:1px solid #fff; line-height:29px; padding: 0 10px; background:url(../newimg/del_added.gif) #f5f5ef no-repeat 158px center; cursor:pointer}
+#waitselect .ss{ height:20px; border:1px solid #dbdbdb; margin:0 0 5px;}
+#waitselect .ss input{ float:left; border:1px solid #fff; width:160px; color:#ccc;}
+#waitselect .ss span{ float:right; padding:2px 2px 0;}
+#bumen,#juese,#renyuan{ height:213px; overflow-y:scroll}
+#bumen ul{padding:5px 0 0 30px}
+#juese ul,#renyuan ul{padding:5px 0 0 20px}
+#bumen ul li,#juese ul li,#renyuan ul li{ padding:2px 0 3px 10px; background:url(../newimg/bg_1x1_2.gif) no-repeat left 5px;cursor:pointer}
+#bumen ul li ul{ padding-left:0}
+#bumen ul li ul li{ padding-left:10px; background-position:left 7px}
+#bumen li.subdown{ background:url(../newimg/bg_1x1_1.gif) no-repeat left 7px;}
+#bumen li.overli,#juese li.overli,#renyuan li.overli{background:url(../newimg/bg_1x1_3.gif) no-repeat left 5px; color:#036}
+#bumen ul li ul li.overli,#juese ul li ul li.overli,#renyuan ul li ul li.overli{background:url(../newimg/bg_1x1_3.gif) no-repeat left 7px; color:#036}
+.subotton{text-align:center; padding:8px 0; height:20px; background:#f5f8fb}
+#go-sc{ cursor:pointer}
+.ss input{ cursor: text}
+/*end*/
+

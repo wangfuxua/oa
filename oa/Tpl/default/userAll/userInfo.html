@@ -1,0 +1,96 @@
+<include file="Public:header" />
+
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/address.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 员工信息</span>
+    </td>
+  </tr>
+</table>
+
+<hr width="95%" height="1" align="left" class="big1">
+
+ <table border="0" width="450" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+    <tr>
+      <td nowrap class="TableHeader" colspan="2"><b>&nbsp;当前用户【{$user.state}】</b></td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData" width="80"> 姓名：</td>
+      <td class="TableData">{$user.USER_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData"> 性别：</td>
+      <td class="TableData">
+      {$user.SEX}
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">生日：</td>
+      <td class="TableData">{$user.BIRTHDAY}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableHeader" colspan="2"><b>&nbsp;联系方式（单位）</b></td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData"> 单位电话：</td>
+      <td class="TableData">{$user.TEL_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 单位传真：</td>
+      <td class="TableData">{$user.FAX_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableHeader" colspan="2"><b>&nbsp;联系方式（家庭）</b></td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 家庭住址：</td>
+      <td class="TableData">{$user.ADD_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 家庭邮编：</td>
+      <td class="TableData">{$user.POST_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 家庭电话：</td>
+      <td class="TableData">{$user.TEL_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 手机：</td>
+      <td class="TableData"><A href="/general/mobile_sms_personal/new?TO_ID={$user.USER_ID},&TO_NAME={$user.USER_NAME},">{$user.MOBIL_NO}</A></td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 寻呼机：</td>
+      <td class="TableData">{$user.BP_NO}</td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> 电子邮件：</td>
+      <td class="TableData"><a href="mailto:{$user.EMAIL}">{$user.EMAIL}</a></td>
+    </tr>
+
+    <tr>
+      <td nowrap class="TableData"> OICQ号码：</td>
+      <td class="TableData">{$user.OICO_NO}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData"> MSN：</td>
+      <td class="TableData">{$user.MSN}</td>
+    </tr>
+    <tr align="center" class="TableControl">
+      <td colspan="2" nowrap>
+        <input type="button" value="发送短信" class="BigButton" onClick="location='/index.php/im/index/USER_ID/{$user.USER_ID}/TO_NAME/{$user.USER_NAME}'">&nbsp;&nbsp;&nbsp;
+        <input type="button" value="发送邮件" class="BigButton" onClick="location='/general/email/new?TO_ID={$user.USER_ID}&TO_NAME={$user.USER_NAME}'">&nbsp;&nbsp;&nbsp;
+        <input type="button" value="返回" class="BigButton" onClick="history.back();">
+      </td>
+    </tr>
+  </table>
+<include file="Public:footer" />

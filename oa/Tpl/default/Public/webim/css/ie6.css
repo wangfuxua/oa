@@ -1,0 +1,56 @@
+@charset "utf-8";
+#taskbar, #tasktray, #trayFriend, #trayNotification, #trayChat, #taskbar div div div div.trayPanel {
+	position:absolute;
+}
+.chatting, #trayFriend, #trayNotification, #trayChat {
+	bottom:-1px;
+}
+#taskbar {
+	right:2px;
+	border-right:1px solid #b5b5b5;
+}
+#trayFriend {
+	right:59px;
+}
+#trayNotification {
+	right:29px;
+}
+#trayChat {
+	right:0;
+}
+#taskbar #trayFriend .trayPanel {
+	right:-62px;
+}
+#taskbar #trayNotification .trayPanel {
+	right:-32px;
+}
+#taskbar #trayChat .trayPanel {
+	right:-2px;
+}
+#chatbar {
+	right:215px;
+}
+.chatting .trayPanel .trayPanelTitleGray {
+	height:40px;
+}
+#trayNotification .trayPanelBoty ul li div.close {
+	background:transparent url(../images/x_to_hide_gray.gif) no-repeat scroll center top;
+	cursor:pointer;
+	height:16px;
+	width:16px;
+	margin-top:6px;
+	visibility:visible;
+}
+#trayNotification .trayPanelBoty ul li div.close.hover {
+	background-image:url(../images/x_to_hide_hover.gif);
+}
+#trayNotification .trayPanelBoty ul li p {
+	margin-top:-17px;
+	width:130px;
+}
+#chatbar div.chatting div div.trayPanel {
+	right:-1px;
+}
+#taskbar.offline #tasktray {
+	width:-1px;
+}

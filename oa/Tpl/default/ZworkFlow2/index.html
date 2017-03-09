@@ -1,0 +1,50 @@
+<include file="Public:header_news" />
+<body>
+    <div id="titbar">
+        <h2>
+            <b class="ico ico-head-news"></b>工作流</h2>
+    </div>
+    <div id="tabbar">
+        <!-- funbar btn start -->
+        <ul>
+            <li><a href="__URL__/index" title="" class="on"><b class="ico ico-list"></b>待办工作</a></li>
+            <li><a href="news" title=""><b class="ico ico-add"></b>新建工作</a></li>
+            <li><a href="workControl" title=""><b class="ico ico-list2"></b>工作监控</a></li>
+        </ul>
+    </div>
+
+<div id="main" class="KDStyle">
+		<table >
+		    <thead>
+			<tr>
+				<th>工作等级</th>
+				<th>工作创建时间</th>
+				<th>文号/说明</th>
+				<th>目前步骤</th>
+				<th>查看进程</th>
+				<th>执行</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<iterate name="workRow" id="vo">
+			<tr class="tdcenter">
+				<td>{$vo['grade']|workgrade}</td> 
+				<td>{$vo['zworkTime']|formatDate}</td>
+				<td>{$vo['zworkName']}</td>
+				<td>第{$vo['state']}步</td>
+				<td><a href="__APP__/ZworkFlow/flowView/workId/{$vo['zworkId']}">查看工作情况</a></td>
+				<td><a href="__APP__/ZworkFlow/execute/workId/{$vo['zworkId']}">办理</a></td>
+				<td>{$vo['tag']}</td>
+			</tr>
+			</iterate>	
+			</tbody>
+			<tfoot>
+			<tr><td colspan="7">{$page}</td></tr>
+			</tfoot>
+		</table>
+
+</div>
+
+	</div>
+<include file="Public:footer" />

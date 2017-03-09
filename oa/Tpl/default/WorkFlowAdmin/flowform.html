@@ -1,0 +1,60 @@
+<include file="Public:header" />
+
+<script>
+function delete_form(FORM_ID)
+{
+ msg='确认要删除该表单么？这将删除表单描述与字段设置且不可恢复！';
+ if(window.confirm(msg))
+ {
+  URL="flowFormDel/FORM_ID/"+FORM_ID;
+  window.location=URL;
+ }
+}
+</script>
+
+
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="/images/notify_new.gif" align="absmiddle"><span class="big3"> 新建表单</span><br>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+<input type="button"  value="新建表单" class="BigButton" onClick="location='/index.php/workflowadmin/flowformnew';" title="新建表单">
+</div>
+<br>
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="/images/notify_open.gif" align="absmiddle"><span class="big3"> 管理表单</span><br>
+    </td>
+  </tr>
+</table>
+<br>
+  <table border="0" cellspacing="1" width="500" align="center" class="small" bgcolor="#000000" cellpadding="3">
+    <tr class="TableHeader">
+      <td nowrap align="center">表单名称</td>
+      <td nowrap align="center">操作</td>
+    </tr>
+    <volist name="flowFormType" id="vo">
+    <tr class="{$vo.tableline}">
+      <td width="250" nowrap align="center">{$vo.FORM_NAME}</td>
+      <td nowrap>
+          <a href="flowFormEdit/FORM_ID/{$vo.FORM_ID}">编辑表单名称</a>&nbsp;&nbsp;
+          <a href="#" onClick="javascript:window.open('../WorkFormCool/index/FORM_ID/{$vo.FORM_ID}','coolForm','menubar=0,toolbar=0,scrollbars=no,status=0,resizable=1')">表单智能设计</a>&nbsp;&nbsp;
+          <a href="flowFormImport/FORM_ID/{$vo.FORM_ID}" title="可将一些备份的表单或优秀的表单导入">导入</a>&nbsp;&nbsp;
+          <a href="flowFormExport/FORM_ID/{$vo.FORM_ID}" title="可以将表单导出后，与其他OA用户分享">导出</a>&nbsp;&nbsp;
+			<eq name="vo.tf" value="1">
+          <a href="javascript:delete_form({$vo.FORM_ID});">删除</a>&nbsp;
+			</eq>
+      </td>
+    </tr>
+    </volist>
+<include file="Public:footer" />

@@ -1,0 +1,34 @@
+<include file="Public:header2" />
+<body>
+<div class="KDStyle" id="">
+  <table style="width:90%">
+  <caption>员工日程安排查询结果</caption>
+  	<col width="100px" />
+    <thead>
+    <tr>
+      <th>姓名</th>
+      <volist name="headlist" id="vo">
+      <th>
+          {$YEAR}-{$MONTH}-{$vo.DAY}(周{$vo.WEEK_DESC})
+      </th>
+      </volist>
+    </tr>
+    </thead>
+    
+     <volist name="list" id="vo">
+	 <tr class="tcenter">
+	   <td>{$vo.USER_NAME}</td>
+	    <iterate name="vo[day]" id="days">
+	    <td>
+	       <volist name="days[sub]" id="vos">
+	         <if condition="$vos[CAL_TYPE] eq 1">
+	         {$vos.CAL_TIME|getHi}-{$vos.END_TIME|getHi}<br>{$vos.CONTENT}<br>
+	         </if>
+	       </volist>
+	    </td> 
+	    </iterate>
+	  </tr>
+	</volist>
+</table>
+</div>
+<include file="Public:footer" />

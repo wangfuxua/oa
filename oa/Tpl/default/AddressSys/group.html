@@ -1,0 +1,57 @@
+<include file="Public:header_module" />
+<include file="Public:header_addresssys" />
+
+<script>
+function delete_group(GROUP_ID)
+{
+ msg='确认要删除该分组么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/groupdelete/GROUP_ID/" + GROUP_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/group" title=""><span>分组列表</span></a></li>
+		<li><a href="__URL__/groupform" title=""><span>新建分组</span></a></li>
+	</ul>
+
+	<div>
+
+    <table>
+       <thead>
+      <td>分组名称</td>
+      <td width="300">操作</td>
+     </thead>  
+     <tbody>
+      <tr>
+      <td>默认</td>
+      <td>
+          　　　　&nbsp;&nbsp;
+          <a href="__URL__/groupimport/GROUP_ID/0"> 导入</a>
+          <a href="__URL__/groupexport/GROUP_ID/0/TYPE=0"> 导出Foxmail格式</a>
+          <a href="__URL__/groupexport/GROUP_ID/0/TYPE=1"> 导出OutLook格式</a>
+      </td>
+    </tr>
+    
+ <volist name="list" id="vo">
+    <tr>
+      <td>{$vo.GROUP_NAME}</td>
+      <td>
+          <a href="__URL__/groupform/GROUP_ID/{$vo.GROUP_ID}"> 编辑</a>
+          <a href="javascript:delete_group({$vo.GROUP_ID});"> 删除</a>
+          <a href="__URL__/groupimport/GROUP_ID/{$vo.GROUP_ID}"> 导入</a>
+          <a href="__URL__/groupexport/GROUP_ID/{$vo.GROUP_ID}/TYPE/0"> 导出Foxmail格式</a>
+          <a href="__URL__/groupexport/GROUP_ID/{$vo.GROUP_ID}/TYPE/1"> 导出OutLook格式</a>
+      </td>
+    </tr>
+</volist>   
+<tbody> 
+
+   </table>
+</div>       
+</div>
+<include file="Public:footer" />

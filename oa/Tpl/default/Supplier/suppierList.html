@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>供应商列表</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px;height:100px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+
+</style>
+<script src ="../Public/js/crm_common.js"></script>
+<script src="../Public/js/crm_data.js"></script>
+</head>
+
+<body>
+<form action="__APP__/Supplier/search/to_id/{$to_id}/to_name/{$to_name}" method="post">
+<table>
+	<caption class="nostyle">查找供应商</caption>
+	<colgroup>
+		<col width="15%" />
+		<col width="20%" />
+		<col width="15% " />
+		<col width="15%" />
+		<col width="15% " />
+		<col width="20%" />
+	</colgroup>
+<tbody>
+	<tr>
+	<td>名称：</td>
+	<td><input name='name' type="text" size='10' maxlength='25' value='' /></td>
+	<td>编码：</td>
+	<td><input name='encode' type="text" size='10' maxlength='25' value='' /></td>
+	<td>简称：</td>
+	<td><input name='short_name' type="text" size='10' maxlength='25' value='' /></td>
+	</tr>
+</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="6">
+				<button title="查找 [Alt+Q]" type="submit">查找</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+
+<table>
+	<caption class="nostyle">供应商列表</caption>
+	<colgroup>
+		<col width="30%" />
+		<col width="30%" />
+		<col width="30%" />
+	
+	</colgroup>
+	<thead>
+		<tr><td colspan="3">{$page}</td></tr>
+		<tr>
+			<th>供应商名称</th>
+			<th>供应商编码</th>
+			<th>供应商简称</th>
+		</tr>
+	</thead>
+	<volist name="supplier_record" id="vo">
+		<tr>
+			<td ><a href="###" onclick="setParentValue(Array('{$to_name}','{$to_id}'),Array('{$vo['name']}','{$vo['id']}'));">{$vo['name']}</a></td>
+			<td>{$vo['encode']}</td>
+			<td >{$vo['short_name']}</td>
+		</tr>
+	</volist>	
+<tfoot>
+	<tr><td colspan="3">{$page}</td></tr>
+</tfoot>
+</table>
+</body></html>

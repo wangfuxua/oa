@@ -1,0 +1,69 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "已发布的投票", Url: "__URL__/voteIndex", Cls: "", Icon: "", IconCls: "ico ico-voteList" },
+			{ Title: "投票", Url: "#", Cls: "", Icon: "", IconCls: "ico ico-vote" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+	<div class="KDStyle" id="main">
+	<table>
+	<thead>
+	<tr>
+	<td>{$voteRow['SUBJECT']}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>发布人：{$voteRow['FROM_ID']|getUsername}</td>
+	</tr>
+	<form name="form1" method="POST" action="__URL__/vote">
+	<input name="VOTE_ID" type="hidden" value="{$voteRow['VOTE_ID']}">
+	<iterate name="voteItemList" id="vo" key="k">
+	<tr>
+	<td>
+		<input name="{$voteRow['ITEM']}" type="{$voteRow['TYPE_DESC']}" value="{$vo['ITEM_ID']}">&nbsp;&nbsp;{$vo['ITEM_NAME']}<br>
+	</td>
+	</tr>
+	</iterate>
+	</tbody>
+	<tfoot>
+	<tr>
+	
+	<th>
+	<if condition="$k gt 0">
+	<button type="submit">投票</button>
+	<button onclick ="location.href='__URL__/show/VOTE_ID/{$voteRow['VOTE_ID']}'">查看结果</button>
+	</if>
+	<button onClick="javascript:window.history.back()">返回</button>
+
+	</th>
+	</tr>
+	</tfoot>
+	</form>	
+	
+	</table>
+	</div>
+<include file="Public:footer" />

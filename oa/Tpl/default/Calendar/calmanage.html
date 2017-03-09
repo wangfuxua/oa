@@ -1,0 +1,95 @@
+<include file="Public:header_module2" />
+<script language=JavaScript>
+window.setTimeout('this.location.reload();',60000);
+</script>
+<script>
+my_top=50;
+my_left=50;
+
+function my_note(CAL_ID)
+{
+  my_top+=25;
+  my_left+=15;
+
+  window.open("__URL__/note/CAL_ID/"+CAL_ID,"note_win"+CAL_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+
+function delete_cal(CAL_ID)
+{
+ msg='确认要删除么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/caldelete/YEAR/{$YEAR}/MONTH/{$MONTH}/DAY/{$DAY}/CAL_ID/" + CAL_ID;
+  window.location=URL;
+ }
+}
+
+
+</script>
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "日程安排",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "日程安排", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-calendar" },
+            { Title: "日常事务", Url: "__URL__/affairIndex", Cls: "", IconCls: "ico ico-clock" },
+            { Title: "新建日常事务", Url: "__URL__/affairform", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+</script>
+<body>
+	<div class="KDStyle" id="main">
+		<div class="mainpanelHead">
+		<h2>管理日程安排（{$YEAR}年{$MONTH}月{$DAY}日）</h2>
+		<p>
+		<button type="button"  value="新建事务" class="btnFnt" onClick="location='__URL__/calform/YEAR/{$YEAR}/MONTH/{$MONTH}/DAY/{$DAY}';" title="创建新的事务，以便提醒自己">新建事务（{$YEAR}年{$MONTH}月{$DAY}日）</button>
+
+		</p>
+		</div>
+
+
+
+  <table>
+   <thead>
+      <th>开始时间 <img border=0 src="../Public/images/arrow_up.gif" width="11" height="10"></th>
+      <th>结束时间</th>
+      <th>事务类型</th>
+      <th>事务内容</th>
+      <th>状态</th>
+      <th>操作</th>
+   </thead>
+   <tbody>
+   <volist name="list" id="vo">
+      <tr>
+      <td>{$vo.CAL_TIME}</td>
+      <td>{$vo.END_TIME}</td>
+      <td><if condition="$vo[CAL_TYPE] eq 1">工作事务<else />个人事务</if></td>
+      <td><a href="javascript:my_note({$vo.CAL_ID});">{$vo.CONTENT|csubstr=###,0,50}</a></td>
+      <td><if condition="compare_time($CUR_TIME,$vo[END_TIME]) gt 0"><font color='#FF0000'><b>过期</span><elseif condition="compare_time($CUR_TIME,$vo[CAL_TIME]) lt 0" /><font color='#0000AA'><b>未至</span><else /><font color='#00AA00'><b>进行中</span></if></td>
+      <td>
+          <a href="javascript:my_note({$vo.CAL_ID});"> 便笺</a>&nbsp;&nbsp;
+          <a href="__URL__/calform/YEAR/{$YEAR}/MONTH/{$MONTH}/DAY/{$DAY}/CAL_ID/{$vo.CAL_ID}"> 修改</a>&nbsp;&nbsp;
+          <a href="javascript:delete_cal({$vo.CAL_ID});"> 删除</a>
+      </td>
+    </tr>
+   </volist>
+   </tbody>
+  <tfoot>
+  <tr>
+  <th colspan="6">{$page}</th>
+  </tr>
+  </tfoot>
+     
+   </table>
+   </div>
+<include file="Public:footer" />

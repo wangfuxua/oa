@@ -1,0 +1,115 @@
+<include file="Public:header2" />
+
+<script language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.CONTENT.value=="")
+   { alert("事务内容不能为空！");
+     return (false);
+   }
+   form1.submit();
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "日程安排",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "日程安排", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-calendar" },
+            { Title: "日常事务", Url: "__URL__/affairIndex", Cls: "", IconCls: "ico ico-clock" },
+            { Title: "新建日常事务", Url: "__URL__/affairform", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+</script>
+<body onLoad="document.form1.CONTENT.focus();">
+
+<div class="KDStyle" id="main">
+<form action="__URL__/calformsubmit"  method="post" name="form1">
+ <table>
+ 				<caption class="nostyle">{$desc}（{$YEAR}年{$MONTH}月{$DAY}日）</caption>
+				<colgroup>
+					<col width="80"></col>
+					<col width=""></col>
+				</colgroup>
+				  
+  <tbody>
+    <tr>
+      <td>开始时间：</td>
+      <td>
+<!-------------- 时 ------------>
+        <select name="CAL_HOUR">
+        {$cal_hour}
+        </select>：
+
+<!-------------- 分 ------------>
+        <select name="CAL_MIN">
+        {$cal_min}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>结束时间：</td>
+      <td>
+
+<!-------------- 时 ------------>
+        <select name="END_HOUR">
+        {$end_hour}
+        </select>：
+
+<!-------------- 分 ------------>
+        <select name="END_MIN">
+        {$end_min}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> 事务类型：</td>
+      <td>
+        <select name="CAL_TYPE">
+          <option value="1" <if condition="$row[CAL_TYPE] eq 1">selected</if>>工作事务</option>
+          <option value="2" <if condition="$row[CAL_TYPE] eq 2">selected</if>>个人事务</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> 事务内容：</td>
+      <td>
+        <textarea name="CONTENT" cols="45" rows="5" class="BigInput">{$row.CONTENT}</textarea>
+        
+      </td>
+    </tr>
+    <tr>
+      <td> 提醒：</td>
+      <td> 
+        <input type="checkbox" name="SMS_REMIND" checked>使用短信息提醒自己
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2" nowrap>
+        <input type="hidden" name="CAL_ID" value="{$row.CAL_ID}">
+        <input type="hidden" name="CAL_YEAR" value="{$YEAR}">
+        <input type="hidden" name="CAL_MON" value="{$MONTH}">
+        <input type="hidden" name="CAL_DAY" value="{$DAY}">
+        <button class="btnFnt" type="button" value="确定" onClick="CheckForm();">确定</button>
+        <button class="btnFnt" type="button" value="返回" onClick="location='__URL__/calmanage/YEAR/{$YEAR}/MONTH/{$MONTH}/DAY/{$DAY}'">
+		返回</button>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</form>
+</div>
+<include file="Public:footer" />

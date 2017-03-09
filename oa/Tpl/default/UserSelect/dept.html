@@ -1,0 +1,47 @@
+<include file="Public:header" />
+<script>
+function clickMenu(ID)
+{
+
+    targetelement=document.all(ID);
+    if (targetelement.style.display=="none")
+        targetelement.style.display='';
+    else
+        targetelement.style.display="none";
+}
+</script>
+<body class="bodycolor"  topmargin="1" leftmargin="0">
+
+  <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+     <tr class="TableHeader" onclick="clickMenu('1')" style="cursor:hand" title="点击伸缩列表">
+       <td nowrap align="center"><b>按部门选择</b></td>
+     </tr>
+  </table>
+  <table border="0" cellspacing="1" width="100%" class="small" cellpadding="3" id="1">
+    <tr class="TableControl">
+      <td>
+      {$xmldept}
+      </td>
+    </tr>
+  </table>
+  <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+     <tr class="TableHeader" onclick="clickMenu('0')" style="cursor:hand" title="点击伸缩列表">
+       <td nowrap align="center"><b>按角色选择</b></td>
+     </tr>
+  </table>
+    <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" id="0">
+    
+<iterate name="list" id="vo" key="k">
+    <tr class="TableControl">
+     <td align="center" onclick="javascript:parent.user.location='{$PARA_URL}/USER_PRIV/{$vo.USER_PRIV}{$ID_STR}{$POST_PRIV_STR}{$POST_DEPT_STR}';" style="cursor:hand">{$vo.PRIV_NAME}</td>
+    </tr>
+</iterate>
+
+    </table>
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+     <tr class="TableHeader" style="cursor:hand" onclick="javascript:parent.user.location='/index.php/userselect/useronline/ID/{$ID}';">
+       <td nowrap align="center"><b>在线人员</b></td>
+     </tr>
+  </table>
+
+<include file="Public:footer" />

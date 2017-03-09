@@ -1,0 +1,69 @@
+[ 14-11-10 08:34:31 ]
+
+错误信息：[ oa Account loading.swf ]非法操作loading.swf
+错误页面：/index.php/Account/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) AccountAction->loading.swf()
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 08:34:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 08:34:56 ]
+
+错误信息：[ oa Account loading.swf ]非法操作loading.swf
+错误页面：/index.php/Account/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) AccountAction->loading.swf()
+[14-11-10 08:34:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 08:34:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 08:45:04 ]
+
+错误信息：[ oa public login ]无法加载模块public
+错误页面：/index.php/public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 08:45:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 08:45:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 08:45:46 ]
+
+错误信息：[ oa public login ]无法加载模块public
+错误页面：/index.php/public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 08:45:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 08:45:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 09:24:25 ]
+
+错误信息：[ oa Product loading.swf ]非法操作loading.swf
+错误页面：/index.php/Product/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 09:24:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-10 09:24:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) ProductAction->loading.swf()
+[14-11-10 09:24:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 09:24:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 10:10:42 ]
+
+错误信息：[ oa public login ]无法加载模块public
+错误页面：/index.php/public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 10:10:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 10:10:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-10 11:26:59 ]
+
+错误信息：[ oa public checklogin ]无法加载模块public
+错误页面：/index.php/public/checklogin
+错误类型：ThinkException
+错误跟踪：
+[14-11-10 11:26:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-10 11:26:11] /www/web/oa/public_html/index.php (19) App->run()
+

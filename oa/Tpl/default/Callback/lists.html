@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户回访列表</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on">
+			<if condition="$accountBlur['name'] neq '' "> 
+				<a href="__APP__/Callback/lists/id/{$accountBlur['id']}" title="">
+			<else />
+				<a href="__APP__/Callback/lists" title="">
+			</if>
+			<span>客户回访列表</span></a>
+		</li>
+		<li>
+			<if condition="$accountBlur['name'] neq '' "> 
+				<a href="__APP__/Callback/create/id/{$accountBlur['id']}" title="">
+			<else />
+				<a href="__APP__/Callback/create" title="">
+			</if>
+			<span><if condition="$update">修改<else/>新建</if>客户回访</span></a>
+		</li>
+	</ul>
+<if condition="$accountBlur['name'] neq '' "> 
+	<h3>客户 {$accountBlur['name']} 的回访记录 </h3>
+</if>
+<form action="__APP__/Callback/search" method="post">
+<table>
+	<caption class="nostyle">查找客户回访</caption>
+	<colgroup>
+		<col width="20%" />
+		<col width="30%" />
+		<col width="20% " />
+		<col width="30%" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<td>记录编号：</td>
+			<td><input name='id' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+			<td>客户反馈:</td>
+			<td ><input name='report_subject' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+		</tr>
+		<tr>
+			<td>客户名称：</td>
+			<td><input name='account_name' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+		<td>拜访方式：</td>
+		<td>
+<!--			<script>
+			change_selected('type', callback_type, "");
+			</script>	-->
+			<select name="type">
+			<option value="">请选择</option>
+			<volist name="xml_type" id="vo_type">
+			<option value="{$vo_type['name']}">{$vo_type['name']}</option>
+			</volist>
+			</select>
+		</td>
+		</tr>
+	</tbody>
+	<tbody id="searchAll" style="display:none;">
+
+	<tr>
+		<td>客服日期：</td>
+		<td ><input name='service_date' type="text" tabindex='2' size='20' maxlength='100' value=''></td>
+
+	</tr><tr>
+		<td >最后更新：</td>
+		<td  colSpan=3>
+		      <fieldset class="date">	<input type="text" name="date_from" id="sel1" size="30"><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('sel1', '%Y-%m-%d');"  /><span> 到 </span><input type="text" name="date_to" id="sel3" size="30"><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('sel3', '%Y-%m-%d');"  /></fieldset>
+		</td>	
+	</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4">
+			        <button tabindex='2' title="查找" class="button" type="submit" >查找</button>
+			        <button tabindex='2' title="重置" class="button" type="reset" >重置</button>
+			        <button tabindex='2' title="高级查找" class="button" type="button"  onclick="displayOrNo('searchAll','block');">高级查找</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+
+
+
+<form action="__APP__/Callback/del" method='post' name='MassUpdate'  id="MassUpdate">
+	<input type='hidden' name='Leads_LEAD_offset' value='0'>
+	<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div> 
+
+
+ <table>
+	<caption class="nostyle">客户回访列表</caption>
+	<colgroup>
+		<col width="20" />
+		<col width="" />
+		<col width="10%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="15%" />
+		<col width="10%" />
+	
+	</colgroup>
+	<thead>
+		<tr>
+			<td colspan="9">{$page}</td>
+		</tr>
+		<tr>
+			<th ><fieldset class="check"><input type='checkbox' class='checkbox' name='massall' value='' onclick='checkAll(document.MassUpdate, "mass[]", this.checked)'></fieldset></th >
+			<th><a href="{$sort_url}&field=id">回访记录&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=account_name">客户名称&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=report_subject">客户反馈&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=description">联系情况记录&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=type">拜访方式&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=manager_id">负责人&nbsp;</a></th >
+			<th ><a href="{$sort_url}&field=service_date">客服日期&nbsp;</a></th >
+		</tr>
+	</thead>
+	<volist name="callback_res" id="vo">
+	<tr >
+		<td ><fieldset class="check"><input type='checkbox' class='checkbox' name='mass[]' value="{$vo['id']}"></fieldset></td>
+		<td scope="row" >
+			<if condition="$accountId neq '' "> 
+				<a href="__APP__/Callback/view/id/{$vo['id']}/lists/{$accountId}" class="listViewTdLinkS1"> 
+			<else />
+				<a href="__APP__/Callback/view/id/{$vo['id']}" class="listViewTdLinkS1"> 
+			</if>
+			<img  src='../Public/images/MoreDetail.png' width=8 height=7>&nbsp;{$vo['id']}</a>
+		</td>
+		<td ><a href="__APP__/Account/view/id/{$vo['account_id']}" class="listViewTdLinkS1"> <img  src='../Public/images/MoreDetail.png' width=8 height=7>{$vo['account_name']}</a></td>
+		<td >{$vo['report_subject']}</td>
+		<td >{$vo['description']}</td>
+		<td >{$vo['type']}</td>
+		<td >{$accountBlur['manager']}</td>
+		<td >{$vo['service_date']}</td>
+	</tr>
+	</volist>
+	<tfoot>
+		<tr>
+			<td colspan="9">{$page}</td>
+		</tr>
+		<tr>
+			<th colspan="9">
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 1);'>全选</button>
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 0);'>取消选中</button>
+				<button type='submit'  onclick="return del_records(this.form,'mass[]');">删除</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+
+</form>
+
+
+
+</body></html>

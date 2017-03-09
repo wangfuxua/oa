@@ -1,0 +1,214 @@
+<include file="Public:header" />
+<script>
+function func_insert()
+{
+ for (i=0; i<select2.options.length; i++)
+ {
+   if(select2.options(i).selected)
+   {
+     option_text=select2.options(i).text;
+     option_value=select2.options(i).value;
+     option_style_color=select2.options(i).style.color;
+
+     var my_option = document.createElement("OPTION");
+     my_option.text=option_text;
+     my_option.value=option_value;
+     my_option.style.color=option_style_color;
+
+     pos=select2.options.length;
+     select1.add(my_option,pos);
+     select2.remove(i);
+     i--;
+  }
+ }//for
+}
+
+function func_delete()
+{
+ for (i=0;i<select1.options.length;i++)
+ {
+   if(select1.options(i).selected)
+   {
+     option_text=select1.options(i).text;
+     option_value=select1.options(i).value;
+
+     var my_option = document.createElement("OPTION");
+     my_option.text=option_text;
+     my_option.value=option_value;
+
+     pos=select2.options.length;
+     select2.add(my_option,pos);
+     select1.remove(i);
+     i--;
+  }
+ }//for
+}
+
+function func_select_all1()
+{
+ for (i=select1.options.length-1; i>=0; i--)
+   select1.options(i).selected=true;
+}
+
+function func_select_all2()
+{
+ for (i=select2.options.length-1; i>=0; i--)
+   select2.options(i).selected=true;
+}
+
+function func_up()
+{
+  sel_count=0;
+  for (i=select1.options.length-1; i>=0; i--)
+  {
+    if(select1.options(i).selected)
+       sel_count++;
+  }
+
+  if(sel_count==0)
+  {
+     alert("调整菜单快捷组的项目顺序时，请选择其中一项！");
+     return;
+  }
+  else if(sel_count>1)
+  {
+     alert("调整菜单快捷组的项目顺序时，只能选择其中一项！");
+     return;
+  }
+
+  i=select1.selectedIndex;
+
+  if(i!=0)
+  {
+    var my_option = document.createElement("OPTION");
+    my_option.text=select1.options(i).text;
+    my_option.value=select1.options(i).value;
+
+    select1.add(my_option,i-1);
+    select1.remove(i+1);
+    select1.options(i-1).selected=true;
+  }
+}
+
+function func_down()
+{
+  sel_count=0;
+  for (i=select1.options.length-1; i>=0; i--)
+  {
+    if(select1.options(i).selected)
+       sel_count++;
+  }
+
+  if(sel_count==0)
+  {
+     alert("调整菜单快捷组的项目顺序时，请选择其中一项！");
+     return;
+  }
+  else if(sel_count>1)
+  {
+     alert("调整菜单快捷组的项目顺序时，只能选择其中一项！");
+     return;
+  }
+
+  i=select1.selectedIndex;
+
+  if(i!=select1.options.length-1)
+  {
+    var my_option = document.createElement("OPTION");
+    my_option.text=select1.options(i).text;
+    my_option.value=select1.options(i).value;
+
+    select1.add(my_option,i+2);
+    select1.remove(i);
+    select1.options(i+1).selected=true;
+  }
+}
+
+function mysubmit()
+{
+   fld_str="";
+   for (i=0; i< select1.options.length; i++)
+   {
+      options_value=select1.options(i).value;
+      fld_str+=options_value+",";
+    }
+
+   location="__URL__/setquicksubmit/FLD_STR/" + fld_str;
+}
+</script>
+
+<body>
+
+<table>
+<caption class="nostyle">菜单快捷组定义</caption>
+
+ <thead>
+  <tr>
+    <th>排序</th>
+    <th>菜单快捷组项目</th>
+    <th>选择</td>
+    <th>备选菜单项</td>
+  </tr>
+</thead>
+
+<tbody>  
+  <tr>
+    <td>
+      <input type="button"  value=" ↑ " onclick="func_up();">
+      <br><br>
+      <input type="button"  value=" ↓ " onclick="func_down();">
+    </td>
+    <td class="tdtop">
+    <select  name="select1" ondblclick="func_delete();" MULTIPLE style="width:200px;height:280px">
+      <volist name="list1" id="vo">
+       <option value="{$vo.FUNC_ID}">{$vo.FUNC_NAME}</option>
+      </volist>
+    </select><br>
+    <input type="button" value=" 全 选 " onclick="func_select_all1();" >
+    </td>
+
+    <td>
+      <input type="button"  value=" ← " onclick="func_insert();">
+      <br><br>
+      <input type="button"  value=" → " onclick="func_delete();">
+    </td>
+
+    <td class="tdtop">
+    <select  name="select2" ondblclick="func_insert();" MULTIPLE style="width:200px;height:280px">
+                         <volist name="list" id="vo">
+							<if condition="$vo[subcount] eq 1">
+							<optgroup label="{$vo.MENU_NAME}"></optgroup>
+							</if>
+								<sublist name="vo['sub']" id="sub">
+		                          <if condition="$sub[sub2] neq ''">
+		                          <optgroup label="&nbsp;&nbsp;{$sub.FUNC_NAME}"></optgroup>						
+								  <elseif condition="!find_id($QUICK,$sub[FUNC_ID])" />
+								  <option value="{$sub.FUNC_ID}">&nbsp;&nbsp;{$sub.FUNC_NAME}</option>
+                                  </if>
+								    <iterate name="sub['sub2']" id="sub2">
+								      <if condition="!find_id($QUICK,$sub2[FUNC_ID])">
+									  <option value="{$sub2.FUNC_ID}">&nbsp;&nbsp;&nbsp;&nbsp;{$sub2.FUNC_NAME}</option>
+									  </if>
+									</iterate>
+								</sublist>
+							</volist>
+
+    </select><br>
+    <input type="button" value=" 全 选 " onclick="func_select_all2();" >
+    </td>
+  </tr>
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan="4">
+    点击条目时，可以组合CTRL或SHIFT键进行多选<br>
+      <input type="button" class="BigButton" value="保 存" onclick="mysubmit();">
+      <input type="button" class="BigButton" value="重 置" onclick="location='__URL__/setquick'">
+    </td>
+  </tr>
+</tfoot>
+</table>
+
+
+
+<include file="Public:footer" />

@@ -1,0 +1,148 @@
+<include file="Public:header_mytable" />
+	<body>
+		<div class="r_1">
+			<div class="m_1">
+				<div class="bt1"><a href="__APP__/manage/notifyAll" class="bta1">公告通知</a><p id="p1"></p><a href="__APP__/manage/notifyAll" class="bta2">全部通知</a></div>
+				<ul class="ul1 note" id="c1">
+<script>				
+	function open_notify(NOTIFY_ID)
+	{
+ 	URL="__APP__/manage/view/NOTIFY_ID/"+NOTIFY_ID;
+ 	myleft=(screen.availWidth-500)/2;
+ 	window.open(URL,"read_notify","height=400,width=550,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+	}
+
+</script>
+				
+       <if condition="$notifylist">
+       <iterate name="notifylist" id="vo">
+       <li><neq name="vo[ATTACHMENT_ID]" value=''><img src="../Public/images/ico/mail_files.gif"></neq><a href="javascript:open_notify('{$vo.NOTIFY_ID}');">{$vo.SUBJECT}</a>&nbsp;{$vo.BEGIN_DATE|formatDate}<?php if(!find_id($vo['READERS'],$_SESSION[LOGIN_USER_ID]))
+        echo "<img src='../Public/images/new.gif' height=11 width=28 align=absmiddle>";
+        ?>
+        </li>
+       </iterate>
+       <else />
+       没有公告通知
+       </if>
+				</ul>
+			</div>
+			
+			<div class="m_1 m_2">
+				<div class="bt1"><a href="__APP__/ZworkFlow/index" class="bta1 bta4">待办事宜</a><p id="p3"></p><a href="__APP__/ZworkFlow/index" class="bta2">全部事宜</a></div>
+				<ul class="ul1 ul2" id="c3">
+				<if condition="$workRow">
+				<iterate name="workRow" id="vo">
+				<li><a href="__APP__/ZworkFlow/flowView/workId/{$vo['zworkId']}">{$vo['zworkName']}</a>第{$vo['state']}步&nbsp;&nbsp;&nbsp;<a href="__APP__/ZworkFlow/execute/workId/{$vo['zworkId']}">快速办理</a></li>
+				</iterate>
+				<else />
+				没有待办工作
+				</if>
+				</ul>
+			</div>
+			
+			<div class="m_1 m_2">
+				<div class="bt1"><a href="__APP__/ZworkFlow/index" class="bta1 bta4">快速通道</a><p id="p3"></p><a href="__APP__/ZworkFlow/index" class="bta2">全部事宜</a></div>
+				<ul class="ul1 ul2" id="c3">
+				<if condition="$workList">
+				<li><iterate name="workList" id="vo">&nbsp;&nbsp;&nbsp;<a href="__APP__/ZworkFlow/news/modelId/{$vo['modelId']}">创建{$vo['modelName']}</a></iterate></li>
+				<else />
+				请先创建工作表单
+				</if>
+				</ul>
+			</div>
+			
+			
+			
+			<div class="m_1 m_2">
+				<div class="bt1"><a href="__APP__/News/index" class="bta1 bta3">新闻</a><p id="p2"></p><a href="__APP__/News/index" class="bta2">全部新闻</a></div>
+				<ul class="ul1" id="c2">
+       <if condition="$newslist">
+       <iterate name="newslist" id="vo">
+       <li><a href="__APP__/News/article/id/{$vo.newId}" title="">{$vo.title}</a>&nbsp;&nbsp;{$vo.createTime|formatdate}&nbsp;&nbsp;</li>
+       </iterate>
+       <else />
+       没有新闻
+       </if>
+
+				</ul>
+			</div>
+		</div>
+		<div class="r_2">
+			<div class="bt2"><a href="__APP__/Calendar" class="bta1">日程安排 {$cur_date}</a><a href="__APP__/Calendar" class="bta2">全部</a></div>
+			<div class="m_4">
+				<ul class="ul1 ul3">
+				<volist name="calendarlist" id="vo">
+				<li>{$vo.END_TIME|getHis}&nbsp;<a href="#" onclick='javascript:my_notecal("{$vo.CAL_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>
+				<ul class="ul1 ul3">
+				<volist name="affairlist" id="vo">
+				<li>{$vo.REMIND_TIME}&nbsp;<a href="#" onclick='javascript:my_noteaff("{$vo.AFF_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>
+								
+			</div>
+			<div class="bt2"><a href="__APP__/Email/index" class="bta1">内部邮件</a><a href="__APP__/Email/add" class="bta2">撰写</a></div>
+			<div class="m_4">
+				<table width="225" cellpadding="0" cellspacing="1">
+					<tr>
+						<td width="70" height="24"><p class="p7"><a href="__APP__/Email/inbox">收件箱</a></p></td>
+						<td width="155" class="td1"><a href="__APP__/Email/inbox/BOX_ID/0">{$mails['INBOX_COUNT']}</a>封邮件<a href="__APP__/Email/inbox/BOX_ID/0">{$mails['NEW_LETER_COUNT']}</a>封新邮件</td>
+					</tr>
+					<tr>
+						<td height="24"><p class="p7 p8"><a href="__APP__/Email/outbox">发件箱</a></p></td>
+						<td class="td1"><a href="__APP__/Email/outbox">{$mails['OUTBOX_COUNT']}</a>封邮件</td>
+					</tr>
+				</table>
+			</div>
+			<div class="bt2"><a href="__APP__/Personinfo/url" class="bta1">常用网址</a><a href="__APP__/Personinfo/url" class="bta2">全部</a></div>
+			<div class="m_4 m_5">
+				<ul class="ul1 ul4">
+			   <li class="li2">个人网址</li>
+			   <iterate name="perurl" id="vo">
+			   <li><a href="{$vo.URL}" target="_blank">{$vo.URL_DESC}</a></li>
+			   </iterate>
+			   <li class="li2">公共网址</li>
+			   <iterate name="comurl" id="vo">
+			   <li><a href="{$vo.URL}" target="_blank">{$vo.URL_DESC}</a><br></li>
+			   </iterate>
+				</ul>
+			</div>
+		</div>
+	<script type="text/javascript">
+		$("#p1").toggle(function(){
+	$("#c1").slideUp("fast");
+	$("#p1").addClass("over3");
+},function(){
+	$("#c1").slideDown("fast");
+	$("#p1").removeClass("over3");
+});
+$("#p2").toggle(function(){
+	$("#c2").slideUp("fast");
+	$("#p2").addClass("over3");
+},function(){
+	$("#c2").slideDown("fast");
+	$("#p2").removeClass("over3");
+});
+$("#p3").toggle(function(){
+	$("#c3").slideUp("fast");
+	$("#p3").addClass("over3");
+},function(){
+	$("#c3").slideDown("fast");
+	$("#p3").removeClass("over3");
+});
+function my_noteaff(AFF_ID)
+{
+  my_left=document.body.scrollLeft+event.clientX-event.offsetX-50;
+  my_top=document.body.scrollTop+event.clientY-event.offsetY+150;
+  window.open("__APP__/Calendar/affairnote/AFF_ID/"+AFF_ID,"note_win"+AFF_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+function my_notecal(CAL_ID)
+{
+  my_left=document.body.scrollLeft+event.clientX-event.offsetX-50;
+  my_top=document.body.scrollTop+event.clientY-event.offsetY+150;
+  window.open("__APP__/Calendar/note/CAL_ID/"+CAL_ID,"note_win"+CAL_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+		
+	</script>
+<include file="Public:footer" />

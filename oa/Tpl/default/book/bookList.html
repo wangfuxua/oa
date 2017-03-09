@@ -1,0 +1,78 @@
+﻿<include file="Public:header2" />
+<script language="JavaScript">
+function detail(BOOK_ID)
+{
+ URL="__URL__/bookDetail/?BOOK_ID="+BOOK_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "图书查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "图书列表", Url: "__URL__/bookList", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "图书查询", Url: "__URL__/queryIndex", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="KDMain">
+<table>
+<caption class="nostyle">图书列表</caption>
+<thead>
+  <tr>
+      <th>部门</th>
+      <th>书名</th>
+      <th>类别</th>
+      <th>作者</th>
+      <th>出版社</th>
+      <th>存放地点</th>
+      <th>借阅状态</th>
+      <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <volist name="list" id="vo">
+  <tr>
+      <td>{$vo.DEPT_ID|getDeptname}</td>
+      <td>{$vo.BOOK_NAME}</td>
+      <td>{$vo.TYPE_ID|getTypename}</td>
+      <td>{$vo.AUTHOR}</td>
+      <td>{$vo.PUB_HOUSE}</td>
+      <td>{$vo.AREA}</td>
+      <td>{$vo.LEND_DESC}</td>
+      <td>
+        <a href="javascript:detail('{$vo.BOOK_ID}');">详情 </a>
+      </td>
+    </tr>
+   </volist> 
+    </tbody>
+  <tfoot>  
+ <tr>
+  <th colspan="8" align="right">{$page}
+  </th>
+  </tr>
+  </tfoot>
+</table>
+</div>
+<include file="Public:footer" />

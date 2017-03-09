@@ -1,0 +1,249 @@
+<include file="Public:header" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>合同记录</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+<script src="../Public/js/calendar.js"></script>
+<script src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked)
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+<style type="text/css">
+.calendar{width:220px;height:100px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+.required {color: #ff0000;}
+</style>
+</head>
+<body>
+<!--	<ul class="dm_submenuul">
+		<li><a href="__URL__/lists" title=""><span>合同记录列表</span></a></li>
+		<li class="dm_on"><a href="__URL__/create" title=""><span><if condition="$update">修改<else/>新建</if>合同记录</span></a></li>
+	</ul>-->
+
+<form method="POST" name="form1" action='<if condition="$update">__URL__/update<else/>__URL__/save</if>' onSubmit="return idNull('name','name_msg','姓名不能为空！');">		
+<table>
+<colgroup>
+	<col width="10%" />
+	<col width="32%" />
+	<col width="10%" />
+	<col width="32%" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="contract_id" value="{$contract_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset" >重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+	<tr><th class="tdtit" colspan="4"><h4>基本信息<font size="1" style="color:red;">(记录建立后不能修改,请认真填写)</font></h4></th></tr>
+	<tr>
+      <td>合同编号：<span class="required">*</span></td>
+      <td><input type="text" name="code" value="{$contract_res['code']}"></td>
+		<td>合同名称：<span class="required">*</span></td>
+		<td ><input type="text" name="name" value="{$contract_res['name']}"></td>
+	</tr>	
+    <tr>
+      <td>客户名称：<span class="required">*</span></td>
+      <td>
+		<input type="hidden" name="account_id" id="account_id" value="{$contract_res['account_id']}">
+        <input type="text" name="account_name" id="account_name" value="{$contract_res['account_name']}" readonly>
+        <button type="button" onClick="KDwin('__APP__/Account/lists/to_id/account_id/to_name/account_name',500,350,'选择客户');">选择</button>
+      </td>
+      <td>合同类型：<span class="required">*</span></td>
+      <td>
+<!--      <select name="type">
+      <option value="">--请选择--</option>
+      <volist name="category" id="cate_vo">
+      <option value="{$cate_vo['name']}" <eq name="cate_vo['name']" value="$contract_res['type']">selected</eq>>{$cate_vo['name']}</option>
+      </volist>
+      </select>-->
+		<input id="type_id" type="hidden" />
+		<input name='type' id="type" type="text" tabindex='2' size='20' maxlength='25' value="{$contract_res['type']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/contract_type/to_id/type_id/to_name/type',500,350,'选择合同类型');">选择</button>
+      </td>
+   </tr>
+    <tr>
+      <td>合同内容：</td>
+      <td  colspan="3"><textarea name='content' tabindex='5' cols="60" rows="8">{$contract_res['content']}</textarea>
+      </td>
+   </tr>
+	<tr>
+      <td>生效日期：<span class="required">*</span></td>
+      <td><input type="text" name="star_time" id="star_time" value="{$contract_res['star_time']}" readonly><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('star_time', '%Y-%m-%d');"  /></td>
+	  <td>终止日期：<span class="required">*</span></td>
+		<td ><input type="text" name="end_time" id="end_time" value="{$contract_res['end_time']}" readonly><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('end_time', '%Y-%m-%d');"  /></td>
+	</tr>
+	<tr>
+      <td>终止提示日期：</td>
+      <td><input type="text" name="end_prompt_time" id="end_prompt_time" value="{$contract_res['end_prompt_time']}" readonly><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('end_prompt_time', '%Y-%m-%d');"  /></td>
+		<td>终止提示人员：</td>
+		<td >
+		<input id='one_or_more_1' type="hidden" value="n" />
+		<input id='end_prompt_user_id' name='end_prompt_user_id' type="hidden" value="{$contract_res['end_prompt_user_id']}" />
+		<input id="end_prompt_user_name" name='end_prompt_user_name' type="text" value="{$contract_res['end_prompt_user_name']}" size="50" readonly />
+		<button title="选择" type="button"  onclick="setInput('end_prompt_user_id','end_prompt_user_name','right_show1','true')"/>选择</button>
+		</td>
+	</tr>
+	<tr>
+      <td>买方签约人：<span class="required">*</span></td>
+      <td><input type="text" name="buyer" value="{$contract_res['buyer']}"></td>
+		<td>买方签约人电话：</td>
+		<td ><input type="text" name="buyer_phone" value="{$contract_res['buyer_phone']}"></td>
+	</tr>
+	<tr>
+      <td>卖方签约人：<span class="required">*</span></td>
+      <td>
+		<input id='one_or_more_2' type="hidden" value="y" />
+		<input id='seller_id' name='seller_id' type="hidden" value="{$contract_res['uid']}" />
+		<input id="seller_name" name='seller_name' type="text" value="{$contract_res['USER_NAME']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('seller_id','seller_name','right_show1','true')"/>选择</button>
+		</td>
+	  <td>卖方签约人电话：</td>
+		<td ><input type="text" name="seller_phone" value="{$contract_res['seller_phone']}"></td>
+	</tr>
+    <tr>
+      <td>备注：</td>
+      <td colspan="3"><textarea name='notation' tabindex='5' cols="50" rows="8">{$contract_res['notation']}</textarea>
+      </td>
+   </tr>
+ 	<!--<tr><th class="tdtit" colspan="4"><h4>回款记录<font size="1">(如果添加,带*项必填)</font></h4></th></tr>
+  
+	<tr>
+      <td colspan="4">
+      	<table id="payment_record">
+      	<tr>
+      	<td>产品/服务<span class='required'>*</span></td>
+      	<td>售价<span class='required'>*</span></td>
+      	<td>数量<span class='required'>*</span></td>
+      	<td>总计</span></td>
+      	<td>当前回款<span class='required'>*</span></td>
+      	<td>回款日期<span class='required'>*</span></td>
+      	<td>未结款</span></td>
+      	<td></td>
+      	</tr>
+      	<volist name="payment_res" id="pay_vo" key="key">
+      	<tr>
+      	<td><input type='hidden' name='product_id[]' id='pro_id_{$key}' value="{$pay_vo['product_id']}" /><input type='text'  name='product_name[]' id='pro_name_{$key}' size='16' value="{$pay_vo['product_name']}" /><button title='产品'  type='button' onclick="OtherSelect('__APP__/Product/lists','pro_id_{$key}','pro_name_{$key}',500,400);">产品</button><button title='服务'  type='button' onclick="OtherSelect('__APP__/Product/slists','pro_id_{$key}','pro_name_{$key}',500,400);">服务</button></td>
+      	<td><input type='text' size='8' name='sale_price[]' id='sale_price_{$key}' value="{$pay_vo['product_sale_price']}" onblur="count_and_debt('sale_price_{$key}','sale_num_{$key}','count_{$key}','payment_{$key}','debt_{$key}');" /></td>
+      	<td><input type='text' size='8' name='sale_num[]' id='sale_num_{$key}' value="{$pay_vo['product_sale_num']}" onblur="count_and_debt('sale_price_{$key}','sale_num_{$key}','count_{$key}','payment_{$key}','debt_{$key}');" /></td>
+      	<td><input type='text' size='10' id='count_{$key}' value="{$pay_vo['money_count']}" readonly/></td>
+      	<td><input type='text' size='10' name='payment[]' id='payment_{$key}' value="{$pay_vo['payment']}" onblur="count_and_debt('sale_price_{$key}','sale_num_{$key}','count_{$key}','payment_{$key}','debt_{$key}');" /></td>
+      	<td><input type='text' size='8' name='pay_time[]' value="{$pay_vo['pay_time']}" id='pay_time_{$key}' /><img src='../Public/images/ico/calendar.png' alt=''  onclick="return showCalendar('pay_time_{$key}', '%Y-%m-%d');"  /></td>
+      	<td><input type='text' size='10' id='debt_{$key}' value="{$pay_vo['debt']}" readonly/></td>
+      	<td><input type="hidden" name="pay_id[]" value="{$pay_vo['id']}"><button title='删除回款记录'  type='button' onclick='delete_row(this.parentNode.parentNode.rowIndex);' >删除</button></td>
+      	</tr>
+      	</volist>
+      	</table>
+      </td>
+	</tr> 
+		<tr>
+      <td colspan="4"><button title="添加回款记录"  type="button" onclick="add_row();" >添加回款记录</button></td>
+	</tr> -->
+</table>
+
+</form>
+
+
+<include file="Public:alert_lable" />
+</body></html>
+<!--<script>
+var payment_row = 0;
+function add_row(){
+	payment_row++;
+	var tableName = document.getElementById('payment_record');
+	var prev = tableName.rows.length;
+    var count = prev;
+    var row = tableName.insertRow(prev);
+	row.id = "payment"+count;
+	var col1 = row.insertCell(0);
+	var col2 = row.insertCell(1);
+	var col3 = row.insertCell(2);
+	var col4 = row.insertCell(3);
+	var col5 = row.insertCell(4);
+	var col6 = row.insertCell(5);
+	var col7 = row.insertCell(6);
+	var col8 = row.insertCell(7);
+
+	col1.innerHTML="<input type='hidden' name='product_id[]' id='pro_id_"+prev+"' value='' /><input type='text'  name='product_name[]' id='pro_name_"+prev+"' size='16' value='' readonly /><button title='产品'  type='button' onclick=\"OtherSelect('__APP__/Product/lists','pro_id_"+prev+"','pro_name_"+prev+"',500,400);\">产品</button><button title='服务'  type='button' onclick=\"OtherSelect('__APP__/Product/slists','pro_id_"+prev+"','pro_name_"+prev+"',500,400);\">服务</button>";
+	col2.innerHTML="<input type='text' size='8' name='sale_price[]' id='sale_price_"+prev+"' onblur=\"count_and_debt('sale_price_"+prev+"','sale_num_"+prev+"','count_"+prev+"','payment_"+prev+"','debt_"+prev+"');\" />";
+	col3.innerHTML="<input type='text' size='8' name='sale_num[]' id='sale_num_"+prev+"' onblur=\"count_and_debt('sale_price_"+prev+"','sale_num_"+prev+"','count_"+prev+"','payment_"+prev+"','debt_"+prev+"');\" />";
+	col4.innerHTML="<input type='text' size='10' id='count_"+prev+"' readonly/>";
+	col5.innerHTML="<input type='text' size='10' name='payment[]' id='payment_"+prev+"' onblur=\"count_and_debt('sale_price_"+prev+"','sale_num_"+prev+"','count_"+prev+"','payment_"+prev+"','debt_"+prev+"');\" />";
+	col6.innerHTML="<input type='text' size='8' name='pay_time[]' id='pay_time_"+prev+"' /><img src='../Public/images/ico/calendar.png' alt=''  onclick=\"return showCalendar('pay_time_"+prev+"', '%Y-%m-%d');\"  />";
+	col7.innerHTML="<input type='text' size='10' id='debt_"+prev+"' readonly/>";
+	col8.innerHTML="<input type='hidden' name='pay_id[]' value=''><button title='删除回款记录'  type='button' onclick='delete_row(this.parentNode.parentNode.rowIndex);' >删除</button>";
+
+}
+function delete_row(i)
+{
+	 payment_row--;
+	 document.getElementById('payment_record').deleteRow(i);
+}
+
+function count_and_debt(price_id,num_id,count_id,pay_id,debt_id){
+	var pattern = /^[0-9]+.?[0-9]*$/; 
+	var price = document.getElementById(price_id).value;
+	var num = document.getElementById(num_id).value;
+	var pay = document.getElementById(pay_id).value;
+	if(!pattern.test(price)){
+		alert('售价必须为大于零的数字!');
+		return false;
+	}
+	if(!pattern.test(num)){
+		alert('数量必须为大于零的数字!');
+		return false;
+	}
+	var cou = Math.round(price*num*100)/100;
+	document.getElementById(count_id).value = cou;
+	if(pay && !pattern.test(pay)){
+		alert('回款必须为数字!');
+		return false;
+	}
+	document.getElementById(debt_id).value = Math.round((cou-pay)*100)/100;
+}
+</script>-->

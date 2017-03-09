@@ -1,0 +1,120 @@
+<include file="Public:header" />
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#zworkName").formValidator({onshow:"请输入名称/文号",onfocus:"名称/文号不能为空",oncorrect:"名称/文号合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"名称/文号两边不能有空符号"},onerror:"名称/文号不能为空,请确认"});;
+	$("#grade").formValidator({onshow:"请输入工作等级",onfocus:"工作等级不能为空",oncorrect:"工作等级合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"工作等级两边不能有空符号"},onerror:"工作等级不能为空,请确认"});
+});
+</script>
+<script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+<body>
+<form action="__URL__/test" method="post" name="form1" target="_parent">
+	<h2 class="dm_schedule">填写该工作的名称或文号</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<input type="hidden" value="{$modelId}" name="modelId">
+			<tr><th colspan="3">发文 - 名称/文号</th></tr>
+			<tr>
+			<td class="dm_zanal">工作名称：</td>
+			<td><input name="zworkName" id="zworkName" value="{$zworkName}" type="text" class="dm_inputsen"/></td>
+			<td><div id="zworkNameTip"></div></td>
+			</tr>
+			<tr>
+			<td class="dm_zanal">工作等级：</td>
+			<td><select name="grade" id="grade">
+				<option value="0">一般</option>
+				<option value="1">重要</option>
+				<option value="2">紧急</option>
+				<option value="3">紧急且重要</option>
+				</select></td>
+			<td><div id="gradeTip"></div></td>
+			</tr>
+			<tr class="tdcenter">
+			<td colspan="3" class="dm_btnzan">
+			</td>
+			</tr>
+		</table>		
+
+	</div>
+	<h2 class="dm_schedule">建立该工作流程说明及步骤列表</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<tr>
+				<th>流程步骤</th>
+				<th>承办内容</th>
+				<th>承办人</th>
+			</tr>
+		<iterate name="moduleFlowList" id="vo" key="k">
+			<tr>
+				<td>{$vo['flowId']}</td>
+				<input name="flowId[{$k}]" value="{$vo['flowId']}" type="hidden">
+				<input name="modulefiled[{$k}]" value="{$vo['modulefiled']}" type="hidden">
+				<td>{$vo['flowName']}</td>
+				<td><input name="userId[{$k}]_NAME" value="" readonly></textarea>
+	<input type="hidden" name="userId[{$k}]_ID">
+	&nbsp;&nbsp;<button name="Abutton1" onClick="oWin('userId[{$k}]')">添加</button>
+	&nbsp;</td>
+			</tr>
+		</iterate>
+		</table> 
+		<div id="msg"></div>		
+	</div>
+	
+	
+	<h2 class="dm_schedule">操作</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<tr><th><button name="Abutton1" type="submit">创建</button></th></tr></table>
+	</div>	
+	</form>
+	
+	
+				<!--选择用户模块开始-->
+  <include file="Public:userselect" />
+        <!--选择用户模块结束-->
+	
+	
+	
+        
+</body>
+</html>

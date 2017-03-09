@@ -1,0 +1,86 @@
+<include file="Public:header2" />
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+				<if condition="$USER_ID neq ''">
+            { Title: "日志列表", Url: "__URL__/infolist/USER_ID/{$USER_ID}", Cls: "", Icon: "", IconCls: "ico ico-view" },
+            { Title: "日志查询", Url: "__URL__/infosearch/USER_ID/{$USER_ID}", Cls: "", IconCls: "ico ico-query" },
+            { Title: "周报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/week", Cls: "", IconCls: "ico ico-list" },
+            { Title: "月报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/month", Cls: "", IconCls: "ico ico-list2" }
+			</if>
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="main">
+
+		<form method="post" action="__URL__/infolist" name="form1">
+			<table>
+			<caption class="nostyle">{$desc}</caption>
+				<colgroup>
+					<col width="80"></col>
+					<col></col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>起始日期：</td>
+						<td>
+							<fieldset>
+								<input name="DIA_DATE_START" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+								<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onclick="WdatePicker({el:$dp.$('DIA_DATE_START'),dateFmt:'yyyy-MM-dd'})"  />
+							</fieldset>
+						</td>
+					</tr>
+					<tr>
+						<td>截止日期：</td>
+						<td>
+							<fieldset>
+								<input name="DIA_DATE_END" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+								<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onclick="WdatePicker({el:$dp.$('DIA_DATE_END'),dateFmt:'yyyy-MM-dd'})"  />
+							</fieldset>
+						</td>
+					</tr>
+					<tr>
+						<td>关键词1：</td>
+						<td><input name="key1" type="text" />&nbsp;</td>
+					</tr>
+					<tr>
+						<td>关键词2：</td>
+						<td><input name="key2" type="text" /></td>
+					</tr>
+					<tr>
+						<td>关键词3：</td>
+						<td><input name="key3" type="text" /></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="2">
+						<input type="hidden" name="USER_ID" value="{$USER_ID}">
+						<button type="submit" title="查询">查询</button>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,58 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function set_page()
+{
+ PAGE_START=(PAGE_NUM.value-1);
+ location="index.php?PAGE_START="+PAGE_START;
+}
+</script>
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_new.gif" align="absmiddle"><span class="big3">申报复核</span><br>
+    </td>
+  </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/book.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 申报项目列表 </span>
+    </td>
+    </tr>
+</table>
+
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3">
+  <tr class="TableHeader">
+      <td nowrap align="center">申报部门</td>
+      <td nowrap align="center">项目名称</td>
+      <td nowrap align="center">主申报人</td>
+      <td nowrap align="center">申报时间</td>
+      <td nowrap align="center">是否竞标</td>
+      <td nowrap align="center">操作</td>
+  </tr>
+
+ <volist name="list" id="vo" key="k" mod="2">
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td nowrap align="center">{$vo.BM_NAME}</td>
+      <td nowrap align="center">{$vo.MC}</td>
+      <td nowrap align="center">{$vo.ZSBR_NAME}</td>
+      <td nowrap align="center">{$vo.SJ}</td>
+      <td nowrap align="center">
+      <if condition="$vo[JB] eq 1">
+      是
+      <else />
+      否
+      </if>
+      </td>
+      <td nowrap align="center"><a href="manage/XM_ID/{$vo.XM_ID}/TYPE_ID/{$vo.TYPE_ID}">查看并审核</a></td>
+    </tr>
+  </volist>
+</table>
+{$page}
+  
+
+<include file="Public:footer" />

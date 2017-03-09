@@ -1,0 +1,82 @@
+<include file="Public:header_module2" />
+<include file="Public:header_address" />
+     	<div id="mainPannel">
+    <!--active 为该文件夹操作-->
+  <table>
+  <caption>联系人查询
+  	<p><form action="__URL__/SearchSubmit" name="form2" method="POST">
+全局查询 <input type="text" name="PSN_NAME" size="10" class="BigInput"><button type="button" onclick="document.form2.submit();" class="btn2">搜索</button>
+</form></p>
+  </caption>
+  <col width="100px" />
+  <form action="__URL__/SearchSubmit" name="form1" method="POST">
+  <thead><tr><th colspan="2"></th></tr></thead>
+    <tr>
+    <td>分组：</td>
+    <td>
+         <select name="GROUP_ID" class="BigSelect">
+         <option value="-1">所有</option>
+        <option value="0">默认</option>
+         <volist name="list" id="vo">
+         <option value="{$vo.GROUP_ID}" >{$vo.GROUP_NAME}</option>
+        </volist>
+        </select>
+    </td>
+   </tr>
+    <tr>
+      <td>姓名：</td>
+      <td><input type="text" name="PSN_NAME" size="10" class="BigInput"></td>
+    </tr>
+    <tr>
+      <td> 性别：</td>
+      <td>
+        <select name="SEX" class="BigSelect">
+          <option value="ALL">所有</option>
+          <option value="0">男</option>
+          <option value="1">女</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> 昵称：</td>
+      <td>
+        <input type="text" name="NICK_NAME" size="25" class="BigInput">
+      </td>
+    </tr>
+    <tr>
+      <td> 单位名称：</td>
+      <td>
+        <input type="text" name="DEPT_NAME" size="25" class="BigInput">
+      </td>
+    </tr>
+    <tr>
+      <td>单位地址：</td>
+      <td>
+        <input type="text" name="ADD_DEPT" size="25" class="BigInput">
+      </td>
+    </tr>
+    <tr>
+      <td> 家庭住址：</td>
+      <td>
+        <input type="text" name="ADD_HOME" size="25" class="BigInput">
+      </td>
+    </tr>
+    <tr>
+      <td> 备注：</td>
+      <td>
+        <input type="text" name="NOTES" size="25" class="BigInput">
+      </td>
+    </tr>
+    <tfoot>
+    <tr>
+      <th colspan="2" align="center">
+      <button type="submit" title="进行查询" class="btn2">查询</button>
+      </th>
+    </tr>
+    </tfoot>
+    </form>
+  </table>
+</div>
+</div>
+
+<include file="Public:footer" />

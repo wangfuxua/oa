@@ -1,0 +1,131 @@
+<include file="Public:header" />
+
+<script>
+function my_submit()
+{
+  if(ITEM_NAME.value=="")
+  {
+     alert("控件名称不能为空");
+     return;
+  }
+  else if(ITEM_TYPE.value=="")
+  {
+     alert("宏控件类型不能为空");
+     return;
+  }
+  else if((ITEM_TYPE.value=="SYS_SQL"||ITEM_TYPE.value=="SYS_LIST_SQL")&&ITEM_SQL.value=="")
+  {
+     alert("SQL查询语句不能为空");
+     return;
+  }
+
+  var parent_window = parent.dialogArguments;
+
+  if(ITEM_TYPE.value.indexOf("SYS_LIST")<0)
+     control_html="<input type=text ";
+  else
+     control_html="<select type=text ";
+
+  control_html+=" title=\""+ITEM_NAME.value.replace("\"","&quot;")+"\" class=\"AUTO\" value=\"{宏控件}\" datafld=\""+ITEM_TYPE.value+"\" datasrc=\""+ITEM_SQL.value+"\" style=\"font-size:"+ITEM_SIZE.value+"\">";
+
+  if(ITEM_TYPE.value.indexOf("SYS_LIST")>=0)
+     control_html+="<option>{宏控件}</option></select>";
+
+  if(edit_flag==1)
+  {
+    oSelection =  parent.dialogArguments.document.selection.createRange();
+    oSelection(0).title=ITEM_NAME.value;
+    parent_window.doStyle("delete");
+    parent_window.insertHtml(control_html);
+  }
+  else
+    parent_window.EDIT_HTML.insertHtml(control_html);
+
+  window.close();
+}
+
+
+//-- 获取控件属性 --
+var edit_flag=0;
+function LoadDo()
+{
+  oSelection = dialogArguments.document.selection.createRange();
+  sRangeType = dialogArguments.document.selection.type;
+
+  if (sRangeType == "Control")
+  {
+  	edit_flag=1;
+  	ITEM_NAME.value = oSelection(0).title;
+  	ITEM_SQL.value = oSelection(0).dataSrc;
+  	for(i=0;i<ITEM_TYPE.options.length;i++)
+  	{
+  	   if(ITEM_TYPE.options(i).value==oSelection(0).dataFld)
+  	   {
+  	      ITEM_TYPE.selectedIndex=i;
+  	      break;
+  	   }
+        }
+  	ITEM_SIZE.value = oSelection(0).style.fontSize.replace("px","");
+  }
+  ITEM_NAME.focus();
+}
+</script>
+
+<body topmargin="0" onLoad="LoadDo();">
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+  <tr class="TableContent">
+      <td nowrap>控件名称：
+      </td>
+      <td nowrap>
+       <Input name="ITEM_NAME" type="text" class="SmallInput" size="20">
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap>宏控件类型：
+      </td>
+      <td nowrap>
+       <select class="SmallSelect" name="ITEM_TYPE">
+        <option value="">----单行输入框----</option>
+        <option value="SYS_DATE">当前日期</option>
+        <option value="SYS_TIME">当前时间</option>
+        <option value="SYS_DATETIME">当前日期+时间</option>
+        <option value="SYS_USERID">当前用户ID</option>
+        <option value="SYS_USERNAME">当前用户姓名</option>
+        <option value="SYS_DEPTNAME">当前用户部门</option>
+        <option value="SYS_FORMNAME">表单名称</option>
+        <option value="SYS_RUNNAME">文号</option>
+        <option value="SYS_RUNDATE">流程开始日期</option>
+        <option value="SYS_RUNDATETIME">流程开始日期+时间</option>
+        <option value="SYS_SQL">来自SQL查询语句</option>
+        <option value="">----下拉菜单----</option>
+        <option value="SYS_LIST_DEPT">部门列表</option>
+        <option value="SYS_LIST_USER">人员列表</option>
+        <option value="SYS_LIST_PRIV">角色列表</option>
+        <option value="SYS_LIST_PRCSUSER1">流程经办人列表</option>
+        <option value="SYS_LIST_PRCSUSER2">本步骤经办人列表</option>
+        <option value="SYS_LIST_SQL">来自SQL查询语句</option>
+       </select>
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap>SQL查询语句<br>('号用`号替换)：
+      </td>
+      <td nowrap>
+       <textarea name="ITEM_SQL" class="SmallInput" cols="26" rows="3" title="如宏控件类型选择来自SQL查询语句，则填写"></textarea>
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap>字体大小：
+      </td>
+      <td nowrap>
+       <Input name="ITEM_SIZE" type="text" class="SmallInput" size="20" title="可选，默认13像素">
+      </td>
+  </tr>
+  <tr>
+      <td class="TableControl" colspan="2" align="center">
+        <input type="submit" onClick="my_submit();" value="确 定" class="SmallButton">
+      </td>
+  </tr>
+</table>
+<include file="Public:footer" />

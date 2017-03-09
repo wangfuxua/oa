@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>投票管理</title>
+<meta name="author" content="Jay" />
+<link href="../public/style/default/css/kdstyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KD.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/main.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票管理设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "投票管理", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建投票", Url: "__URL__/add", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+</head>
+
+<body>
+
+	<div class="KDStyle" id="main">
+		<div class="mainpanelHead">
+			<h2>投票项目管理———{$voteList['SUBJECT']}</h2>
+		</div>
+		<table>
+		   <colgroup>
+		    <col width="300px"></col>
+		    <col width="60"></col>
+		    <col></col>
+		    <col width="120"></col>
+		   </colgroup>
+			<thead>
+				<tr>
+					<th>选项</th>
+					<th>票数</th>
+					<th>投票人员</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<iterate name="voteItemList" id="vo">
+			    <form method="post" action="__URL__/itemUpdate">
+			    <input type="hidden" name="VOTE_ID" value="{$vo[VOTE_ID]}">
+			    <input type="hidden" name="ITEM_ID" value="{$vo[ITEM_ID]}">
+				<tr class="tcenter">
+					<td><input type="text" name="ITEM_NAME" value="{$vo['ITEM_NAME']}" size="" style="width:98%"></td>
+					<td>{$vo['VOTE_COUNT']}票</td>
+					<td><if condition="$ANONYMITY neq 'on'">{$vo['VOTE_USER_NAME']}</if></td>
+					<td><button type="submit" name="submit" value="修改">修改</button>
+					<button type="button" value="删除" onclick="if (confirm('您真的要删除该条选项吗？注意：该操作不可恢复!'))location.href='__URL__/itemDelete/ITEM_ID/{$vo.ITEM_ID}/VOTE_ID/{$vo.VOTE_ID}'">删除</button>
+					</td>
+				</tr>
+				</form>
+				</iterate>
+				<tfoot>
+				<tr class="tdcenter">
+				<form method="POST" action="__URL__/itemAdd">
+				<th colspan="4">添加项目：
+				<input type="text" name="ITEM_NAME" size="40">
+				<input type="hidden" name="VOTE_ID" value="{$voteList['VOTE_ID']}">&nbsp;&nbsp;
+				<button type="submit" name="submit" value="添加">添加</button>
+				</form>
+				</th>
+				</tr>
+				</tfoot>
+		</table>
+		
+	</div>
+</body>
+</html>

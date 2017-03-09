@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户反馈列表</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+
+<body>
+<form action="__APP__/Report/search/to_id/{$to_id}/to_name/{$to_name}" method="post">
+<table>
+	<caption class="nostyle">查找客户反馈</caption>
+	<colgroup>
+		<col width="20%" />
+		<col width="30%" />
+		<col width="20% " />
+		<col width="30%" />
+	</colgroup>
+	<tr>
+	<td width="20%" class="dataLabel">主题：</td>
+	<td width="30%" class="dataField"><input name='subject' tabindex='1' size='25' maxlength='25' type="text" value=""></td>
+	<td width="20%" class="dataLabel">客户名称：</td>
+	<td width="30%" class="dataField"><input name='account_name' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+	</tr>
+	<tr>
+	<td td width="20%" class="dataLabel"class="dataLabel">客户反馈编号：</td>
+	<td td width="30%" class="dataLabel"class="dataField"><input name='id' type="text" tabindex='1' size='25' maxlength='25' value="">
+	</td>
+	<td td width="20%" class="dataLabel"class="dataLabel"></td>
+	<td td width="30%" ></td>
+	</tr>
+	<tfoot>
+	    <tr>
+	      <td colspan="4">
+	      	<button tabindex='2' title="查找" accessKey="Q" class="button" type="submit" value="" >查找</button>
+		 </td>
+	    </tr>
+	    </tfoot>    
+</table>
+</form>
+
+ <table>
+	<caption class="nostyle">客户反馈列表</caption>
+	<colgroup>
+		<col width="" />
+		<col width="" />
+		<col width="" />
+		<col width="" />
+		<col width="15%" />
+		<col width="15%" />
+		<col width="10%" />
+	
+	</colgroup>
+	<thead>
+		<tr>
+			<td colspan="7">{$page}</td>
+		</tr>
+		<tr height="20">
+		<th scope="col" width="7%" class="listViewThS1">编号&nbsp;<img border='0' src='../Public/images/arrow.gif' width='4' height='6' align='absmiddle' alt='Sort'></th>
+		<th scope="col" width="32%" class="listViewThS1">主题&nbsp;<img border='0' src='../Public/images/arrow.gif' width='4' height='6' align='absmiddle' alt='Sort'></th>
+		<th scope="col" width="23%" class="listViewThS1">客户名称&nbsp;<img border='0' src='../Public/images/arrow.gif' width='4' height='6' align='absmiddle' alt='Sort'></th>
+		<th scope="col" width="10%" class="listViewThS1">状态&nbsp;<img border='0' src='../Public/images/arrow.gif' width='4' height='6' align='absmiddle' alt='Sort'></th>
+		</tr>
+	</thead>
+	<volist name="report_res" id="vo">
+	<tr height="20"  >
+	<td scope="row" valign=TOP class="oddListRowS1" bgcolor="#f1f1f1" >&nbsp;{$vo['id']}</td>
+	            <td valign=TOP class="oddListRowS1" bgcolor="#f1f1f1" ><a href="###" class="listViewTdLinkS1" onclick="setParentValue(Array('report_name','report_id'),Array('{$vo['subject']}','{$vo['id']}'));"> <img border='0'  src='../Public/images/MoreDetail.png' width=8 height=7>{$vo['subject']}</a></td>
+	            <td valign=TOP class="oddListRowS1" bgcolor="#f1f1f1" >{$vo['account_name']}</td>
+	            <td valign=TOP class="oddListRowS1" bgcolor="#f1f1f1"  nowrap>{$vo['status']}</td>
+	
+	</tr>
+	</volist>	
+	<tfoot>
+		<tr>
+			<td colspan="7">{$page}</td>
+		</tr>
+	</tfoot>
+</table>
+
+
+</body></html>

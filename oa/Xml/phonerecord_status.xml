@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>1</id>
+<name>立即处理</name>
+<sort>2</sort>
+</item>
+<item>
+<id>2</id>
+<name>稍后处理</name>
+<sort>2</sort>
+</item>
+<item>
+<id>3</id>
+<name>确认后处理</name>
+<sort>1</sort>
+</item>
+</document>

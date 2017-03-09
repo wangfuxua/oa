@@ -1,0 +1,49 @@
+<include file="Public:header" />
+<script>
+var menu_id=0;
+
+function setPointer(theRow, thePointerColor,menu_id_over)
+{
+  if(menu_id!=menu_id_over)
+     theRow.bgColor = thePointerColor;
+}
+
+function view_menu1()
+{
+  if(menu_id!=0)
+     parent.menu_main.location="flowForm";
+   menu_id=1;
+   menu_1.bgColor='{$color[1]}';
+   menu_2.bgColor='{$color[2]}';
+}
+
+function view_menu2()
+{
+   parent.menu_main.location="flowType";
+   menu_id=2;
+   menu_1.bgColor='{$color[2]}';
+   menu_2.bgColor='{$color[1]}';
+}
+
+</script>
+
+<body topmargin="0" leftmargin="0" onLoad="view_menu1()">
+
+<TABLE class="big" cellspacing="0" height="100%" width="100%" bgcolor="{$color[2]}" border="1" cellpadding="1" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+ <TR>
+
+   <TD nowrap title="设计表单" id="menu_1" onClick="view_menu1()" onMouseOver="setPointer(this, '{$color[3]}',1)" onMouseOut="setPointer(this, '{$color[2]}',1)" style="cursor:hand">
+       &nbsp;<img src="/images/sys_config.gif"><b><font color="#000000"> 设计表单</span>&nbsp;&nbsp;&nbsp;&nbsp;
+   </TD>
+
+   <TD nowrap title="定义流程" id="menu_2" onClick="view_menu2()" onMouseOver="setPointer(this, '{$color[3]}',2)" onMouseOut="setPointer(this, '{$color[2]}',2)" style="cursor:hand">
+       &nbsp;<img src="/images/sys_config.gif"><b><font color="#000000"> 定义流程</span>&nbsp;&nbsp;&nbsp;&nbsp;
+   </TD>
+   
+   <td width="500"></td>
+   
+   </TR>
+</TABLE>
+
+</body>
+<include file="Public:footer" />

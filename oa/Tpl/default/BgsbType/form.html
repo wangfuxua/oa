@@ -1,0 +1,81 @@
+<include file="Public:header2" />
+<script language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.listorder.value=="")
+   { alert("排序号不能为空！");
+     return (false);
+   }
+
+   if(document.form1.typename.value=="")
+   { alert("类别名称不能为空！");
+     return (false);
+   }
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "办公设备类别",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: <if condition="$row[typeid] eq ''">2</if><if condition="$row[typeid] neq ''">3</if>,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "管理类别", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建类别", Url: "__URL__/form", Cls: "", IconCls: "ico ico-list" }
+			<if condition="$row[typeid] neq ''">
+			,
+            { Title: "编辑类别", Url: "#", Cls: "", IconCls: "ico ico-list" }
+			</if>
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body onLoad="document.form1.typename.focus();">
+
+<div class="KDStyle" id="KDMain">
+<form action="__URL__/submit"  method="post" name="form1" onSubmit="return CheckForm();">
+<table>
+<col width="120px" />
+   <tr>
+    <th>类别排序号：</th>
+    <td>
+        <input type="text" name="listorder" size="3" maxlength="3" value="{$row.listorder}">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>类别名称：</th>
+    <td>
+        <input type="text" name="typename" size="25" maxlength="100" value="{$row.typename}">&nbsp;
+    </td>
+   </tr>
+   <tfoot>
+   <tr>
+    <th nowrap  class="TableControl" colspan="2" align="center">
+        <input type="hidden" value="{$row.typeid}" name="typeid">
+        <button type="submit">确定</button>
+        <button onClick="location='__URL__/index'">返回</button>
+    </th>
+   </tr>
+   </tfoot> 
+  
+</table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

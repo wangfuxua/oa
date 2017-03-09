@@ -1,0 +1,98 @@
+<include file="Public:header_module2" />
+<include file="Public:header_addresspublic" />
+
+<script>
+function add_detail(ADD_ID)
+{
+ URL="__URL__/detail/ADD_ID/"+ADD_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"detail","height=500,width=400,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+
+function delete_add(ADD_ID)
+{
+ msg='确认要删除该联系人么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/ADD_ID/" + ADD_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<style>
+#leftpannel,#leftPanel { overflow:auto}
+.sTree .sTreeNode {padding:0;line-height:26px;padding-left:10px; white-space:nowrap}
+</style>
+     	<div id="mainPannel">
+		<div class="mainpanelHead">
+       <h2><a href="__URL__/index/GROUP_ID/{$GROUP_ID}" title="">联系人列表({$GROUP_NAME})</a></h2>
+	   <p>
+<form action="__URL__/SearchSubmit" name="form1" method="POST">
+<label>
+全局查询</label><input type="text" name="PSN_NAME" size="10" class="BigInput"><button type="button" onclick="document.form1.submit();">搜索</button>
+</form>
+	</p>
+</div>
+
+		<table>
+				<colgroup>
+					<col width="8%"></col>
+					<col width="5%"></col>
+					<col width="24%"></col>
+					<col width="12%"></col>
+					<col width="12%"></col>
+					<col width="12%"></col>
+					<col width="8%"></col>
+					<col width="12%"></col>
+					<col width="12%"></col>
+				</colgroup>
+				<thead>
+			   <tr>
+				  <th>姓名</th>
+				  <th>性别</th>
+				  <th>单位（部门）</th>
+				  <th>职务</th>
+				  <th>单位电话</th>
+				  <th>家庭电话</th>
+				  <th>手机</th>
+				  <th>电子邮件</th>
+				  <th>操作</th>
+
+			   </tr>
+			   </thead>
+			   <tbody>
+			    <volist name="list" id="vo">
+    <tr>
+      <td><a href="__URL__/detail/ADD_ID/{$vo.ADD_ID}" target="_blank">{$vo.PSN_NAME}</a></td>
+      <td>
+      <if condition="$vo[SEX] eq 0">
+      男
+      <elseif condition="$vo[SEX] eq 1" />
+      女
+      </if>
+
+      </td>
+	  <td>{$vo.DEPT_NAME}</td>
+	  <td>{$vo.MINISTRATION}</td>
+      <td>{$vo.TEL_NO_DEPT}</td>
+      <td>{$vo.TEL_NO_HOME}</td>
+      <!--<td><A href="/general/mobile_sms_personal/new?TO_ID1={$vo.MOBIL_NO},">{$vo.MOBIL_NO}</A></td>-->
+      <td>{$vo.MOBIL_NO}</td>
+      <td><a href="mailto:{$vo.EMAIL}">{$vo.EMAIL}</a></td>
+      <td width="100">
+          <a href="__URL__/detail/ADD_ID/{$vo.ADD_ID}" target="_blank"> 详情</a>
+      </td>
+    </tr>
+  </volist>
+			  </tbody>
+						<tfoot>
+						<tr>
+						<th colspan="9">{$page}</th>
+						</tr>
+						</tfoot>
+			  </table>
+</div>
+
+  </div>
+<include file="Public:footer" />

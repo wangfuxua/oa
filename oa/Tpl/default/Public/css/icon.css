@@ -1,0 +1,21 @@
+﻿/*
+  * ICON Style
+  *
+  */
+b,.ico{width:30px;height:30px;display:block;float:left;background-repeat:no-repeat;background-color:transparent}
+.ico-tit{background-image:url('../images/ico/KD_ICON_Title.gif')}
+.ico-btn-ie6{background-image:url('../images/ico/KD_ICON_Btn.gif')}
+.ico-btn{background-image:url('../images/ico/KD_ICON_Btn.png');_background-image:url('../images/ico/KD_ICON_Btn.gif')}
+/* Title Bar */
+.mydesktop{background-position:-30px -121px}
+/* Btn */
+.ico-custombtn{background-position:-30px -125px}
+.ico-funbar-module{background-position:-120px -125px}
+.ico-funbar-layout{background-position:-150px -125px}
+.ico-funbar-style{background-position:-180px -125px}
+.ico-save {background-position:-60px -125px}
+.ico-reset{background-position:-90px -125px}
+
+.ico-arrow-bottom{ background-position:-24px -272px}
+.ico-close{background-position:-64px -272px}
+.ico-tips-cue{background-position:-210px -125px}

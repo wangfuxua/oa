@@ -1,0 +1,90 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+
+<script>
+function Exit_OA()
+{
+ window.open("/general/exit_close.php","OA_EXIT","height=2,width=2,top=2000,left=2000");
+}
+
+function re_login()
+{
+   parent.parent.close();
+   window.open("relogin.php","OA_RELOGIN","top=2000,left=2000");
+}
+</script>
+<script language="JavaScript">
+if (window.Event)
+  document.captureEvents(Event.MOUSEUP);
+
+function nocontextmenu()
+{
+ event.cancelBubble = true
+ event.returnValue = false;
+
+ return false;
+}
+
+function norightclick(e)
+{
+ if (window.Event)
+ {
+  if (e.which == 2 || e.which == 3)
+   return false;
+ }
+ else
+  if (event.button == 2 || event.button == 3)
+  {
+   event.cancelBubble = true
+   event.returnValue = false;
+   return false;
+  }
+
+}
+
+document.oncontextmenu = nocontextmenu;  // for IE5+
+document.onmousedown = norightclick;  // for all others
+</script>
+</head>
+
+<body class="bodycolor" topmargin="0" leftmargin="0" onunload='Exit_OA();'>
+
+<table width="100%" height="50" border="0" cellspacing="0" cellpadding="0">
+  <tr class="topbar1">
+<?
+  if($ATTACHMENT_ID!=""&&$ATTACHMENT_NAME!="")
+  {
+?>
+    <td width="<?=$IMG_WIDTH?>">
+    <img src="/attachment/<?=$ATTACHMENT_ID?>/<?=$ATTACHMENT_NAME?>" width="<?=$IMG_WIDTH?>" height="<?=$IMG_HEIGHT?>">
+    </td>
+<?
+   }
+?>
+    <td>
+      <div style="font-family:<?=$BANNER_FONT?>; color:#FFFFFF; filter:Glow(Color=#000000,Strength=2); WIDTH: 100%; FONT-WEIGHT: bold; FONT-SIZE: 19pt; margin-top:5pt">
+      &nbsp;<?=$BANNER_TEXT?>
+      </div>
+    </td>
+    <td width="300" class="topbar2">
+      <div align="right" style="color:#000000;filter:dropshadow(color=#FFFFFF,offx=1,offy=1,positive=1); WIDTH: 100%;  HEIGHT:20pt; FONT-WEIGHT: bold; FONT-SIZE: 9pt;">
+<?
+  $CUR_DATE=date("Y-m-d",time());
+  echo format_date($CUR_DATE);
+  echo " 星期".get_week($CUR_DATE);
+  echo " 农历".chinese_date(date('Y'),date('m'),date('d'));
+?>
+&nbsp;
+</div>
+　　　　<a href="/general/table_index.php" target="table_index"><img src="/images/menu/mytable.gif" width="16" height="16" border="0" alt="我的办公桌"><font color=black>&nbsp;桌面</font></a>
+　　　<a href="#" onclick="re_login();"><img src="/images/login.gif" border="0"width="16" height="16" alt="注销<?=$LOGIN_USER_ID?>"><font color=black>&nbsp;注销</font></a>
+　　　<a href="/general/exit.php" target="_parent"><img src="/images/menu/exit.gif" width="16" height="16" border="0" alt="退出系统"><font color=black>&nbsp;退出</font></a>
+    </td>
+ </tr>
+</table>
+
+</body>
+
+</html>

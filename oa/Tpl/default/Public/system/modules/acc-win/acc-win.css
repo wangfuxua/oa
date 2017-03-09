@@ -1,0 +1,19 @@
+﻿.acc-icon {
+	background-image: url(images/im16x16.gif) !important;
+}
+.demo-acc-shortcut img {
+    background-image: url(images/im48x48.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='system/modules/acc-win/images/im48x48.png', sizingMethod='scale');
+}
+.demo-acc-connect {
+	background-image: url(images/connect.png) !important;
+}
+.demo-acc-user-add {
+	background-image: url(images/user_add.png) !important;
+}
+.demo-acc-user-delete {
+	background-image: url(images/user_delete.png) !important;
+}
+.user {background-image:url(images/user_gray.png) !important;}
+.user-girl {background-image:url(images/user_female.png) !important;}
+.user-kid {background-image:url(images/user_green.png) !important;}

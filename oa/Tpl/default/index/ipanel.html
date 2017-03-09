@@ -1,0 +1,93 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script>
+var menu_id=1;
+
+function setPointer(element,over_flag,menu_id_over)
+{
+  if(menu_id!=menu_id_over)
+  {
+     if(over_flag==1)
+        element.bgColor="#b3d1ff";
+     else
+        element.bgColor="#eeeeee";
+  }
+}
+
+var init_flag=0;
+function init_menu()
+{
+  init_flag++;
+
+  if(init_flag==2)
+     view_menu(<?=$PANEL?>);
+}
+
+function view_menu(id)
+{
+  //if(menu_id==id)
+    // return;
+  menu_id=id;
+  for(i=1;i<=6;i++)
+  {
+     menu_i="menu_"+i;
+     if(i==id)
+        color_i="#D9E8FF";
+     else
+        color_i="#EEEEEE";
+
+     if(i<=3)
+        menu_top.document.all(menu_i).bgColor=color_i;
+     else
+        menu_bottom.document.all(menu_i).bgColor=color_i;
+  }
+
+  if(id==1)
+  {
+     menu_page.location="about:blank";
+     frame1.rows="22,*,0,0,0,22";
+  }
+  else if(id==2)
+  {
+     menu_page.location="about:blank";
+     frame1.rows="22,0,*,0,0,22";
+  }
+  else if(id==3)
+  {
+     menu_page.location="about:blank";
+     frame1.rows="22,0,0,*,0,22";
+  }
+  else if(id==4)
+  {
+     menu_page.location="shortcut";
+     frame1.rows="22,0,0,0,*,22";
+  }
+  else if(id==5)
+  {
+     menu_page.location="smsbox";
+     frame1.rows="22,0,0,0,*,22";
+  }
+  else if(id==6)
+  {
+     menu_page.location="bookmark";
+     frame1.rows="22,0,0,0,*,22";
+  }
+}
+
+
+</script>
+</head>
+
+<frameset rows="22,*,0,0,0,22"  cols="*" frameborder="NO" border="0" framespacing="0" id="frame1">
+    <frame name="menu_top" scrolling="no" noresize src="/index.php/index/menu_top" frameborder="0">
+    <frame name="menu_main" scrolling="auto" noresize src="/index.php/index/menu" frameborder="0">
+    <frame name="user_online" scrolling="auto" noresize src="/index.php/userOnline/index" frameborder="0">
+    <frame name="user_all" scrolling="auto" noresize src="/index.php/userAll/index" frameborder="0">
+    <frame name="menu_page" scrolling="auto" noresize src="" frameborder="0">
+    <frame name="menu_bottom" scrolling="no" noresize src="/index.php/index/menu_bottom" frameborder="0">
+</frameset>
+
+</html>

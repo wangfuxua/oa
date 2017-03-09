@@ -1,0 +1,44 @@
+<include file="Public:header" />
+<script Language=JavaScript>
+window.setTimeout('this.location.reload();',120000);
+</script>
+<script>
+function plan_detail(PLAN_ID)
+{
+ URL="__URL__/detail/PLAN_ID/"+PLAN_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_work_plan","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+</script>
+<body class="bodycolor" topmargin="5">
+
+<table border="0" cellspacing="1" width="95%" class="small" bgcolor="#000000" cellpadding="3">
+  <tr class="TableHeader">
+      <td nowrap align="center">计划名称</td>
+      <td nowrap align="center">开始时间</td>
+      <td nowrap align="center">结束时间</td>
+      <td nowrap align="center">计划类别</td>
+      <td nowrap align="center">发布范围</td>
+      <td nowrap align="center">负责人</td>
+      <td nowrap align="center">附件</td>
+      <td nowrap align="center">状态</td>
+    </tr>
+    
+<volist name="list0" id="vo" key="k" mod="2">    
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td nowrap align="center"><a href="javascript:plan_detail('{$vo.$PLAN_ID}');">{$vo.$NAME}</a></td>
+      <td nowrap align="center">{$vo.$BEGIN_DATE}</td>
+      <td nowrap align="center">{$vo.$END_DATE}</a></td>
+      <td nowrap align="center">{$vo.$TYPE_DESC}</td>
+      <td nowrap align="center">{$vo.$TO_NAME}</td>
+      <td nowrap align="center">{$vo.$MANAGE_NAME}</td>
+      <td nowrap align="left"> {$vo.att}</td>
+      <td nowrap align="center">{$vo.$STATUS_DESC}</td>
+    </tr>
+</volist>
+ </table>   
+
+<include file="Public:footer" />

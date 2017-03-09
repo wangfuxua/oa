@@ -1,0 +1,11 @@
+﻿				<ul class="ul1 ul3">
+				<volist name="calendarlist" id="vo">
+				<li>{$vo.END_TIME|getHis}&nbsp;<a href="#" onclick='javascript:my_notecal("{$vo.CAL_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>
+				<ul class="ul1 ul3">
+				<volist name="affairlist" id="vo">
+				<li>{$vo.REMIND_TIME}&nbsp;<a href="#" onclick='javascript:my_noteaff("{$vo.AFF_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>
+

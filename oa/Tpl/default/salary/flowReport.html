@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Jay" />
+<title>工资上报管理</title>
+<link href="../public/style/default/css/kdstyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KD.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/main.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "工资上报管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "工资项目定义", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "工资上报流程管理", Url: "__URL__/flowIndex", Cls: "", IconCls: "ico ico-list2" },
+            { Title: "工资报表", Url: "__URL__/flowIndex", Cls: "", IconCls: "ico ico-view" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+</head>
+<body>
+
+	<div class="KDStyle" id="main">
+		<table class="layout_auto">
+			<col width="50px" />
+			<col width="60px" />
+			<col width="60px" />
+			<thead>
+				<tr>
+					<th colspan="21" >工资报表 </th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr class="tcenter">
+					<th>部门</th><th>姓名</th><th>职务</th><iterate name="salItemList" id="vo"><th>{$vo.ITEM_NAME}</th></iterate>
+				</tr>
+			    <iterate name="userModel" id="vo">
+					<tr>
+						<td>{$vo.DEPT_NAME}</td><td>{$vo.USER_NAME}</td><td>{$vo.PRIV_NAME}</td>
+						<sublist name="vo[sub]" id="vodata">
+						<td>
+						{$vodata}
+						</td>
+						</sublist>
+					</tr>
+				</iterate>
+			</tbody>
+			<tfoot>
+				
+				<tr>
+					<th colspan="3">合计</th>
+					<iterate name="listsum" id="vosum">
+					<th>{$vosum}</th>
+					</iterate>
+				</tr>
+			</tfoot>
+		</table>
+
+
+</div>
+</body>
+</html>

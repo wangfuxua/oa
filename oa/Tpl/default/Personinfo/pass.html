@@ -1,0 +1,88 @@
+<include file="Public:header_module2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "个人设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 4,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "个人资料", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-userInfo" },
+            { Title: "个性设置", Url: "__URL__/set", Cls: "", IconCls: "ico ico-userCustom" },
+            { Title: "个人网址", Url: "__URL__/url", Cls: "", IconCls: "ico ico-userUrl" },
+            { Title: "修改密码", Url: "__URL__/pass", Cls: "", IconCls: "ico ico-userPassword" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56);
+    
+    });
+
+</script>
+<body onLoad="document.form1.PASS0.focus();">
+
+
+<div class="KDStyle" id="main">
+<form method="post" action="__URL__/passsubmit" name="form1" >
+<table>
+
+<tr>
+	<td width="150">用户名：</td>
+	<td >{$LOGIN_USER_ID}</td>
+</tr>
+<tr>
+	<td >原密码：</td>
+	<td >
+	  <input type="password" name="PASS0"  class="BigInput" size="15" maxlength="20" >
+	</td>
+</tr>
+<tr>
+	<td >新密码：</td>
+	<td >
+	  <input type="password" name="PASS1"  class="BigInput" size="15" maxlength="20" > 6-20位
+	</td>
+</tr>
+
+<tr>
+	<td >确认新密码：</td>
+	<td >
+	  <input type="password" name="PASS2"  class="BigInput" size="15" maxlength="20" > 6-20位
+	</td>
+</tr>
+
+<tr>
+	<td >上次修改时间：</td>
+	<td >
+	  {$row.LAST_PASS_TIME}
+	</td>
+</tr>
+
+<tr>
+	<td >密码过期：</td>
+	<td >
+	  {$REMARK}
+	</td>
+</tr>
+
+<tfoot>
+    <th colspan="2" >
+      <button type="submit" value="保存修改">保存修改</button>
+    </th>
+</tfoot>
+
+</table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

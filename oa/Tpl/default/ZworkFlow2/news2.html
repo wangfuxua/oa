@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>工作流程设置</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>待办工作</span></a></li>
+		<li class="dm_on"><a href="news" title=""><span>新建工作</span></a></li>
+		<li><a href="__URL__/workControl" title=""><span>工作监控</span></a></li>
+	</ul>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="dm_personl tdtop" valign="top">
+			    <div class="userTree">
+			        <div class="dm_menu_a"><b></b>请选择工作流程</div>
+			        <script type="text/javascript">
+				        <!--
+			            var online = new sTree('online');
+			            online.icon = {
+					       root: '../public/img/empty.gif', 			
+					        folder: '../public/img/folder.gif', 			
+					        folderOpen: '../public/img/folderopen.gif', 
+					        node: '../public/images/bg_4x7.gif', 		
+					        empty: '../public/img/empty.gif', 			
+					        line: '../public/img/line.gif', 			
+					        join: '../public/img/join.gif', 			
+					        joinBottom: '../public/img/joinbottom.gif', 		
+					        plus: '../public/img/plus.gif', 			
+					        plusBottom: '../public/img/plusbottom.gif',
+					        minus: '../public/img/minus.gif',
+					        minusBottom: '../public/img/minusbottom.gif',
+					        nlPlus: '../public/img/nolines_plus.gif',
+					        nlMinus: '../public/img/nolines_minus.gif'
+					    };
+				       // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            
+				       {$treeOnline};    
+			            document.write(online);
+				        //-->
+			        </script>
+			    </div>
+			</td>
+			<td class="dm_personr">
+
+			<script type="text/javascript">
+			    iframe('__URL__/{$URL}', '100%', '800', 'news_main');
+	        </script>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

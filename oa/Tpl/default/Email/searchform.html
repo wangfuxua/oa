@@ -1,0 +1,160 @@
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.BOX.selectedIndex<3)
+      document.form1.BOX_ID.value="0";
+   else
+      document.form1.BOX_ID.value=document.form1.BOX.value;
+      
+   if(document.form1.BOX.selectedIndex==1||document.form1.BOX.selectedIndex==2)
+      obj=document.all("TO_ID");
+   else
+      obj=document.all("FROM_ID");
+      
+   if(obj.value=="" && document.form1.SUBJECT.value=="" && document.form1.KEY1.value=="" && document.form1.KEY2.value=="" && document.form1.KEY3.value=="" && document.form1.ATTACHMENT_NAME.value==""&&document.form1.READ_FLAG.value=="-1"&&document.form1.BEGIN_DATE.value==""&&document.form1.END_DATE.value=="")
+   { alert("请指定至少一个查询条件！");
+     return (false);
+   }
+
+   return true;
+}
+
+function save()
+{
+  if(CheckForm())
+  {
+   document.form1.SEND_FLAG.value="0";
+   document.form1.submit();
+  }
+}
+
+function upload_attach()
+{
+  if(CheckForm())
+  {
+   document.form1.OP.value="1";
+   document.form1.SEND_FLAG.value="0";
+   document.form1.submit();
+  }
+}
+function delete_attach_uploading(ATTACHMENT_ID,ATTACHMENT_NAME,fileid)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  {
+     $.ajax({
+		type: "POST",
+		url: "__URL__/deleteattach/file_sort/{$file_sort}/sort_id/{$sort_id}/CONTENT_ID/{$_REQUEST[CONTENT_ID]}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/ATTACHMENT_NAME/"+ATTACHMENT_NAME,
+		success: function(){
+			$('#'+fileid).remove();
+
+		}
+	});
+
+  }
+
+}
+</script>
+<style>
+form input{ border:none}
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+    <div id="title" class="clearfix">
+      <h2>查询邮件</h2>
+      <span class="rtact">全局查询<input type="text" /><button type="button">搜索</button></span>
+    </div>
+    <div id="active" class="active">
+     <span id="mail-send"><a href="#" onclick='javascript:CheckForm();'>发送</a></span> 
+     <span id="mail-st"><a href="#" onclick='javascript:save();'>保存</a></span> 
+     <span id="mail-cl"><a href="#" onclick='javascript:$("#mail-act").load("__APP__/Email/inbox")'>取消</a></span> 
+    </div>
+    <div class="mail-query">
+    <script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+  <form action="__URL__/search" name="form1" onsubmit="return CheckForm();" method="post">
+				<table style="width:100%">
+					<thead>
+						<tr>
+							<th>选择邮箱：</th>
+							<th>
+					        <select name="BOX"  onchange="which_box();">
+					          <option value="1">收件箱</option>
+					          <option value="2">发件箱</option>
+					          <option value="3">已发送邮件箱</option>
+					          <volist name="list" id="vo">
+					          <option value={$vo.BOX_ID}>{$vo.BOX_NAME}</option>
+					          </volist>
+					        </select>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="FROM">
+							<th>发件人：</th>
+							<td>
+								<input type="text" name="FROM_ID" size="20">
+							</td>
+						</tr>
+						<tr id="TO" style="display:none">
+							<th>收件人：</th>
+							<td>
+								<input type="text" name="TO_ID" size="20">
+							</td>
+						</tr>
+						<tr>
+							<th>邮件状态：</th>
+							<td>
+							<select name="READ_FLAG">
+							<option value="-1">不限</option>
+							<option value="0">未读</option>
+							<option value="1">已读</option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<th>时间：</th>
+							<td>
+从<input type="text" name="BEGIN_DATE" maxlength="30" style="width:120px" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+到
+<input type="text" name="END_DATE"  maxlength="30" style="width:120px" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">							
+							</td>
+						</tr>
+																	
+						<tr>
+							<th>邮件主题包含文字：</th>
+							<td><input type="text" name="SUBJECT" size="20"></td>
+						</tr>
+						<tr>
+							<th>邮件内容[关键词1]：</th>
+							<td><input type="text" name="KEY1" size="20"></td>
+						</tr>
+						<tr>
+							<th>邮件内容[关键词2]：</th>
+							<td><input type="text" name="KEY2" size="20"></td>
+						</tr>
+						<tr>
+							<th>邮件内容[关键词3]：</th>
+							<td><input type="text" name="KEY3" size="20"></td>
+						</tr>
+						<tr>
+							<th>附件文件名包含文字：</th>
+							<td><input type="text" name="ATTACHMENT_NAME" size="20"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+							  <input type="hidden" name="BOX_ID" value="{$BOX_ID}">
+					          <button type="submit" title="查询" title="进行文件查询">查询</button>
+					          <button type="button" title="返回" onclick="location='__URL__/index'">返回</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				</form>
+
+</div>

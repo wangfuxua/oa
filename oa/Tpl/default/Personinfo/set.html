@@ -1,0 +1,235 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function CheckForm()
+{
+   if (document.form1.ATTACHMENT.value!="")
+   {
+     var file_temp=document.form1.ATTACHMENT.value,ext_name;
+     var Pos;
+     Pos=file_temp.lastIndexOf(".")+1;
+     ext_name=file_temp.substring(Pos,file_temp.length);
+     if(ext_name!="gif"&&ext_name!="GIF")
+     {
+     	  alert("头像文件只能是gif!");
+     	  return false;
+     }     
+     document.form1.ATTACHMENT_NAME.value="{$row.USER_ID}."+ext_name;
+   }
+
+  form1.submit();
+}
+function delete_avatar()
+{
+ msg='确认要删除头象吗？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/avatardelete";
+  window.location=URL;
+ }
+}
+
+</script>
+
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "个人设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "个人资料", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-userInfo" },
+            { Title: "个性设置", Url: "__URL__/set", Cls: "", IconCls: "ico ico-userCustom" },
+            { Title: "个人网址", Url: "__URL__/url", Cls: "", IconCls: "ico ico-userUrl" },
+            { Title: "修改密码", Url: "__URL__/pass", Cls: "", IconCls: "ico ico-userPassword" }
+        ]
+    });		
+		
+		var _imgInput=$("[name='AVATAR']:checked");
+		var _userImg=$("img[name^='user_']");
+		$("img[name='user_"+_imgInput.val()+"']").addClass("checked");
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+function checkImg(val){
+	var _img=$("img[name='user_"+val+"']");
+	var _in=$("input[name='AVATAR']").filter("[value='"+val+"']");
+	_in.end().removeAttr("checked");
+	_in.attr("checked","checked");
+	//alert(_img.length);
+	$("img[name^='user_']").removeClass("checked");
+	_img.addClass("checked");
+}
+</script>
+<style type="text/css">
+	.userImg { margin:5px 10px 5px 10px}
+	.userImg li { width:50px; height:50px; float:left; display:inline; margin:5px 5px 0 5px}
+	.userImg img { width:50px; height:50px; border:1px #FFF solid; cursor:pointer}
+	.userImg img.checked {border:1px #ffd37f solid; background:#fff2d4}
+	.userImg input {display:none}
+	.userImg li.clearfix { clear:left; display:block; height:1%; width:100%; line-height:0px; font-size:0px; float:none}
+</style>
+<body>
+
+<div class="person KDStyle" id="main">
+<form enctype="multipart/form-data" action="__URL__/setsubmit"  method="post" name="form1">
+ <table>
+   			<colgroup>
+				<col width="100"></col>
+				<col></col>
+			</colgroup>
+			<!--
+  <tr>
+      <td> 昵称（用于讨论区交流等）：</td>
+      <td>
+        <input type="text" name="NICK_NAME" size="25" maxlength="25" class="BigInput" value="{$row.NICK_NAME}">
+      </td>
+    </tr>
+    -->
+<?php
+if($row[AVATAR]!=$LOGIN_USER_ID)
+{
+?>
+    <tr>
+      <th valign="top"> 头像：</th>
+      <td width="600">
+	  <ul class="userImg">
+<?php
+      for($I=1;$I<=10;$I++)
+      {
+?>
+<li>
+<input type="radio" name="AVATAR" value="<?php echo $I?>" class="radio" style="display:none" <?php if($I==$row[AVATAR])echo "checked='checked'"; ?>>
+<img src="../Public/images/avatar/<?php echo $I?>.gif" onClick="checkImg('<?php echo $I?>')" name="user_<?php echo $I?>">
+</li>
+<?php
+        if($I%5==0)
+           echo "<li class='clearfix'>&nbsp; </li>";
+      }
+?>      </ul>
+      </td>
+    </tr>
+<?php
+}
+if($LOGIN_AVATAR!=$LOGIN_USER_ID)
+{
+?>
+    <tr>
+      <th valign="top">自定义头像：</th>
+      <td> 
+        <input type="file" name="ATTACHMENT" size="30" class="BigInput" title="选择附件文件" value="{$ATTACHMENT}"><br>
+        注：头像文件只能是gif格式，建议头像大小不超过50*50像素。
+      </td>
+    </tr>
+<?php
+}
+else
+{
+?>
+    <tr>
+      <td valign="top">自定义头像：</td>
+      <td>
+        <img src="../Public/images/avatar/{$LOGIN_AVATAR}.gif" align="absmiddle">&nbsp;&nbsp;&nbsp;
+        <button  onclick="javascript:delete_avatar();">删除</button>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">更改自定义头像：</td>
+      <td> 
+        <input type="file" name="ATTACHMENT" size="22" class="BigInput" title="选择附件文件" value="{$ATTACHMENT}"><br>
+        注：头像文件只能是gif格式，建议头像大小不超过30*40像素。
+      </td>
+    </tr>
+<?php
+}
+?>
+<!--
+    <tr>
+      <td valign="top">讨论区签名档：</td>
+      <td> 
+        <textarea cols=35 name="BBS_SIGNATURE" rows=3 class="BigInput" wrap="off">{$row.BBS_SIGNATURE}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>IE浏览器工具栏：</td>
+      <td>
+        <select name="MENU_TYPE">
+          <option value="1" <if condition="$row[MENU_TYPE] eq 1">selected</if>>显示</option>
+          <option value="2" <if condition="$row[MENU_TYPE] eq 2">selected</if>>不显示</option>
+        </select>
+        需重新登录才能生效
+      </td>
+    </tr>
+    <tr>
+      <td>左侧菜单自动隐藏：</td>
+      <td>
+        <select name="MENU_HIDE">
+          <option value="1" <if condition="$row[MENU_HIDE] eq 1">selected</if>>是</option>
+          <option value="2" <if condition="$row[MENU_HIDE] eq 2">selected</if>>否</option>
+        </select>
+        需重新登录才能生效
+      </td>
+    </tr>
+    <tr>
+      <td>短信息提醒窗口弹出方式：</td>
+      <td>
+        <select name="SMS_ON">
+          <option value="1" <if condition="$row[SMS_ON] eq 1">selected</if>>自动</option>
+          <option value="0" <if condition="$row[SMS_ON] eq 0">selected</if>>手动</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>短信息提示音：</td>
+      <td>
+        <select name="CALL_SOUND">
+          <option value="1" <if condition="$row[CALL_SOUND] eq 1">selected</if>>语音1</option>
+          <option value="8" <if condition="$row[CALL_SOUND] eq 8">selected</if>>语音2</option>
+          <option value="2" <if condition="$row[CALL_SOUND] eq 2">selected</if>>激光</option>
+          <option value="3" <if condition="$row[CALL_SOUND] eq 3">selected</if>>水滴</option>
+          <option value="4" <if condition="$row[CALL_SOUND] eq 4">selected</if>>手机</option>
+          <option value="5" <if condition="$row[CALL_SOUND] eq 5">selected</if>>电话</option>
+          <option value="6" <if condition="$row[CALL_SOUND] eq 6">selected</if>>鸡叫</option>
+          <option value="7" <if condition="$row[CALL_SOUND] eq 7">selected</if>>OICQ</option>
+          <option value="0" <if condition="$row[CALL_SOUND] eq 0">selected</if>>无</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>登录后显示的左侧面板：</td>
+      <td>
+        <select name="PANEL">
+          <option value="1" <if condition="$row[PANEL] eq 1">selected</if>>主菜单</option>
+          <option value="2" <if condition="$row[PANEL] eq 2">selected</if>>在线人员</option>
+          <option value="3" <if condition="$row[PANEL] eq 3">selected</if>>全部人员</option>
+          <option value="4" <if condition="$row[PANEL] eq 4">selected</if>>快捷组</option>
+          <option value="5" <if condition="$row[PANEL] eq 5">selected</if>>短信箱</option>
+          <option value="6" <if condition="$row[PANEL] eq 6">selected</if>>收藏夹</option>
+        </select>
+        需重新登录才能生效
+      </td>
+    </tr>
+    -->
+    <tfoot>
+      <th colspan="2" nowrap>
+        <input type="hidden" value="{$ATTACHMENT_NAME}" name="ATTACHMENT_NAME">
+        <button type="button" value="保存修改" class="btnFnt" onClick="CheckForm();">保存修改</button>
+      </th>
+    </tfoot>
+  </table>
+</form>
+</div>
+
+<include file="Public:footer" />

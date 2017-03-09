@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>凯达OA JS库演示文档</title>
+	<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li><a href="Procedure-flow.html" title=""><span>定义流程</span></a></li>
+	</ul>
+<h2 class="dm_schedule">工作流字段管理</h2>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<tr>
+			<td valign="top" class="dm_zanal"><a href="__URL__/filedNew/modelId/{$modelId}">添加字段</a>|预览模型</td>
+		</tr>
+		</table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		
+		<form action="__URL__/filedadd"  method="post" name="form1" >	
+			<input name="modelId" type="hidden" value="{$modelId}">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>字段名</strong><br />
+	  			</td>
+				<td>
+					<input name="filed"  type="text" class="dm_blur3" />
+				</td>
+		</tr>
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>字段别名</strong><br />
+	  			</td>
+				<td>
+					<input name="name"  type="text" class="dm_blur3" />
+				</td>
+		</tr>
+		<tr>
+    	<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>字段类型</strong><br />
+	  			</td>
+	  			<td>
+       <select name="formtype" onchange="selectChoose(this.value,this.name,'msg','__URL__/select')">
+       					<option value="">选择类型</option>
+						<option value="text">单行文本</option>
+						<option value="textarea">多行文本</option>
+						<option value="box">选项</option>
+						<option value="number">数字</option>
+						<option value="datetime">日期和时间</option>
+						<option value="file">文件</option>
+						<option value="downfiles">多文件上传</option>
+	  				</select>
+	  				</td>
+    </tr>
+    <tr><td><strong>相关参数</strong>
+设置表单相关属性</td><td><div id="msg"></div></td></tr>
+	<tr>
+				<td colspan="2" class="dm_btnzan">
+					<input name="submit" type="submit" value="提交" />
+					
+				</td>
+			</tr>
+</form>    </table>
+</body>
+</html>

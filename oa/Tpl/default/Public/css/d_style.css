@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+/* Style Name:凯达OA Author: JKTD-D-丁亚娟 Email: appledesire@gmail.com */
+/* 08-07-22 style dingyajuan design */
+/* 全局样式 */
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,em,strong{margin:0;padding:0;border:0;}
+body{color:#000;font-size:12px;font-family:Arial, Helvetica, sans-serif, "宋体";line-height:22px;background:url(../images/dm_bodybg.jpg) repeat-x #ffffff;}
+a{text-decoration:none;color:#999;}
+a:hover{color:#999;}
+input{vertical-align:middle;}
+.clear{clear:both;height:0;overflow:hidden;}
+.bold{font-weight:bold;}
+.dm_main{background:url(../images/dm_mainbg.jpg) no-repeat;width:970px;height:600px;margin:0 auto;}
+.dm_inside{width:402px;margin:0 auto;overflow:hidden;}
+.dm_headimg{background:url(../images/dm_headpic.jpg) no-repeat;width:330px;text-indent:-99em;overflow:hidden;height:80px;margin-top:142px;margin-left:4px;_margin-left:3px;}
+.dm_headimg a{display:block;width:330px;height:80px;}
+.dm_logink{width:400px;height:145px;border:1px solid #9b9bbf;background:#f9f9f9;}
+.dm_loginl{width:250px;float:left;padding-left:30px;padding-top:24px;}
+.dm_loginl p{height:42px;}
+.dm_loginl p label{font-weight:bold;color:#d12700;line-height:30px;}
+input.dm_putcss{background:url(../images/inputbg.gif) no-repeat;width:183px;height:23px;border:none;font-size:12px;padding:7px 0 0 5px;}
+.dm_loginr{width:118px;float:left;padding-top:32px;}
+input.dm_btncss{background:url(../images/dm_loginbtn.jpg) no-repeat;width:88px;height:65px;text-indent:-99em;overflow:hidden;border:none;display:block;}
+.dm_faqdm{width:280px;padding:0 0 0 80px;color:#999;}
+.dm_faqdm input{vertical-align:baseline;}
+.dm_faqdm a{margin-left:20px;}
+.dm_foot{background:url(../images/dm_footbg.jpg) no-repeat;height:50px;text-align:center;color:#999;padding-top:30px;}

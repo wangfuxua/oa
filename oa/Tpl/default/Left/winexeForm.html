@@ -1,0 +1,78 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.WIN_DESC.value=="")
+   { alert("菜单名称不能为空！");
+     return (false);
+   }
+   if(document.form1.WIN_PATH.value=="")
+   { alert("程序路径不能为空！");
+     return (false);
+   }
+      
+   return (true);
+}
+
+
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/winexeIndex" title=""><span>Windows快捷菜单管理</span></a></li>
+		<if condition="$WIN_ID eq ''">
+		<li class="dm_on"><a href="__URL__/winexeForm" title=""><span>添加Windows快捷菜单</span></a></li>
+		<elseif condition="$WIN_ID neq ''" />
+		<li><a href="__URL__/winexeForm" title=""><span>添加Windows快捷菜单</span></a></li>
+		<li class="dm_on"><a href="#" title=""><span>修改Windows快捷菜单</span></a></li>
+		</if>
+	</ul>
+<div>	
+<form action="__URL__/winexeSubmit"  method="post" name="form1" onsubmit="return CheckForm();">
+  <table>
+				<colgroup>
+					<col width="180"></col>
+					<col></col>
+				</colgroup>
+<tbody>				  
+    <tr>
+      <td>Windows快捷菜单名称：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="WIN_DESC" size="30" maxlength="200"  value="{$row.WIN_DESC}">
+      </fieldset>  
+      </td>
+    </tr>
+    <tr>
+      <td>程序路径：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="WIN_PATH" size="100" maxlength="200"  value="{$row.WIN_PATH}">
+      </fieldset>  
+      本机Windows程序路径，如：C:\Program Files\Windows Media Player\wmplayer.exe；也可以定义使用IE访问网址，如：iexplore http://http://sunfly.oicp.net 
+      </td>
+    </tr>
+    <tr>
+      <td>排序：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="WIN_NO" size="10" maxlength="8"  value="{$row.WIN_NO}">
+      </fieldset>  
+      </td>
+    </tr>
+        
+    <tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2" nowrap>
+        <input type="hidden" name="WIN_ID" value="{$row.WIN_ID}">
+        <button type="submit" value="保存" class="btnFnt">保存</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/winexeIndex'">返回</button>
+      </td>
+    </tr>
+    <tfoot>
+  </table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

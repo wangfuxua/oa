@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>销售统计</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script src ="../Public/js/crm_common.js"></script>
+
+</head>
+
+<body>
+<table style="width:800px;algin:center;">
+	<caption class="nostyle">销售统计结果</caption>
+	<colgroup>
+		<col width="14%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="10%" />
+		<col width="56%" />
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th>{$category}</th>
+			<th>销售总额</th>
+			<th>产品销售额</th>
+			<th>服务销售额</th>
+			<th>进一步统计</th>
+		</tr>
+	</thead>
+	<volist name="res" id="vo" key="k">
+		<tr>
+			<td>{$vo['name']}</td>
+			<td>{$vo['all_sale']}</td>
+			<td>{$vo['pro_sale']}</td>
+			<td>{$vo['ser_sale']}</td>
+			<td><neq name="p_t" value="year"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=year" >年</a>&nbsp;&nbsp;</neq><neq name="p_t" value="month"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=month" >月</a>&nbsp;&nbsp;</neq><neq name="p_t" value="dept"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=dept" >销售部门</a>&nbsp;&nbsp;</neq><neq name="p_t" value="seller"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=seller" >销售人员</a>&nbsp;&nbsp;</neq><neq name="p_t" value="product"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=product" >产品名称</a>&nbsp;&nbsp;</neq><neq name="p_t" value="product_type"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=product_type" >产品类型</a>&nbsp;&nbsp;</neq><neq name="p_t" value="service"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=service" >服务名称</a>&nbsp;&nbsp;</neq><br><neq name="p_t" value="area"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=area" >客户所在地区</a>&nbsp;&nbsp;</neq><neq name="p_t" value="account_type"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=account_type" >客户类型</a>&nbsp;&nbsp;</neq><neq name="p_t" value="account_industry"><a href="__APP__/../flash/sale_pie.php?p_t={$p_t}&name={$vo['name']|urlencode}&c_t=account_industry" >客户行业</a></neq></td>
+		</tr>
+	</volist>	
+		<tr>
+			<td>合计</td>
+			<td>{$all_sale}</td>
+			<td>{$pro_sale}</td>
+			<td>{$ser_sale}</td>
+			<td align="center">&nbsp;&nbsp;&nbsp;<a href="__APP__/../flash/sale_pie.php?p_t={$p_t}" >饼型统计图</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="__APP__/../flash/sale_lines.php?p_t={$p_t}" >柱状统计图</a></td>
+		</tr>
+
+</table>
+</body></html>

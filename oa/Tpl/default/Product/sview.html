@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/Product/lists" title=""><span>产品列表</span></a></li>
+		<li ><a href="__APP__/Product/create" title=""><span><if condition="$update">修改<else/>新建</if>产品</span></a></li>
+		<li><a href="__APP__/Product/slists" title=""><span>服务型产品列表</span></a></li>
+		<li><a href="__APP__/Product/screate" title=""><span><if condition="$update">修改<else/>新建</if>服务型产品</span></a></li>
+	</ul>
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/Product/sdel" method="post" id="form">
+				<input type="hidden" name="id" value="{$product_res['id']}" />
+				<button  onclick="location='__APP__/Product/sedit/id/{$product_res['id']}/update/1'"  type="button"  title="编辑">编辑</button>
+				<button onclick="location='__APP__/Product/sedit/id/{$product_res['id']}/copy/1'" type="button" title="复制">复制</button>
+				<button onclick="return confirm('确定要删除当前记录吗?')"  title="刪除" type="submit">删除</button>
+				<button onclick="location='__APP__/Product/slists'" type="button">返回列表</button>
+			</form>
+	</caption>
+	<colgroup>
+		<col width="15%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="4">
+				产品: {$product_res['name']}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th class="tdtit" colspan="4"><h4>基本信息：</h4></th></tr>
+		<tr>
+			<td>服务产品名称：</td>
+			<td >{$product_res['name']}</td>
+			<td>服务供应商：</td>
+			<td>{$product_res['supplier_name']}</td>
+		</tr>
+		<tr>
+			<td>服务收费标准：</td>
+			<td>{$product_res['sale_price']}</td>
+			<td>产品描述：</td>
+			<td >{$product_res['description']}</td>
+		</tr>
+		<tr><th class="tdtit" colspan="4"><h4>备注信息：</h4></th></tr>
+		<tr>
+		<td>备注1：</td>
+		<td>{$product_res['notation_1']}</td>
+		<td>备注2：</td>
+		<td>{$product_res['notation_2']}</td>
+	    </tr>
+	</tbody>
+</table>
+
+
+</body></html>

@@ -1,0 +1,73 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active:2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "会议室列表", Url: "__URL__/mrlist", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "会议室预定", Url: "#", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div>
+<table>
+<caption class="nostyle">会议室预定情况 —— {$row.MR_NAME}
+</caption>
+  <thead>
+  <tr>
+      <th>会议名称</th>
+      <th>会议主题</th>
+      <th>会议描述</th>
+      <th>申请人</th>
+      <th>申请时间</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>会议状态</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <sublist name="list" id="sub" key="k" mod="2">
+        <tr>
+      <td>{$sub.M_NAME}</td>
+      <td>{$sub.M_TOPIC}</a></td>
+      <td>{$sub.M_DESC}</a></td>
+      <td>{$sub.M_PROPOSER}</a></td>
+      <td>{$sub.M_REQUEST_TIME}</a></td>
+      <td>{$sub.M_START}</td>
+      <td>{$sub.M_END}</td>
+      <td>{$status[$sub[M_STATUS]]}</td>
+    </tr>
+    </sublist>
+    </tbody>
+    <tfoot>
+    <tr>
+    <th colspan="8">共&nbsp;{$MEETING_COUNT}&nbsp;条会议记录<button type="button" onClick="location='__URL__/meetingroom';">返回</button>
+    </th>
+    </tr>
+    </tfoot>
+   </table>
+   </div>
+
+
+<include file="Public:footer" />

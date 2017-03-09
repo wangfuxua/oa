@@ -1,0 +1,92 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 
+		<if condition="$M_STATUS eq 0">1</if>
+		<if condition="$M_STATUS eq 1">2</if>
+		<if condition="$M_STATUS eq 2">3</if>
+		<if condition="$M_STATUS eq 3">4</if>
+		<if condition="$M_STATUS eq 4">5</if>
+		
+		,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待批会议", Url: "__URL__/search/M_STATUS/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "已准会议", Url: "__URL__/search/M_STATUS/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "进行中会议", Url: "__URL__/search/M_STATUS/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "未准会议", Url: "__URL__/search/M_STATUS/3", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已结束会议", Url: "__URL__/search/M_STATUS/4", Cls: "", IconCls: "ico ico-list" },
+            { Title: "全部会议查询", Url: "__URL__/searchform", Cls: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="KDMain">
+
+<table>
+<caption class="nostyle">{$status[$M_STATUS]}会议&nbsp;&nbsp;共<span class="big4">&nbsp;{$COUNT}</span>&nbsp;条会议记录</caption>
+<colgroup>
+<col width="100"></col>
+<col width="200"></col>
+<col width="120"></col>
+<col width="120"></col>
+<col></col>
+<col width="100"></col>
+</colgroup>
+  <thead>
+  <tr>
+      <th>会议申报人</th>
+      <th>会议主题</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>参加人员</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <sublist name="list" id="sub" key="k" mod="2">
+        <tr>
+      <td>{$sub.M_PROPOSER|getUsername}</td>
+      <td>{$sub.M_TOPIC|csubstr=###,0,28}</a></td>
+      <td>{$sub.M_START}</td>
+      <td>{$sub.M_END}
+      </td>
+      <td>
+      内部人员：{$sub.M_RENYUAN_NAME|csubstr=###,0,60} 外部人员：{$sub.M_RENYUAN|csubstr=###,0,60}
+      </td>
+      <td>
+      <a href="javascript:;" onClick="window.open('__URL__/meetingdetail/M_ID/{$sub.M_ID}','','height=350,width=450,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,resizable=yes');">详细信息</a>
+      </td>
+    </tr>
+    </sublist>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th colspan="6">
+      {$page}
+      </th>
+    </tr>  
+    </tfoot>
+   </table>
+   
+
+
+<include file="Public:footer" />

@@ -1,0 +1,85 @@
+<include file="Public:header_module" />
+<script language="JavaScript" type="text/javascript">
+function SubmitAttach(){
+	if (document.form1.ATTACHMENT.value!="")
+   {
+     var file_temp=document.form1.ATTACHMENT.value,file_name;
+     var Pos;
+     Pos=file_temp.lastIndexOf("\\");
+     file_name=file_temp.substring(Pos+1,file_temp.length);
+     document.form1.ATTACHMENT_NAME.value=file_name;
+     if(document.form1.NAME != null){
+     	document.form1.ATTACHMENT_NAME.value = document.form1.NAME.value+file_name.substring(file_name.lastIndexOf('.')); 
+     }
+     document.form1.OPERATION.value = "add";
+     document.form1.action = "__URL__/mbglmanagesubmit";
+     document.form1.submit();
+   }
+   else
+     alert("请先选择一个附件！");
+}
+function delete_attach(id,ATTACHMENT_NAME)
+{
+    msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg)){
+  	document.form1.ATTACHMENT_NAME.value=ATTACHMENT_NAME;
+  	document.form1.OPERATION.value = "del";
+  	document.form1.action = "__URL__/mbglmanagesubmit/id/"+id;
+    document.form1.submit();
+  }
+}
+</script>
+
+
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>申报属性</span></a></li>
+		<li><a href="__URL__/sblc" title=""><span>申报流程</span></a></li>
+		<li><a href="__URL__/sbwt" title=""><span>问题类型</span></a></li>
+		<li class="dm_on"><a href="__URL__/mbgl" title=""><span>模板管理</span></a></li>
+	</ul>
+	<div class="dm_conone">
+		<h2>模板管理</h2>
+		
+		
+<form enctype="multipart/form-data" method="post" name="form1">
+<table>
+    <thead>
+      <td colspan="2">模板列表</td>
+    </thead>
+    <tbody>
+<volist name="list" id="vo" key="k" mod="2">    
+    <tr>
+          <td>
+           <img src="../Public/images/netdisk/{$vo.filename|image_mimetype}" align="absmiddle">
+           	<a href="/index.php/attach/view/ATTACHMENT_ID/{$vo.attid}">
+           	{$vo.filename}
+               </a>
+            <td>
+			<input type="button" value="删除" class="SmallButton" onClick="delete_attach('{$vo.ID}','{$vo.filename}');">
+       </td>
+     </tr>
+</volist>
+</tbody>
+<tfoot>
+      <td colspan="2">
+      	<input type="hidden" name="TYPE" value="{$TYPE}"/>
+        <input type="hidden" name="OPERATION" value=""/>
+        <input type="hidden" name="ATTACHMENT_NAME" />
+        <input type="hidden" name="ATTACHMENT_NAME_OLD" value="{$FJ_NAME}" />
+        <input type="file" name="ATTACHMENT" size="40" class="SmallInput" title="选择模板文件">
+        <input type="button" value="上传附件" onclick="SubmitAttach()" class="SmallButton" />
+        <input type="button" value="返回" class="SmallButton" onclick="window.location='__URL__/mbgl'" />
+      </td>
+    </tfoot>
+    
+</table>
+</form>
+
+</div>     
+     
+    
+
+
+
+<include file="Public:footer" />

@@ -1,0 +1,103 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT']."/oa/Tpl/default/Public/fckeditor/fckeditor.php") ;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="../public/style/default/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/default/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/default/css/form.css" />
+		<script type="text/javascript" src="../public/style/default/js/KD.js" ></script>
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        $(function() {
+            createHeader({
+                Title: "{$row['modelName']}",
+                Icon: "",
+                IconCls: "ico ico-head-news",
+                Cls: "",
+                Active: 5,
+                Toolbar: [
+                    { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+                ],
+                Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改模型", Url: "__URL__/edit/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑控件", Url: "__URL__/filedIndex/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑流程", Url: "__URL__/flow/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑模板", Url: "__URL__/layout/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "预览模型", Url: "__URL__/view/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-view" }
+            ]
+            });
+        });
+        if(!KD){
+            var KD = {
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+	<body>
+                <div class="KDStyle" id="main">
+		<form action="__URL__/test" method="post">
+		<input type="hidden" value="{$modelId}" name="modelId">
+<table>
+<tr>
+<td class="clearTable" style="padding:0">
+<?php
+    $sBasePath = "/oa/Tpl/default/Public/fckeditor/";
+    $oFCKeditor = new FCKeditor('FCKeditor1');
+    $oFCKeditor->BasePath=$sBasePath;
+    $oFCKeditor->Value=$templeate;
+    $oFCKeditor->Width='100%';
+    $oFCKeditor->Height='450';
+    $oFCKeditor->Create();
+?>
+</td></tr>
+			<tfoot>
+			<tr>
+				<th>
+					<button name="Abutton1" type="submit"><div><span> 保存</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+            </table>
+            </div>
+		</form>
+	</body>
+</html>

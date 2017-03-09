@@ -1,0 +1,236 @@
+<include file="Public:header" />
+<SCRIPT LANGUAGE="JavaScript" src="../Public/js/tangerocx.js"></SCRIPT>
+<script>
+function myload()
+{
+<if condition="$OP eq 4">	
+
+  var coll = window.opener.document.all.tags("input");
+  var my_flag1=0;
+  for (i=0; i<coll.length; i++)
+  {
+    if(coll[i].value= "编辑")
+    {
+       my_flag1=1;
+       break;
+    }
+  }
+  
+  if(!my_flag1)
+     window.close();
+     
+</if>
+
+  TANGER_OCX_SetInfo();
+
+<if condition="$OP neq 4">	  
+  TANGER_OCX_EnableFilePrintMenu(false);
+<elseif condition="stristr($ATTACHMENT_NAME,'.doc')" />  
+  TANGER_OCX_SetMarkModify(true);
+  TANGER_OCX_ShowRevisions(true);
+</if>
+
+
+}
+
+function MY_SetMarkModify(flag)
+{
+  TANGER_OCX_SetMarkModify(flag);
+  if(flag)
+  {
+     mflag1.style.fontWeight="bold";
+     mflag2.style.fontWeight="";
+  }
+  else
+  {
+     mflag1.style.fontWeight="";
+     mflag2.style.fontWeight="bold";
+  } 
+}
+
+function MY_ShowRevisions(flag)
+{
+  TANGER_OCX_ShowRevisions(flag);
+  if(flag)
+  {
+     sflag1.style.fontWeight="bold";
+     sflag2.style.fontWeight="";
+  }
+  else
+  {
+     sflag1.style.fontWeight="";
+     sflag2.style.fontWeight="bold";
+  } 
+}
+</script>
+<BODY onLoad="javascript:myload()" onunload="javascript:close_doc()">
+
+<FORM NAME="form1" METHOD=post ACTION="upload_OC.php" ENCTYPE="multipart/form-data">
+<table>
+<tr>
+<td style="width:100px;" class="tdtop">
+  <table>
+  
+<if condition="$OP eq 4">
+  <thead>   
+     <tr>
+       <th>文件操作</th>
+     </tr>
+  </thead>   
+     <tr onclick="TANGER_OCX_SaveDoc(0)" style="cursor:hand">
+       <td>保存文件</td>
+     </tr>
+     <tr onclick="TANGER_OCX_SaveDoc(1)" style="cursor:hand">
+       <td>保存并关闭</td>
+     </tr>
+     <tr onclick="TANGER_OCX_ChgLayout()" style="cursor:hand">
+       <td >页面设置</td>
+     </tr>
+     <tr onclick="TANGER_OCX_PrintDoc()" style="cursor:hand">
+       <td>打印</td>
+     </tr>
+</if>
+
+<?php
+if(!stristr($ATTACHMENT_NAME,".ppt"))
+{
+  if($OP==4 && !stristr($ATTACHMENT_NAME,".xls"))
+  {
+?>
+   <thead>
+   <tr>
+     <th>文件编辑</th>
+   </tr>
+   </thead>
+     <tr onclick="MY_SetMarkModify(true)" style="cursor:hand">
+       <td id="mflag1" style="font-weight: bold;">保留痕迹</td>
+     </tr>
+     <tr onclick="MY_SetMarkModify(false)" style="cursor:hand">
+       <td id="mflag2">不留痕迹</td>
+     </tr>
+     <tr onclick="MY_ShowRevisions(true)" style="cursor:hand">
+       <td id="sflag1" style="font-weight: bold;">显示痕迹</td>
+     </tr>
+     <tr onclick="MY_ShowRevisions(false)" style="cursor:hand">
+       <td id="sflag2">隐藏痕迹</td>
+     </tr>
+     <tr onclick="TANGER_OCX_AddDocHeader('某某机关红头文件')" style="cursor:hand">
+       <td>文件套红</td>
+     </tr>
+     <tr onclick="AddPictureFromLocal()" style="cursor:hand">
+       <td>插入图片</td>
+     </tr>
+<?php
+  }
+?>
+   <thead>
+   <tr>
+     <th>电子认证</th>
+   </tr>
+   </thead>
+     <tr onclick="DoCheckSign('<?php echo $SIGN_KEY?>')" style="cursor:hand">
+       <td>验证签名及印章</td>
+     </tr>
+  
+<?php
+  if($OP==4)
+  {
+?>
+     <tr onclick="DoHandSign2('<?php echo $SIGN_KEY?>')" style="cursor:hand">
+       <td>全屏手写签名</td>
+     </tr>
+     <tr onclick="DoHandDraw2('<?php echo $SIGN_KEY?>')" style="cursor:hand">
+       <td>全屏手工绘图</td>
+     </tr>
+     <tr onclick="DoHandSign('<?php echo $SIGN_KEY?>')" style="cursor:hand">
+       <td>插入手写签名</td>
+     </tr>
+
+     <tr onclick="DoHandDraw()" style="cursor:hand">
+       <td>插入手工绘图</td>
+     </tr>
+     <tr onclick="AddSignFromLocal('<?php echo $SIGN_KEY?>')"style="cursor:hand">
+       <td>加盖电子印章</td>
+     </tr>
+<?php
+  }
+}
+?>
+ 
+  </table>
+</td>
+<td  class="tdtop" style="height:800px;">
+<object id="TANGER_OCX" classid="clsid:C9BC4DFF-4248-4a3c-8A49-63A7D317F404"
+codebase="../Public/exe/OfficeControl.cab#version=2,5,0,2" width="100%" height="100%">
+
+<param name="IsNoCopy" value="0">
+<param name="BorderStyle" value="1">
+<param name="BorderColor" value="14402205">
+<param name="TitlebarColor" value="14402205">
+<param name="TitlebarTextColor" value="0">
+<param name="Caption" value="Office文档在线编辑">
+<param name="IsShowToolMenu" value="-1">
+<param name="IsHiddenOpenURL" value="0">
+<param name="MakerCaption" value="金凯通达">
+<param name="MakerKey" value="3A5736E8C8BE02E6777D6A539F4C64B3">
+<param name="ProductCaption" value="kdoa 第四代网络协同办公平台">
+<param name="ProductKey" value="7DBDEBEBC948B1B5DC1941C04E607D59">
+
+<SPAN STYLE="color:red"><br>不能装载文档控件。请在检查浏览器的选项中检查浏览器的安全设置。</SPAN>
+</object>
+</td>
+</tr>
+</table>
+
+<script language="JScript" for=TANGER_OCX event="OnDocumentClosed()">
+TANGER_OCX_OnDocumentClosed()
+</script>
+
+<script language="JScript">
+var TANGER_OCX_str;
+var TANGER_OCX_obj;
+
+<?php
+if($OP==4)
+{
+?>
+var close_op_flag=0;
+<?php
+}
+else
+{
+?>
+var close_op_flag=1;
+<?php
+}
+?>
+
+function close_doc()
+{
+   if(close_op_flag!=1)
+   {
+     msg='是否保存对  \'{$ATTACHMENT_NAME}\'  的修改？';
+     if(window.confirm(msg))
+        TANGER_OCX_SaveDoc(0);
+   }
+}
+</script>
+
+<script language="JScript" for=TANGER_OCX event="OnDocumentOpened(TANGER_OCX_str,TANGER_OCX_obj)">
+TANGER_OCX_OnDocumentOpened(TANGER_OCX_str,TANGER_OCX_obj)
+</script>
+
+<SPAN ID="TANGER_OCX_op" style="display:none">{$OP}</SPAN>
+<SPAN ID="TANGER_OCX_filename" style="display:none">{$ATTACHMENT_NAME}</SPAN>
+<SPAN ID="TANGER_OCX_attachName" style="display:none">{$ATTACHMENT_NAME}</SPAN>
+<SPAN ID="TANGER_OCX_attachURL" style="display:none">__URL__/attach/ATTACHMENT_ID/{$ATTACHMENT_ID}</SPAN>
+<SPAN ID="TANGER_OCX_user" style="display:none">{$USER_NAME}</SPAN>
+
+<INPUT style="display:none" TYPE="file" NAME="ATTACHMENT">
+<INPUT TYPE="hidden" NAME="ATTACHMENT_ID" value="{$ATTACHMENT_ID}">
+<INPUT TYPE="hidden" NAME="ATTACHMENT_NAME" value="{$ATTACHMENT_NAME|urlencode}">
+</FORM>
+
+
+
+<include file="Public:footer" />

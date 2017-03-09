@@ -1,0 +1,44 @@
+<include file="Public:header" />
+<script>
+function delete_all()
+{
+ msg="确认要删除以上列出的短信吗？";
+ if(window.confirm(msg))
+ {
+  URL="__URL__/leftmsgdeleteall/?SMS_ID_STR={$SMS_ID_STR}";
+  window.location=URL;
+ }
+}
+
+function delete_one(SMS_ID)
+{
+ msg="确认要删除此短信吗？";
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/?SMS_ID="+SMS_ID+"&to=leftmsg";
+  window.location=URL;
+ }
+}
+
+</script>
+	<body>
+		<div class="left-msg">
+				<h4>短信箱<span> - 最新短信息</span>({$count})</h4>
+				<dl>
+				<volist name="list" id="vo">	
+				  <dt>{$vo.SMS_TYPE|getSmsType}</dt>
+					<dd>
+						<p>{$vo.FROM_ID|getUsername}：{$vo.CONTENT}</p>
+						<p class="msgtime">{$vo.SEND_TIME}</p>
+						<p class="msglink"><a href="{$vo.SMS_TYPE|getLeftSmsUrl=###,$vo[CONTENT]}" target="icontent">链接</a> /  <a href="javascript:delete_one({$vo.SMS_ID});">删除</a>  </p>
+					</dd>
+					</volist>
+				</dl>
+				
+				<form>
+					<button type="button" onClick="delete_all();">删除以上信息</button>
+				</form>
+			</div>
+			
+
+<include file="Public:footer" />

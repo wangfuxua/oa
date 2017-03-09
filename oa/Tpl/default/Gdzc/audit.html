@@ -1,0 +1,109 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function detail(GDZC_ID)
+{
+ URL="__URL__/detail/GDZC_ID/"+GDZC_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+function audit(GDZC_ID,AUDIT){
+	URL="__URL__/auditto/GDZC_ID/"+GDZC_ID+"/AUDIT/"+AUDIT;
+	window.location=URL;
+}
+function delete_gdzc(GDZC_ID)
+{
+ msg='确认要删除该资产么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/SH/{$SH}/GDZC_ID/"+GDZC_ID;
+  window.location=URL;
+ }
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "固定资产审核",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: <if condition="$SH eq 2">1</if><if condition="$SH eq 1">2</if><if condition="$SH eq 0">3</if>,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "已审核资产", Url: "__URL__/audit/SH/2", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "未通过审核资产", Url: "__URL__/audit/SH/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "待审核资产", Url: "__URL__/audit/SH/0", Cls: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">	
+<table>
+	<col />
+	<col width="80px" />
+	<col width="110px" />
+	<col />
+	<col width="80px" />
+	<col width="80px" />
+	<col width="120px" />
+			<caption></caption>
+  <thead>
+      <tr>
+      <th>资产名称</th>
+      <th>数量</th>
+      <th>开始使用日期</th>
+      <th>使用部门</th>
+      <th>管理人</th>
+      <th>资产录入员</th>
+      <th></th>
+      </tr>
+  </thead>
+  
+  <tbody class="tcenter">
+  <volist name="list" id="vo" key="k" mod="2">
+    <tr>
+      <td>{$vo.MC}</td>
+      <td>{$vo.SL}</td>
+      <td>{$vo.KSSYRQ}</td>
+      <td>{$vo.SYBM_ID|getDeptname}</td>
+      <td>{$vo.GLR_ID|getUsername}</td>
+      <td>{$vo.ZCLRY_ID|getUsername}</td>
+      <td>
+        <a href="javascript:detail({$vo.GDZC_ID})"> 详细</a>&nbsp;
+        <if condition="$SH eq 0">
+        <a href="javascript:audit({$vo.GDZC_ID},2)">批准</a>&nbsp;
+		<a href="javascript:audit({$vo.GDZC_ID},1)">不准</a>&nbsp;
+		<elseif condition="$SH eq 1" />
+		<a href="javascript:audit({$vo.GDZC_ID},0)">撤消</a>&nbsp;
+		<elseif condition="$SH eq 2" />
+		<a href="javascript:audit({$vo.GDZC_ID},0)">撤消</a>&nbsp;
+		</if>		
+        <a href="javascript:delete_gdzc({$vo.GDZC_ID});"> 删除 </a>
+      </td>
+    </tr>
+    </volist>
+  </tbody>
+
+ <tfoot> 
+ <tr><th colspan="7">{$page}
+ </th>
+ </tr>
+ </tfoot>
+</table>  
+</div>
+
+<include file="Public:footer" />

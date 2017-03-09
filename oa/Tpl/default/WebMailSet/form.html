@@ -1,0 +1,180 @@
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.listorder.value=="")
+   { alert("排序号不能为空！");
+     return (false);
+   }
+
+   if(document.form1.email.value=="")
+   { alert("邮箱名称不能为空！");
+     return (false);
+   }
+}
+</script>
+<script type="text/javascript">
+
+$("#index_icon").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("/index.php/WebMailSet/index");
+})
+$("#form_icon").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("/index.php/WebMailSet/form");
+})
+
+</script>
+<style>
+form input{ }
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+	<ul class="dm_submenuul">
+		<li><a href="#" id="index_icon" title=""><span>管理邮箱</span></a></li>
+		<li <if condition="$row[setid] eq ''">class="dm_on"</if>><a href="#" title="" id="form_icon"><span>新建邮箱</span></a></li>
+		
+		<if condition="$row[setid] neq ''">
+		<li class="dm_on"><a href="#" title=""><span>编辑邮箱</span></a></li>
+		</if>
+		
+	</ul>
+<div>
+<form action="__URL__/submit"  method="post" name="form1" onsubmit="return CheckForm();">
+<input type="hidden" name="leaveonserver" value="1">
+<input type="hidden" name="localkillserver" value="0">
+<input type="hidden" name="checkspam" value="0">
+
+<table style="width:100%" border="0">
+   <thead>
+   <tr><th colspan="2" height="23">基本信息</th></tr>
+   </thead>
+   <tr>
+    <td>排序：</td>
+    <td>
+        <input type="text" name="listorder" size="3" maxlength="3" value="{$row.listorder}">&nbsp;
+    </td>
+   </tr>
+ <!--
+   <tr>
+    <td>邮箱名称：</td>
+    <td>
+        <input type="text" name="accname" size="25" maxlength="100" value="{$row.accname}">&nbsp;
+    </td>
+   </tr>
+   -->
+   <tr>
+    <td>邮箱地址：</td>
+    <td>
+        <input type="text" name="email" size="25" maxlength="100" value="{$row.email}">&nbsp;
+    </td>
+   </tr>
+   <!--
+   <tr>
+    <td>在邮件服务器上保留备份：</td>
+    <td>
+        <input type="checkbox" name="leaveonserver" value="1" <if condition="$row[leaveonserver] eq 1">checked</if>>&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td>同步删除服务器上的邮件：</td>
+    <td>
+        <input type="checkbox" name="localkillserver" value="1" <if condition="$row[localkillserver] eq 1">checked</if>>&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td>过滤垃圾邮件：</td>
+    <td>
+        <input type="checkbox" name="checkspam" value="1" <if condition="$row[checkspam] eq 1">checked</if>>&nbsp;
+    </td>
+   </tr>
+   -->    
+   
+   <thead>
+   <tr><th colspan="2" height="23">接收邮件设置</th></tr>
+   </thead>
+   
+   <tr>
+    <td>协议：</td>
+    <td>
+        <input type="radio" name="acctype" value="{$row.acctype}" checked >POP3
+    </td>
+   </tr>
+   <!--
+   <tr>
+    <td>协议：</td>
+    <td>
+        <input type="radio" name="acctype" value="{$row.acctype}" <if condition="$row[acctype] eq 'pop3'">checked</if> >POP3<input type="radio" name="acctype" value="{$row.acctype}" <if condition="$row[acctype] eq 'imap'">checked</if>>IMAP
+    </td>
+   </tr>   
+   -->
+   <tr>
+    <td>邮件服务器：</td>
+    <td>
+        <input type="text" name="popserver" value="{$row.popserver}" size="25" maxlength="100">
+    </td>
+   </tr>
+   <tr>
+    <td>服务器端口：</td>
+    <td>
+        <input type="text" name="popport" value="{$row.popport}" size="25" maxlength="10">
+    </td>
+   </tr>
+   <tr>
+    <td>登录用户名：</td>
+    <td>
+        <input type="text" name="popuser" value="{$row.popuser}" size="25" maxlength="80">
+    </td>
+   </tr>
+   <tr>
+    <td>登录密码：</td>
+    <td>
+        <input type="password" name="poppass" value="{$row.poppass}" size="25" maxlength="40">
+    </td>
+   </tr>
+   <!--
+   <thead>
+   <tr><th colspan="2" height="23">发送邮件设置smtp</th></tr>
+   </thead>
+  <tr>
+    <td>邮件服务器：</td>
+    <td>
+        <input type="text" name="smtpserver" value="{$row.smtpserver}" size="25" maxlength="100">
+    </td>
+   </tr> 
+   <tr>
+    <td>服务器端口：</td>
+    <td>
+        <input type="text" name="smtpport" value="{$row.smtpport}" size="25" maxlength="10">
+    </td>
+   </tr>
+   <tr>
+    <td>登录用户名：</td>
+    <td>
+        <input type="text" name="smtpuser" value="{$row.smtpuser}" size="25" maxlength="80">
+    </td>
+   </tr>
+   <tr>
+    <td>登录密码：</td>
+    <td>
+        <input type="password" name="smtppass" value="{$row.smtppass}" size="25" maxlength="40">
+    </td>
+   </tr>
+   -->
+   <tfoot>
+   <tr>
+    <td nowrap  class="TableControl" colspan="2" align="center">
+        
+        <input type="hidden" value="{$row.setid}" name="setid">
+        <button type="submit">确定</button>
+        <button onclick='javascript:$("#mail-act").load("__APP__/WebMailSet/index")'>返回</button>
+    </td>
+   </tr>
+   </tfoot> 
+  
+</table>
+</form>
+</div>

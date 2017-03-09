@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户回访view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on">
+			<if condition="$callbackId neq '' "> 
+				<a href="__APP__/Callback/lists/id/{$callback_res['account_id']}" title="">
+			<else />
+				<a href="__APP__/Callback/lists" title="">
+			</if>
+			<span>客户回访列表</span></a>
+		</li>
+		<li>
+			<if condition="$callbackId neq '' "> 
+				<a href="__APP__/Callback/create/id/{$callback_res['account_id']}" title="">
+			<else />
+				<a href="__APP__/Callback/create" title="">
+			</if>
+			<span><if condition="$update">修改<else/>新建</if>客户回访</span></a>
+		</li>
+	</ul>
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/Callback/del" method="post" name="DetailView" id="form">
+				<input type="hidden" name="id" value="{$callback_res['id']}">
+				<button onclick=location="__APP__/Callback/edit/id/{$callback_res['id']}/update/1" type="button"  title="编辑">编辑</button>
+				<button onclick=location="__APP__/Callback/edit/id/{$callback_res['id']}/copy/1" type="button" title="复制 [Alt+U]">复制</button>
+				<button onclick="return confirm('确定要删除当前记录吗?')"   title="刪除 [Alt+D]" accessKey="D" type="submit">删除</button>
+				<button onclick=location="__APP__/Callback/lists" type="button">返回列表</button>
+			</form>
+	</caption>
+	
+	<thead>
+		<tr>
+			<th colspan="4">
+				客户回访: {$callback_res['id']}
+			</th>
+		</tr>
+	</thead>
+	<tr>
+	<td class="tabDetailViewDL">客户名称:</td>
+	<td class="tabDetailViewDF"><a href="__APP__/Account/view/id/{$callback_res['account_id']}" class="tabDetailViewDFLink">{$callback_res['account_name']}</a></td>
+	<td class="tabDetailViewDL">拜访方式:</td>
+	<td class="tabDetailViewDF">{$callback_res['type']}</td>
+	</tr>
+
+	<tr>
+	<td class="tabDetailViewDL">负责人:</td>
+	<td class="tabDetailViewDF">{$manager}</td>
+	<td class="tabDetailViewDL">客服日期：</td>
+	<td class="tabDetailViewDF">{$callback_res['service_date']}</td>
+	</tr>
+
+	<tr>
+	<td class="tabDetailViewDL">客户反馈:</td>
+	<td colspan="3" class="tabDetailViewDF"><a href="__APP__/Report/view/id/{$callback_res['report_id']}" class="tabDetailViewDFLink">{$callback_res['report_subject']}</a></td>
+	</tr>
+    <tr>
+	<td class="tabDetailViewDL">联系情况记录：</td>
+	<td colspan="3" class="tabDetailViewDF">{$callback_res['description']}</td>
+	</tr>
+</table>
+
+
+</body></html>

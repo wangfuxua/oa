@@ -1,0 +1,212 @@
+<include file="Public:header" />
+<SCRIPT language=javascript>
+function SubmitProject()
+{
+  if(document.form1.MC.value == "")
+  {
+     alert("项目名称不能为空!");
+     return false;
+  }
+  if(document.form1.SJ.value == ""){
+  	alert("请选择申报时间");
+  	return false;
+  }
+  if(document.form1.XMLY.value == ""){
+  	alert("请输入项目来源");
+  	return false;
+  }
+  if(document.form1.YSZJ.value == ""){
+  	alert("请输入项目预算资金");
+  	return false;
+  }
+  if(document.form1.FJ_NAME.value == ""){
+  	alert("请上传至少一个附件");
+  	return false;
+  }
+  document.form1.action = "__URL__/applyinsert";
+  document.form1.submit();
+}
+function SubmitAttach(){
+	if (document.form1.ATTACHMENT.value!="")
+   {
+     var file_temp=document.form1.ATTACHMENT.value,file_name;
+     var Pos;
+     Pos=file_temp.lastIndexOf("\\");
+     file_name=file_temp.substring(Pos+1,file_temp.length);
+     document.form1.ATTACHMENT_NAME.value=file_name;
+     document.form1.XMZT.value = "{$XMZT_CREATE}";
+     document.form1.OPERATION.value = "add";
+     document.form1.action = "__URL__/applyinsert";
+     document.form1.submit();
+   }
+   else
+     alert("请先选择一个附件！");
+}
+function delete_attach(ATTACHMENT_ID,ATTACHMENT_NAME)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg)){
+  	document.form1.ATTACHMENT_NAME.value=ATTACHMENT_NAME;
+  	/*
+  	document.form1.XMZT.value = "{$XMZT_CREATE}";
+  	document.form1.OPERATION.value = "del";
+  	document.form1.action = "attach_submit.php";
+    document.form1.submit();
+    */
+    
+    URL="__URL__/applydeleteattach/XM_ID/{$_REQUEST[XM_ID]}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/ATTACHMENT_NAME/"+ATTACHMENT_NAME;
+    window.location=URL;    
+  }
+}
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  //window.open("/inc/calendar.php?FIELDNAME="+fieldname,"td_calendar","height=176,width=240,status=0,toolbar=no,menubar=no,location=no,scrollbars=no,top="+mytop+",left="+myleft+",resizable=yes");
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+function clear_user1()
+{
+  document.form1.SECRET_TO_NAME.value="";
+  document.form1.SECRET_TO_ID.value="";
+}
+function LoadWindow1()
+{
+  URL="__APP__/userselect/index/ID/1";
+  loc_x=document.body.scrollLeft+event.clientX-event.offsetX-100;
+  loc_y=document.body.scrollTop+event.clientY-event.offsetY+170;
+  window.showModalDialog(URL,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:320px;dialogHeight:265px;dialogTop:"+loc_y+"px;dialogLeft:"+loc_x+"px");
+}
+</SCRIPT>
+<body class="bodycolor" topmargin="5" onload="document.form1.MC.focus();">
+
+<table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+  <form enctype="multipart/form-data" method="post" name="form1">
+    <tr>
+      <td nowrap class="TableData">项目名称：</td>
+      <td class="TableData">
+    	<input type="text" name="MC" size="40" maxlength="100" class="BigInput" value="{$vo.MC}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">申报属性：</td>
+      <td class="TableData"> {$sbsx}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">部门属性：</td>
+      <td class="TableData">
+        <select name="BM_ID" class="BigSelect">
+		{$bmsx}
+        </select>
+      </td>
+    </tr>
+	<tr>
+      <td nowrap class="TableData">主申请人员：</td>
+      <td class="TableData">
+    	<select name="ZSBR_ID" class="BigSelect">
+		{$zsqr}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">申请人员：</td>
+      <td class="TableData">
+        <input type="hidden" name="SECRET_TO_ID" value="{$vo.FSBR_ID}"/>
+      	<textarea cols=30 name=SECRET_TO_NAME rows=3 class="BigStatic" wrap="yes" readonly>{$SECRET_TO_NAME}</textarea>
+      	&nbsp;<input type="button" value="添 加" class="SmallButton" onClick="LoadWindow1()" title="添加负责人" name="button">
+        &nbsp;<input type="button" value="清 空" class="SmallButton" onClick="clear_user1()" title="清空负责人" name="button">
+      </td>
+	</tr>
+    <tr>
+      <td nowrap class="TableData">是否竞标：</td>
+      <td class="TableData">
+    	<select name="JB" class="BigSelect">
+    		<option value="0" <if condition="$vo[JB] eq 0">selected</if>>否</option>
+    		<option value="1" <if condition="$vo[JB] eq 1">selected</if>>是</option>	
+    	</select>
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">申报时间：</td>
+      <td class="TableData">
+    	<input type="text" name="SJ" class="BigInput" size="30" maxlength="11" value="{$vo[SJ]}">
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJ');">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">计划完成时间：</td>
+      <td class="TableData">
+    	<input type="text" name="WCSJ" class="BigInput" size="30" maxlength="11" value="{$vo.WCSJ}" >
+    	<img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.WCSJ');">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目来源：</td>
+      <td class="TableData">
+    	<textarea name="XMLY" cols="80" rows="4" class="BigInput">{$vo.XMLY}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目预算资金：</td>
+      <td class="TableData">
+    	<input type="text" name="YSZJ" size="40" maxlength="100" class="BigInput" value="{$vo.YSZJ}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目简介：</td>
+      <td class="TableData">
+    	<textarea name="XMJJ" cols="80" rows="4" class="BigInput">{$vo.XMJJ}</textarea>
+      </td>
+    </tr>
+    <tr class="TableHeader">
+      <td colspan="2">附件列表</td>
+    </tr>
+
+  
+    <tr class='TableLine1'>
+          <td colspan="2">{$att}
+          </td>
+     </tr>
+
+
+    <tr class="TableHeader">
+      <td colspan="2">
+        <input type="hidden" name="XM_ID" value="{$vo.XM_ID}" />
+        
+      	<input type="hidden" name="XMZT" value=""/>
+        <input type="hidden" name="FJ_ID" value="{$vo.FJ_ID}"/>
+        <input type="hidden" name="OPERATION" value=""/>
+        <input type="hidden" name="ATTACHMENT_NAME" />
+        <input type="hidden" name="ATTACHMENT_NAME_OLD" value="{$vo.FJ_NAME}" />
+        <input type="file" name="ATTACHMENT" size="40" class="SmallInput" title="选择附件文件">
+        <input type="button" value="上传附件" onclick="SubmitAttach()" class="SmallButton" />
+      </td>
+    </tr>
+    <tr align="center" class="TableControl">
+      <td colspan="2" nowrap>
+      	
+      	<input type="hidden" value="{$vo.FJ_NAME}" name="FJ_NAME"/>
+        <input type="button"  value="新建项目申报并提交初审" class="BigButton" onclick="SubmitProject();">&nbsp;&nbsp;
+      </td>
+    </tr>
+  </form>
+
+  <volist name="tpllist" id="row" key="k" mod="2">    
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+        
+          <td colspan="2">
+            <img src="../Public/images/netdisk/{$row.filename|image_mimetype}" align="absmiddle">
+           	<a href="/index.php/attach/view/ATTACHMENT_ID/{$row.attid}">
+           	{$row.filename}
+               </a>
+          </td>
+     </tr>
+    </volist> 
+</table>
+
+
+<include file="Public:footer" />

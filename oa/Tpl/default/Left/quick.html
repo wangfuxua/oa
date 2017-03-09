@@ -1,0 +1,40 @@
+<include file="Public:header" />
+<script>
+//-------- 打开windows程序 -------
+function winexe(NAME,PROG)
+{
+   URL="__APP__/Attach/winexe/PROG/"+PROG+"/NAME/"+NAME;
+   window.open(URL,"winexe","height=100,width=350,status=0,toolbar=no,menubar=no,location=no,scrollbars=yes,top=0,left=0,resizable=no");
+}
+</script>
+
+	<body>
+		<div class="left-quick">
+			<h4>菜单快捷组<a href="__URL__/setquick" target="icontent">定义</a></h4>
+			<table>
+				<tbody>
+                    <volist name="list1" id="vo" key="k" mod="2">					
+					<tr>
+					  <td><a href="__APP__/{$vo[FUNC_CODE]}" target="icontent">{$vo.FUNC_NAME}</td>
+					</tr>
+					</volist>
+				</tbody>
+			 </table>					
+			 <!--
+			<h4>Windows快捷组<a href="__URL__/winexeIndex" target="icontent">定义</a></h4>
+			<table>
+				<tbody>
+                    <volist name="list2" id="vo" key="k" mod="2">					
+					<tr>
+					  <td><a href="javascript:winexe('{$vo.WIN_DESC}','{$vo.WIN_PATH|urlencode}');" title="程序路径：{$vo.WIN_PATH}">{$vo.WIN_DESC}</td>
+					</tr>
+					</volist>
+				</tbody>
+			 </table>
+			 -->			
+		</div>
+		
+
+
+
+<include file="Public:footer" />

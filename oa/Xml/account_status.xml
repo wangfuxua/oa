@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>1</id>
+<name>已拜访且已见到负责人</name>
+<sort>1</sort>
+</item>
+<item>
+<id>3</id>
+<name>新开发的用户</name>
+<sort>2</sort>
+</item>
+</document>

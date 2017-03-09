@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<title>WEBIM演示</title>
+<style type="text/css">
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+</style>
+
+<script type="text/javascript">
+<!--
+//指定当前组模块URL地址
+var APP	 =	 '__APP__';
+var APP_PUBLIC = '../public';
+var CHAT_CONF_CLOSE = '{$chat_conf_close}';
+//-->
+</script>
+
+<script type="text/javascript" src="../public/js/jquery-1.2.6.js"></script>
+<script type="text/javascript" src="../public/js/menu.js" ></script>
+<script type="text/javascript" src="../public/js/face.js" ></script>
+
+<!--配置是否启用WEB_IM-->
+<php>if($use_webim==1){</php>
+<session name="LOGIN_USER_ID">
+<!--WebIM-->
+<link rel="stylesheet" type="text/css" href="../public/css/face.css?ver=1" />
+<link rel="stylesheet" type="text/css" href="../public/webim/css/index.css?ver=1" />
+<script type="text/javascript" src="../public/webim/js/index.js?ver=6"></script>
+<script type="text/javascript" src="../public/webim/js/checkMsg.js"></script>
+
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="../public/webim/css/ie6.css" /><script type="text/javascript">$(function(){ $(window).scroll(function(e){ $("#taskbar").css({"top":document.body.parentNode.scrollTop+document.documentElement.clientHeight-24});}).resize(function(){ $(this).scroll()}).scroll();$(document).mouseover(function(e){e.target.className=="close"&&$(e.target).addClass("hover");}).mouseout(function(e){ $(e.target).hasClass("close")&&$(e.target).removeClass("hover");});});</script>
+<![endif]-->
+</HEAD>
+<BODY>
+<!--WEB IM start-->
+<div id="append_parent"></div>
+<!-- 我显示得用户名 -->
+<input type="hidden" id="my_name" value="{$my_name}">
+<div id="have_open"></div>
+<div id="taskbar" <php>if($chat_conf_close == '1'){echo 'class="offline"';}</php> >
+	<div id="chatbar">
+		<div id="chatting" class="chatting highlight">
+			<!--<input type="hidden" class="just_receive" value="2"/>-->
+            <input type="text" class="just_receive" value="2" style="width:0px;height:0px;border:0;float:left"/>
+			<div class="trayCloseTab" title="关闭聊天窗口"></div>
+			<div class="trayIcon"><span><strong class="name"></strong></span></div>
+			<div class="tab_count">0</div>
+			<div class="trayPanelWrapper">
+				<div class="trayIcon"><span><strong class="name"></strong></span></div>
+				<div class="trayPanel">
+					<div class="trayPanelTitle"><a class="title_name" href=""></a></div>
+					<div class="trayPanelTitleGray"><span></span></div>
+					<a class="title_img" href=""><img class="df_img" src="../public/img/webim/me.jpg" /></a>
+					<div class="trayCloseTab" title="关闭聊天窗口"></div>
+					<div class="trayPanelBody">
+						<div class="clearChatHistory">
+							<span class="clearChat">清除聊天记录</span>
+						</div>
+						<!--聊天内容 start-->
+						<div class="chatContent">
+							<div class="dateDivider first"></div>
+							<h5 class="self hide"><span class="timeStamp"></span></h5>
+							<h5 class="other hide"><span class="timeStamp"></span><a href="#"></a></h5>
+							<p class="p_other hide"></p>
+						</div>
+					    <!--聊天内容 end-->
+					</div>
+					<div class="chatInput">
+                    	<div class="webim_input_top">
+                        <span class="face_bnt"><img src="../public/img/facelist.gif" align="absmiddle" style="cursor:pointer" /></span>
+                        </div>
+						<textarea class="msg"></textarea>
+                        <div class="webim_input_button">
+                        <input type="submit" class="bnt_send" value="发送" />
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="tasktray">
+		<div id="trayFriend">
+			<div class="trayIcon"><span>在线好友(<strong class="online_num" id="online_num">{$online_num}</strong>)</span></div>
+			<div class="trayPanelWrapper">
+				<div class="trayIcon">
+					<span>在线好友(<strong class="online_num">{$online_num}</strong>)</span>
+				</div>
+				<div class="trayPanel">
+					<div class="trayPanelTitle">在线好友列表</div>
+					<div class="trayPanelBody">
+						<ul class="trayFriendList">
+							<li class="center">Loading...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<span id="play_sound"></span>
+<div class="clear"></div>
+</session>
+<php>}</php>
+<!--WEB IM end-->
+
+
+
+
+</BODY></HTML>

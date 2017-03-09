@@ -1,0 +1,53 @@
+<include file="Public:header" />
+<script>
+function delete_diary(DIA_ID)
+{
+ msg='确认要删除该模块么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/FUNC_ID/" + DIA_ID;
+  window.location=URL;
+ }
+}
+</script>
+
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/diary.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"><a href="__URL__/form">新建模块</a></span>
+    </td>
+  </tr>
+</table>
+<br>
+    <table border="0" cellspacing="1" width="95%" class="small" bgcolor="#000000" cellpadding="3">
+    
+    <thead class="TableHeader">
+      <td nowrap align="center">编号</td>
+      <td nowrap align="center">名称</td>
+      <td nowrap align="center">模块路径</td>
+      <td nowrap align="center">css</td>
+      <td nowrap align="center">moduleid</td>
+      <td nowrap align="center">moduletype</td>
+      <td nowrap align="center">配置js</td>
+      <td nowrap align="center">内容js</td>
+      <td nowrap align="center">操作</td>
+      </thead>
+      <iterate name="list" id="vo" key="k">
+       <tr class="TableLine1">
+      <td nowrap align="center" width="100">{$vo.FUNC_ID}</td>
+      <td nowrap align="center" width="100">{$vo.FUNC_NAME}</td>
+      <td nowrap align="center" width="100">{$vo.funcpath}</td>
+      <td nowrap align="center">{$vo.css}</td>
+      <td nowrap align="center">{$vo.clientjs_moduleid}</td>
+      <td nowrap align="center">{$vo.clientjs_moduletype}</td>
+      <td nowrap align="center">{$vo.clientjs}</td>
+      <td nowrap align="center">{$vo.contentjs}</td>
+      <td nowrap align="center" width="100">
+          [<a href="__URL__/form/FUNC_ID/{$vo.FUNC_ID}">编辑</a>][<a href="javascript:delete_func({$vo.FUNC_ID});"> 删除</a>]
+      </td>
+    </tr>
+    </iterate>
+   </table>
+
+
+<include file="Public:footer" />

@@ -1,0 +1,46 @@
+﻿@charset "utf-8";
+html,body{background:#fff; font-size:12px; color:#000; font-family:"宋体";}
+div{margin:0 auto;}
+ul,li{padding:0; margin:0; list-style-type:none;}
+form{padding:0; margin:0;}
+em{font-style:normal;}
+.str{font-weight:bold;}
+h1,h2,h3,h4,h5,h6{font-size:14px; text-align:left;}
+a{color:#000; text-decoration:none;}a:hover{color:#d12700;}
+
+/**********  table  *************/
+table {width:98%;height:auto;border-collapse:collapse;border:1px #B8C9DD solid;margin:10px auto;font-size:12px}
+table caption {height:24px;line-height:24px;background-color:#A1C3E6;color:white;text-align:left;padding-left:10px}
+table th, table td, 
+table tbody th, table tbody td {border:1px #B8C9DD solid;height:24px;line-height:24px;padding:2px 5px;vertical-align:middle}
+table thead th, table thead td, 
+table tfoot th, table tfoot td {text-align:center}
+table thead th, table tfoot th {color:#005DAA;background-color:#E3E9F5}
+table thead td, table tfoot td {color:#000000;background-color:#F2F5FC;font-weight:bold}
+table td.tdcenter,table tr.tdcenter td {vertical-align:middle;text-align:center}
+table caption.nostyle {background:none;color:black;font-weight:bold;font-size:14px}
+table th.acc {background-color:#E3E9F5;text-align:left;color:black}
+table th.acc .button {text-align:center}
+/* form */
+form input,textarea {border:1px silver solid}
+form input {height:16px;padding:2px;min-width:200px}
+textarea {width:98%}
+button {border-width:2px;padding:0 5px;font-size:12px;font-weight:bold;height:22px;line-height:18px;margin-right:5px;}
+form .radio, form .check {border:none}
+
+textarea.selectuser {width:300px;height:20px}
+input.title {width:98%}
+input.w300  {width:300px}
+input.date  {width:120px}
+	
+fieldset.date {}
+fieldset.date input {width:120px;float:left}
+fieldset.date label {width:auto;float:left}
+fieldset.date img    {float:left}
+
+fieldset.files {}
+fieldset.files input {width:300px}
+
+.btnFnt {padding:0 10px;margin:0 5px;background:#DDF0FF url(../images/bg/bgf1.gif) repeat-x 0 -453px;border:1px solid #87A3C1;color:#174B73;font-weight:bold;
+height:22px;line-height:22px;cursor:pointer !important
+}

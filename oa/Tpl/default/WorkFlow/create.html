@@ -1,0 +1,95 @@
+<include file="Public:header_news" />
+<script type="text/javascript" src="../Public/js/js.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#moduleName").formValidator({onshow:"请输入名称/文号",onfocus:"名称/文号不能为空",oncorrect:"名称/文号合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"名称/文号两边不能有空符号"},onerror:"名称/文号不能为空,请确认"});;
+	$("#userId2_ID").formValidator({onshow:"请输入承办人",onfocus:"承办人不能为空",oncorrect:"承办人合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"承办人两边不能有空符号"},onerror:"承办人未填全,请确认"});
+	$("#formdata").formValidator({onshow:"请填写表单数据",onfocus:"表单数据未填全",oncorrect:"表单数据合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"表单数据两边不能有空符号"},onerror:"表单数据未填全,请确认"});
+	
+});
+</script>
+</head>
+<body> 
+<div id="main" class="KDStyle">
+
+<form action="__APP__/WorkExecute/Add" method="post" name="form1" id="form1" target="_parent">
+	<div>
+		<table>
+			<input type="hidden" value="{$modelId}" name="modelId">
+			<col width="120px" />
+			<thead>
+			<tr><th colspan="3">发文 - 名称/文号</th></tr>
+			<tr></thead>
+			<tbody>
+			<th>工作名称：</th>
+			<td colspan="2"><input name="moduleName" id="moduleName" value="{$moduleName}" type="text" style="width:200px"/></td>
+			</tr>
+			<tr>
+			<th>工作等级：</th>
+			<td colspan="2"><select name="grade">
+				<option value="0">一般</option>
+				<option value="1">重要</option>
+				<option value="2">紧急</option>
+				<option value="3">紧急且重要</option>
+				</select></td>
+			</tr>
+			<tr>
+			<td colspan="3"><div id="moduleNameTip" style="width:100%" align="left"></div>
+			</td>
+			</tr>
+			<tr class="thead">
+				<th>流程步骤</th>
+				<th>承办内容</th>
+				<th>承办人</th>
+			</tr>
+		<iterate name="moduleFlowList" id="vo" key="k">
+			<if condition ="$vo['flowId'] eq 1">
+			<tr class="tdcenter">
+				<td>{$vo['flowId']}</td>
+				<td>{$vo['flowName']}</td>
+				<td>{$userName}<input type="hidden" name="userId[{$k}]" value="{$userId}"></td></tr>
+			<else />
+			<tr class="tdcenter">
+				<td>{$vo['flowId']}</td>
+				<input name="flowId[{$k}]" value="{$vo['flowId']}" type="hidden">
+				<input name="modulefiled[{$k}]" value="{$vo['modulefiled']}" type="hidden">
+				<td>{$vo['flowName']}</td>
+				<td><input name="userId[{$k}]_NAME" value="" id="userId{$k}_NAME"  readonly>
+	<input type="hidden" name="userId[{$k}]_ID" id="userId{$k}_ID" >
+	&nbsp;&nbsp;<button type="button" name="Abutton1" onClick="setInput('userId{$k}_ID','userId{$k}_NAME','','')" style="margin-top:-7px">添加</button>
+	&nbsp;</td>
+			</tr>
+			</if>
+		</iterate>
+		<tr><td colspan="3"><div id="userId2_IDTip" style="width:100%" align="left"></div></td></tr>
+		</tbody>
+		<tfoot><tr><td colspan="3"></td></tr></tfoot>
+		</table>		
+
+	</div>
+	<div class="dm_conthree">
+		<div id="msg"></div>		
+	</div>
+	<table>
+	<col width="120px" />
+		<input type="hidden" value="{$workRow['zworkId']}" name="zworkId">
+		<input type="hidden" value="{$TableName}" name="TableName">
+		<thead>
+		<tr>
+		<th><p class="wp1">{$modelName}</p></th>
+		</tr>
+		</thead>
+	<tr><td class="tgray"><span style="float:left">文号：{$moduleName}</span><span style="float:right">时间：{$time}</span></td></tr>
+			<tr><td>{$templeate}</td></tr>
+  	<tfoot>
+		<tr><th>
+		<button type="submit"><div><span>完成</span></div></button>
+
+		</th></tr>
+		</tfoot>
+	</table>
+	</form>
+<include file="Public:alert_lable" />     
+<include file="Public:footer" />

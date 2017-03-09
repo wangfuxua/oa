@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/* user-online */
+.oTree{}
+.oTree-bg,.oTree-bg.sTreeNode:hover {background:url(../images/bg/usrtree_bg.gif) white no-repeat left top;line-height:26px;height:26px;font-weight:normal;padding-left:10px}
+.oTree-bg.sTreeNode { padding-left:10px}
+.oTree .sTreeNode {padding:0}
+.sTree .sTreeNode {padding:0;line-height:26px;padding-left:10px}
+.sTreeNode:hover{background:none;padding:0 0 0 10px;line-height:26px}
+.sTree a.node, .sTree a.nodeSel {padding:0}
+.sTree a.node:hover, .sTree a.nodeSel:hover {text-decoration: none;font-weight:normal;padding:0}
+
+.menuOn {background:none}

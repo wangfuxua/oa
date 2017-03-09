@@ -1,0 +1,123 @@
+<include file="Public:header2" /> 
+<script>
+function CheckForm(){ 
+	   if(document.form1.SUBJECT.value==""){ 
+	   		alert("标题不能为空！");
+	     	return (false);
+	   } 
+		   	 
+		   	document.form1.submit();
+	   
+}
+</script>
+
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票管理设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "投票管理", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建投票", Url: "__URL__/add", Cls: "", IconCls: "ico ico-add" },
+            { Title: "修改投票", Url: "#", Cls: "", IconCls: "ico ico-edit" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+
+	<div class="KDStyle" id="main">
+		<form action="__URL__/save"  method="post" name="form1">
+		<table>
+			<col width="150px" />
+			<thead><tr><th colspan="2"></th></tr></thead>
+			<tr>
+				<th>发布范围（部门）：</th>
+				<td><input type="hidden" name="TO_ID" id="TO_ID" value="{$voteRow['TO_ID']}">
+					<textarea cols="20" name="TO_NAME" id="TO_NAME" rows="2" class="selectuser" wrap="yes" readonly>{$voteRow['allname']}</textarea> 
+					<button onClick="setInput('TO_ID','TO_NAME','right_show1',true)"/>添加</button> 
+				</td>
+			</tr>
+			<tr>
+				<th>标题：</th>
+				<td><input name="SUBJECT" value="{$voteRow['SUBJECT']}" type="text" class="dm_inputsen" onBlur="this.className='dm_blur';" onFocus="this.className='dm_foucs';" /></td>
+			</tr>
+			<tr>
+				<th>类型：</th>
+				<td>
+					<select name="TYPE">
+						<option value="0" <equal name="voteRow['TYPE']" value='0'>selected</equal>>单选</option>
+						<option value="1" <equal name="voteRow['TYPE']" value='1'>selected</equal>>多选</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>查看投票结果：</th>
+				<td>
+					<select name="VIEW_PRIV">
+						<option value="0" <equal name="voteRow['VIEW_PRIV']" value='0'>selected</equal>>投票后允许查看</option>
+						<option value="1" <equal name="voteRow['VIEW_PRIV']" value='1'>selected</equal>>投票前允许查看</option>
+						<option value="2" <equal name="voteRow['VIEW_PRIV']" value='2'>selected</equal>>不允许查看</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>匿名投票：</th>
+				<td>
+					<input name="ANONYMITY" type="checkbox" <if condition="$voteRow[ANONYMITY]">checked</if> />允许匿名投票
+				</td>
+			</tr>
+			<tr>
+				<th>生效日期：</th>
+				<td class="dm_newpa">
+					<input name="BEGIN_DATE"  type="text" class="dm_number5" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"  value='<if condition="$voteRow[BEGIN_DATE] neq '0000-00-00'">{$voteRow.BEGIN_DATE}</if>' />
+					<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('BEGIN_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+					日期格式形如：1999-1-2，为空为立即生效！
+				</td>
+			</tr>
+			<tr>
+				<th>终止日期：</th>
+				<td class="dm_newpa">
+					<input name="END_DATE" type="text" class="dm_number5" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value='<if condition="$voteRow[END_DATE] neq '0000-00-00'">{$voteRow.END_DATE}</if>' />
+					<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('END_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+					日期格式形如：1999-1-2，为空为手动终止！
+				</td>
+			</tr>
+			<tfoot>
+			<tr>
+				<th colspan="2" class="dm_btnzan">
+				    <input type="hidden" name="VOTE_ID" value="{$voteRow['VOTE_ID']}">
+					<button onClick="CheckForm();"/>发布</button>
+					<button />重填</button>  
+				</th>
+			</tr>
+			</tfoot>
+		</table>
+		</form>
+	</div>
+	
+ 
+<include file="Public:alert_lable" />
+	<ul id="right_show1" style="display:none;">	 
+							<volist name="listall" id="vod"> 
+						 	 	<if condition="$vod.id"><li class="{$vod.id}">{$vod.name}</li></if> 
+			 				</volist>   	 
+		  				</ul>  
+<include file="Public:footer" />

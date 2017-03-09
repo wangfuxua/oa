@@ -1,0 +1,42 @@
+<include file="Public:header_module" />
+<SCRIPT language=javascript>
+function check_form()
+{
+  if(document.form1.SX_NAME.value == "")
+  {
+     alert("申报属性名称不能为空!");
+     return false;
+  }
+  
+  return true;	
+}
+</SCRIPT>
+
+<body onload="document.form1.SX_NAME.focus();">
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>申报属性</span></a></li>
+		<li><a href="__URL__/sblc" title=""><span>申报流程</span></a></li>
+		<li><a href="__URL__/sbwt" title=""><span>问题类型</span></a></li>
+		<li><a href="__URL__/mbgl" title=""><span>模板管理</span></a></li>
+	</ul>
+	<div class="dm_conone">
+		<h2>{$title}</h2>
+<table  width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+  <form action="__URL__/{$submit}" method="post" name="form1" onSubmit="return check_form();">
+    <tr> 
+      <td>申报属性名称：</td>
+      <td> 
+        <input type="text" name="SX_NAME" size="30" maxlength="100" class="BigInput" value="{$vo.SX_NAME}">
+      </td>
+    </tr>
+    <tfoot> 
+      <td colspan="2">
+        <input type='hidden' value="{$vo.SX_ID}" name="SX_ID">
+        <input type="submit"  value="保存" class="BigButton" name="submit">&nbsp;&nbsp; 
+        <input type="button"  value="返回" class="BigButton" name="back" onClick="history.back();">
+      </td>
+    </tfoot>
+  </form>
+</table>
+</div>
+<include file="Public:footer" />

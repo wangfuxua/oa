@@ -1,0 +1,113 @@
+<include file="Public:header2" />
+
+<script>
+function delete_meeting(M_ID)
+{
+ msg='确认要删除该会议么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/meetingdelete/from/manage/M_STATUS/{$M_STATUS}/M_ID/" + M_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 
+		<if condition="$M_STATUS eq 0">1</if>
+		<if condition="$M_STATUS eq 1">2</if>
+		<if condition="$M_STATUS eq 2">3</if>
+		<if condition="$M_STATUS eq 3">4</if>
+		<if condition="$M_STATUS eq 4">5</if>
+		
+		,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待批会议", Url: "__URL__/manage/M_STATUS/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "已准会议", Url: "__URL__/manage/M_STATUS/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "进行中会议", Url: "__URL__/manage/M_STATUS/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "未准会议", Url: "__URL__/manage/M_STATUS/3", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已结束会议", Url: "__URL__/manage/M_STATUS/4", Cls: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="KDMain">
+<table>
+<caption class="nostyle">
+<caption class="nostyle">{$status[$M_STATUS]}会议&nbsp;&nbsp;共<span class="big4">&nbsp;{$COUNT}</span>&nbsp;条会议记录</caption>
+</caption>
+<col width="100"></col>
+<col width="120"></col>
+<col width="120"></col>
+<col width="120"></col>
+<col></col>
+<col width="200"></col>
+  <thead>
+  <tr>
+      <th>会议申报人</th>
+      <th>申报时间</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>会议主题</th>      
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <sublist name="list" id="sub" key="k" mod="2">
+        <tr>
+      <td>{$sub.M_PROPOSER|getUsername}</td>
+      <td>{$sub.M_REQUEST_TIME}</td>
+      <td>{$sub.M_START}</td>
+      <td>{$sub.M_END}</td>
+      <td>{$sub.M_TOPIC|csubstr=###,0,60}</a></td>
+      <td>
+      <a href="javascript:;" onClick="window.open('__URL__/meetingdetail/M_ID/{$sub.M_ID}','','height=350,width=450,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,resizable=yes');">详细信息</a>&nbsp;&nbsp;&nbsp;
+      <if condition="$sub[M_STATUS] eq 0">
+       <a href="__URL__/checkup/M_ID/{$sub.M_ID}/M_STATUS/1">批准</a>&nbsp;&nbsp;
+       <a href="__URL__/checkup/M_ID/{$sub.M_ID}/M_STATUS/3">不准</a>&nbsp;&nbsp;
+      <elseif condition="$sub[M_STATUS] eq 1" />
+      <a href="__URL__/checkup/M_ID/{$sub.M_ID}/M_STATUS/0">撤消</a>&nbsp;&nbsp;
+      <elseif condition="$sub[M_STATUS] eq 3" />
+      <a href="__URL__/checkup/M_ID/{$sub.M_ID}/M_STATUS/1">批准</a>&nbsp;&nbsp;
+      </if>
+      <a href="javascript:delete_meeting('{$sub[M_ID]}');">删除</a>&nbsp;&nbsp;
+      </td>
+    </tr>
+    </sublist>
+    </tbody>  
+    
+    <tfoot>
+    <tr>
+      <td colspan="6">
+      {$page}
+      </td>
+    </tr>  
+    </tfoot>
+        
+   </table>
+   
+</div>
+
+
+
+<include file="Public:footer" />

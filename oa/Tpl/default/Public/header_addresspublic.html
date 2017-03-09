@@ -1,0 +1,99 @@
+	<link rel="stylesheet" type="text/css" href="../Public/css/tree.css" />
+	<link rel="stylesheet" type="text/css" href="../Public/css/tongxun.css" />
+	<script type="text/javascript" src="../Public/js/tree.js"></script>
+	<style type="text/css">
+		body{height:100%}
+		b {float:none}
+		#title p {float:right; line-height:22px}
+	</style>
+		<script type="text/javascript">
+    $(function() {
+        setDomHeight("leftpannel", 56);
+        setDomHeight("mainPannel", 56);
+        setDomHeight("news_main",56);
+        setDomWidth("mainPannel", 200);
+		
+		
+		createHeader({
+        Title: "通讯簿",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "个人通讯簿", Url: "__APP__/Address/privateaddress", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "公共通讯簿", Url: "__APP__/AddressPublic", Cls: "", IconCls: "ico ico-list2" }
+        ]
+    });
+    });
+    $(window).resize(function() { 
+        setDomHeight("leftpannel", 56);
+        setDomHeight("mainPannel", 56);
+        setDomHeight("news_main",56);
+        setDomWidth("mainPannel", 200);   
+    
+    });
+
+</script>
+	<body>
+	<div id="main" class="KDStyle">	
+		<div id="leftpannel">
+			<script type="text/javascript">
+	        <!--
+            var online= new sTree('online');
+            online.config = {
+				target				: null,		//所有节点的target
+				folderLinks			: true,		//文件夹可链接
+				useSelection		: true,		//节点可被选择(高亮)
+				useCookies			: true,		//树可以使用cookies记住状态
+				useLines			: false,	//创建带线的树
+				useIcons			: true,		//创建带有图标的树
+				useStatusText		: false,	//用节点名替代显示在状态栏的节点url
+				closeSameLevel		: true,		//只有一个有父级的节点可以被展开,当这个函数可用时openAll() 和 closeAll() 函数将不可用
+				inOrder				: true		//如果父级节点总是添加在子级节点之前,使用这个参数可以加速菜单显示.
+
+			}
+
+            online.icon = {
+				root				: '../Public/img/empty.gif',				// 根节点图标
+				folder				: '../Public/img/c_b3.gif',				// 枝节点文件夹图标
+				folderOpen			: '../Public/img/c_b3.gif',			// 枝节点打开状态文件夹图标
+				node				: '../Public/img/user.gif',			// 叶节点图标
+				empty				: '../Public/img/empty.gif',				// 空白图标
+				line				: '../Public/img/line.gif',				// 竖线图标
+				join				: '../Public/img/join.gif',				// 丁字线图标
+				joinBottom			: '../Public/img/joinbottom.gif',			// L线图标
+				plus				: '../Public/img/plus.gif',				// 丁字折叠图标
+				plusBottom			: '../Public/img/plusbottom.gif',			// L折叠图标
+				minus				: '../Public/img/minus.gif',				// 丁字展开图标
+				minusBottom			: '../Public/img/minusbottom.gif',		// L展开图标
+				nlPlus				: '../Public/img/nolines_plus.gif',		// 无线折叠图标
+				nlMinus				: '../Public/img/nolines_minus.gif'		// 无线展开图标
+			};
+			online.root = new Node(-1);
+	        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+            online.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+
+		        online.add(1,0,'联系人分组','','','','','','','');
+		            online.add(10001,1,'默认','__URL__/index/GROUP_ID/0','','','../Public/images/ico/user.png','','','');
+					<volist name="menulist" id="vo" key="k">
+			    online.add({$vo[GROUP_ID]+1000},1,'{$vo.GROUP_NAME}','__URL__/index/GROUP_ID/{$vo.GROUP_ID}','','','../Public/images/ico/user.png','','','');
+					</volist>
+				online.add(2,0,'索引（按姓氏）','','','','','','','');
+					<volist name="names" id="vo" key="m">
+			    online.add({$m+2000}, 2, '{$vo.TABLE_STR}', '__URL__/SearchSubmit/ID_STR/{$vo.ID_STR}/TABLE_STR/{$vo[TABLE_STR_URL]}', '', '', '../Public/images/ico/user.png', '', '', '');
+					</volist>
+				online.add(3,0,'查找（关键字）','__URL__/search','','','../Public/img/c_b3.gif','','','');
+
+
+
+			document.write(online);
+	        //-->
+        </script>
+		</div>
+	
+

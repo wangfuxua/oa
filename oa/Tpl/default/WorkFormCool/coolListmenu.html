@@ -1,0 +1,93 @@
+<include file="Public:header" />
+
+<script>
+function my_submit()
+{
+
+  if(ITEM_NAME.value=="")
+  {
+     alert("控件名称不能为空");
+     return;
+  }
+
+
+  var parent_window = parent.dialogArguments;
+
+  var option_str="";
+  for(i=1;i<={$ItemMax};i++)
+  {
+      var item_str="item_"+i;
+      if(document.all(item_str).value!="")
+        option_str+="<option value='"+document.all(item_str).value+"'>"+document.all(item_str).value+"</option>";
+  }
+  control_html="<select title=\""+ITEM_NAME.value.replace("\"","&quot;")+"\" style=\"font-size:"+ITEM_SIZE.value+"\">"+option_str+"</select>";
+
+  if(edit_flag==1)
+  {
+    oSelection =  parent.dialogArguments.document.selection.createRange();
+    oSelection(0).title=ITEM_NAME.value;
+    parent_window.doStyle("delete");
+    parent_window.insertHtml(control_html);
+  }
+  else
+    parent_window.EDIT_HTML.insertHtml(control_html);
+
+  window.close();
+}
+
+//-- 获取控件属性 --
+var edit_flag=0;
+function LoadDo()
+{
+  oSelection = dialogArguments.document.selection.createRange();
+  sRangeType = dialogArguments.document.selection.type;
+
+  if (sRangeType == "Control")
+  {
+  	edit_flag=1;
+  	ITEM_NAME.value = oSelection(0).title;
+  	ITEM_SIZE.value = oSelection(0).style.fontSize.replace("px","");
+
+  	for (i=0; i<oSelection(0).options.length; i++)
+  	{
+  	    var item_str="item_"+(i+1);
+  	    document.all(item_str).value =  oSelection(0).options(i).text;
+  	}
+  }
+  ITEM_NAME.focus();
+}
+</script>
+
+
+<body topmargin="0" onLoad="LoadDo();">
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+  <tr class="TableContent">
+      <td nowrap colspan="2">控件名称：
+      <Input name="ITEM_NAME" type="text" class="SmallInput" size="20">
+      <input type="button" onClick="my_submit();" value="确 定" class="SmallButton">
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap colspan="2">字体大小：
+       <Input name="ITEM_SIZE" type="text" class="SmallInput" size="20" title="可选，默认13像素">
+      </td>
+  </tr>
+  <tr class="TableHeader">
+      <td nowrap align="center">序号</td>
+      <td nowrap align="center" title="Tab键切换输入框">输入下拉菜单项目&nbsp;&nbsp;
+      </td>
+  </tr>
+<?
+for($I=1;$I<=$ITEM_MAX;$I++)
+{
+?>
+  <tr class="TableContent">
+      <td nowrap align="center"><?=$I?></td>
+      <td nowrap align="center" title="Tab键切换输入框"><Input name="item_<?=$I?>" type="text" class="SmallInput" size="30"></td>
+  </tr>
+<?
+}
+?>
+</table>
+<include file="Public:footer" />

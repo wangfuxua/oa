@@ -1,0 +1,58 @@
+<include file="Public:header_module2" />
+<include file="Public:header_address" />
+
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.CSV_FILE.value=="")
+   { alert("请选择要导入的文件！");
+     return (false);
+   }
+
+   if (document.form1.CSV_FILE.value!="")
+   {
+     var file_temp=document.form1.CSV_FILE.value,file_name;
+     var Pos;
+     Pos=file_temp.lastIndexOf("\\");
+     file_name=file_temp.substring(Pos+1,file_temp.length);
+     document.form1.FILE_NAME.value=file_name;
+   }
+
+   return (true);
+}
+</script>
+     	<div id="mainPannel">
+		<div class="mainpanelHead">
+       <h2>请指定用于导入的CSV文件： </h2>
+	   <p>
+<form action="__URL__/SearchSubmit" name="form1" method="POST">
+<label>
+全局查询</label><input type="text" name="PSN_NAME" size="10" class="BigInput"><button type="button" onclick="document.form1.submit();">搜索</button>
+</form> </p></div>
+    <!--active 为该文件夹操作-->
+
+
+  <form name="form1" method="post" action="__URL__/groupimportsubmit" enctype="multipart/form-data" onsubmit="return CheckForm();">
+    <table>
+     <thead>
+      <th>导入CSV通讯簿</th>
+     </thead>
+    <tbody>
+      <tr>
+      <td><input type="file" name="CSV_FILE"></td>
+     </tr>
+    <tbody>
+    <tfoot>
+    <tr>
+    <th>
+    <input type="hidden" name="GROUP_ID" value="{$GROUP_ID}">
+    <input type="hidden" name="FILE_NAME">
+    <button type="submit" value="导入" >导入</button>
+    <button type="button" value="返回" onclick="location='__URL__/group'">返回</button>
+    </th>
+    </tr>
+    </tfoot>
+   </table>
+</form>
+</div>
+<include file="Public:footer" />

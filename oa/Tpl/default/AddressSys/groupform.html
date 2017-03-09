@@ -1,0 +1,44 @@
+<include file="Public:header_module" />
+<include file="Public:header_addresssys" />
+
+<script>
+function CheckForm()
+{
+   if(document.form1.GROUP_NAME.value=="")
+      alert("组名不能为空！");
+   else
+      document.form1.submit();
+   
+}
+
+</script>
+
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/group" title=""><span>分组列表</span></a></li>
+		<li class="dm_on"><a href="__URL__/groupform" title=""><span>新建分组</span></a></li>
+	</ul>
+
+	<div>
+
+<table>
+  <form action="__URL__/groupsubmit" name="form1" method="POST">
+    <tr>
+      <td>分组名称：</td>
+      <td><Input type="text" name="GROUP_NAME" size="10" class="BigInput" value="{$row.GROUP_NAME}"></td>
+    </tr>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+          <input type="hidden" name="GROUP_ID" size="10"  value="{$row.GROUP_ID}">
+          <input type="button" value="提交" class="btnFnt" title="提交数据" name="button1" OnClick="CheckForm()">&nbsp&nbsp&nbsp&nbsp
+          <input type="button" value="返回" class="btnFnt" title="返回" name="button2" OnClick="location='__URL__/group'">
+      </td>
+    </tr>
+    </tfoot>
+    </form>
+</table>
+</div>       
+</div>
+
+<include file="Public:footer" />

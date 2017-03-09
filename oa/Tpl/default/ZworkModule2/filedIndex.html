@@ -1,0 +1,125 @@
+<include file="Public:header" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({formid:"form1",onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#name").formValidator({onshow:"请输入控件名",onfocus:"控件名不能为空",oncorrect:"控件名合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"控件名两边不能有空符号"},onerror:"控件名不能为空,请确认"});
+	$("#formtype").formValidator({onshow:"请输入控件类型",onfocus:"控件类型不能为空",oncorrect:"控件类型合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"控件类型两边不能有空符号"},onerror:"控件类型不能为空,请确认"});
+});
+</script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li class="dm_on"><a href="__URL__/filedIndex/modelId/{$modelId}" title=""><span>编辑控件</span></a></li>
+		<li><a href="__URL__/view/modelId/{$modelId}" title=""><span>预览模型</span></a></li>
+	</ul>
+<h2 class="dm_schedule">创建工作流控件</h2>
+		<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		
+		<form action="__URL__/filedadd"  method="post" name="form1" id="form1">	
+			<input name="modelId" type="hidden" value="{$modelId}">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>控件名</strong><br />
+	  			</td>
+				<td>
+					<input name="name" id="name"  type="text" class="dm_blur3" />
+				</td>
+				<td width="20%"><div id="nameTip" style="width:250px"></div></td>
+		</tr>
+		<tr>
+    	<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>控件类型</strong><br />
+	  			</td>
+	  			<td>
+       <select name="formtype" id="formtype" onchange="selectChoose(this.value,this.name,'msg','__URL__/select')">
+       					<option value="">选择类型</option>
+						<option value="text">单行文本</option>
+						<option value="textarea">多行文本</option>
+						<option value="box">选项</option>
+						<option value="datetime">日期和时间</option>
+						<option value="file">文件上传</option>
+	  				</select>
+	  				</td>
+	  				<td><div id="formtypeTip" style="width:250px"></div></td>
+    </tr>
+    <tr><td><strong>相关参数</strong>
+设置表单相关属性</td><td><div id="msg"></div></td><td></td></tr>
+	<tr>
+		<td colspan="3" class="dm_btnzan">
+		<button name="submit" type="submit" >提交</button>
+		</td>
+	</tr>
+	</form>    
+	</table>
+	</div>
+<h2 class="dm_schedule">模型使用控件</h2>
+		<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		
+		<form action="__URL__/fileOrder"  method="post" name="form1" >	
+		<tr>	<td>排序</td>
+				<td valign="top" class="dm_zanal">控件名</td>
+				<td>类型</td>
+				<td>管理</td>
+			</tr>
+		<iterate name="filedList" id="vo">
+			<tr>
+				<td width="20%"><input name='listorder[{$vo[filedId]}]' type='text' value='{$vo[order]}' maxlength="3"></td>
+				<td width="30%">{$vo['name']}</td>
+				<td width="20%">{$vo['formtype']}</td>
+				<td width="30%"><a href="__URL__/filedEdit/filedId/{$vo['filedId']}">修改</a>|<a href="__URL__/fileDel/filedId/{$vo['filedId']}">删除</a></td>
+			</tr>
+		</iterate>
+			<tr>
+				<td colspan="5" class="dm_btnzan">
+					<button name="submit" type="submit">完成</button>
+				</td>
+			</tr></form>
+		</table>
+		</div>
+<include file="Public:footer" />

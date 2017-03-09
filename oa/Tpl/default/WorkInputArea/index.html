@@ -1,0 +1,7 @@
+<include file="Public:header" />
+<frameset rows="23,*,0" cols="*" id="frame1" FRAMEBORDER="no" border="0">
+  <frame src="menu.php" name="form_area_menu" scrolling="no" noresize>
+  <frame src="public_attach.php?RUN_ID=<?=$RUN_ID?>&FLOW_ID=<?=$FLOW_ID?>&PRCS_ID=<?=$PRCS_ID?>&FLOW_PRCS=<?=$FLOW_PRCS?>" name="public_attach" scrolling="auto" noresize>
+  <frame src="personal_sign.php?RUN_ID=<?=$RUN_ID?>&FLOW_ID=<?=$FLOW_ID?>" name="personal_sign" scrolling="auto" noresize>
+</frameset>
+<include file="Public:footer" />

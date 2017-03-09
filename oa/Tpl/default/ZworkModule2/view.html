@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li class="dm_on"><a href="__URL__/index" title=""><span>模板预览</span></a></li>
+	</ul>
+<h2 class="dm_schedule">创建工作流控件</h2>
+<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<iterate name="modelList" id="vo">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>{$vo['name']}</strong><br />
+	  			</td>
+				<td>
+					{$vo['form']}		
+				</td>
+		</tr>
+		</iterate>
+		<tr><td colspan="2"><button onclick="window.history.go(-1)">返回</button></td></tr>
+  </table>
+</div>
+
+
+		</body>
+</html>

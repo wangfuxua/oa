@@ -1,0 +1,119 @@
+<include file="Public:header" /> 
+<title>新建客户反馈</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/Report/lists" title=""><span>客户反馈列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/Report/create" title=""><span><if condition="$update">修改<else/>新建</if>客户反馈</span></a></li>
+	</ul>
+<form method="post" name="form1" action='<if condition="$update">__APP__/Report/update<else/>__APP__/Report/save</if>' onSubmit="return idNull(Array('subject','parent_name'), Array('name_msg','account_msg'),Array('主题不能为空！','客户名称不能为空'));">		
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="report_id" value="{$report_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset" >重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+<tbody>
+	<tr><th colspan="4" class="tdtit"></th></tr>
+	<tr>
+		<td>优先级：</td>
+		<td >
+<!--			<script>
+			change_selected('priority', priority, "{$report_res['priority']}");
+			</script>	-->
+		<input id="priority_id" type="hidden" />
+		<input name='priority' id="priority" type="text" tabindex='2' size='20' maxlength='25' value="{$report_res['priority']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/priority/to_id/priority_id/to_name/priority',400,300);">选择</button>
+		</td>
+		<td>负责人：</td>
+		<td >
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$report_res['uid']}" />
+		<input id="manager_name" name='manager_name' type="text" value="{$report_res['USER_NAME']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>选择</button>	
+		</td>
+	</tr>
+	<tr>
+		<td>处理状态：</td>
+		<td >
+<!--			<script>
+			change_selected('status', report_status, "{$report_res['status']}");
+			</script>	-->	
+		<input id="status_id" type="hidden" />
+		<input name='status' id="status" type="text" tabindex='2' size='20' maxlength='25' value="{$report_res['status']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/report_status/to_id/status_id/to_name/status',400,300);">选择</button>
+		</td>
+		<td>客户名称： <span style="color:red;">*</span></td>
+		<td  >			
+		<input id="parent_name" name='account_name' type="text" size='30' value="{$report_res['account_name']}" readonly />
+			<input id='parent_id' name='account_id' type="hidden" value="{$report_res['account_id']}" />
+			<button title="选择 [Alt+T]" name=btn1 accessKey="T" type="button" tabindex='1' onClick="KDwin('__APP__/Account/lists/to_id/parent_id/to_name/parent_name',500,400);">选择</button><span id="account_msg"></span>
+			</td>
+	</tr>
+	<tr>
+		<td>反馈类型：</td>
+		<td >
+<!--			<script>
+			change_selected('type', report_type, "{$report_res['type']}");
+			</script>-->	
+		<input id="type_id" type="hidden" />
+		<input name='type' id="type" type="text" tabindex='2' size='20' maxlength='25' value="{$report_res['type']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/report_type/to_id/type_id/to_name/type',400,300);">选择</button>	
+		</td>
+		<td>反馈来源：</td>
+		<td >
+<!--			<script>
+			change_selected('source', report_source, "{$report_res['source']}");
+			</script>	-->	
+		<input id="source_id" type="hidden" />
+		<input name='source' id="source" type="text" tabindex='2' size='20' maxlength='25' value="{$report_res['source']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/report_source/to_id/source_id/to_name/source',400,300);">选择</button>
+		</td>
+	</tr>
+	<tr>
+		<td>反馈原因：</td>
+		<td colspan="3" >
+<!--			<script>
+			change_selected('reason', report_reason, "{$report_res['reason']}");
+			</script>-->	
+		<input id="reason_id" type="hidden" />
+		<input name='reason' id="reason" type="text" tabindex='2' size='20' maxlength='25' value="{$report_res['reason']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/report_reason/to_id/reason_id/to_name/reason',400,300);">选择</button>
+		</td>
+	</tr>
+	<tr>
+		<td>主题： <span style="color:red;">*</span></td>
+		<td colspan="4"><input type="text" name='subject' size="70" id="subject" onBlur="idNull('subject','name_msg','主题不能为空！');" value="{$report_res['subject']}" /><span id="name_msg"></span></td>
+	</tr><tr>
+		<td>描述：</td>
+		<td colspan="4"><textarea name='description' tabindex='3' cols="80" rows="8">{$report_res['description']}</textarea></td>
+	</tr><tr>
+		<td>分析：</td>
+		<td colspan="4"><textarea name='resolution' tabindex='3' cols="80" rows="5">{$report_res['resolution']}</textarea></td>
+	</tr>
+</tbody>
+</table>
+</form>
+
+<include file="Public:alert_lable" />
+</body></html>

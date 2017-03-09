@@ -1,0 +1,103 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function detail(GDZC_ID)
+{
+ URL="__URL__/detail/GDZC_ID/"+GDZC_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "固定资产查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "固定资产查询", Url: "__URL__/search", Cls: "", Icon: "", IconCls: "ico ico-query" },
+            { Title: "查询结果", Url: "#", Cls: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">	
+<table>
+	<col width="80px" />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col width="110px" />
+	<col />
+	<col />
+	<col />
+	<col width="60px" />
+	<col width="40px" />
+  <thead>
+      <tr>
+      <th>固定资产名称</th>
+      <th>编号</th>
+      <th>类别</th>
+      <th>数量</th>
+      <th>规格型号</th>
+      <th>单价</th>
+      <th>供货单位</th>
+      <th>开始使用日期</th>
+      <th>使用部门</th>
+      <th>管理人</th>
+      <th>资产录入员</th>
+      <th>审核</th>
+      <th></th>
+      </tr>
+  </thead>
+  
+  <tbody class="tcenter">
+  <volist name="list" id="vo" key="k" mod="2">
+    <tr>
+      <td>{$vo.MC}</td>
+      <td>{$vo.BH}</td>
+      <td>{$vo.LB}</td>
+      <td>{$vo.SL}</td>
+      <td>{$vo.GGXH}</td>
+      <td>{$vo.DJ}</td>
+      <td>{$vo.JZDW}</td>
+      <td>{$vo.KSSYRQ}</td>
+      <td>{$vo.SYBM_ID|getDeptname}</td>
+      <td>{$vo.GLR_ID|getUsername}</td>
+      <td>{$vo.ZCLRY_ID|getUsername}</td>
+      <td> <if condition="$vo[SH] eq 2">通过审核<elseif condition="$vo[SH] eq 1" />未通过审核<else />待审核</if></td>
+      <td>
+       <a href="javascript:detail({$vo.GDZC_ID})">详细</a>&nbsp;
+      </td>
+    </tr>
+    </volist>
+  </tbody>
+
+ <tfoot> 
+ <tr><th colspan="13">{$page}
+ </th>
+ </tr>
+ </tfoot>
+</table>  
+</div>
+
+<include file="Public:footer" />

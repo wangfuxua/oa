@@ -1,0 +1,95 @@
+<include file="Public:header2" />
+<script language="JavaScript">
+function detail(BOOK_ID)
+{
+ URL="__URL__/bookDetail/?BOOK_ID="+BOOK_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+function delete_book(BOOK_ID)
+{
+ msg='确认要删除该图书么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/bookDelete/?BOOK_ID=" + BOOK_ID;
+  window.location=URL;
+ }
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "图书信息录入管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "图书信息录入管理", Url: "__URL__/manageIndex", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "图书信息查询", Url: "__URL__/manageQuery", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+
+<body>
+
+	<div class="KDStyle" id="KDMain">
+	
+	<div class="mainPanelHead"><h2>图书列表</h2><p><button name="Abutton1" onClick="window.location.href('manageNew')"> 新建图书 </button></p></div>
+		
+<table>
+<caption class="nostyle"></caption>
+<thead>
+  <tr>
+      <th>部门</th>
+      <th>书名</th>
+      <th>类别</th>
+      <th>作者</th>
+      <th>出版社</th>
+      <th>存放地点</th>
+      <th>借阅状态</th>
+      <th>操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <volist name="list" id="vo">
+  <tr>
+      <td>{$vo.DEPT_ID|getDeptname}</td>
+      <td><a href="javascript:detail('{$vo.BOOK_ID}');">{$vo.BOOK_NAME} </a></td>
+      <td>{$vo.TYPE_ID|getTypename}</td>
+      <td>{$vo.AUTHOR}</td>
+      <td>{$vo.PUB_HOUSE}</td>
+      <td>{$vo.AREA}</td>
+      <td>{$vo.LEND_DESC}</td>
+      <td>
+        <a href="__URL__/manageNew/?BOOK_ID={$vo.BOOK_ID}">编辑 </a>
+        <a href="javascript:delete_book({$vo.BOOK_ID});"> 删除 </a>
+        <a href="javascript:detail('{$vo.BOOK_ID}');">详情 </a>
+      </td>
+    </tr>
+   </volist> 
+    </tbody>
+  <tfoot>  
+ <tr>
+  <td colspan="8" align="right">{$page}
+  </td>
+  </tr>
+  </tfoot>
+</table>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,53 @@
+﻿
+<script type="text/javascript" src="../Public/style/default/js/iframe.js" ></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 30);
+        setDomHeight("tree", 32);
+        setDomHeight("main",30);
+        setDomWidth("mainPannel", 200);
+
+		createHeader({
+        Title: "员工日志查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ]
+
+    });		   
+});
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 30);
+        setDomHeight("tree", 32);
+        setDomHeight("main",30);
+        setDomWidth("mainPannel", 200);   
+    
+    });
+
+</script>
+<include file="Public:header2" /><body>
+	 	<div id="KDMain" class="KDStyle">	
+		<div id="leftpannel">
+
+		<script type="text/javascript">
+		    // <![CDATA[
+		    iframe('__URL__/infotree', '100%', '100%', 'tree');
+		    // ]]>
+        </script>
+		</div>
+     	<div id="mainPannel" style="width:80%;">
+
+		<script type="text/javascript">
+		    // <![CDATA[
+		    iframe('__URL__/infoblank', '100%', '100%', 'main');
+		    // ]]>
+        </script>
+
+		</div>
+	</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="author" content="Jay" />
+    <title>我的桌面</title>
+    <link href="/oa/Tpl/default/Public/css/kd-style.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/oa/Tpl/default/Public/js/js.js"></script>
+    <script type="text/javascript" src="/oa/Tpl/default/Public/js/myDesktopSetting.js"></script>
+
+</head>
+<body>
+    <div id="titbar">
+        <h2>
+            <b class="ico-tit mydesktop"></b>我的桌面</h2>
+        <div id="custom">
+            <div id="custombtn">
+                <a href="javascript:" title="" class=""><b class="ico-btn ico-custombtn"></b><span>自定义</span><b
+                    class="ico-btn ico-arrow-bottom"></b></a></div>
+            <div id="custombox" style="display: none">
+                <ul>
+                    <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-module"></b>增减模块</a></li>
+                    <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-layout"></b>更改布局</a></li>
+                    <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-style"></b>更换主题</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="funbar" style="display: none">
+        <!-- funbar btn start -->
+        <ul>
+            <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-module"></b>增减模块</a></li>
+            <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-layout"></b>更改布局</a></li>
+            <li><a href="javascript:" title=""><b class="ico-btn ico-funbar-style"></b>更换主题</a></li>
+        </ul>
+        <!-- save & close btn start -->
+        <div id="funbtn">
+            <form action="javascript:">
+            <button type="submit" name="funbtn-save">
+                <b class="ico-btn ico-save"></b><span>保存</span></button>
+            <button type="reset" name="funbtn-cancel">
+                <b class="ico-btn ico-reset"></b><span>取消</span></button>
+            </form>
+        </div>
+    </div>
+    <div id="funbox">
+        <!-- Module setting box start -->
+        <div class="funbox" style="left: 4px; display: none">
+            <form action="" class="funbox-module" name="checkModule">
+            <fieldset>
+                <label>
+                    <input name="news" type="checkbox" value="news" checked="checked" />公司新闻</label>
+                <label>
+                    <input name="Calendar" type="checkbox" value="Calendar" checked="checked" />日程安排</label>
+                <br />
+                <label>
+                    <input name="flow" type="checkbox" value="flow" checked="checked" />代办事宜</label>
+                
+                <label>
+                    <input name="email" type="checkbox" value="email" checked="checked" />内部邮件</label>
+                <br />
+                <label>
+                    <input name="notify" type="checkbox" value="notify" checked="checked" />公告通告</label>
+                <label>
+                    <input name="url" type="checkbox" value="url" checked="checked" />常用网址</label>
+            </fieldset>
+            </form>
+        </div>
+        <!-- Layout setting box start -->
+        <div class="funbox" style="left: 104px; display: none">
+            <ul class="funbox-layout">
+                <li><a href="javascript:" title="">
+                    <img src="/oa/Tpl/default/Public/images/ico/layout_column_1.gif" alt="1栏" /><span>一栏</span></a></li>
+                <li><a href="javascript:" title="">
+                    <img src="/oa/Tpl/default/Public/images/ico/layout_column_2.gif" alt="2栏" /><span>二栏</span></a></li>
+                <li><a href="javascript:" title="">
+                    <img src="/oa/Tpl/default/Public/images/ico/layout_column_3.gif" alt="3栏" /><span>三栏</span></a></li>
+                <li><a href="javascript:" title="">
+                    <img src="/oa/Tpl/default/Public/images/ico/layout_column_4.gif" alt="4栏" /><span>四栏</span></a></li>
+            </ul>
+        </div>
+        <!-- Style setting box start -->
+        <div class="funbox" style="left: 204px; display: none">
+        </div>
+    </div>
+    <div id="main">
+        <div id="desktoptips" style="display: block">
+            <b class="ico-btn ico-tips-cue"></b>
+            <p>
+                通过拖动、关闭来对您的桌面进行自定义。简单拖放就可以重新排列模块，若要应用更改、请单击”保存”按钮。</p>
+            <p id="colinfo">
+            </p>
+        </div>
+        
+      
+        
+        
+        
+        <div id="columns"></div>
+        <!-- #columns End -->
+    </div>
+    <!--#main End-->
+</body>
+</html>

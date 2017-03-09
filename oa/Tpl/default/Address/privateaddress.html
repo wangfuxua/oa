@@ -1,0 +1,172 @@
+<include file="Public:header2" />
+<include file="Public:header_address" />
+<script>
+function check_all()
+{
+ for (i=0;i<document.all("add_select").length;i++)
+ {
+   if(document.all("allbox").checked)
+      document.all("add_select").item(i).checked=true;
+   else
+      document.all("add_select").item(i).checked=false;
+ }
+
+ if(i==0)
+ {
+   if(document.all("allbox").checked)
+      document.all("add_select").checked=true;
+   else
+      document.all("add_select").checked=false;
+ }
+}
+
+function check_one(el)
+{
+   if(!el.checked)
+      document.all("allbox").checked=false;
+}
+
+</script>
+     	<div id="mainPannel">
+			<div class="mainpanelHead">
+       <h2><a href="__URL__/privateaddress/GROUP_ID/{$GROUP_ID}" title="">联系人列表({$GROUP_NAME})</a></h2>
+	   <p>
+<form action="__URL__/SearchSubmit" name="form1" method="POST">
+<label>全局查询</label><input type="text" name="PSN_NAME" size="10" class="BigInput"><button type="button" onclick="document.form1.submit();" class="">搜索</button>
+    </form>
+	</p>
+	</div>
+
+    <!--active 为该文件夹操作-->
+
+			<table>
+	 		<col width="30px" />
+			   <thead>
+			   <tr>
+				<th> </th>
+				  <th>姓名</th>
+				  <th>性别</th>
+				  <th>单位（部门）</th>
+				  <th>职位</th>
+				  <th>单位电话</th>
+				  <th>家庭电话</th>
+				  <th>手机</th>
+				  <th>电子邮件</th>
+				  <th>操作</th>
+
+			   </tr>
+			   </thead>
+			   <tbody>
+<volist name="list" id="vo">
+    <tr class="tdcenter">
+
+      <td><input type="checkbox" name="add_select" value="{$vo.ADD_ID}" onClick="check_one(self);"></td>
+
+      <td><a href="__URL__/detail/ADD_ID/{$vo.ADD_ID}" target="_blank">{$vo.PSN_NAME}</a></td>
+      <td>
+      <if condition="$vo[SEX] eq 0">
+      男
+      <elseif condition="$vo[SEX] eq 1" />
+      女
+      </if>
+
+      </td>
+	  <td>{$vo.DEPT_NAME}</td>
+	  <td>{$vo.MINISTRATION}</td>
+      <td>{$vo.TEL_NO_DEPT}</td>
+      <td>{$vo.TEL_NO_HOME}</td>
+      <td>{$vo.MOBIL_NO}</td>
+      <td><a href="mailto:{$vo.EMAIL}">{$vo.EMAIL}</a></td>
+      <td width="100">
+          <a href="__URL__/detail/ADD_ID/{$vo.ADD_ID}" target="_blank"> 详情</a>
+          <a href="__URL__/edit/ADD_ID/{$vo.ADD_ID}"> 编辑</a>
+          <a href="javascript:delete_add({$vo.ADD_ID});"> 删除</a>
+      </td>
+    </tr>
+</volist>
+			  </tbody>
+						<tfoot>
+						<tr>
+							<td  colspan="10"><input type="checkbox" name="allbox" onClick="check_all();">
+							<button onClick="delete_all('{$GROUP_ID}');" title="删除所选人员" class="" />删除</button>
+
+							 <button onClick="delete_all2('{$GROUP_ID}');" title="删除本组全部人员" class="" />全部删除</button>
+							 {$page}</td>
+						</tr>
+						</tfoot>
+			  </table>
+
+
+	<!--end                      per-box-->
+  </div>
+</div>
+
+
+
+<script>
+
+function add_detail(ADD_ID)
+{
+ URL="__URL__/detail/ADD_ID/"+ADD_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"detail","height=500,width=400,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+
+function delete_add(ADD_ID)
+{
+ msg='确认要删除该联系人么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/ADD_ID/" + ADD_ID + "/GROUP_ID/{$GROUP_ID}";
+  window.location=URL;
+ }
+}
+
+function delete_all(GROUP_ID)
+{
+  delete_str="";
+  for(i=0;i<document.all("add_select").length;i++)
+  {
+
+      el=document.all("add_select").item(i);
+      if(el.checked)
+      {  val=el.value;
+         delete_str+=val + ",";
+      }
+  }
+
+  if(i==0)
+  {
+      el=document.all("add_select");
+      if(el.checked)
+      {  val=el.value;
+         delete_str+=val + ",";
+      }
+  }
+
+  if(delete_str=="")
+  {
+     alert("要删除人员，请至少选择其中一个人员。");
+     return;
+  }
+
+  msg='确认要删除所选人员么？';
+  if(window.confirm(msg))
+  {
+    window.location="__URL__/deleteall/DELETE_STR/"+ delete_str +"/GROUP_ID/"+ GROUP_ID;
+
+  }
+}
+function delete_all2(GROUP_ID)
+{
+  msg='确认要删除全部人员么？';
+  if(window.confirm(msg))
+  {
+    window.location="__URL__/deleteall2/GROUP_ID/"+ GROUP_ID;
+
+  }
+}
+
+</script>
+
+<include file="Public:footer" />

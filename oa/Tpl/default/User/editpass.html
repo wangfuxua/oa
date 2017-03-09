@@ -1,0 +1,46 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.USER_ID.value=="")
+   { alert("用户名不能为空！");
+     return (false);
+   }
+   if(document.form1.PASSWORD.value=="")
+   { alert("密码不能为空！");
+     return (false);
+   }
+}
+
+</script>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th colspan="2">修改密码</th>
+				</tr>
+			</thead>
+			<tbody><form action="__URL__/updatepass"  method="post" name="form1" onSubmit="return CheckForm();">
+					<tr>
+						<td width="40%">用户名：</td>
+						<td>{$users['USER_ID']} <input name="USER_ID" value="{$users['USER_ID']}"type="hidden" class="dm_number1" />
+						</td>
+					</tr>
+					<tr>
+						<td>新密码：</td><td><input name="PASSWORD" value=""type="text" class="dm_number1" /></td>
+					</tr>
+			</tbody>
+			<tfoot>
+					<tr>
+						<td class="dm_btnzan" colspan="2"><button name="Abutton1" type="submit">修改</button>
+						<button name="Abutton1" type="button" onclick="javascript:window.history.back();">返回</button>
+						</td>
+					</tr>
+			</tfoot>
+		</table>
+		</form>
+		<!--选择部门模块开始-->
+         <include file="Public:deptselect" />
+        <!--选择部门模块结束-->
+        		
+<include file="Public:footer" />

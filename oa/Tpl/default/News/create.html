@@ -1,0 +1,83 @@
+<include file="Public:header2" />
+    <!-- Editor Start --> 
+    <script type="text/javascript" src="../Public/neweditor/tiny_mce.js"></script> 
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode: "exact",
+            elements: "content",          // 要显示编辑器的textarea容器ID
+            language: "zh",
+            theme: "advanced",
+            plugins: "table,emotions",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_buttons1: "formatselect,fontselect,fontsizeselect,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,separator,bullist,numlist,outdent,indent,separator,link,image,forecolor,backcolor,table,emotions",
+            theme_advanced_buttons2: ""
+        });
+    </script>
+    <!-- Editor End -->
+    <script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "新闻",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "查看已发布新闻", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "添加新闻", Url: "__URL__/create", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+
+	<div class="KDStyle" id="main">
+		<form enctype="multipart/form-data" action="insert"  method="post" name="form1">
+			<table>
+				<colgroup>
+					<col width="60"></col>
+					<col></col>
+				</colgroup>
+				<thead><tr><th colspan="2"></th></tr></thead>
+				<tbody>
+				<tr>
+					<td>标题</td>
+					<td><input name="title" type="text" size="50"/></td>
+				</tr>
+				<tr>
+				    <td>内容</td>
+					<td class="clearTable">
+					<fieldset>
+						<textarea name="content" id="content" cols="20" rows="10" class="content"></textarea>
+					</fieldset>	
+					</td>
+				</tr>
+				</tbody>
+				<tfoot>
+					<tr><th colspan="2">
+						<button name="Abutton1" type="submit">发布</button>
+						<button name="Abutton1" onClick="location='create'">重填</button>
+						<button name="Abutton1" onClick="location='index'">返回</button>
+					
+					</th></tr>
+				</tfoot>
+			</table>
+		</form>
+	</div>
+	
+
+<include file="Public:footer" />

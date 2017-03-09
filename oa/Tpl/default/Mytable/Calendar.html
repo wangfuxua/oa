@@ -1,0 +1,22 @@
+﻿    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <script>
+        function my_noteaff(AFF_ID) {
+            my_left = document.body.scrollLeft + event.clientX - event.offsetX - 50;
+            my_top = document.body.scrollTop + event.clientY - event.offsetY + 150;
+
+            window.open("/index.php/Calendar/affairnote/AFF_ID/" + AFF_ID, "note_win" + AFF_ID, "height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top=" + my_top + ",left=" + my_left + ",resizable=no");
+        }
+
+    </script>
+				<!--<ul class="ul1 ul3">
+				<volist name="calendarlist" id="vo">
+				<li>{$vo.END_TIME|getHis}&nbsp;<a href="#" onclick='javascript:my_notecal("{$vo.CAL_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>-->
+				<ul class="ul1 ul3">
+				<volist name="affairlist" id="vo">
+				<li>{$vo.REMIND_TIME}&nbsp;<a href="#" onclick='javascript:my_noteaff("{$vo.AFF_ID}");'>{$vo.CONTENT|csubstr=###,0,27}</a></li>
+				</volist>
+				</ul>
+

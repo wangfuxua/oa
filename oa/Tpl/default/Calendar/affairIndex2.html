@@ -1,0 +1,96 @@
+<include file="Public:header_module" />
+<script>
+function delete_affair(AFF_ID)
+{
+ msg='确认要删除该事务么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/affairdelete/AFF_ID/" + AFF_ID;
+  window.location=URL;
+ }
+}
+
+function my_note(AFF_ID)
+{
+  my_left=document.body.scrollLeft+event.clientX-event.offsetX-50;
+  my_top=document.body.scrollTop+event.clientY-event.offsetY+150;
+
+  window.open("__URL__/affairnote/AFF_ID/"+AFF_ID,"note_win"+AFF_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>日程安排</span></a></li>
+		<li class="dm_on"><a href="__URL__/affairIndex" title=""><span>日常事务</span></a></li>
+	</ul>
+	<div>
+
+<div align="center" style="padding-top:10px">
+<input type="button" value="新建日常事务" class="btnFnt" onClick="location='__URL__/affairform';" title="新建日常事务">
+</div>
+
+    <table>
+    <caption class="nostyle">
+    日常事务管理
+    </caption>
+   <thead>
+   <tr>
+      <th width="150">起始时间 <img border=0 src="../Public/images/arrow_down.gif" width="11" height="10"></th>
+      <th width="80">提醒类型</th>
+      <th width="80">提醒日期</th>
+      <th width="80">提醒时间</th>
+      <th>日志内容</td>
+      <th width="80">操作</th>
+    </tr>  
+   </thead>
+   <volist name="list" id="vo">
+       <tr class="TableLine1">
+      <td>{$vo.BEGIN_TIME}</td>
+      <td>
+      <switch name="vo[TYPE]">
+      <case value="2">按日提醒</case>
+      <case value="3">按周提醒
+      <if condition="$vo[REMIND_DATE] eq 1">
+      <?php $vo[REMIND_DATE]="周一";?>
+      <elseif condition="$vo[REMIND_DATE] eq 2" />
+      <?php $vo[REMIND_DATE]="周二";?>
+      <elseif condition="$vo[REMIND_DATE] eq 3" />
+      <?php $vo[REMIND_DATE]="周三";?>
+      <elseif condition="$vo[REMIND_DATE] eq 4" />
+      <?php $vo[REMIND_DATE]="周四";?>
+      <elseif condition="$vo[REMIND_DATE] eq 5" />
+      <?php $vo[REMIND_DATE]="周五";?>
+      <elseif condition="$vo[REMIND_DATE] eq 6" />
+      <?php $vo[REMIND_DATE]="周六";?>
+      <elseif condition="$vo[REMIND_DATE] eq 7" />
+      <?php $vo[REMIND_DATE]="周日";?>
+      </if>
+      </case>
+      <case value="4">按月提醒
+      <?php $vo[REMIND_DATE].="日";?>
+      </case>
+      <case value="5">按年提醒
+      <?php $vo[REMIND_DATE]=str_replace("-","月",$vo[REMIND_DATE])."日";?>
+      </case>
+      </switch>
+      </td>
+      <td>{$vo[REMIND_DATE]}</td>
+      <td>{$vo.REMIND_TIME}</td>
+      <td><a href="#" onclick="my_note({$vo.AFF_ID});">
+      {$vo.CONTENT|strip_tags|csubstr=###,0,80}</td>
+      <td>
+          <a href="__URL__/affairform/AFF_ID/{$vo.AFF_ID}"> 修改</a>&nbsp;
+          <a href="javascript:delete_affair({$vo.AFF_ID});"> 删除</a>
+      </td>
+    </tr>
+  </volist>
+  <tfoot>
+  <tr>
+  <td colspan="6">{$page}</td>
+  </tr>
+  </tfoot>
+ </table>
+</div>
+
+
+<include file="Public:footer" />

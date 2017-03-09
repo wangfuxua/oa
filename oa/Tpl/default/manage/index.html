@@ -1,0 +1,108 @@
+<include file="Public:header2" />
+	<script>
+	function open_notify(NOTIFY_ID)
+	{
+	 	URL="__URL__/view/NOTIFY_ID/"+NOTIFY_ID;
+	 	myleft=(screen.availWidth-500)/2;
+	 	window.open(URL,"read_notify","height=400,width=550,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+	}
+	function delete_notify(NOTIFY_ID)
+	{
+		 	msg='确认要删除该项公告通知么？';
+		 	if(window.confirm(msg))
+		 	{
+		  	URL="__URL__/delete/NOTIFY_ID/" + NOTIFY_ID;
+		 	 window.location=URL;
+		 	}
+ 		
+   }
+
+	function delete_all()
+	{
+		 	msg='确认要删除所有公告通知么？';
+		 	if(window.confirm(msg))
+		 	{
+		  	 URL="__URL__/deleteAll";
+		 	 window.location=URL;
+		 	}
+	}
+	
+</script>
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "公告通知管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "管理已发布的公告", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "添加新公告", Url: "__URL__/news", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+</script>
+<body>
+
+	<div class="KDStyle" id="main">
+		<form method="post" action="">
+		<table>
+			<caption></caption>
+			<colgroup>
+				<col width="60"></col>
+				<col width="120"></col>
+				<col></col>
+				<col width="110"></col>
+				<col width="110"></col>
+				<col width="110"></col>
+				<col width="60"></col>
+				<col width="60px"></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>发送人</th>
+					<th>发送范围</th>
+					<th>标题</th>
+					<th>创建时间 </th>
+					<th>生效日期</th>
+					<th>终止日期</th>
+					<th>当前状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="notify" id="vo">
+				<tr>
+					<td class="tcenter">{$vo.FROM_ID|getUsername}</td> 
+					<td>{$vo.allname}</td>
+					<td><a href="javascript:open_notify('{$vo['NOTIFY_ID']}');">{$vo['SUBJECT']}</a></td>
+					<td>{$vo['SEND_TIME']|date="Y-m-d H:i:s",###}</td>
+					<td>{$vo['BEGIN_DATE']|date="Y-m-d H:i:s",###}</td>
+					<td>{$vo['END_DATE']|date="Y-m-d H:i:s",###}</td>
+					<td class="tcenter">{$vo['BEGIN_DATE']|timeStatusStr=###,$vo['END_DATE']}</td>
+					<td class="tcenter">
+						<a href="edit/NOTIFY_ID/{$vo['NOTIFY_ID']}" title="">修改</a>
+						<a href="javascript:delete_notify('{$vo['NOTIFY_ID']}');" title="">删除</a>
+					</td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="8">
+						<button name="Abutton1" onClick="javascript:delete_all();">全部删除</button>
+						{$page}
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+		</form>
+	</div>
+
+<include file="Public:footer" />

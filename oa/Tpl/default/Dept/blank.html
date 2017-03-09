@@ -1,0 +1,46 @@
+<include file="Public:header" />
+
+<body>
+<h2>部门管理</h2>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<form action="__URL__/add"  method="post" name="form1" >	
+			<tr>
+				<td valign="top" class="dm_zanal">部门名称：</td>
+				<td>
+					<input name="DEPT_NAME"  type="text" class="dm_blur3" />
+				</td>
+			</tr>
+		   <tr>
+				<td valign="top" class="dm_zanal">部门排序：</td>
+				<td>
+					<input name="DEPT_NO"  type="text" class="dm_blur3" style="width:30px;" value="0"/>
+				</td>
+			</tr>			
+			<tr>
+				<td valign="top">电话：</td>
+				<td class="dm_datetd">
+					<input name="TEL_NO"  type="text" class="dm_blur3"/>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" class="dm_zanal">传真：</td>
+				<td class="dm_datetd">
+					<input name="FAX_NO" type="text" class="dm_blur3" />
+				</td>
+			</tr>
+			<tr>
+				<td valign="top">上级部门：</td>
+				<td>
+					<select name="DEPT_PARENT">
+						<option value="0">无</option>
+           				{$my_dept_tree}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="dm_btnzan">
+					<button name="submit" type="submit" />新建</button>
+				</td>
+			</tr></form>
+		</table>
+<include file="Public:footer" />

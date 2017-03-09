@@ -1,0 +1,24 @@
+<include file="Public:header_module" />
+<script type="text/javascript">
+    var ifrFree=setInterval("reinitIframe()", 200);
+
+
+    function reinitIframe() {
+        var iframe = document.getElementById("kdForum");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+            var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+            var height = Math.max(bHeight, dHeight);
+
+            iframe.height = height;
+        } catch (ex) { }
+    }
+    window.close(function() {
+        clearInterval(ifrFree);
+    });
+</script>
+	<body>
+		<div class="warp">
+<iframe id="kdForum" name="" allowtransparency="true" align="top" marginwidth="0" marginheight="0" width="100%" height="550" border="0" frameborder="0" scrolling="auto" src="../../forum/index.php?username={$username}"></iframe>
+		</div>
+<include file="Public:footer" />

@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>jQuery formValidator表单验证插件 -- by:猫冬，email:wzmaodong@126.com</title>
+
+<script src="../public/js/jquery_last.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="../public/css/validator.css"></link>
+<script src="../public/js/formValidator.js" type="text/javascript" charset="UTF-8"></script>
+<script src="../public/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script language="javascript" src="../public/js/DateTimeMask.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#name").formValidator({onshow:"请输入用户名",onfocus:"用户名不能为空",oncorrect:"用户名合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"用户名两边不能有空符号"},onerror:"用户名不能为空,请确认"});;
+	$("#password1").formValidator({onshow:"请输入密码",onfocus:"密码不能为空",oncorrect:"密码合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"密码两边不能有空符号"},onerror:"密码不能为空,请确认"});
+});
+</script>
+
+</head>
+
+<body>
+<form action="" method="post" name="form1" id="form1">
+  <table border="0px" style="font-size:12px" width="630px">
+    <tr> 
+      <td align="right">用户名:</td>
+      <td><input type="text" id="name" style="width:120px" value="maodong" /></td>
+      <td><div id="nameTip" style="width:250px"></div></td>
+    </tr>
+    <tr> 
+      <td align="right">密码:</td>
+      <td><input type="password" id="password1" style="width:120px" /></td>
+      <td><div id="password1Tip" style="width:250px"></div></td>
+    </tr>
+  </table>
+  <br />
+  
+    <input type="submit" name="button" id="button" value="提交" />
+  
+</form>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<include file="Public:header" />
+<title>新建客户回访</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" /> 
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script src ="../Public/js/crm_common.js"></script>
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/calendar.js"></script>
+<script src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on">
+			<if condition="$accountBlur['name'] neq '' "> 
+				<a href="__APP__/Callback/lists/id/{$accountBlur['id']}" title="">
+			<else />
+				<a href="__APP__/Callback/lists" title="">
+			</if>
+			<span>客户回访列表</span></a>
+		</li>
+		<li>
+			<if condition="$accountBlur['name'] neq '' "> 
+				<a href="__APP__/Callback/create/id/{$accountBlur['id']}" title="">
+			<else />
+				<a href="__APP__/Callback/create" title="">
+			</if>
+			<span><if condition="$update">修改<else/>新建</if>客户回访</span></a>
+		</li>
+	</ul>
+<if condition="$accountBlur['name'] neq '' "> 
+	<form method="post" name="form1" action='<if condition="$update">__APP__/Callback/update<else/>__APP__/Callback/save</if>' onsubmit="return idNull(Array('service_date'), 'date_msg','服务日期不能为空');">
+<else />
+	<form method="post" name="form1" action='<if condition="$update">__APP__/Callback/update<else/>__APP__/Callback/save</if>' onSubmit="return idNull(Array('parent_name','service_date'), Array('account_msg','date_msg'),Array('客户名称不能为空！','服务日期不能为空'));">
+</if>
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="callback_id" value="{$callback_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset">重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+<tbody>
+	<tr><th colspan="4" class="tdtit"></th></tr>
+	<tr>
+		<td>客户名称: <span style="color:red;">*</span></td>
+		<td>
+<if condition="$accountBlur['name'] neq '' "> 
+			<input  id="parent_name" name='account_name' type="text" size='30' value="{$accountBlur['name']}" readonly />
+			<input id='parent_id' name='account_id' type="hidden" value="{$accountBlur['id']}" />
+<else />
+			<input  id="parent_name" name='account_name' type="text" size='30' value="{$callback_res['account_name']}" readonly />
+			<input id='parent_id' name='account_id' type="hidden" value="{$callback_res['account_id']}" />
+			<eq name="lock" value=""><button title="选择 [Alt+T]"  type="button" tabindex='1' onClick="KDwin('__APP__/Account/lists/to_id/parent_id/to_name/parent_name',500,400);">选择</button><span id="account_msg"></span></eq>
+</if>
+
+
+
+		</td>
+		<td width="20%">拜访方式:</td>
+		<td width="25%">
+		<input id="type_id" type="hidden" />
+		<input name='type' id="type" type="text" tabindex='2' size='20' maxlength='25' value="{$callback_res['type']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/callback_type/to_id/type_id/to_name/type',400,300);">选择</button>
+		</td>
+	</tr>
+	<tr>
+		<td >负责人：</td>
+		<td>
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$accountBlur['manager_id']}" />
+		<input id="manager_name" name='manager_name' type="text" value="{$accountBlur['manager']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>选择</button>	
+		</td>
+		<td>客服日期： <span style="color:red;">*</span></td>
+		<td>
+			<fieldset class="date">
+				<input name='service_date' id='sel3' type="text" tabindex='1' size='11' maxlength='10' value="{$callback_res['service_date']}" readonly /><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('sel3', '%Y-%m-%d');"  />
+				<span class="dateFormat">yyyy-mm-dd</span><span id="date_msg"></span>
+			</fieldset>
+		</td>
+	</tr>
+	<tr>
+		<td>描述:</td>
+		<td><textarea name='description' tabindex='3' cols="40" rows="8">{$callback_res['description']}</textarea></td>
+		<td>客户反馈与建议:</td>
+		<td><textarea name='report_subject' tabindex='3' cols="40" rows="8">{$callback_res['description']}</textarea></td>
+	</tr>
+
+</tbody>
+</table>
+</form>
+
+<include file="Public:alert_lable" />
+</body></html>

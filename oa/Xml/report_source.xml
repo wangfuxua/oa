@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>1</id>
+<name>电话</name>
+<sort>1</sort>
+</item>
+<item>
+<id>2</id>
+<name>面对面</name>
+<sort>1</sort>
+</item>
+<item>
+<id>3</id>
+<name>邮件</name>
+<sort>1</sort>
+</item>
+<item>
+<id>4</id>
+<name>qq</name>
+<sort>3</sort>
+</item>
+</document>

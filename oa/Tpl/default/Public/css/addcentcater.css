@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+/*popdiv添加联系人*/
+#addDrug{position:absolute; top:0px; left:0px; background:#000}
+#addbox{position:absolute; top:0; left:0;background:url(../images/mail_add_title_bg.gif) repeat; width:697px;}
+#titlebar{height:31px; width:697px; line-height:31px; cursor:move}
+#titlebar h2{ float:left;padding-left:10px; font-size:14px; color:#0b3154; font-weight:bold; }
+#titlebar span{ float:right; padding:7px 10px 0 0; cursor:pointer}
+.selectbox{ padding:8px 8px 0;background:url(../images/addto_tend.gif) #f5f8fb no-repeat center}
+.selectboxbder1{ float:left;margin-right:11px;width:218px; border:1px solid #cfcfcf}
+.selectboxbder2{ float:right;width:217px; border:1px solid #cfcfcf}
+.selectboxbder3{float:left;width:217px; border:1px solid #cfcfcf;height:342px;  background:#fff; }
+/*rel ready select box*/
+#rel{ position:relative;width:217px;}
+#rel h5{ padding-left:10px;font-size:12px; color:#036; text-align:left; height:30px; line-height:30px; background:url(../images/mail_add_title_bg.gif) center;}
+#rel ul{width:217px; padding-top:1px; height:311px; background:#fff; overflow:auto;}
+#rel li{ border-top:1px solid #fff; height:25px; line-height:25px; padding-left:8px; background:#f9f9f9; color:#666; cursor:pointer}
+#loaderimg img{ vertical-align:middle; padding:5px;}
+/*top-select*/
+#top-sh{height:19px; padding:15px 10px 0; background:#f5f8fb; border-bottom:1px solid #ccc}
+#top-sh li{float:left;text-align:center; width:24px; height:19px;}
+#top-sh li a{display:block;width:31px; height:19px;background:url(../images/top_tagbg.gif) no-repeat;line-height:19px;margin-left:-7px; font-family:Arial, Helvetica, sans-serif; color:#666; cursor:pointer}
+#top-sh li.all_c{position:relative;width:49px;}
+#top-sh li.all_c a{ position:absolute;width:49px; height:26px;margin:0; line-height:26px;bottom:0; left:0; background:url(../images/top_all_tagbg.gif) no-repeat left top}
+/**/
+#waitselect{ height:330px; padding:5px; background:#fff; border:1px solid #efefef;}
+#selected{ height:340px; width:215px;background:#fff; border:1px solid #efefef}
+
+#waitselect h3{ font-size:12px; font-weight:normal; color:#666; background:url(../images/mail_add_h3_bg.gif) no-repeat; height:31px; width:205px; line-height:31px; text-align:center}
+#waitselect .selecte-btn{ height:30px;line-height:30px; border-top:1px solid #fff; background: #eef3f6;}
+#waitselect .selecte-btn h4{ float:left;padding-left:23px; background:url(../images/mail_icon_hd__bg.gif) no-repeat 6px 9px; font-size:12px; font-weight:normal;color:#1f4559; cursor:pointer}
+#waitselect .selecte-btn h4.over{ background: url(../images/mail_icon_sw__bg.gif) no-repeat 6px 9px; font-weight:bold}
+#waitselect .selecte-btn span{ float:right; padding-right:8px;}
+#selected .tl h3{ float:left; padding-left:10px; color:#666;font-size:12px;}
+#waitselect .ss{ height:20px; border:1px solid #dbdbdb; margin:0 0 5px;}
+#waitselect .ss input{ float:left; border:1px solid #fff; width:160px; color:#ccc;}
+#waitselect .ss span{ float:right; padding:2px 2px 0;}
+.overli{ color:#f60}
+#selected .tl span{ float:right; padding-right:8px; color:#f60; cursor:pointer}
+#selected .tl{ height:29px;background:url(../images/mail_added_title_bg.gif) repeat-x;line-height:29px;}
+#selected ul{}
+#selected #sld-list{ padding:5px;height:300px;overflow-y:scroll;}
+#selected ul li{height:28px; border-top:1px solid #fff; line-height:28px; padding-left:50px; cursor:pointer}
+#selected ul.bumen li{ background: url(../images/del_added.gif) no-repeat left top}
+#selected ul.juese li{ background: url(../images/del_added.gif) no-repeat left -28px}
+#selected ul.renyuan li{ background: url(../images/del_added.gif) no-repeat left -56px}
+
+#bumen,#juese{ height:210px; overflow-y:scroll}
+#juese ul{padding:5px 0 0 20px}
+#juese ul li{ padding:2px 0 3px 10px; background:url(../images/bg_1x1_2.gif) no-repeat left 5px;cursor:pointer}
+#juese li.overli{background:url(../images/bg_1x1_3.gif) no-repeat left 5px; color:#036}
+#juese ul li ul li.overli{background:url(../images/bg_1x1_3.gif) no-repeat left 7px; color:#036}
+.subotton{text-align:center; padding:8px 0; height:20px; background:#f5f8fb}
+#go-sc{ cursor:pointer}
+.ss input{ cursor: text}
+
+#bumen li{ padding:5px 0 0 18px; cursor:pointer}
+#bumen li.subdown{ padding:5px 0 0}
+#bumen li img{ padding:0 5px}
+#bumen li ul{padding-left:15px}
+
+#addbox .subotton{ clear:both;text-align:center; padding:8px 0; height:20px;background:#f5f8fb}
+/*end*/
+

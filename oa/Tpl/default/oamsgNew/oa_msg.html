@@ -1,0 +1,93 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title></title>
+
+<script language="JavaScript" type="text/javascript">
+	
+	
+	//login
+	function imLogin()
+	{
+		 thisMovie("oa_msg").imLogin('oa.7e73.com','oa/xiff','wujie','123');
+	}
+	
+	function checkLogin()
+	{
+		alert(thisMovie("oa_msg").isLogin());
+	}
+	
+	function thisMovie(movieName) {
+        if (navigator.appName.indexOf("Microsoft") != -1) {
+            return window[movieName];
+        } else {
+            return document[movieName];
+        }
+    }
+	
+    function sendToHim(msg) 
+	{
+		if(!thisMovie("oa_msg").isLogin)
+		{
+			alert("请先登陆！");
+			return;
+		}
+        thisMovie("oa_msg").sendToHim("aqy1", msg);
+    }
+
+  function loginOK(user)
+  {
+	 alert(user+" login is ok");
+  }
+  
+  function sendToMe(_from,_msg)
+  {
+	 alert(_from+" say: "+_msg);
+  }
+  
+
+</script>
+</head>
+
+<body scroll="no">
+
+  	<p>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="oa_msg" width="332" height="168"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+  	  <param name="movie" value="oa_msg.swf" />
+  	  <param name="quality" value="high" />
+  	  <param name="bgcolor" value="#869ca7" />
+  	  <param name="allowScriptAccess" value="sameDomain" />
+  	  <embed src="oa_msg.swf" quality="high" bgcolor="#869ca7"
+				width="332" height="168" name="oa_msg" align="middle"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="sameDomain"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+  	  </embed>
+	  </object> 
+</p>
+  	<p>
+  <label>
+    <input type="text" name="txtUsername" value="aqy" id="txtUsername">
+    </label>
+  <input name="input" onClick="imLogin()" type="button" value="login"/>
+</p>
+  	<p>
+  	  <label>
+  	    <input type="text" value="aqy1" name="txt_Username2" id="txt_Username2">
+  	  </label>
+  	  <input name="" onclick="sendToHim('hello!')" type="button" value="send to flash"/>
+</p>
+  	<p>
+  	  <input name="sendToHim2" onClick="checkLogin()" type="button" value="CheckLogin"/>
+</p>
+
+</body>
+</html>

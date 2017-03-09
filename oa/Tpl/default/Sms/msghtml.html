@@ -1,0 +1,60 @@
+<include file="Public:header" />
+<style type="text/css">
+	/*body{ background:#edf4fe}*/
+	table.msginfobox{margin:0;padding:0;width:100%}
+	.MsgText{width:100%;height:138px;overflow:auto}	
+</style>
+<script type="text/javascript">
+    function iknow() {
+        //parent.window.oAmsg.close();
+        window.location = "__URL__/msgsubmit/SMS_ID/{$row[SMS_ID]}/DEL/0";
+    }
+    function msgRe(){
+    	window.location="__URL__/msgbacks/SMS_ID/{$row[SMS_ID]}"
+    }
+    function msgDel(){
+    	window.location = "__URL__/msgsubmit/SMS_ID/{$row[SMS_ID]}/DEL/1";
+    }
+	 function msgClose() {
+     window.parent.oAmsg.close();
+ }
+</script>
+
+<form method="post" action="">
+<table class="msginfobox">
+	<thead>
+		<tr>
+			<th colspan="2">共{$count}条新短信，请到 <a href="__APP__/Sms" target="icontent" onclick="msgClose()" style="color:#CC0000">短信箱</a> 查看</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+		    <td>短信类型：</td>
+			<td><if condition="$row[SMS_TYPE] eq 0"><img src="../Public/images/avatar/{$row[FROM_ID]|getAvatar}.gif" width="15" height="15"><else /><img src="../Public/images/sms_type{$row[SMS_TYPE]}.gif"></if>{$row.SMS_TYPE|getSmsType}</td>
+		</tr>
+		<tr>
+		    <td>来自：</td>
+			<td><u title="部门：{$row.DEPT_ID|getDeptname}" style="cursor:hand">{$row.FROM_ID|getUsername}</u></td>
+		</tr>
+		<tr>
+		    <td>时间：</td>
+			<td>{$row.SEND_TIME}</td>
+		</tr>
+		<tr>
+			<td colspan="2"><div class="MsgText">{$row.CONTENT}</div></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="2">
+				<button name="Abutton1" onclick="iknow()">我知道了</button>
+				<if condition="$row[SMS_TYPE] lt 3">
+				<button name="Abutton1" onclick="msgRe()">回复</button>
+				</if>
+				<button name="Abutton1" onclick="msgDel()">删除</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+<include file="Public:footer" />

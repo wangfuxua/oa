@@ -1,0 +1,211 @@
+<include file="Public:header2" />
+<script language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.CONTENT.value=="")
+   { alert("事务内容不能为空！");
+     return (false);
+   }
+   return (true);
+}
+
+<switch name="row[TYPE]">
+<case value="2">var aff_type="day";</case>
+<case value="3">var aff_type="week";</case>
+<case value="4">var aff_type="mon";</case>
+<case value="5">var aff_type="year";</case>
+<default />var aff_type="day";
+</switch>
+
+function sel_change()
+{
+   if(aff_type!="")
+      document.all(aff_type).style.display="none";
+   if(form1.TYPE.value=="2")
+      aff_type="day";
+   if(form1.TYPE.value=="3")
+      aff_type="week";
+   if(form1.TYPE.value=="4")
+      aff_type="mon";
+   if(form1.TYPE.value=="5")
+      aff_type="year";
+      
+   document.all(aff_type).style.display="";
+}
+
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+
+function td_clock(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  window.showModalDialog("/inc/clock.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:120px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+
+function td_clock1(fieldname)
+{
+  document.form1.REMIND_TIME2.value="";
+  document.form1.REMIND_TIME3.value="";
+  document.form1.REMIND_TIME4.value="";
+  document.form1.REMIND_TIME5.value="";
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  window.showModalDialog("/inc/clock.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:120px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+</script>
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "日程安排",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "日程安排", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-calendar" },
+            { Title: "日常事务", Url: "__URL__/affairIndex", Cls: "", IconCls: "ico ico-clock" },
+            { Title: "新建日常事务", Url: "__URL__/affairform", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+</script>
+
+<body onLoad="document.form1.CONTENT.focus();">
+
+	
+<div class="KDStyle" id="main">
+<form action="__URL__/affairsubmit"  method="post" name="form1" onSubmit="return CheckForm();">
+ <table>
+ <caption class="nostyle">{$desc}</caption>
+				<colgroup>
+					<col width="80"></col>
+					<col width=""></col>
+				</colgroup>
+				  
+    <tr>
+      <td>开始时间：</td>
+      <td>
+        <input type="text"name="BEGIN_TIME" size="20" value="{$row.BEGIN_TIME}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+        <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('BEGIN_TIME'),dateFmt:'yyyy-MM-dd HH:mm:ss'})"  />
+        &nbsp;&nbsp;为空为当前时间
+      </td>
+    </tr>
+    <tr>
+      <td> 事务类型：</td>
+      <td>
+        <select name="TYPE" onChange="sel_change()">
+          <option value="2" <if condition="$row[TYPE] eq 2">selected</if>>按日提醒</option>
+          <option value="3" <if condition="$row[TYPE] eq 3">selected</if>>按周提醒</option>
+          <option value="4" <if condition="$row[TYPE] eq 4">selected</if>>按月提醒</option>
+          <option value="5" <if condition="$row[TYPE] eq 5">selected</if>>按年提醒</option>
+        </select>
+      </td>
+    </tr>
+    <tr id="day" <if condition="$row[TYPE] neq 2">style="display:none"</if>>
+      <td> 提醒时间：</td>
+      <td>
+        <input name="REMIND_TIME2" onFocus="WdatePicker({dateFmt:'HH:mm:ss'})" size="10" value="<if condition="$row[type] eq 2">{$row[REMIND_TIME]}<else />{$CUR_TIME}</if>">
+        
+        <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('REMIND_TIME2'),dateFmt:'HH:mm:ss'})"  />        
+        &nbsp;&nbsp;为空为当前时间
+      </td>
+    </tr>
+    <tr id="week" <if condition="$row[TYPE] neq 3">style="display:none"</if>>
+      <td> 提醒时间：</td>
+      <td>
+        <select name="REMIND_DATE3" style="width:100px">
+          <option value="1" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==1 || $row[TYPE]!="3"&&date("w",time())==1) echo "selected";?>>星期一</option>
+          <option value="2" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==2 || $row[TYPE]!="3"&&date("w",time())==2) echo "selected";?>>星期二</option>
+          <option value="3" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==3 || $row[TYPE]!="3"&&date("w",time())==3) echo "selected";?>>星期三</option>
+          <option value="4" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==4 || $row[TYPE]!="3"&&date("w",time())==4) echo "selected";?>>星期四</option>
+          <option value="5" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==5 || $row[TYPE]!="3"&&date("w",time())==5) echo "selected";?>>星期五</option>
+          <option value="6" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==6 || $row[TYPE]!="3"&&date("w",time())==6) echo "selected";?>>星期六</option>
+          <option value="0" <?php if($row[TYPE]=="3"&&$row[REMIND_DATE]==0 || $row[TYPE]!="3"&&date("w",time())==0) echo "selected";?>>星期日</option>
+        </select>&nbsp;&nbsp;
+        <input name="REMIND_TIME3" size="10" onFocus="WdatePicker({dateFmt:'HH:mm:ss'})" value="<if condition="$row[type] eq 3">{$row[REMIND_TIME]}<else />{$CUR_TIME}</if>">
+                <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('REMIND_TIME3'),dateFmt:'HH:mm:ss'})"  />  
+        &nbsp;&nbsp;为空为当前时间
+      </td>
+    </tr>
+    <tr id="mon" <if condition="$row[TYPE] neq 4">style="display:none"</if>>
+      <td> 提醒时间：</td>
+      <td>
+        <select name="REMIND_DATE4" style="width:100px">
+<?php
+for($I=1;$I<=31;$I++)
+{
+?>
+          <option value="<?php echo $I?>" <?php if($row[TYPE]=="4"&&$row[REMIND_DATE]==$I || $row[TYPE]!="4"&&date("j",time())==$I) echo "selected";?>><?=$I?>日</option>
+<?php
+}
+?>
+        </select>&nbsp;&nbsp;
+        <input name="REMIND_TIME4" size="10" onFocus="WdatePicker({dateFmt:'HH:mm:ss'})" value="<if condition="$row[type] eq 4">{$row[REMIND_TIME]}<else />{$CUR_TIME}</if>">
+                <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('REMIND_TIME4'),dateFmt:'HH:mm:ss'})"  />  
+        &nbsp;&nbsp;为空为当前时间
+      </td>
+    </tr>
+    <tr id="year" <if condition="$row[TYPE] neq 5">style="display:none"</if>>
+      <td> 提醒时间：</td>
+      <td>
+        <select name="REMIND_DATE5_MON" style="width:100px">
+<?php
+for($I=1;$I<=12;$I++)
+{
+?>
+          <option value="<?php echo $I?>" <?php if($row[TYPE]=="5"&&$row[REMIND_DATE_MON]==$I || $row[TYPE]!="5"&&date("n",time())==$I) echo "selected";?>><?=$I?>月</option>
+<?php
+}
+?>
+        </select>&nbsp;&nbsp;
+        <select name="REMIND_DATE5_DAY">
+<?php
+for($I=1;$I<=31;$I++)
+{
+?>
+          <option value="<?php echo $I?>" <?php if($row[TYPE]=="5"&&$row[REMIND_DATE_DAY]==$I || $row[TYPE]!="5"&&date("j",time())==$I) echo "selected";?>><?=$I?>日</option>
+<?php
+}
+?>
+        </select>&nbsp;&nbsp;
+        <input name="REMIND_TIME5" size="10" onFocus="WdatePicker({dateFmt:'HH:mm:ss'})" value="<if condition="$row[type] eq 5">{$row[REMIND_TIME]}<else />{$CUR_TIME}</if>">
+        <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('REMIND_TIME5'),dateFmt:'HH:mm:ss'})"  />
+        &nbsp;&nbsp;为空为当前时间
+      </td>
+    </tr>
+    <tr>
+      <td> 事务内容：</td>
+      <td>
+        <textarea name="CONTENT" cols="45" rows="5" class="content">{$row.CONTENT}</textarea>
+      </td>
+    </tr>
+    <tfoot>
+    <tr>
+      <th colspan="2" nowrap>
+        <input type="hidden" name="AFF_ID" value="{$AFF_ID}" >
+        <button type="submit" value="确定" class="btnFnt">确定</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/affairIndex'">返回</button>
+      </th>
+    </tr>
+    </tfoot>
+  </table>
+</form>
+
+</div>
+
+
+<include file="Public:footer" />

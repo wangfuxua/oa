@@ -1,0 +1,25 @@
+<include file="Public:header" />
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="/images/green_arrow.gif" align="absmiddle"><span class="big3"> 导入表单</span><br>
+    </td>
+  </tr>
+</table>
+
+<br>
+<br>
+
+<div align="center" class="Big1">
+<b>请指定表单文本文件：</b>
+<form method="post" action="flowFormImport" enctype="multipart/form-data">
+  <input type="file" name="html_file" class="BigInput">
+  <input type="hidden" name="FORM_ID" value="{$flowFormType['FORM_ID']}">
+  <input type="submit" value="导入" class="BigButton">
+</form>
+<br>
+<input type="button" value="返回" class="BigButton" onClick="location='index.php'">
+</div>
+
+<include file="Public:footer" />

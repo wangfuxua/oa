@@ -1,0 +1,55 @@
+<include file="Public:header" />
+<style>
+input.BigStatic1  { COLOR: #000066; BACKGROUND: #E0E0E0; border:1 solid black; BORDER-BOTTOM:1px double; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal;  LINE-HEIGHT: normal}
+select.BigStatic1  { COLOR: #000066; BACKGROUND: #E0E0E0; border:1 solid black; BORDER-BOTTOM:1px double; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal;  LINE-HEIGHT: normal}
+textarea.BigStatic1  { COLOR: #000066; BACKGROUND: #E0E0E0; border:1 solid black; BORDER-BOTTOM:1px double; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal;  LINE-HEIGHT: normal}
+</style>
+<script>
+function td_calendar(myvalue)
+{
+  var fieldname="";
+  for (i=0; i<document.all.length; i++)
+  {
+       if(document.all(i).title==myvalue && !document.all(i).readOnly)
+       {
+          fieldname=document.all(i).name;
+          break;
+       }
+  }
+
+  if(fieldname!="")
+  {
+     myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+     mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+     window.showModalDialog("/inc/calendar.php?FIELDNAME=document.form1."+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+  }
+}
+
+function CheckForm()
+{
+   document.form1.submit();
+}
+
+function myload()
+{
+  alert("表单已保存！");
+}
+</script>
+
+{$PRINT_MODEL}
+
+    <tr class="TableHeader">
+      <td nowrap align="center">
+        <input type="hidden"  name="RUN_ID" value="{$browser['RUN_ID']}">
+        <input type="hidden"  name="FLOW_ID" value="{$browser['FLOW_ID']}">
+        <input type="hidden"  name="PRCS_ID" value="{$browser['PRCS_ID']}">
+        <input type="hidden"  name="FLOW_PRCS" value="{$browser['FLOW_PRCS']}">
+        <input type="hidden"  name="ITEM_ID_MAX" value="{$ITEM_ID}">
+      </td>
+    </tr>
+</table>
+</form>
+<br>
+
+</body>
+<include file="Public:footer" />

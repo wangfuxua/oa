@@ -1,0 +1,59 @@
+<include file="Public:header" />
+
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.PRIV_NO.value=="")
+   { alert("角色序号不能为空！");
+     return (false);
+   }
+
+   if(document.form1.PRIV_NAME.value=="")
+   { alert("角色称谓不能为空！");
+     return (false);
+   }
+}
+</script>
+
+<body onload="document.form1.PRIV_NO.focus();">
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>管理角色</span></a></li>
+		<li <if condition="$row[USER_PRIV] eq ''">class="dm_on"</if>><a href="__URL__/form" title=""><span>新建角色</span></a></li>
+		<if condition="$row[USER_PRIV] neq ''">
+		<li class="dm_on"><a href="#" title=""><span>编辑角色</span></a></li>
+		</if>
+	</ul>
+
+<div align="center">
+
+<form action="__URL__/submit"  method="post" name="form1" onsubmit="return CheckForm();">
+<table>
+  
+   <tr>
+    <td nowrap class="TableData">角色排序号：</td>
+    <td nowrap class="TableData">
+        <input type="text" name="PRIV_NO" class="BigInput" size="3" maxlength="3" value="{$row.PRIV_NO}">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">角色名称：</td>
+    <td nowrap class="TableData">
+        <input type="text" name="PRIV_NAME" class="BigInput" size="25" maxlength="100" value="{$row.PRIV_NAME}">&nbsp;
+    </td>
+   </tr>
+   <tfoot>
+   <tr>
+    <td nowrap  class="TableControl" colspan="2" align="center">
+        <input type="hidden" value="{$row.USER_PRIV}" name="USER_PRIV">
+        <input type="submit" value="确定" class="btnFnt">
+        <input type="button" value="返回" class="btnFnt" onclick="location='__URL__/index'">
+    </td>
+   </tr>
+   </tfoot> 
+  
+</table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

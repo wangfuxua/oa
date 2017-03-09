@@ -1,0 +1,121 @@
+<include file="Public:header2" />
+<body>
+<div class="KDStyle" id="KDMain">
+<table>
+   
+   
+   <colgroup>
+   <col width="120px"></col>
+   <col></col>
+   </colgroup>
+   <thead><tr><th colspan="2"></th></tr></thead>
+   <tbody>
+   <tr>
+    <th>部门：</th>
+    <td>{$row.DEPT_ID|getDeptname}</td>
+   </tr>
+   <tr>
+    <th>书名：</th>
+    <td>
+    {$row.BOOK_NAME}
+    </td>
+   </tr>
+   <tr>
+    <th>图书类别：</th>
+    <td>
+    {$row.TYPE_ID|getTypename}
+    </td>
+   </tr>
+   <tr>
+    <th>作者：</th>
+    <td>
+    {$row.AUTHOR}
+    </td>
+   </tr>
+   <tr>
+    <th>ISBN号：</th>
+    <td>
+    {$row.ISBN}
+    </td>
+   </tr>
+   <tr>
+    <th>出版社：</th>
+    <td>
+    {$row.PUB_HOUSE}
+    </td>
+   </tr>
+   <tr>
+    <th>出版日期：</th>
+    <td>
+    {$row.PUB_DATE}
+    </td>
+   </tr>
+   <tr>
+    <th>存放地点：</th>
+    <td>
+    {$row.AREA}
+    </td>
+   </tr>
+   <tr>
+    <th>数量：</th>
+    <td>
+    {$row.AMT}
+    </td>
+   </tr>
+   <tr>
+    <th>价格：</th>
+    <td>
+    {$row.PRICE}
+    </td>
+   </tr>
+   <tr>
+    <th>内容简介：</th>
+    <td>
+    {$row.BRIEF}
+    </td>
+   </tr>
+   <tr>
+    <th>借阅范围：</th>
+    <td>
+    <if condition="$row[OPEN] eq 1">全体<else />本部门</if></td>
+   </tr>
+   <tr>
+    <th>借阅状态：</th>
+    <td><if condition="$row[LEND] eq 1">已借出<else />未借出</if></td>
+   </tr>
+   <tr>
+    <th>借阅人：</th>
+    <td>
+    {$row.BORR_PERSON}
+    </td>
+   </tr>
+   <tr>
+    <th>备注：</th>
+    <td>
+    {$row.MEMO}
+    </td>
+   </tr>
+   <tr>
+    <th>图片：</th>
+    <td>
+						<if condition="$row[ATTACHMENT_NAME] eq ''"><else />
+						<volist name="listatt" id="vo">
+						<span  id="a_{$vo[attid]}" style="float:left"><img src="../Public/images/email_atta.gif"><a href="__APP__/Attach/view/attid/{$vo[attid]}">{$vo[filename]}</a>&nbsp;&nbsp;({$vo[filesize]}字节)</a></span>
+						</volist>
+						</if>   
+    </td>
+   </tr>
+      
+</tbody>
+   <tfoot>
+   <tr>
+     <th colspan="2">
+       <button type="button" onclick="javascript:window.close();">关闭</button>
+     </th>
+   </tr>
+  </tfoot>
+  
+</table>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,99 @@
+<include file="Public:header_module" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.URL_DESC.value=="")
+   { alert("说明不能为空！");
+     return (false);
+   }
+   if(document.form1.URL.value=="")
+   { alert("网址不能为空！");
+     return (false);
+   }
+}
+
+function delete_url(URL_ID)
+{
+ msg='确认要删除该项网址么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/urldelete/URL_ID/" + URL_ID;
+  window.location=URL;
+ }
+}
+function delete_all()
+{
+ msg='确认要删除所有网址么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/urldelete";
+  window.location=URL;
+ }
+}
+</script>
+
+<body onload="document.form1.URL_NO.focus();">
+
+
+<table>
+  <form action="__URL__/urlsubmit"  method="post" name="form1" onsubmit="return CheckForm();">  
+  <caption class="nostyle">添加公共网址</caption>
+   <tr>
+    <th>序号：</th>
+    <td>
+        <input type="text" name="URL_NO" size="10" maxlength="25">
+    </td>
+   <tr>
+    <th>说明：</th>
+    <td>
+        <input type="text" name="URL_DESC" size="25" maxlength="200">
+    </td>
+   </tr>
+   <tr>
+    <th>网址：</th>
+    <td>
+        <input type="text" name="URL" size="25" maxlength="200" value="http://">
+    </td>
+   </tr>
+   <tfoot>
+   <tr>
+    <td colspan="2">
+        <button type="submit" title="添加网址" name="button">添加网址</button>
+    </td>
+    </tr>
+    </tfoot>
+  </form>
+</table>
+
+
+<div align="center">
+
+    <table>
+<caption class="nostyle">管理公共网址</caption>
+    <thead>
+      <th>序号</th>
+      <th>说明</th>
+      <th>网址</th>
+      <th>操作</th>
+    </thead>
+    <volist name="list" id="vo">
+    <tr>
+      <td>{$vo.URL_NO}</td>
+      <td>{$vo.URL_DESC}</td>
+      <td><A href="{$vo.URL}" target="_blank">{$vo.URL}</A></td>
+      <td width="80">
+      <a href="__URL__/urledit/URL_ID/{$vo.URL_ID}"> 编辑</a>
+      <a href="javascript:delete_url('{$vo.URL_ID}');"> 删除</a>
+      </td>
+    </tr>
+   </volist>
+    <tfoot>
+      <td colspan="5">
+      <button type="button" class="BigButton" OnClick="javascript:delete_all();" title="全部删除">全部删除</button>
+      </td>
+    </tfoot>
+    </table>
+    {$page}
+</div>
+
+<include file="Public:footer" />

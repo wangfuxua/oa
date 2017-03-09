@@ -1,0 +1,36 @@
+<include file="Public:header" />
+<script>
+function mysubmit(url)
+{
+  if(url!="")
+     window.open(url);
+}
+
+function go_url()
+{
+  if(document.form1.BOOKMARK.value!="")
+     parent.bookmark_main.location=document.form1.BOOKMARK.value;
+}
+</script>
+
+	<body>
+		<div class="left-msg" style="text-align:center">
+				<h4>收藏夹</h4>
+				        <br>
+						<select style="width:160px" onchange="mysubmit(this.value)">
+							<option value="">公共网址</option>
+							<volist name="comlist" id="vo">
+							<option value="{$vo.URL}">{$vo.URL_DESC}</option>
+							</volist>
+						</select>
+						<br><br>
+						<select style="width:160px" onchange="mysubmit(this.value)">
+							<option value="">个人网址</option>
+							<volist name="perlist" id="vo">
+							<option value="{$vo.URL}">{$vo.URL_DESC}</option>
+							</volist>
+						</select>
+																
+		</div>			
+
+<include file="Public:footer" />

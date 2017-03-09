@@ -1,0 +1,37 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT']."/oa/Tpl/default/Public/fckeditor/fckeditor.php") ;
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>模板</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<link href="../sample.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../Public/css/default.css" />
+	</head>
+	<body>
+	<table>
+	<tr>
+	<td width="80%">
+		<form action="__URL__/test" method="post">
+		<input type="hidden" value="{$modelId}" name="modelId">
+<?php
+// Automatically calculates the editor base path based on the _samples directory.
+// This is usefull only for these samples. A real application should use something like this:
+// $oFCKeditor->BasePath = '/fckeditor/' ;	// '/fckeditor/' is the default value.
+$sBasePath = "/oa/Tpl/default/public/fckeditor/";
+$oFCKeditor = new FCKeditor('FCKeditor1') ;
+$oFCKeditor->BasePath	= $sBasePath ;
+$oFCKeditor->Value		= $templeate;
+$oFCKeditor->Width = '100%';
+$oFCKeditor->Height = '750';
+$oFCKeditor->Create();
+?>
+			<br>
+			<button type="submit">保存</button>
+		</form>
+	</td>
+	<td width="20%"><iterate name="modelList" id="vo">{$vo['name']}<br></iterate></td></tr></table>
+	</body>
+</html>

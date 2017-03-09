@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0; margin:0; font-size:12px;}
+body{}
+li{ list-style:none}
+input,label,select{ cursor:pointer;}
+a{ text-decoration:none; color:#000; border:none}
+ 
+/*顶部切换菜单*/
+#tags{ border-bottom:1px solid #96b5e0;background:#fff;}
+#tags li{ float:left; font-size:14px; font-weight:bold; cursor:pointer; height:25px; line-height:25px; margin-right:1px; padding-right:15px; background: url(../images/dm_menurbg.gif) right no-repeat; color:#000; display:inline}
+#tags li span{ float:left; padding-left:15px;height:25px; text-align:center; background:url(../images/dm_menulbg.gif) no-repeat left}
+#tags li.current{ background:url(../images/dm_hovermenurbg.gif) no-repeat right; color:#fff}
+#tags li.current span{ background:url(../images/dm_hovermenulbg.gif); color:#4f73a6}
+/*个人文件柜*/
+#ger-box{ position:relative;border:1px solid #B8C9DD; border-top:none;zoom:1; overflow:hidden; }
+#pub-box{ position:relative;border:1px solid #B8C9DD; border-top:none;zoom:1; overflow:hidden; }
+/*个人文件柜目录列表*/
+#ger-list{ position:absolute; top:0; left:0; overflow:hidden; padding:20px 0 0 20px; width:180px;}
+#ger-list ul li ul,#ger-list ul li ul li ul{ padding-top:5px; padding-left:10px;}
+/*个人文件柜 文件信息*/
+#ger-info{height:600px;}
+#ger-info2{border-left:1px solid #B8C9DD;padding-bottom:20px; float:right; width:82%;overflow:hidden;padding:0px; }/*add by liuyue*/
+/*文件名*/
+#title{ height:30px; background:url(../images/bg/bgf1.gif) repeat-x bottom;border-bottom:1px solid #fff; padding:0 10px 0;}
+#title h2{ float:left; font-size:14px; padding-left:23px; line-height:30px; background:url(../newimg/c_b3.gif) no-repeat left}
+#title span{float:right; font-size:12px;}
+#title span input{ width:100px; margin:0 5px; height:18px; border:1px solid #ccc; background:#fff;}
+#title span button{ border:none; height:20px; margin:2px 0 0; color:#fff; padding:0 8px; background:url(../images/bg/TabBg2.gif) repeat-x;}
+/*用户文件操作工具条*/
+#active{ height:25px; padding:8px 0 ;line-height:25px; border:none;border-bottom:1px solid #8da7c5; background:url(../images/bg/bgf1.gif) repeat-x;}
+#active span{ float:left; margin-left:5px; padding:0 5px; height:25px; line-height:25px; border:1px solid #ccc; display:inline; cursor:pointer}
+#active span img{ padding-right:3px}
+#active span#createNewFile{}
+#active span#scFile{}
+#active span#createNewCildFile{}
+#active span#reName{}
+#active span#deleteFlie{}
+#active span#deleteAll{}
+/*当前文件内容*/
+#ger-centens{ padding:10px; border-bottom:1px solid #B8C9DD; border-top:1px solid #ccc}
+/*表格数据*/
+table#tb-date{ width:100%; border:none; border-right:1px solid #B8C9DD; border-bottom:1px solid #B8C9DD; margin:0;padding:0}
+table#tb-date thead{ padding:0; margin:0; border:none; }
+table#tb-date td{ color:#666}
+table#tb-date td,table#tb-date th{ padding:5px; border:none; border-top:1px solid #B8C9DD; border-left:1px solid #B8C9DD}
+table#tb-date thead th{color:#005DAA;background:#E3E9F5 url(../images/bg/bgf1.gif) repeat-x 0 -52px}
+table#tb-date .fuj{ position:relative;}
+table#tb-date .fuj span{ position:absolute; left:0; top:-4px; text-align:center; border:1px solid #ccc;}
+/*下侧工具条*/
+.tab-ft{height:20px; padding:6px 5px 0; border:1px solid #B8C9DD; border-top:none; color:#005DAA;background-color:#E3E9F5}
+.tab-ft #check-all{ float:left}
+.tab-ft .btm-act{ float:left; height:35px;padding:0 10px;}
+.tab-ft .btm-act span{ float:left; margin-left:15px; display:inline; cursor:pointer}
+.tab-ft .btm-act span img{ padding-right:3px;}
+.tab-ft #page-Num{ float:right}
+
+/*清浮动*/
+.clearfix:after{
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+}
+.clearfix {
+   display: inline-block;
+
+}
+/* Hides from IE-mac */
+* html .clearfix {
+   height: 1%;
+}
+.clearfix {
+   display: block;
+}
+/* End hide from IE-mac */
+#ger-info2 .t_talbe{min-height:500px; _height:500px;}
+.t_talbe table{width:99%; border-collapse:collapse; border:0; margin:5px auto 0; color:#666666; line-height:180%;}
+.t_talbe table a{color:#666;}
+#ger-info2 .t_talbe input{ border:1px solid #ccc; }
+#ger-info2 .t_talbe select{ border:1px solid #ccc; line-height:30px; height:18px; width:50px; text-align:center;}
+.t_td{text-align:center;}
+.t_tree{width:100%;}
+.t_h3{line-height:40px; height:40px; padding-left:50px;}

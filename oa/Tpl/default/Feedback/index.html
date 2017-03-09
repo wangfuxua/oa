@@ -1,0 +1,95 @@
+<include file="Public:header" />
+<style type="text/css">
+#log{width:700px}
+#log li a{color:#0066CC}
+#log li {line-height:22px;padding:5px 0px;border-bottom:1px silver solid;color:#333333;margin:5px auto}
+#log li p {width:80%;float:left}
+#log li span {width:120px;float:right;display:block;color:silver}
+</style>
+<script>
+function delete_feed(feedid)
+{
+ msg='确认要删除该意见么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/from/index/feedid/" + feedid;
+  window.location=URL;
+ }
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>意见反馈</span></a></li>
+		<if condition="$LOGIN_USER_PRIV eq 1">
+		<li><a href="__URL__/listfeed" title=""><span>查看意见</span></a></li>
+		</if>
+	</ul>
+
+    <!-- Editor Start --> 
+    <script type="text/javascript" src="../Public/neweditor/tiny_mce.js"></script> 
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode: "exact",
+            elements: "content",          // 要显示编辑器的textarea容器ID
+            language: "zh",
+            theme: "advanced",
+            plugins: "table,emotions",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_buttons1: "formatselect,fontselect,fontsizeselect,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,separator,bullist,numlist,outdent,indent,separator,link,image,forecolor,backcolor,table,emotions",
+            theme_advanced_buttons2: ""
+        });
+    </script>
+    <!-- Editor End -->
+
+<div>
+<form action="__URL__/submit"  method="post" name="form1">
+  <table>
+				<colgroup>
+					<col width="80"></col>
+					<col></col>
+				</colgroup>
+<tbody>				  
+    <tr>
+      <td>
+							    <textarea name="content" id="content" cols="20" rows="10">{$ROW.CONTENT}</textarea>
+      </td>
+    </tr>
+    <tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2" nowrap>
+        <button type="submit" value="保存" class="btnFnt">保存</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/index'">返回</button>
+      </td>
+    </tr>
+    <tfoot>
+  </table>
+</form>
+</div>
+	
+<div id="log">
+	<ul>
+	  <volist name="list" id="vo">
+		<li>
+			<p>
+				{$vo.userid|getUsername}：
+			</p>
+			<p>
+				{$vo.content}
+			</p>
+			<span>{$vo.addtime|date='Y-m-d H:i:s',###}</span>
+			<span>
+			<if condition="$vo[userid] eq $LOGIN_USER_ID">
+			<a href="__URL__/edit/feedid/{$vo.feedid}">修改</a>
+			<a href="javascript:delete_feed('{$vo.feedid}')">删除</a>
+			</if>
+			</span>
+		</li>
+		</volist>
+	</ul>
+	{$page}
+</div>
+
+
+<include file="Public:footer" />

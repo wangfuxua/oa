@@ -1,0 +1,89 @@
+<include file="Public:header2" />
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "低值易耗品领用审核",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 4,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待审核低值易耗品领用", Url: "__URL__/check/SH/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "未通过审核低值易耗品领用", Url: "__URL__/check/SH/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已审核低值易耗品领用", Url: "__URL__/check/SH/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "领用查询", Url: "__URL__/lysearch", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">	
+<form action="__URL__/lysearchlist" method="post" name="form1">
+<table>
+<col width="120px" />
+   <tr>
+    <th>使用部门：</th>
+    <td>
+		<select name="SYBM_ID">
+		<option value="all">所有部门</option>
+		{$my_dept_tree}
+        </select>
+    </td>
+   </tr>
+   <tr>
+    <th>低值易耗品名称：</th>
+    <td>
+    	<input type="text" name="MC" size="33" maxlength="100" value="{$row.MC}">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>领用人：</th>
+    <td>
+       <select name="USER_ID">
+       <option value="all">所有人</option>
+       {$my_user_list}
+        </select>
+    </td>
+   </tr>
+   <tr>
+    <th>申请时间段：</th>
+    <td>
+        <input type="text" name="SJ1" maxlength="20" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">&nbsp;
+         到
+        <input type="text" name="SJ2" maxlength="30" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">&nbsp;
+    </td>
+   </tr>
+   
+   <tfoot>
+   <tr>
+    <th colspan="2">
+        条件关系：
+   		<select name="RELATION">
+   			<option value="AND">与</option>
+   			<option value="OR">或</option>
+   		</select>
+        <button type="submit" title="查询" name="button">查询</button>
+    </th>
+   </tr>
+   </tfoot>
+  
+</table>
+</form>
+</div>
+
+<include file="Public:footer" />

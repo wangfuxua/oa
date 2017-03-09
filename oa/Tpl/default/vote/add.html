@@ -1,0 +1,129 @@
+<include file="Public:header2" /> 
+<script>
+function CheckForm(){ 
+   if(document.form1.SUBJECT.value==""){
+   		alert("标题不能为空！");
+     	return (false);
+   }  
+}
+function LoadWindow(){
+  URL="deptSelect";
+  loc_x=document.body.scrollLeft+event.clientX-event.offsetX+200;
+  loc_y=document.body.scrollTop+event.clientY-event.offsetY+170;
+  window.showModalDialog(URL,self,"edge:raised;scroll:1;status:0;help:0;resizable:1;dialogWidth:200px;dialogHeight:245px;dialogTop:"+loc_y+"px;dialogLeft:"+loc_x+"px");
+}
+function clear_dept(){
+  document.form1.TO_NAME.value="";
+  document.form1.TO_ID.value="";
+}
+
+$(document).ready(function(){
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#SUBJECT").formValidator({onshow:"请输入名称/文号",onfocus:"名称/文号不能为空",oncorrect:"名称/文号合法"}) ;
+});
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票管理设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "投票管理", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建投票", Url: "__URL__/add", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<body>
+
+
+	<div class="KDStyle" id="main">
+		<form action="__URL__/save"  method="post" name="form1" onSubmit="return CheckForm();">
+		<table>
+			<col width="120px" />
+			<tr>
+				<th>发布范围（部门）：</th>
+				<td><input type="hidden" name="TO_ID" id="TO_ID">
+					<textarea cols="20" name="TO_NAME" id="TO_NAME" rows="2" class="selectuser" wrap="yes" readonly></textarea> 
+					<button onClick="setInput('TO_ID','TO_NAME','','')"/>添加</button>
+					<button onClick="chclear('TO')"/>清空</button>
+				</td>
+			</tr>
+			<tr>
+				<th>标题：</th>
+				<td><div style="float:left;"><input name="SUBJECT" id="SUBJECTTip" type="text" class="dm_inputsen" onBlur="this.className='dm_blur';" onFocus="this.className='dm_foucs';" /></div><div id="SUBJECTTip" style="width:50%;float:left;"></div></td>
+			</tr>
+			<tr>
+				<th>类型：</th>
+				<td>
+					<select name="TYPE">
+						<option value="0">单选</option>
+						<option value="1">多选</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>查看投票结果：</th>
+				<td>
+					<select name="VIEW_PRIV">
+						<option value="0">投票后允许查看</option>
+						<option value="1">投票前允许查看</option>
+						<option value="2">不允许查看</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>匿名投票：</th>
+				<td>
+					<input name="ANONYMITY" type="checkbox" />是
+				</td>
+			</tr>
+			<tr>
+				<th>生效日期：</th>
+				<td>
+					<input name="BEGIN_DATE" type="text" class="dm_number5" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+					<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('BEGIN_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+					日期格式形如：1999-1-2，为空为立即生效！
+				</td>
+			</tr>
+			<tr>
+				<th>终止日期：</th>
+				<td>
+					<input name="END_DATE" type="text" class="dm_number5" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+					<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('END_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+					日期格式形如：1999-1-2，为空为手动终止！
+				</td>
+			</tr>
+			<tfoot>
+			<tr>
+				<th colspan="2">
+					<button type="submit" value="发布"/>发布</button>
+					<button/>重填</button>
+				</th>
+			</tr>
+			</tfoot>
+		</table>
+		</form>
+	</div>
+	
+ 
+<include file="Public:alert_lable" />
+        	
+<include file="Public:footer" />

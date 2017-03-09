@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function delete_user(DEPT_ID,USER_ID,uid)
+{
+ msg='确认要删除用户 '+USER_ID+' 么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/?type={$type}&DEPT_ID=" + DEPT_ID + "&USER_ID=" + USER_ID + "&uid=" + uid;
+  window.location=URL;
+ }
+}
+
+function no_pass(DEPT_ID,USER_ID)
+{
+ msg='确认要清空用户 '+USER_ID+' 的密码么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/nopass/?DEPT_ID=" + DEPT_ID + "&USER_ID=" + USER_ID;
+  window.location=URL;
+ }
+}
+</script>
+<body>
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li <if condition="$type eq ''">class="dm_on"</if>><a href="__URL__/userlist/?DEPT_ID={$DEPT_ID}" title=""><span>在职人员</span></a></li>
+		<li <if condition="$type eq 'other'">class="dm_on"</if>><a href="__URL__/userlist/type/other" title=""><span>离职人员</span></a></li>
+		<li><a href="__URL__/news/?DEPT_ID={$DEPT_ID}" title=""><span>添加人员</span></a></li>
+	</ul>
+	<div>
+<table>
+<caption class="nostyle">{$desc}</caption>
+     <thead>
+     <tr>
+      <th>用户名</th>
+      <th>真实姓名</th>
+      <th>工号</th>
+      <th>部门</th>
+      <th>角色</th>
+      <th>管理范围</th>
+      <th>最后一次登录时间</th>
+      <th>登录次数</th>
+      <th>操作</th>
+      </tr>
+    </thead>
+     <tbody>
+     <volist name="list" id="vo">
+     <tr>
+      <td>{$vo.USER_ID}</td>
+      <td>{$vo.USER_NAME}</td>
+      <td>{$vo.USER_LABOR}</td>
+      <td>{$vo.DEPT_ID|getDeptname}</td>
+      <td>{$vo.PRIV_NAME}</td>
+      <td><if condition="$vo[POST_PRIV] eq 0">本部门<elseif condition="$vo[POST_PRIV] eq 1" />全体<elseif condition="$vo[POST_PRIV] eq 2" />指定部门</if></td>
+      <td><if condition="$vo[LAST_LOGIN_TIME] neq 0">{$vo.LAST_LOGIN_TIME|date="Y-m-d H:i:s",###}<else />从未登录</if></td>
+      <td>{$vo.LOGIN_COUNT}</td>
+      <td>
+      <a href="__URL__/userEdit/USER_ID/{$vo.USER_ID}"> 编辑</a>
+<?php
+      if($vo[USER_ID]!="admin" && $vo[USER_ID]!=$LOGIN_USER_ID)
+      {
+?>
+      <a href="javascript:delete_user('{$DEPT_ID}','{$vo.USER_ID}','{$vo.uid}');"> 删除</a>
+<?php
+      }
+      if($LOGIN_USER_ID=="admin")
+      {
+?>
+      <a href="javascript:no_pass('{$vo.DEPT_ID}','{$vo.USER_ID}');">清空密码</a>
+      <a href="__URL__/editpass/USER_ID/{$vo.USER_ID}">修改密码</a>
+<?php
+      }
+?>
+      
+      </td>
+      </tr>
+     </volist> 
+    </tbody>
+     <tfoot>
+     <tr>
+      <td colspan="10">{$page}</td>
+      </tr>
+    </tfoot>
+</table>
+    
+<include file="Public:footer" />

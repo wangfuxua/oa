@@ -1,0 +1,231 @@
+<include file="Public:header" />
+<include file="Public:header_addresssys" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.PSN_NAME.value=="")
+   { alert("联系人姓名不能为空！");
+     return (false);
+   }
+   return (true);
+}
+
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  window.showModalDialog("__APP__/Public/calendar/FIELDNAME/"+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+
+</script>
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index/GROUP_ID/{$GROUP_ID}" title=""><span>联系人列表({$GROUP_NAME})</span></a></li>
+		<li class="dm_on"><a href="__URL__/add/GROUP_ID/{$GROUP_ID}" title=""><span>添加联系人({$GROUP_NAME})</span></a></li>
+	</ul>
+	<div>
+<form action="__URL__/insert"  method="post" name="form1" onsubmit="return CheckForm();">	
+ <table>
+  
+    <thead>
+    <tr>
+      <th colspan="2">分组</th>
+      </tr>
+    </thead>
+    <tr>
+      <td> 分组：</td>
+      <td>
+        <select name="GROUP_ID" class="BigSelect">
+        <option value="0"  <if condition="$GROUP_ID eq 0">selected</if> >默认
+           </option>
+         <volist name="list" id="vo">        
+         <option value="{$vo.GROUP_ID}" <if condition="$GROUP_ID eq $vo[GROUP_ID]">selected</if>>{$vo.GROUP_NAME}</option>
+        </volist>
+        </select>
+      </td>
+    </tr>
+    
+    <thead>
+    <tr>
+      <th colspan="2">个人信息</th>
+    </tr>
+    </thead>
+
+    <tr>
+      <td> 姓名：</td>
+      <td>
+        <input type="text" name="PSN_NAME" size="20" maxlength="50">
+      </td>
+    </tr>
+    <tr>
+      <td> 性别：</td>
+      <td>
+        <select name="SEX" class="BigSelect">
+          <option value="0">男</option>
+          <option value="1">女</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>生日：</td>
+      <td>
+        <input type="text" name="BIRTHDAY" size="10" maxlength="10" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"> 
+        <img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onclick="WdatePicker({el:$dp.$('BIRTHDAY'),dateFmt:'yyyy-MM-dd'})"  />
+      </td>
+    </tr>
+    <tr>
+      <td> 昵称：</td>
+      <td>
+        <input type="text" name="NICK_NAME" size="25" maxlength="25">
+      </td>
+    </tr> 
+    <tr>
+      <td> 职务：</td>
+      <td>
+        <input type="text" name="MINISTRATION" size="25" maxlength="25">
+      </td>
+    </tr>
+    <tr>
+      <td> 配偶：</td>
+      <td>
+        <input type="text" name="MATE" size="25" maxlength="25">
+      </td>
+    </tr>
+    <tr>
+      <td> 子女：</td>
+      <td>
+        <input type="text" name="CHILD" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <thead>
+    <tr>
+      <th colspan="2">联系方式（单位）</th>
+    </tr>  
+    </thead>
+
+    <tr>
+      <td> 单位（部门）：</td>
+      <td>
+        <input type="text" name="DEPT_NAME" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td>单位地址：</td>
+      <td>
+        <input type="text" name="ADD_DEPT" size="40" maxlength="100">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 单位邮编：</td>
+      <td>
+        <input type="text" name="POST_NO_DEPT" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 单位电话：</td>
+      <td>
+        <input type="text" name="TEL_NO_DEPT" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 单位传真：</td>
+      <td>
+        <input type="text" name="FAX_NO_DEPT" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <thead>
+    <tr>
+      <th colspan="2">联系方式（家庭）</th>
+      </tr>
+    </thead>
+
+    <tr>
+      <td> 家庭住址：</td>
+      <td>
+        <input type="text" name="ADD_HOME" size="40" maxlength="100">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 家庭邮编：</td>
+      <td>
+        <input type="text" name="POST_NO_HOME" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 家庭电话：</td>
+      <td>
+        <input type="text" name="TEL_NO_HOME" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 手机：</td>
+      <td>
+        <input type="text" name="MOBIL_NO" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 寻呼机：</td>
+      <td>
+        <input type="text" name="BP_NO" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> 电子邮件：</td>
+      <td>
+        <input type="text" name="EMAIL" size="25" maxlength="80">
+      </td>
+    </tr>
+
+    <tr>
+      <td> OICQ号码：</td>
+      <td>
+        <input type="text" name="OICQ_NO" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <tr>
+      <td> ICQ号码：</td>
+      <td>
+        <input type="text" name="ICQ_NO" size="25" maxlength="25">
+      </td>
+    </tr>
+
+    <thead>
+    <tr>
+      <th colspan="2">备 注</th>
+      </tr>
+    </thead>
+    <tr>
+      <td colspan="2">
+        <textarea cols="60" name="NOTES" rows="5" wrap="on"></textarea>
+      </td>
+    </tr>
+    <tfoot>
+    <tr>
+      <td colspan="2" nowrap>
+        <input type="submit" value="保存" class="btnFnt">
+        <input type="button" value="返回" class="btnFnt" onClick="location='__URL__/index/?GROUP_ID={$GROUP_ID}'">
+      </td>
+    </tr>  
+    </tfoot>
+    
+  </table>
+</form>
+</div>
+</div>
+
+
+<include file="Public:footer" />

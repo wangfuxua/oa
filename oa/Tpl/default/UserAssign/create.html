@@ -1,0 +1,89 @@
+<include file="Public:header" /> 
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+
+<script Language="JavaScript">
+$(function(){
+	$(":submit").click(function(){
+		if ($('#manager_name').attr('value')) {
+			managers = $('#manager_name').attr('value');
+		} else {
+			managers = -1;
+		}
+		
+		if ((managers == -1) || (managers.indexOf(',') != -1)) {
+			$("#m_check").replaceWith("<font color='#FF0000'>您需要且只能输入一个负责人</font>"); 
+			return  false;   
+		}
+		if ($('#assign_user_name').attr('value')) {
+			assign = $('#assign_user_name').attr('value');
+		} else {
+			assign = -1;
+		}
+		
+		if (assign == -1) {
+			$("#a_check").replaceWith("<font color='#FF0000'>您要输入至少一个被管理人员</font>"); 
+			return  false;
+		}
+		return true;
+	});
+});
+function Clear(id_1,id_2){
+	document.getElementById(id_1).value='';
+	document.getElementById(id_2).value='';
+}
+</script>
+<body>          
+<div class="addr-main">
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/lists" title=""><span>人员配置列表</span></a></li>
+		<li class="dm_on"><a href="__URL__/create" title=""><span><if condition='$assign_res'>修改<else />添加</if>人员配置</span></a></li>
+	</ul>
+		
+<form action="__URL__/<if condition='$assign_res'>update<else />save</if>"  method="post" >
+<table>
+<colgroup>
+<col width="10%"></col>
+<col width="89%"></col>
+</colgroup>
+			<tbody>
+					<tr>
+						<td>负责人：<span style="color:red;">*</span></td>
+						<td><if condition="$assign_res">
+							<input name='current_id' type="hidden" value="{$assign_res['id']}" id="m_user" />{$assign_res['manager_name']}
+						<else />
+							<input id='one_or_more_1' type="hidden" value="n" />
+							<input id='manager_id' name='manager_id' type="hidden" value="" />
+							<input  id="manager_name" name="manager_name" readonly />
+							<button title="添加收信人" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>添加</button>
+							<button title="清空"  type="button" onclick="Clear('manager');">清空</button><span id='m_check'></span>	
+						</if>
+						</td>
+					</tr>
+					<tr>
+						<td>管理人员：<span style="color:red;">*</span></td>
+						<td>
+							<input id='one_or_more_2' type="hidden" value="n" />
+							<input id='assign_user_id' name='assign_user_id' type="hidden" value="{$assign_res['assign_user_id']}" />
+							<textarea  id="assign_user_name" name="assign_user_name" style="width:800px;height:200px;" readonly />{$assign_res['assign_user_name']}</textarea>
+							<button title="选择管理人员"  type="button"  onclick="setInput('assign_user_id','assign_user_name','right_show1','true')"/>添加</button>	
+							<button title="清空"  type="button" onclick="Clear('members');">清空</button><span id='a_check'></span>		
+						</td>
+					</tr>	
+			</tbody>
+			<tfoot>
+					<tr>
+						<td class="dm_btnzan" colspan="2">
+						<button type="submit">新建</button>
+						</td>
+					</tr>
+			</tfoot>
+			
+		</table>
+		</div>
+		</form>
+
+
+
+<include file="Public:alert_lable" />
+</body>
+</html>

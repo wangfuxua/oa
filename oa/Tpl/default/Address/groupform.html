@@ -1,0 +1,49 @@
+<include file="Public:header_module2" />
+<include file="Public:header_address" />
+<script type="text/javascript">
+function CheckForm()
+{
+      document.form2.submit();
+}
+$(document).ready(function(){
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#GROUP_NAME").formValidator({onshow:"请输入组名",onfocus:"组名不能为空",oncorrect:"组名合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"组名两边不能有空符号"},onerror:"组名不能为空,请确认"});;
+});
+</script>
+     	<div id="mainPannel">
+		<div class="mainpanelHead">
+       <h2>新建分组</h2>
+	   <p>
+<form action="__URL__/SearchSubmit" name="form1" method="POST">
+
+<label>全局查询</label><input type="text" name="PSN_NAME" size="10" class="BigInput"><button type="button" onclick="document.form1.submit();">搜索</button>
+</form>
+	</p>
+	</div>
+    <!--active 为该文件夹操作-->
+
+
+<table>
+	<col width="100px" />
+  <form action="__URL__/groupsubmit" name="form2" method="POST" id="form1">
+  <thead><tr><th colspan="3"></th></tr></thead>
+    <tr>
+      <td>分组名称：</td>
+      <td><input type="text" name="GROUP_NAME" id="GROUP_NAME" size="10" class="BigInput" value="{$row.GROUP_NAME}"></td>
+	<td><div id="GROUP_NAMETip" style="width:100%"></div></td>
+	</tr>
+    <tfoot>
+    <tr>
+      <th colspan="3">
+          <input type="hidden" name="GROUP_ID" size="10"  value="{$row.GROUP_ID}">
+          <button type="button" value="提交" class="btnFnt" title="提交数据" name="button1" OnClick="CheckForm()">提交</button>
+          <button type="button" value="返回" class="btnFnt" title="返回" name="button2" OnClick="location='__URL__/group'">返回</button>
+      </th>
+    </tr>
+    </tfoot>
+    </form>
+</table>
+</div>
+</div>
+
+<include file="Public:footer" />

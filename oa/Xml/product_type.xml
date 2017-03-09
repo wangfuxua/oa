@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>2</id>
+<name>士大夫</name>
+<sort>1</sort>
+</item>
+<item>
+<id>2</id>
+<name>食品</name>
+<sort>1</sort>
+</item>
+<item>
+<id>3</id>
+<name>陶瓷</name>
+<sort>3</sort>
+</item>
+</document>

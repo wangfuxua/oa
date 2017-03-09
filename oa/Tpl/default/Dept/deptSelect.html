@@ -1,0 +1,213 @@
+<include file="Public:header" />
+<style>
+.menulines{}
+</style>
+
+<script Language="JavaScript">
+var parent_window = parent.dialogArguments;
+
+function click_dept(dept_id)
+{
+  TO_VAL=parent_window.form1.TO_ID.value;
+  targetelement=document.all(dept_id);
+  dept_name=targetelement.name;
+
+  if(TO_VAL.indexOf(","+dept_id+",")<0 && TO_VAL.indexOf(dept_id+",")!=0)
+  {
+    parent_window.form1.TO_ID.value+=dept_id+",";
+    parent_window.form1.TO_NAME.value+=dept_name+",";
+    borderize_on(targetelement);
+  }
+  else
+  {
+    parent_window.form1.TO_ID.value=parent_window.form1.TO_ID.value.replace(dept_id+",","");
+    parent_window.form1.TO_NAME.value=parent_window.form1.TO_NAME.value.replace(dept_name+",","");
+    borderize_off(targetelement);
+  }
+}
+
+function borderize_on(targetelement)
+{
+ color="#003FBF";
+ targetelement.style.borderColor="black";
+ targetelement.style.backgroundColor=color;
+ targetelement.style.color="white";
+ targetelement.style.fontWeight="bold";
+}
+
+function borderize_off(targetelement)
+{
+  targetelement.style.backgroundColor="";
+  targetelement.style.borderColor="";
+  targetelement.style.color="";
+  targetelement.style.fontWeight="";
+}
+
+function begin_set()
+{
+  TO_VAL=parent_window.form1.TO_ID.value;
+  
+  if(TO_VAL=="ALL_DEPT")
+  {
+     parent_window.form1.TO_ID.value="";
+     parent_window.form1.TO_NAME.value="";
+  }
+
+  for (step_i=0; step_i<document.all.length; step_i++)
+  {
+    if(document.all(step_i).className=="menulines")
+    {
+       dept_id=document.all(step_i).id;
+       if(TO_VAL.indexOf(","+dept_id+",")>0 || TO_VAL.indexOf(dept_id+",")==0)
+          borderize_on(document.all(step_i));
+    }
+  }
+}
+
+function add_all()
+{
+  TO_VAL=parent_window.form1.TO_ID.value;
+  for (step_i=0; step_i<document.all.length; step_i++)
+  {
+    if(document.all(step_i).className=="menulines")
+    {
+       dept_id=document.all(step_i).id;
+       dept_name=document.all(step_i).name;
+
+       if(TO_VAL.indexOf(","+dept_id+",")<0 && TO_VAL.indexOf(dept_id+",")!=0)
+       {
+         parent_window.form1.TO_ID.value+=dept_id+",";
+         parent_window.form1.TO_NAME.value+=dept_name+",";
+         borderize_on(document.all(step_i));
+       }
+    }
+  }
+}
+
+function add_all_dept()
+{
+    parent_window.form1.TO_ID.value="ALL_DEPT";
+    parent_window.form1.TO_NAME.value="所有部门";
+    parent.close();
+}
+
+function del_all()
+{
+  for (step_i=0; step_i<document.all.length; step_i++)
+  {
+    if(document.all(step_i).className=="menulines")
+    {
+       dept_id=document.all(step_i).id;
+       dept_name=document.all(step_i).name;
+       parent_window.form1.TO_ID.value=parent_window.form1.TO_ID.value.replace(dept_id+",","");
+       parent_window.form1.TO_NAME.value=parent_window.form1.TO_NAME.value.replace(dept_name+",","");
+       borderize_off(document.all(step_i));
+    }
+  }
+}
+
+</script>
+</head>
+
+<body topmargin="1" leftmargin="0" class="bodycolor" onLoad="begin_set()">
+
+
+<?
+//------ 递归显示部门列表，支持按管理范围显示 --------
+function dept_tree_list($DEPT_ID,$PRIV_OP)
+{
+  global $DEEP_COUNT;
+
+  $connection=OpenConnection();
+  $query = "SELECT * from DEPARTMENT where DEPT_PARENT=$DEPT_ID order by DEPT_NO";
+  $cursor= exequery($connection,$query);
+  $OPTION_TEXT="";
+  $DEEP_COUNT1=$DEEP_COUNT;
+  $DEEP_COUNT.="　";
+  while($ROW=mysql_fetch_array($cursor))
+  {
+      $COUNT++;
+      $DEPT_ID=$ROW["DEPT_ID"];
+      $DEPT_NAME=$ROW["DEPT_NAME"];
+      $DEPT_PARENT=$ROW["DEPT_PARENT"];
+
+      $DEPT_NAME=str_replace("<","&lt",$DEPT_NAME);
+      $DEPT_NAME=str_replace(">","&gt",$DEPT_NAME);
+      $DEPT_NAME=stripslashes($DEPT_NAME);
+
+      if($PRIV_OP==1)
+         $DEPT_PRIV=is_dept_priv($DEPT_ID);
+      else
+         $DEPT_PRIV=1;
+
+      $OPTION_TEXT_CHILD=dept_tree_list($DEPT_ID,$PRIV_OP);
+
+      if($DEPT_PRIV==1)
+      {
+      	 $OPTION_TEXT.="
+  <tr class=TableControl>
+    <td class='menulines' id='".$DEPT_ID."' name='".$DEPT_NAME."' onclick=javascript:click_dept('".$DEPT_ID."') style=cursor:hand>".$DEEP_COUNT1."├".$DEPT_NAME."</a></td>
+  </tr>";
+      }
+
+      if($OPTION_TEXT_CHILD!="")
+         $OPTION_TEXT.=$OPTION_TEXT_CHILD;
+
+  }//while
+
+  $DEEP_COUNT=$DEEP_COUNT1;
+  return $OPTION_TEXT;
+}
+
+if($DEPT_ID=="")
+   $DEPT_ID=0;
+
+$OPTION_TEXT=dept_tree_list($DEPT_ID,$PRIV_OP);
+
+if($OPTION_TEXT=="")
+{
+   Message("提示","未定义或无可管理部门");
+?>
+   <div align="center"><input type="button" class="BigButton" value="返回" onClick="javascript:location='dept_list.php?PRIV_OP=<?=$PRIV_OP?>';"></div>
+<?
+}
+else
+{
+?>
+ <table border="1" cellspacing="0" width="95%" class="small" cellpadding="3"  bordercolorlight="#000000" bordercolordark="#FFFFFF"  align="center">
+
+<?
+  if($PRIV_OP=="")
+  {
+?>
+   <tr class="TableContent">
+     <td onClick="javascript:add_all_dept();" style="cursor:hand" align="center">所有部门</td>
+   </tr>
+<?
+  }
+?>
+   <tr class="TableContent">
+     <td onClick="javascript:add_all();" style="cursor:hand" align="center">全部添加</td>
+   </tr>
+   <tr class="TableContent">
+     <td onClick="javascript:del_all();" style="cursor:hand" align="center">全部删除</td>
+   </tr>
+<?
+ echo $OPTION_TEXT;
+ 
+ if($DEPT_ID!=0)
+ {
+?>
+   <tr class="TableContent">
+     <td onClick="javascript:location='dept_list.php?PRIV_OP=<?=$PRIV_OP?>';" style="cursor:hand" align="center">返回</td>
+   </tr>
+</table>
+<?
+ }
+}
+?>
+
+</body>
+</html>
+
+<include file="Public:footer" />

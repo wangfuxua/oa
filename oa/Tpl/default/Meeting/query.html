@@ -1,0 +1,76 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active:1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待批会议", Url: "__URL__/search/M_STATUS/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "已准会议", Url: "__URL__/search/M_STATUS/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "进行中会议", Url: "__URL__/search/M_STATUS/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "未准会议", Url: "__URL__/search/M_STATUS/3", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已结束会议", Url: "__URL__/search/M_STATUS/4", Cls: "", IconCls: "ico ico-list" },
+            { Title: "全部会议查询", Url: "__URL__/searchform", Cls: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">	
+<table>
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/meeting.gif" height="24" width="24"><span class="big3">{$status[$M_STATUS]}会议</span><br>
+    </td>
+    <td valign="bottom">共<span class="big4">&nbsp;{$COUNT}</span>&nbsp;条会议记录
+    </td>
+    </tr>
+</table>
+
+<table>
+  <tr class="TableHeader">
+      <td align="center">会议申报人</td>
+      <td align="center">申报时间</td>
+      <td align="center">会议主题</td>
+      <td nowrap align="center">会议时间</td>
+      <td nowrap align="center">参加人数</td>
+      <td nowrap align="center">会议经费</td>
+      <td nowrap align="center">操作</td>
+    </tr>
+    <sublist name="list" id="sub" key="k" mod="2">
+        <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td align="center">{$sub.M_PROPOSER}</td>
+      <td align="center">{$sub.M_REQUEST_TIME}</a></td>
+      <td align="center">{$sub.M_TOPIC}</a></td>
+      <td nowrap align="center">{$sub.M_START}</a></td>
+      <td nowrap align="center">{$sub.M_ATTENDCOUNT}</a></td>
+      <td nowrap align="center">{$sub.M_BUDGET}</td>
+      <td nowrap align="center">
+      <a href="javascript:;" onClick="window.open('__URL__/meetingdetail/M_ID/{$sub.M_ID}','','height=350,width=450,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,resizable=yes');">详细信息</a>&nbsp;&nbsp;&nbsp;
+      </td>
+    </tr>
+    </sublist>
+   </table>
+   
+</div>   
+
+<include file="Public:footer" />

@@ -1,0 +1,47 @@
+<include file="Public:header" />
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="index" title=""><span>投票管理</span></a></li>
+		<li><a href="add" title=""><span>新建投票</span></a></li>
+	</ul>
+
+
+	<div class="">
+		<table>
+			<thead>
+				<tr>
+					<th>发送人</th>
+					<th>发送范围</th>
+					<th>标题</th>
+					<th>类型</th>
+					<th>匿名</th>
+					<th>生效日期</th>
+					<th>终止日期</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<iterate name="voteList" id="vo">
+				<tr class="tdcenter">
+					<td>{$vo.FROM_ID}</td>
+					<td>{$vo.SUBJECT}</td>
+					<td>{$vo.TYPE}</td>
+					<td>{$vo.VIEW_PRIV}</td>
+					<td>{$vo.SEND_TIME}</td>
+					<td>2008-12-30</td>
+					<td></td>
+					<td>生效</td>
+					<td>
+						<a href="" title="">投票项目</a>
+						<a href="" title="">修改</a>
+						<a href="" title="">删除</a>
+						<a href="" title="">立即终止</a> 
+					</td>
+				</tr>
+				</iterate>
+			</tbody>
+		</table>
+	</div>
+<include file="Public:footer" />

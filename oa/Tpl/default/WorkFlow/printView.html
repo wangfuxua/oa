@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="../public/style/default/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/default/css/table.css" />
+		<link rel="stylesheet" type="text/css" href="../Public/style/default/css/form.css" />
+		<script type="text/javascript" src="../public/style/default/js/KD.js" ></script>
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script language="javascript">
+function printsetup(){
+// 打印页面设置
+wb.execwb(8,1);
+}
+function printpreview(){
+// 打印页面预览
+
+wb.execwb(7,1);
+
+}
+
+function printit()
+{
+if (confirm('确定打印吗？')) {
+wb.execwb(6,6)
+}
+}
+</script>
+</head>
+
+<body>
+	<div id="main" class="KDStyle">
+	<table width="600">
+	<tbody>
+		<tr><th colspan="2"><span style="float:left">文号：{$workRow['zworkName']}</span><span style="float:right">时间：{$workRow['zworkTime']|formatdate}</span></th></tr>
+		<tr><td colspan="2">{$templeate}</td></tr>
+		</tbody>
+		</table>
+  	</div>
+  	<OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height=0 id=wb name=wb width=0></OBJECT>
+		<tfoot ><tr><th align="2">
+		<button class="noprint" type="submit" onclick="javascript:printit()"><div><span>打印</span></div></button>&nbsp;
+		<button type="submit" onclick="javascript:printsetup();"><div><span>打印页面设置</span></div></button>&nbsp;
+		<button type="submit" onclick="javascript:printpreview();"><div><span>打印预览</span></div></button>&nbsp;
+		</th>
+		</tr></tfoot>	
+<include file="Public:footer" />   

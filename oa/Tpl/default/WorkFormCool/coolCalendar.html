@@ -1,0 +1,65 @@
+<include file="Public:header" />
+
+<script>
+function my_submit()
+{
+  if(ITEM_NAME.value=="")
+  {
+     alert("控件名称不能为空");
+     return;
+  }
+
+  if(edit_flag==0)
+  {
+     var parent_window = parent.dialogArguments;
+     var control_html="<img src=\"calendar.gif\" class=\"DATE\" border=0 style=\"cursor:hand\" value=\""+ITEM_NAME.value.replace("\"","&quot;")+"\" title=\"日期控件："+ITEM_NAME.value.replace("\"","&quot;")+"\">";
+     parent_window.EDIT_HTML.insertHtml(control_html);
+  }
+  else
+  {
+     oSelection = dialogArguments.document.selection.createRange();
+     sRangeType = dialogArguments.document.selection.type;
+   
+     if (sRangeType == "Control") 
+     {
+   	oSelection(0).value = ITEM_NAME.value;
+   	oSelection(0).title = "日期控件："+ITEM_NAME.value;
+     }
+  }
+  window.close();
+}
+
+//-- 获取控件属性 --
+var edit_flag=0;
+function LoadDo()
+{
+  oSelection = dialogArguments.document.selection.createRange();
+  sRangeType = dialogArguments.document.selection.type;
+  
+  if (sRangeType == "Control") 
+  {
+  	edit_flag=1;
+  	ITEM_NAME.value = oSelection(0).value;
+  	
+  }
+  ITEM_NAME.focus();
+}
+</script>
+
+<body topmargin="0" onLoad="LoadDo();">
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+  <tr class="TableContent">
+      <td nowrap>对应的单行输入框控件名称：
+      </td>
+      <td nowrap>
+       <Input name="ITEM_NAME" type="text" class="SmallInput" size="20">
+      </td>
+  </tr>
+  <tr>
+      <td class="TableControl" colspan="2" align="center">
+        <input type="submit" onClick="my_submit();" value="确 定" class="SmallButton">
+      </td>
+  </tr>
+</table>
+<include file="Public:footer" />

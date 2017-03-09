@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>尊称</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script src ="../Public/js/crm_common.js"></script>
+<script>
+function categoryAdd(){
+	document.getElementById('new_one').innerHTML = '<form action="__APP__/XmlFile/save/dis/{$dis}/to_id/{$to_id}/to_name/{$to_name}" method="POST" onsubmit="return idNull(\'new_name\',\'new_name_msg\',\'尊称不为空!\');"><table><tr><td colspan="2">尊  称: <input type="text" id="new_name" name="name" size="4" maxlength="25" onblur="return idNull(\'new_name\',\'new_name_msg\',\'尊称不为空!\');" /><span style="color:red;">*</span><span id="new_name_msg"></span>&nbsp;&nbsp;</td></tr><tr><td colspan="2">排序号: <input type="text" name="sort" id="sort" size="4" maxlength="3"  onblur="checkNumber(\'sort\',\'sort_msg\',\'请填写数字!\');" /><span id="sort_msg"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit">添加</button></td></tr></table></form>';
+}
+
+function categoryEdit(id,name,sort){
+	document.getElementById('new_one').innerHTML = '<form action="__APP__/XmlFile/update/dis/{$dis}/to_id/{$to_id}/to_name/{$to_name}" method="POST" onsubmit="return idNull(\'new_name\',\'new_name_msg\',\'尊称不为空!\');"><table><tr><td colspan="2">尊  称: <input type="text" id="new_name" name="name" size="4" value="'+name+'" maxlength="25" onblur="return idNull(\'new_name\',\'new_name_msg\',\'尊称不为空!\');" /><span style="color:red;">*</span><span id="new_name_msg"></span>&nbsp;&nbsp;</td></tr><tr><td colspan="2">排序号: <input type="hidden" name="current_id" value="'+id+'" maxlength="3" /><input type="text" name="sort" id="sort" size="4" value="'+sort+'" maxlength="3"  onblur="checkNumber(\'sort\',\'sort_msg\',\'请填写数字!\');" /><span id="sort_msg"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit">修改</button></td></tr></table></form>';
+}
+
+</script>
+</head>
+
+<body>
+<span id="new_one">
+</span>
+<table>
+	<caption class="nostyle">尊称列表 | <a href="javascript:void(0);" onclick="categoryAdd();">新建尊称</a></caption>
+	<colgroup>
+		<col width="40%" />
+		<col width="20%" />
+		<col width="38%" />
+	</colgroup>
+	</thead>
+	<thead>
+		<tr>
+			<th>尊称</th>
+			<th>排序号</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<volist name="result" id="vo">
+		<tr>
+			<td><a href="javascript:void(0);" onclick="setParentValue(Array('{$to_id}','{$to_name}'), Array('{$vo['id']}','{$vo['name']}'));">{$vo['name']}</a></td>
+			<td>{$vo['sort']}</td>
+			<td>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="categoryEdit('{$vo['id']}','{$vo['name']}','{$vo['sort']}');">编辑</a>&nbsp;&nbsp;&nbsp;<a href="__APP__/XmlFile/del/dis/{$dis}/id/{$vo['id']}/to_id/{$to_id}/to_name/{$to_name}">删除</a></td>
+		</tr>
+	</volist>	
+
+</table>
+</body></html>

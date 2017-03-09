@@ -1,0 +1,169 @@
+<include file="Public:header_module2" />
+<script>
+my_top=50;
+my_left=50;
+
+function my_note(CAL_ID)
+{
+  my_top+=25;
+  my_left+=15;
+
+  window.open("note.php?CAL_ID="+CAL_ID,"note_win"+CAL_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+
+function My_Submit()
+{
+  document.form1.submit();
+}
+
+function set_year(op)
+{
+  if(op==-1 && document.form1.YEAR.selectedIndex==0)
+     return;
+  if(op==1 && document.form1.YEAR.selectedIndex==(document.form1.YEAR.options.length-1))
+     return;
+  document.form1.YEAR.selectedIndex=document.form1.YEAR.selectedIndex+op;
+
+  My_Submit();
+}
+
+function set_mon(op)
+{
+  if(op==-1 && document.form1.MONTH.selectedIndex==0)
+     return;
+  if(op==1 && document.form1.MONTH.selectedIndex==(document.form1.MONTH.options.length-1))
+     return;
+  document.form1.MONTH.selectedIndex=document.form1.MONTH.selectedIndex+op;
+
+  My_Submit();
+}
+
+</script>
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/calendar.gif" width="22" height="20" align="absmiddle"><span class="big3"> 日程安排</span>
+    </td>
+  </tr>
+</table>
+
+ <div align="center" class="Big1">
+  <form action="__URL__/arrangeIndex"  method="post" name="form1">
+        
+<!-------------- 年 ------------>
+        <input type="button" value="〈" class="BigButton" title="上一年" onClick="set_year(-1);"><select name="YEAR" class="BigSelect" onChange="My_Submit();">
+<?php
+        for($I=2000;$I<=2015;$I++)
+        {
+?>
+          <option value="<?php echo $I?>" <?php if($I==$YEAR) echo "selected";?>><?php echo $I?></option>
+<?php
+        }
+?>
+        </select><input type="button" value="〉" class="BigButton" title="下一年" onClick="set_year(1);"> <b>年</b>
+
+<!-------------- 月 ------------>
+        <input type="button" value="〈" class="BigButton" title="上一月" onClick="set_mon(-1);"><select name="MONTH" class="BigSelect" onChange="My_Submit();">
+<?php
+        for($I=1;$I<=12;$I++)
+        {
+          if($I<10)
+             $I="0".$I;
+?>
+          <option value="<?php echo $I?>" <?php if($I==$MONTH) echo "selected";?>><?php echo $I?></option>
+<?php
+        }
+?>
+        </select><input type="button" value="〉" class="BigButton" title="下一月" onClick="set_mon(1);"> <b>月</b>
+   &nbsp;&nbsp;<input type="button" value="本月" class="BigButton" title="本月" onClick="location='__URL__/arrangeIndex/YEAR/<?php echo $CUR_YEAR?>/MONTH/<?php echo $CUR_MONTH?>'">        
+  </form>
+ </div>
+
+  <table width="100%" border="0" cellspacing="1" class="small" bgcolor="#000000" cellpadding="3" align="center">
+    <tr align="center" class="TableHeader">
+      <td bgcolor="#FFCCFF" width="10%"><b>日</b></td>
+      <td width="15%"><b>一</b></td>
+      <td width="15%"><b>二</b></td>
+      <td width="15%"><b>三</b></td>
+      <td width="15%"><b>四</b></td>
+      <td width="15%"><b>五</b></td>
+      <td bgcolor="#CCFFCC" width="10%"><b>六</b></td>
+    </tr>
+<?php
+while ($DAY<$DATE)
+{
+  if($DAY == $CUR_DAY && $YEAR == $CUR_YEAR && $MONTH == $CUR_MON)
+     $DAY_COLOR = "TableContent";
+  else
+     $DAY_COLOR = "TableData";
+
+  $WEEK=date("w",mktime(0,0,0,$MONTH,$DAY,$YEAR));
+
+  if ($WEEK==0 || $DAY==1)
+  {
+?>
+   <tr>
+<?php
+  }
+
+  if($DAY==1)
+  {
+    for($I=0;$I<$WEEK;$I++)
+    {
+?>
+     <td class="TableData" valign="top">&nbsp</td>
+<?php
+    }
+  }
+?>
+     <td class="<?php echo $DAY_COLOR?>" valign="top">
+       <div align=center style="font-size: 18pt;font-family:sans-serif"><b><a href="__URL__/calmanage/YEAR/<?php echo $YEAR?>/MONTH/<?php echo $MONTH?>/DAY/<?php echo $DAY?>"><?php echo $DAY?></a></b></div>
+       <?php echo $CAL_ARRAY[$DAY]?>
+     </td>
+<?php
+  if ($WEEK==6)
+  {
+?>
+   </tr>
+<?php
+  }
+
+  $DAY++;
+}//while
+
+//------------- 补结尾空格 -------------
+if($WEEK!=6)
+{
+  for($I=$WEEK;$I<6;$I++)
+  {
+?>
+     <td class="TableData">&nbsp</td>
+<?php
+  }
+?>
+   </tr>
+<?php
+}
+
+
+//-------------------------- 本月员工生日 -------------------------
+
+if($PERSON_COUNT>0)
+{
+?>
+
+      <tr class="TableData">
+      <td style="color:#46A718" align="center"><b>本月生日：</b></td>
+      <td colspan="20">
+      <marquee style="color:#FF6600;" behavior=scroll scrollamount=3 scrolldelay=120 onmouseover='this.stop()' onmouseout='this.start()' border=0>
+      <?php echo $PERSON_STR?>
+      </marquee>
+      </td>
+      </tr>
+<?php
+}
+?>
+      </table>   
+  
+<include file="Public:footer" />

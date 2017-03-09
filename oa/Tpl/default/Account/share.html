@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD html 4.01 Transitional//EN">
+<html >
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>share</title>
+<style type="text/css">@import url("../Public/css/crm_style.css"); </style>
+<link href="../Public/css/navigation.css" rel="stylesheet" type="text/css" />
+</head>
+<script src="../Public/js/crm_common.js"></script>
+<script>
+// 选中所有options
+function options_selected(id){
+	var obj = document.getElementById(id);
+	var len = obj.options.length;
+	for(var i = 0 ; i < len; i++){
+		obj.options[i].selected = true;
+	}
+}
+
+// 添加新options
+function add_options(from_id,to_id){
+	var obj_from = document.getElementById(from_id);
+	var obj_to = document.getElementById(to_id);
+	var len_from = obj_from.options.length;
+	var len_to = obj_to.options.length;
+	for (var i=0;i<len_from;i++){
+		if (obj_from.options[i].selected == true){
+			obj_to.options.add(new Option(obj_from.options[i].text,obj_from.options[i].value));
+		}
+	}
+}
+
+// 删除options
+function del_options(id){
+	var obj = document.getElementById(id);
+	if (obj.selectedIndex>=0){
+		obj.remove(obj.selectedIndex);
+		del_options(id);
+	}
+}
+
+// 移动操作
+function from_to(from_id,to_id,selected_id){
+	add_options(from_id,to_id)
+	del_options(from_id);
+	options_selected(selected_id);
+}
+</script>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+   <td style="padding-top: 10px; padding-right: 10px; vertical-align: top; width: 100%;">
+
+<p><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tabForm" id="ADDS">
+<tr><td>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td class="dataLabel" colspan="2">共享信息</td>
+	</tr>
+	<tr>	
+	<td class="dataLabel"><a href="__APP__/Account/view/id/{$account_res['id']}">{$account_res['name']}</a>  ({$account_res['category_name']})</td>
+	<td class="dataLabel"></td>
+	</tr>
+	</table>
+</td></tr>
+<tr>
+<td>
+   <br>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">	
+	
+	<tr>
+	<td>
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tbody><tr><th class="dataLabel" align="left"><h4 class="dataLabel"><div id="list_users" style="">
+选择具有列表权限的用户</h4>
+</th>
+</tr>
+<tr>
+	<td>
+	<form name="form1" method="POST" action="__APP__/Account/shareSave/list/{$account_res['id']}">
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tr>
+	<td>&nbsp;</td>
+	<td  class="dataLabel" align="center"><nobr><b>没有列表权限的用户</b></nobr></td>
+		<td>&nbsp;</td>
+	<td  class="dataLabel"  align="center"><nobr><b>具有列表权限的用户</b></nobr></td>
+		</tr>
+<tr>
+	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center"></td>
+	
+	<td align="center">
+		<table border="0" cellspacing=0 cellpadding="0" align="center">
+		<tr>
+			<td align="center">
+			<select id="display_no_list"  size="10" multiple="multiple" size="10" >
+<volist name="user_res" id="vo_user">
+<if condition="!in_array($vo_user['uid'],$list_ids_merge)">
+<option value="{$vo_user['uid']}">{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td>	</tr>
+		</table>
+	</td>
+		<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+<a onclick="from_to('display_list','display_no_list','display_list');"><img src='../Public/images/leftarrow_big.gif' width='16' height='16' border="0" style="margin-right: 1px;" alt="Sort"></a><a onclick="from_to('display_no_list','display_list','display_list');"><img src='../Public/images/rightarrow_big.gif' width='16' height='16' border="0" style="margin-left: 1px;" alt="Sort"></a><br><br><br><br>
+</td>
+	<td  align="center">
+<select id="display_list" name="display_list[]" size="10" multiple="multiple" >
+<volist name="user_res" id="vo_user">
+<if condition="in_array($vo_user['uid'],$list_ids_merge)">
+<option value="{$vo_user['uid']}" selected>{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td><td valign="top"><input type="submit" value="共享"></td>
+</tr>
+</table>
+</form>
+</tr></tbody>
+		</table>
+    </td>
+	<td>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr><th class="dataLabel" align="left"><h4 class="dataLabel"><div id="view_users" style="">
+选择具有查看权限的用户</h4>
+</th>
+</tr>
+<tr>
+	<td>
+		<form name="form1" method="POST" action="__APP__/Account/shareSave/view/{$account_res['id']}">
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tr>
+	<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_display_users_noview_text" align="center"><nobr><b>没有查看权限的用户</b></nobr></td>
+		<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_hide_users_view" align="center"><nobr><b>具有查看权限的用户</b></nobr></td>
+		</tr>
+<tr>
+	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+
+			</td>
+	
+	<td align="center">
+
+		<table border="0" cellspacing=0 cellpadding="0" align="center">
+		<tr>
+			<td align="center">
+			<select id="display_no_view" size="10" multiple="multiple" size="10" >
+<volist name="user_res" id="vo_user">
+<if condition="!in_array($vo_user['uid'],$view_ids_merge)">
+<option value="{$vo_user['uid']}">{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td>
+		</tr>
+		</table>
+	</td>
+		<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+<a onclick="from_to('display_view','display_no_view','display_view');"><img src='../Public/images/leftarrow_big.gif' width='16' height='16' border="0" style="margin-right: 1px;" alt="Sort"></a><a onclick="from_to('display_no_view','display_view','display_view');"><img src='../Public/images/rightarrow_big.gif' width='16' height='16' border="0" style="margin-left: 1px;" alt="Sort"></a>
+</td>
+	<td align="center">
+<select id="display_view" name="display_view[]" size="10" multiple="multiple" >
+<volist name="user_res" id="vo_user">
+<if condition="in_array($vo_user['uid'],$view_ids_merge)">
+<option value="{$vo_user['uid']}" selected>{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td><td valign="top"><input type="submit" value="共享"></td>
+</tr>
+</table>
+</form>
+</tr></tbody>
+        </table>
+    </td>
+	</tr>
+    <tr><td colspan="2"><br/></td></tr>
+	<tr>
+	<td>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr><th class="dataLabel" align="left"><h4 class="dataLabel"><div id="edit_users" style="">
+选择具有编辑权限的用户</h4>
+</th>
+</tr>
+<tr>
+	<td>
+	<form name="form1" method="POST" action="__APP__/Account/shareSave/edit/{$account_res['id']}">
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tr>
+	<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_display_users_noedit_text" align="center"><nobr><b>没有编辑权限的用户</b></nobr></td>
+		<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_hide_users_edit" align="center"><nobr><b>具有编辑权限的用户</b></nobr></td>
+		</tr>
+<tr>
+	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+
+			</td>
+	
+	<td align="center">
+
+		<table border="0" cellspacing=0 cellpadding="0" align="center">
+		<tr>
+			<td  align="center">
+			<select id="display_no_edit" size="10" multiple="multiple" size="10" >
+<volist name="user_res" id="vo_user">
+<if condition="!in_array($vo_user['uid'],$edit_ids_merge)">
+<option value="{$vo_user['uid']}">{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td>
+		</tr>
+		</table>
+	</td>
+		<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+<a onclick="from_to('display_edit','display_no_edit','display_edit');"><img src='../Public/images/leftarrow_big.gif' width='16' height='16' border="0" style="margin-right: 1px;" alt="Sort"></a><a onclick="from_to('display_no_edit','display_edit','display_edit');"><img src='../Public/images/rightarrow_big.gif' width='16' height='16' border="0" style="margin-left: 1px;" alt="Sort"></a>
+</td>
+	<td  align="center">
+<select id="display_edit" name="display_edit[]" size="10" multiple="multiple" >
+<volist name="user_res" id="vo_user">
+<if condition="in_array($vo_user['uid'],$edit_ids_merge)">
+<option value="{$vo_user['uid']}" selected>{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td><td valign="top"><input type="submit" value="共享"></td>
+</tr>
+</table>
+</form>
+</tr></tbody>
+    </table>
+    </td>
+	<td>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tbody><tr><th class="dataLabel" align="left"><h4 class="dataLabel"><div id="del_users" style="">
+选择具有删除权限的用户</h4>
+</th>
+</tr>
+<tr>
+	<td>
+<form name="form1" method="POST" action="__APP__/Account/shareSave/del/{$account_res['id']}">
+<table cellpadding="0" cellspacing="0" border="0">
+
+<tr>
+	<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_display_users_nodel_text" align="center"><nobr><b>没有删除权限的用户</b></nobr></td>
+		<td>&nbsp;</td>
+	<td  class="dataLabel" id="chooser_hide_users_del" align="center"><nobr><b>具有删除权限的用户</b></nobr></td>
+		</tr>
+<tr>
+	<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+
+
+			</td>
+	
+	<td align="center">
+
+		<table border="0" cellspacing=0 cellpadding="0" align="center">
+		<tr>
+			<td  align="center">
+			<select id="display_no_del"  size="10" multiple="multiple" size="10" >
+<volist name="user_res" id="vo_user">
+<if condition="!in_array($vo_user['uid'],$delete_ids)">
+<option value="{$vo_user['uid']}">{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td>
+		</tr>
+		</table>
+	</td>
+		<td valign="top" style="padding-right: 2px; padding-left: 2px;" align="center">
+<a onclick="from_to('display_del','display_no_del','display_del');"><img src='../Public/images/leftarrow_big.gif' width='16' height='16' border="0" style="margin-right: 1px;" alt="Sort"></a><a onclick="from_to('display_no_del','display_del','display_del');"><img src='../Public/images/rightarrow_big.gif' width='16' height='16' border="0" style="margin-left: 1px;" alt="Sort"></a>
+</td>
+	<td  align="center">
+<select id="display_del" name="display_del[]" size="10" multiple="multiple" >
+<volist name="user_res" id="vo_user">
+<if condition="in_array($vo_user['uid'],$delete_ids)">
+<option value="{$vo_user['uid']}" selected>{$vo_user['USER_NAME']}</option>
+</if>
+</volist>
+</select>
+</td><td valign="top"><input type="submit" value="共享"></td>
+</tr>
+</table>
+</form>
+</tr></tbody>
+     </table>
+    </td></tr>
+
+	</table>
+</td>
+</tr>
+</table></p>
+	
+</p>
+
+
+
+
+
+</td></tr></table></td></tr></table>
+</body></html>

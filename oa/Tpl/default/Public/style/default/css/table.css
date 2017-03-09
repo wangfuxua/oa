@@ -1,0 +1,90 @@
+﻿/*
+  * Name:	Table Style
+  * Class:		KDTable
+  * Example: 
+  * 		table: 	'<table class="KDTable">'
+  *		thead:	'<tr class="thead">'
+  *		tfoot:	'<tr class="tfoot">'
+  *		title:		'<td class="th">'
+  *		bg:		'<tr class="tbg">' or '<tr class="tgray">'
+  *     clear:    <table class="clearTable">
+  */
+.KDTable,.KDStyle  {}
+.KDStyle table,
+.KDTable, 
+.KDTable table, 
+table.KDTable {width:98%;font-size:12px;line-height:24px;margin:10px auto;table-layout:fixed;border-collapse:collapse;border:0px #B8D1E2 solid}
+
+
+    .KDStyle caption {font-size:14px; line-height:30px; font-weight:bold}
+	.KDStyle caption p { float:right; font-size:12px; margin-top:-30px}
+
+    .KDStyle td,.KDStyle th,
+	.KDTable td,.KDTable th {padding:0 5px;height:24px; white-space:nowrap;border:1px #B8D1E2 solid}
+	
+	.KDStyle thead,.KDStyle .thead,
+	.KDTable thead, .KDTable .thead {width:100%;;height:24px;overflow:hidden;background:url('../images/bg/KD_BG.png') repeat-x left -90px}
+		.KDTable thead tr,.KDStyle thead tr {}
+		.KDStyle thead th,.KDStyle .thead th,
+		.KDTable thead th, 
+		.KDTable .thead th {color:#255F99;font-weight:bold; text-align:center}
+		.KDStyle thead td,.KDStyle .thead td
+		.KDTable thead td, 
+		.KDTable .thead td{color:#255F99;font-weight:normal}
+		
+	.KDStyle tbody th,
+	.KDTable tbody th{background-color:#F7FBFC;}
+	.KDStyle tbody th.acc, .KDStyle tbody .acc th {font-weight:bold;color:#255F99}
+	
+		/* bg */
+		.KDStyle .tbg,
+		.KDTable .tbg{background-color:#F7FBFC /*#F9F9F9*/}
+		.KDStyle .tgray,
+		.KDTable .tgray{background-color:#F9F9F9}
+		.KDStyle .th,
+		.KDTable .th  {background:#F7FBFC url('../images/bg/KD_BG.png') repeat-x left -180px}
+		/* bg End */
+		.KDStyle tbody th,.KDStyle tbody td,
+		.KDTable tbody th,.KDTable tbody td {}
+	.KDStyle tfoot,.KDStyle .tfoot,
+	.KDTable tfoot, .KDTable .tfoot {height:40px;line-height:40px;background:#F1F7F9 url('../images/bg/KD_BG.gif') repeat-x left -210px}
+	    .KDStyle tfoot th,.KDStyle .tfoot th,
+	    .KDStyle tfoot td,.KDStyle .tfoot td,
+		.KDTable tfoot th, .KDTable .tfoot th,
+		.KDTable tfoot td, .KDTable .tfoot td {border:0;height:40px; padding:0}
+		
+		.KDStyle tfoot th, .KDStyle .tfoot th { text-align:center}
+	
+	.KDStyle .tcenter ,.KDStyle .tcenter td,.KDStyle .tcenter th{ text-align:center}
+	.KDStyle .tright {text-align:right}
+	.KDStyle .tleft {text-align:left}
+	.KDStyle .tmiddle { vertical-align:middle}
+/*----- clear table style -----*/
+
+.KDStyle table.layout_auto{ table-layout:auto}
+.KDStyle table.layout_auto td,.KDStyle table.layout_auto th { white-space:normal}
+
+
+.clearTable,.clearTable table {width:auto;font-size:auto; line-height:normal; margin:auto; padding:0; table-layout:auto; border-collapse:separate; border:auto}
+.clearTable td, .clearTable th,
+.clearTable thead th, .clearTable .thead th,
+.clearTable thead td, .clearTable .thead td
+.clearTable tbody th, .clearTable tbody td,
+.clearTable tfoot th, .clearTable .tfoot th,
+.clearTable tfoot td, .clearTable .tfoot td { 
+	border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    height:auto;     
+	white-space:normal;background:; 
+    color:WindowText;     
+	font-weight:normal;     
+	text-align:inherit;
+	padding:0
+}
+.KDStyle td.clearTable , .KDStyle th.clearTable { padding:0}
+.clearTable thead, .clearTable .thead { width:auto; height:auto; background:; 
+color:WindowText
+}
+.clearTable tbody, .clearTable .tbody {}
+.clearTable tfoot, .clearTable .tfoot  {width:auto; height:auto; line-height:normal; background:none}

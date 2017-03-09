@@ -1,0 +1,92 @@
+<include file="Public:header" />
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li><a href="__URL__/view/modelId/{$modelId}" title=""><span>预览模型</span></a></li>
+	</ul>
+<h2 class="dm_schedule">修改流程</h2>
+		<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">		
+		<form action="__URL__/flowSave"  method="post" name="form1" >	
+			<input name="moduleId" type="hidden" value="{$moduleId}">
+			<input name="flowId" type="hidden" value="{$flowId}">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>流程名称</strong><br />
+	  			</td>
+				<td>
+					<input name="flowName"  type="text" value="{$flowRow[flowName]}" />
+				</td>
+		</tr>
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>添加流程操作内容</strong><br />
+	  			</td>
+				<td><input type="hidden" name="TO_ID" value="{$filedId}">
+					<input name="TO_NAME"  type="text" value="{$filed}" readonly />
+					&nbsp;<button name="Abutton1" onclick="oWin('TO')">添加</button>
+					&nbsp;&nbsp;<button name="Abutton1" onClick="chclear('TO')">清空</button>
+				</td>
+		</tr>
+				<td colspan="2" class="dm_btnzan">
+					<button name="submit" type="submit">修改</button><button onclick="window.history.go(-1)">返回</button>
+				</td>
+			</tr>
+		</form>
+		</table>
+		</div>
+		
+		<!--选择控件开始-->
+         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<div id="mask"></div>
+		<script type="text/javascript" src="/oa/Tpl/default/Public/js/tree.js"></script>
+		<div class="win" id="massage_box">
+	        <form action="" method="post">
+		        <table>
+			        <caption>选择控件</caption>
+			        <tr>
+				        <td>
+				        <div class="usertree">
+				        <script type="text/javascript">
+			                <!--
+				            var filed = new sTree('filed');
+				            filed.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            filed.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');           
+				            {$treefiled};
+				            document.write(filed);
+			                //-->
+		                </script>
+				            </div>
+				            <input name="hiddenName" type="hidden" value="" id="hiddenName" />
+				        </td>
+			        </tr>
+			        <tfoot>
+				        <tr>
+					        <td>
+					            
+					            <button name="Abutton1" onclick="senddata()">关闭</button>
+					        </td>
+				        </tr>
+			        </tfoot>
+		        </table>
+	        </form>
+        </div>
+        <script type="text/javascript" defer="defer" src="/oa/Tpl/default/Public/js/selectuser.js"></script>
+        <!--选择控件结束-->
+<include file="Public:footer" />

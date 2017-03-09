@@ -1,0 +1,20 @@
+<include file="Public:header" />
+
+<script Language="JavaScript">
+function copy_form()
+{
+  parent.form_view.document.execCommand('selectall');
+  parent.form_view.document.execCommand('copy');
+  alert("表单全文已复制到剪贴板！");
+}
+</script>
+
+<body class="bodycolor" topmargin="7">
+<center>
+   <input type="button" value="保存表单" class="BigButton" name="submit" onClick="parent.form_view.CheckForm();" title="保存表单">&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="button" value="打印表单" class="BigButton" onClick="parent.form_view.document.execCommand('Print');" title="直接打印表单页面">&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="button" value="复制全文" class="BigButton" onClick="copy_form();" title="复制全文至剪贴版，可粘贴至word并调整格式打印（先打开word再复制）">&nbsp;&nbsp;&nbsp;&nbsp;
+   <input type="button" value="返回" class="BigButton" onClick="parent.location='/index.php/Workflow/worklist';" title="返回">
+</center>
+</body>
+<include file="Public:footer" />

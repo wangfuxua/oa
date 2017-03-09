@@ -1,0 +1,26 @@
+﻿    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+				<ul class="ul1 note" id="c1">
+<script>				
+	function open_notify(NOTIFY_ID)
+	{
+ 	URL="__APP__/manage/view/NOTIFY_ID/"+NOTIFY_ID;
+ 	myleft=(screen.availWidth-500)/2;
+ 	window.open(URL,"read_notify","height=400,width=550,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+	}
+
+</script>
+				
+       <if condition="$notifylist">
+       <iterate name="notifylist" id="vo">
+       <li><neq name="vo[ATTACHMENT_ID]" value=''><img src="../Public/images/ico/mail_files.gif"></neq><a href="javascript:open_notify('{$vo.NOTIFY_ID}');">{$vo.SUBJECT}</a>&nbsp;{$vo.BEGIN_DATE|formatDate}<?php if(!find_id($vo['READERS'],$_SESSION[LOGIN_USER_ID]))
+        echo "<img src='../Public/images/new.gif' height=11 width=28 align=absmiddle>";
+        ?>
+        </li>
+       </iterate>
+       <else />
+       没有公告通知
+       </if>
+				</ul>
+
+

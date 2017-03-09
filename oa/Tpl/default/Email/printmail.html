@@ -1,0 +1,108 @@
+<include file="Public:header" />
+
+<STYLE type=text/css>.HdrPaddingTop {
+	PADDING-TOP: 5px
+}
+.HdrPaddingBttm {
+	PADDING-BOTTOM: 5px
+}
+BODY {
+	MARGIN-TOP: 2px; MARGIN-LEFT: 0px; COLOR: #000000; MARGIN-RIGHT: 0px
+}
+A {
+	FONT-SIZE: 9pt; FONT-FAMILY: 宋体,MS SONG,SimSun,tahoma,sans-serif
+}
+BODY {
+	FONT-SIZE: 9pt; FONT-FAMILY: 宋体,MS SONG,SimSun,tahoma,sans-serif
+}
+TABLE {
+	FONT-SIZE: 9pt; FONT-FAMILY: 宋体,MS SONG,SimSun,tahoma,sans-serif
+}
+TD {
+	FONT-SIZE: 9pt; FONT-FAMILY: 宋体,MS SONG,SimSun,tahoma,sans-serif
+}
+TR {
+	FONT-SIZE: 9pt; FONT-FAMILY: 宋体,MS SONG,SimSun,tahoma,sans-serif
+}
+TABLE {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+.FF {
+	COLOR: #000000
+}
+</STYLE>
+
+<P>
+<TABLE cellSpacing=0 cellPadding=3 width=640 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD style="BORDER-BOTTOM: #000099 1px solid" colSpan="2"></TD>
+  </TR>
+  <TR>
+    <TD noWrap><FONT class=FF>{$row.TO_NAME} &lt;{$row.TO_ID}&gt;</FONT></TD>
+    <TD noWrap align=right><FONT class=FF>已打印： {$dctime} 
+  </FONT></TD></TR></TR>
+  <TR>
+    <TD colSpan=2></TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<TABLE cellSpacing=0 cellPadding=0 width=640 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=2>
+      <HR color=#808080 SIZE=3>
+    </TD></TR>
+  <TR>
+    <TD class=HdrPaddingBttm id=MsgHeaders noWrap  width=70><B>发件人：</B></TD>
+    <TD class=HdrPaddingBttm width="100%">{$row.FROM_NAME} &lt;{$row.FROM_ID}&gt; </TD>
+  </TR>
+  <TR>
+    <TD class=HdrPaddingBttm noWrap width=70><B>发送：</B> </TD>
+    <TD class=HdrPaddingBttm width="100%">{$row.SEND_TIME} </TD>
+  </TR>
+  <TR>
+    <TD class=HdrPaddingBttm noWrap width=70><B>收件人：</B> </TD>
+    <TD class=HdrPaddingBttm width="100%">{$row.TO_NAME} &lt;{$row.TO_ID}&gt; </TD>
+  </TR>
+
+  <if condition="$row[COPY_TO_ID] neq ''">
+  <TR>
+    <TD class=HdrPaddingBttm noWrap width=70><B>抄送：</B> </TD>
+    <TD class=HdrPaddingBttm width="100%">{$row.COPY_TO_NAME} &lt;{$row.COPY_TO_ID}&gt; </TD>
+  </TR>
+ </if>
+
+  <TR>
+    <TD class=HdrPaddingBttm noWrap width=70><B>主题：</B> </TD>
+    <TD class=HdrPaddingBttm width="100%">{$row.SUBJECT} </TD>
+  </TR>
+
+  <if condition="$row[ATTACHMENT_NAME] neq ''">
+  <TR>
+    <TD class=HdrPaddingBttm noWrap width=70><B>附件：</B> </TD>
+    <TD class=HdrPaddingBttm width="100%">{str_replace("*","&nbsp;&nbsp;",$ATTACHMENT_NAME)} </TD>
+  </TR>
+  </if>
+  
+  <TR>
+    <TD colSpan=2>
+      <HR color=#808080 SIZE=3>
+    </TD>
+  </TR>
+  
+  </TBODY>
+</TABLE>
+
+<TABLE cellSpacing=0 cellPadding=0 width=640 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=HdrPaddingBttm width="100%">
+    {$row.CONTENT}
+    </TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<include file="Public:footer" />

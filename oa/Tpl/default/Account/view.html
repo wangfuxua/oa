@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+<!--	<ul class="dm_submenuul">
+		<li><a href="__APP__/Account/lists" title=""><span>客户列表</span></a></li>
+		<li><a href="__APP__/Account/create" title=""><span>新建客户</span></a></li>
+	</ul>-->
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/Account/del" method="post" name="DetailView" id="form">
+				<input type="hidden" name="id" value="{$account_res['id']}" />
+				<gt name="account_res['flag']" value="2"><button  onclick="location='__APP__/Account/edit/id/{$account_res['id']}/update/1'"  type="button"  title="编辑">编辑</button></gt>
+				<gt name="account_res['flag']" value="2"><button onclick="location='__APP__/Account/edit/id/{$account_res['id']}/copy/1'" type="button" title="复制">复制</button></gt>
+			<!--	<gt name="account_res['flag']" value="3"><button onclick="return confirm('确定要删除当前记录吗?')"  title="刪除" type="submit">删除</button></gt>-->
+			<!--	<gt name="account_res['flag']" value="4"><button onclick=location="__APP__/Account/share/id/{$account_res['id']}" title="共享" type="button">共享</button></gt>-->
+				<button onclick="location='__APP__/Account/lists'" type="button">返回列表</button>
+			</form>
+	</caption>
+	<colgroup>
+		<col width="15%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="4">
+				客户: {$account_res['name']}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>客户名称：</td>
+			<td>{$account_res['name']}</td>
+			<td>联系人(客户方)：</td>
+			<td>{$account_res['contact_man']}</td>
+	
+		</tr>
+		<tr>
+			<td>联系人职位：</td>
+			<td>{$account_res['contact_post']}</td>
+			<td>产品类型：</td>
+			<td>{$account_res['product_type']}</td>
+		</tr>
+		<tr>
+			<td>客户来源：</td>
+			<td>{$account_res['source']}</td>
+			<td>客户网站：</td>
+			<td><a href="{$account_res['website']}" target="_blank">{$account_res['website']}</a></td>
+		</tr>
+		<tr>
+			<td>客户类型：</td>
+			<td>{$account_res['type']}</td>
+			<td>股票代码：</td>
+			<td>{$account_res['stocks_code']}</td>
+		</tr>
+		<tr>
+			<td>客户行业：</td>
+			<td>{$account_res['industry']}</td>
+			<td>办公电话;</td>
+			<td>{$account_res['phone_work']}</td>
+		</tr>
+		<tr>
+			<td>状态：</td>
+			<td>{$account_res['status']}</td>
+			<td>移动电话：</td>
+			<td>{$account_res['phone_mobile']}</td>
+		</tr><tr>
+			<td>员工数(规模)：</td>
+			<td>{$account_res['employees']}人</td>
+			<td>传真：</td>
+			<td>{$account_res['phone_fax']}</td>
+		</tr>
+		<tr>
+			<td>负责人：</td>
+			<td>{$manager_res['USER_NAME']}</td>
+			<td>电子邮件：</td>
+			<td>{$account_res['mail']}</td>
+		</tr><tr>
+			<td>输入日期：</td>
+			<td >{$account_res['time_create']} 由 {$builder_res['USER_NAME']}</td>
+			<td>最后更新：</td>
+			<td >{$account_res['time_modify']} 由 {$modify_res['USER_NAME']}</td>
+		</tr><tr>
+			<td>地址：</td>
+			<td >{$address_res['province']}
+			<br />{$address_res['city']}
+			<br />{$address_res['street']}
+			<br />{$address_res['postcode']}
+			</td>
+			<td>描述：</td>
+			<td >{$account_res['description']}</td>
+		</tr>
+		<tr><th class="tdtit" colspan="4">银行财务信息：</th></tr>
+		<tr>
+		<td>开户银行1：</td>
+		<td>{$bankinfo['bank1_name']}</td>
+		<td>开户行2：</td>
+		<td>{$bankinfo['bank2_name']}</td>
+	    </tr>
+		<tr>
+		<td>开户名称1：</td>
+		<td>{$bankinfo['bank1_account_name']}</td>
+		<td>开户名称2：</td>
+		<td>{$bankinfo['bank2_account_name']}</td>
+	    </tr>
+		<tr>
+		<td>银行帐号1：</td>
+		<td>{$bankinfo['bank1_account']}</td>
+		<td>银行帐号2：</td>
+		<td>{$bankinfo['bank2_account']}</td>
+	    </tr>
+		<tr>
+		<td>纳税号1：</td>
+		<td>{$bankinfo['bank1_tariff']}</td>
+		<td>纳税号2：</td>
+		<td>{$bankinfo['bank2_tariff']}</td>
+	    </tr>
+		<tr>
+		<td>支付方式：</td>
+		<td>{$bankinfo['pay_type']}</td>
+		<td>信用额度：</td>
+		<td>{$bankinfo['credit']}</td>
+	    </tr>
+	</tbody>
+</table>
+
+
+</body></html>

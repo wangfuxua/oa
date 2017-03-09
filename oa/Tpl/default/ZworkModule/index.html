@@ -1,0 +1,84 @@
+<include file="Public:header_news" />
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({formid:"form1",onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#modelName").formValidator({onshow:"请输入模型名称",onfocus:"模型名称不能为空",oncorrect:"模型名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模型名称两边不能有空符号"},onerror:"模型名称不能为空,请确认"});;
+	$("#modelTableName").formValidator({onshow:"请输入模型（英文名称）",onfocus:"模型（英文名称）不能为空",oncorrect:"模型（英文名称）合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模型（英文名称）两边不能有空符号"},onerror:"模型（英文名称）不能为空,请确认"}).regexValidator({regexp:"username",datatype:"enum",onerror:"模型（英文名称）格式不正确，只能输入字母或数字"});
+    });
+</script>
+<body>
+<script type="text/javascript">
+	createHeader({
+        Title: "工作流设置",
+        Icon: "",
+        IconCls: "ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+        Items: [
+                { Title: "模型设置", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "更新缓存", Url: "__URL__/cache", Cls: "", Icon: "", IconCls: "ico ico-list" }
+            ]
+    });
+</script>
+	<div id="main" class="KDStyle">
+		<form action="__URL__/add"  method="post" name="form1" id="form1">	
+		<table style="width:80%">
+		    <caption>新建模型</caption>
+		    <tbody>
+			<tr>
+			    <th class="dm_zanal">模型名称：</th>
+			    <td width="300"><input name="modelName" id="modelName" type="text" class="dm_inputsen"/></td>
+			    <td><div id="modelNameTip" ></div></td>
+			</tr>
+			<tr>
+			    <th class="dm_zanal">模型（英文名称）：</th>
+			    <td><input name="modelTableName" id="modelTableName" type="text" class="dm_inputsen" /></td>
+			    <td><div id="modelTableNameTip" ></div></td>
+			</tr>
+			<tr>
+			    <th class="dm_zanal">归类：</th><td><select name="category">
+			    <iterate name="category" id="v" key="k">
+			    <option value="{$k}">{$v}</option>
+			    </iterate>
+			    </select></td>
+			    <td></td>
+			</tr>
+			</tbody>
+			<tfoot>
+			<tr>
+				<th colspan="3">
+					 <button name="Abutton1" type="submit"><div><span>确定</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+			
+		</table>
+		</form>
+	<h2 class="dm_schedule"></h2>
+
+		<table style="width:80%">
+		    <caption>管理模型</caption>
+		    <thead>
+			<tr>
+				<th>模型名称</th>
+				<th>操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			<iterate name="workModuleList" id="vo">
+			<tr>
+				<td><div align="center">{$vo['modelName']}</div></td>
+				<td><div align="center"><a href="__URL__/edit/modelId/{$vo['modelId']}">编辑模型名称</a>&nbsp;/&nbsp;<a href="__URL__/filedIndex/modelId/{$vo['modelId']}">模型控件定义</a>&nbsp;/&nbsp;<a href="__URL__/flow/modelId/{$vo['modelId']}">流程定义</a>&nbsp;/&nbsp;<a href="__URL__/layout/modelId/{$vo['modelId']}">编辑模板样式</a>&nbsp;/&nbsp;<a href="__URL__/del/modelId/{$vo['modelId']}">删除</a></div></td>
+			</tr>
+			</iterate>	
+			</tbody>
+			<tfoot>
+			<tr><td colspan="2">{$page}</td></tr>
+			</tfoot>
+		</table>
+	</div>
+<include file="Public:footer" />

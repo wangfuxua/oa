@@ -1,0 +1,77 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function set_page()
+{
+ PAGE_START=(PAGE_NUM.value-1);
+ location="list.php?{$vo.queryString}&PAGE_START="+PAGE_START;
+}
+function detail(XM_ID)
+{
+ URL="__URL__/detail/XM_ID/"+XM_ID;
+ myleft=(screen.availWidth-800)/2;
+ window.open(URL,"read_notify","height=600,width=800,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+function permit(XM_ID){
+	var el = document.getElementById('SJSJ_'+XM_ID);
+	if(el.value==''){
+		alert("请输入实际完成时间。");
+		return;
+	}
+	else{
+		window.location.href="permit.php?XM_ID="+XM_ID+"&SJSJ="+el.value;
+	}
+}
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  //window.open("/inc/calendar.php?FIELDNAME="+fieldname,"td_calendar","height=176,width=240,status=0,toolbar=no,menubar=no,location=no,scrollbars=no,top="+mytop+",left="+myleft+",resizable=yes");
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+</script>
+<body class="bodycolor" topmargin="5" >
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/book.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 项目查询结果 </span><br>
+    </td>
+    <td valign="bottom">
+    {$page}    
+    </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3">
+	<form name="form1">
+  <tr class="TableHeader">
+      <td nowrap align="center">项目名称</td>
+      <td nowrap align="center">立项时间</td>
+      <td nowrap align="center">主要负责人</td>
+      <td nowrap align="center">项目来源</td>
+      <td nowrap align="center">实际完成时间</td>
+      <td nowrap align="center">操作</td>
+  </tr>
+  <volist name="list" id="vo" key="k" mod="2">
+      <tr class='<eq name="mod" value="1">TableLine1</eq><eq name="mod" value="0">TableLine2</eq>'>
+      <td nowrap align="center">{$vo.MC}</td>
+      <td nowrap align="center">{$vo.LXSJ}</td>
+      <td nowrap align="center">{$vo.XMFZR_ID|getUsername=###}</td>
+      <td nowrap align="center">{$vo.XMLY}</td>
+      <td nowrap align="center">
+      	<input type="text" class="smallInput" id="SJSJ_{$vo.XM_ID}" name="SJSJ_{$vo.XM_ID}">
+      	<img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJSJ_{$vo.XM_ID}');">
+      </td>
+      <td nowrap align="center" nowrap>
+		<a href="javascript:detail('{$vo.XM_ID}');"> 详细</a>&nbsp;&nbsp;
+		<a href="javascript:permit('{$vo.XM_ID}');"> 通过审批</a>
+      </td>
+    </tr>
+      </form>
+    </volist>
+</table>
+
+<div align="center">
+ <input type="button"  value="返回" class="BigButton" onClick="location='__URL__/index';">
+</div>
+
+<include file="Public:footer" />

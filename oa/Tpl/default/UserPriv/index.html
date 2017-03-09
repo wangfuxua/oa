@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<script>
+function delete_priv(USER_PRIV)
+{
+ msg="确认要删除该角色么？";
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/USER_PRIV/"+USER_PRIV;
+  window.location=URL;
+ }
+}
+</script>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>管理角色</span></a></li>
+		<li><a href="__URL__/form" title=""><span>新建角色</span></a></li>
+	</ul>
+
+<div align="center">
+<table>
+    <thead>
+      <td nowrap align="center">角色排序号</td>
+      <td nowrap align="center">角色名称</td>
+      <td nowrap align="center">操作</td>
+    </thead>
+    <volist name="list" id="vo">
+    <tr>
+      <td>{$vo.PRIV_NO}</td>
+      <td>{$vo.PRIV_NAME}</td>
+      <td>
+        <a href="__URL__/form/USER_PRIV/{$vo.USER_PRIV}"> 编辑角色</a>&nbsp;&nbsp;
+        <a href="__URL__/editpriv/USER_PRIV/{$vo.USER_PRIV}"> 编辑权限</a>&nbsp;&nbsp;
+        <a href="javascript:delete_priv('{$vo.USER_PRIV}')"> 删除</a>
+      </td>
+    </tr>
+    </volist>
+ </table>        
+</div>
+
+
+
+<include file="Public:footer" />

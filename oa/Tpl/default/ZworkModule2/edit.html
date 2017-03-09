@@ -1,0 +1,51 @@
+<include file="Public:header" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#modelName").formValidator({onshow:"请输入模板名称",onfocus:"模板名称不能为空",oncorrect:"模板名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模板名称两边不能有空符号"},onerror:"模板名称不能为空,请确认"});;
+});
+</script>
+<body>
+<ul class="dm_submenuul">
+		<li ><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li class="dm_on"><a href="__URL__/edit/modelId/{$row['modelId']}" title=""><span>编辑模板</span></a></li>
+	</ul>
+	<h2 class="dm_schedule">编辑模板-{$row['modelName']}</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<form action="__URL__/update"  method="post" name="form1" >	
+		<tr>
+				<td valign="top" class="dm_zanal">模板名称（中文）：</td>
+				<td><input name="modelId" value="{$row['modelId']}" type="hidden">
+					<input name="modelName" id="modelName" value="{$row['modelName']}" type="text" class="dm_blur3" />
+				</td>
+				<td><div id="modelNameTip" ></div></td>
+			</tr>
+			<tr>
+				<td valign="top" class="dm_zanal">模板名称（英文）：</td>
+				<td>
+					{$row['modelTableName']}*不能更改
+				</td>
+				<td></td>
+			</tr>
+			<tr><td class="dm_zanal">归类：</td><td><select name="category">
+			<iterate name="category" id="v" key="k">
+			<if condition="$row['category'] eq $k">
+			<option value="{$k}" selected>{$v}</option>
+			<else />
+			<option value="{$k}">{$v}</option>
+			</if>
+			</iterate>
+			</select></td><td></td></tr>
+		
+			<tr>
+				<td colspan="3" class="dm_btnzan">
+					<button name="submit" type="submit">保存</button>
+				</td>
+			</tr></form>
+		</table>
+	</div>
+<include file="Public:footer" />

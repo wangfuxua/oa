@@ -1,0 +1,98 @@
+<include file="Public:header2" />
+<script>
+function delete_mr(MR_ID)
+{
+ msg='确认要删除该会议室么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/mrdelete/MR_ID/" + MR_ID;
+  window.location=URL;
+ }
+}
+
+
+function delete_all()
+{
+ msg='确认要删除所有会议室么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/mrdeleteall";
+  window.location=URL;
+ }
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "会议设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active:1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "会议室列表", Url: "__URL__/mrlist", Cls: "", Icon: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">
+
+<table>
+<col width="120px" />
+<caption class="nostyle">管理会议室&nbsp;&nbsp;共<span class="big4">&nbsp;{$COUNT}</span>&nbsp;个会议室</caption>
+  <thead>
+  <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>可容纳人数</th>
+      <th>设备情况</th>
+      <th>所在地点</th>
+      <th>会议室描述</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+<volist name="list" id="vo" key="k" mod="2">
+   <tr>
+      <td>{$vo.MR_ID}</td>
+      <td>{$vo.MR_NAME}</td>
+      <td>{$vo.MR_CAPACITY}</a></td>
+      <td>{$vo.MR_DEVICE}</a></td>
+      <td>{$vo.MR_PLACE}</td>
+      <td>{$vo.MR_DESC}</td>
+      <td>
+      <a href="__URL__/mrquerylist/MR_ID/{$vo.MR_ID}">预定情况</a>&nbsp;&nbsp;&nbsp;
+      
+<a href="javascript:;" onClick="window.open('__URL__/mrdetail/MR_ID/{$vo.MR_ID}','','height=350,width=450,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,resizable=yes');">详细信息</a>
+      
+      </td>
+    </tr>
+</volist> 
+</tbody>
+<tfoot>       
+<tr>
+<th colspan="8">
+    <input type="button"  value="全部删除" class="btnFnt" onClick="delete_all()" title="删除所有会议室">
+</th>
+</tr>
+</tfoot>
+</table>
+</div>    
+
+<include file="Public:footer" />

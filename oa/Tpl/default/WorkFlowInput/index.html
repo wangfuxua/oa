@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发送短消息</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/tabs.js"></script>
+
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on">	<a href="workflow-list.html" title=""><span>代办工作</span></a></li>
+		<li>				<a href="workflow-add.html" title=""><span>新建工作</span></a></li>
+		<li>				<a href="workflow-search.html" title=""><span>工作查询</span></a></li>
+		<li>				<a href="workflow-list2.html" title=""><span>工作监控</span></a></li>
+	</ul>
+	<div class="workflow">
+		<div class="workflow-handle">
+			<form method="post" action="">
+			
+				<table style="width:100%">
+					<colgroup>
+						<col width="30%"></col>
+						<col width="70%"></col>
+					</colgroup>
+					<tbody>
+						{$PRINT_MODEL}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								<button name="Abutton1">保存表单</button>
+								<button name="Abutton1">打印表单</button>
+								<button name="Abutton1">复制全文</button>
+								<button name="Abutton1">返回</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			
+			</form>
+		</div>
+		<div class="workflow-handle-tips">
+			<ul>
+				<li><a href="javascript:" title="" onclick="setTab('flowtips',1,2)" id="flowtips1">公共附件区</a></li>
+				<li><a href="javascript:" title="" onclick="setTab('flowtips',2,2)" id="flowtips2" class="on">签办反馈区</a></li>
+			</ul>
+			<div id="flowtips1_con" class="workflow-handle-tips-file">
+				<p class="erro">此流程不允许上传公共附件</p>
+			</div>
+			<div id="flowtips2_con" class="workflow-handle-tips-msg">
+				<dl>
+					<dt>我的反馈意见</dt>
+					<dd>
+						<form method="post" action="">
+							<textarea name="TextArea1" cols="20" rows="2"></textarea>
+							<button name="Abutton1">保存反馈意见</button>
+						</form>
+					</dd>
+				</dl>
+				<h5>所有反馈意见</h5>
+				<ol>
+					<li>
+						<p>系统管理员：最新公告最新公告最新公告</p>
+						<p class="date">2008-12-24 05:40:33</p>
+					</li>
+					<li>
+						<p>系统管理员：最新公告最新公告最新公告</p>
+						<p class="date">2008-12-24 05:40:33</p>
+					</li>
+
+				</ol>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

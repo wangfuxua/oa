@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>发票记录列表</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__APP__/InvoiceLog/lists" title=""><span>发票记录列表</span></a></li>
+		<li><a href="__APP__/InvoiceLog/create" title=""><span>新建发票记录</span></a></li>
+	</ul>
+<form action="__APP__/InvoiceLog/search" method="post">
+<table>
+	<caption class="nostyle">查找发票记录</caption>
+	<colgroup>
+		<col width="20%" />
+		<col width="30%" />
+		<col width="20% " />
+		<col width="30%" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<td>名称:</td>
+			<td width="25%"><input name='name' type="text" tabindex='1' size='25' maxlength='50' value=""></td>
+			<td>开票日期：</td>
+			<td><input name='invoice_date' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+			</td>
+		</tr>
+	</tbody>
+	<tbody id="searchAll" style="display:none;">
+	<tr>
+		<td>经手人：</td>
+		<td width="25%"><input name='handler' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+		<td>票据金额：</td>
+		<td><input name='money' type="text" tabindex='2' size='20' maxlength='25' value=''></td>
+	</tr>
+	
+	<tr>
+		<td>票据类型：</td>
+		<td width="25%">
+<!--		<script>change_selected('invoice_type', invoice_type, "");</script>-->
+			<select name="invoice_type">
+			<option value="">请选择</option>
+			<volist name="xml_type" id="vo_type">
+			<option value="{$vo_type['name']}">{$vo_type['name']}</option>
+			</volist>
+			</select>
+		</td>
+		<td>期次：</td>
+		<td>
+<!--			<script>change_selected('invoice_times', invoice_times, "");</script>-->
+			<select name="invoice_times">
+			<option value="">请选择</option>
+			<volist name="xml_times" id="vo_times">
+			<option value="{$vo_times['name']}">{$vo_times['name']}</option>
+			</volist>
+			</select>
+		</td>
+	</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4">
+			        <button tabindex='2' title="查找 [Alt+Q]"  class="button" type="submit" >查找</button>
+			        <button tabindex='2' title="重置 [Alt+C]" accessKey="C" class="button" type="reset" >重置</button>
+			        <button tabindex='2' title="高级查找 [Alt+A]" class="button" type="button"  onclick="displayOrNo('searchAll','block');">高级查找</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+
+
+
+<form action="__APP__/InvoiceLog/del" method='post' name='MassUpdate'  id="MassUpdate">
+ <table>
+	<caption class="nostyle">发票记录列表</caption>
+	<colgroup>
+		<col width="20" />
+		<col width="" />
+		<col width="10%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="15%" />
+		<col width="10%" />
+	
+	</colgroup>
+	<thead>
+		<tr>
+			<td colspan="9">{$page}</td>
+		</tr>
+		<tr height="20">
+			<th ><fieldset class="check"><input type='checkbox' class='checkbox' name='massall' value='' onclick='checkAll(document.MassUpdate, "mass[]", this.checked)'></fieldset></th>
+			<th><a href="{$sort_url}&field=name">名称&nbsp;</a></th>
+			<th><a href="{$sort_url}&field=money">金额&nbsp;</a></th>
+			<th><a href="{$sort_url}&field=account_name">客户名称&nbsp;</a></th>
+			<th width="15%"><a href="{$sort_url}&field=invoice_type">票据类型&nbsp;</a></th>
+			<th width="15%"><a href="{$sort_url}&field=invoice_date">开票日期&nbsp;</a></th>
+			<th>经手人&nbsp;</th>
+			<th>负责人&nbsp;</th>
+		</tr>
+	</thead>
+	<volist name="invoiceLog_res" id="vo">
+	<tr height="20"  >
+	<td class="oddListRowS1" bgcolor="#f1f1f1"><fieldset class="check"><input type='checkbox' class='checkbox' name='mass[]' value="{$vo['id']}"></fieldset></td>
+	<td scope="row" ><a href="__APP__/InvoiceLog/view/id/{$vo['id']}" class="listViewTdLinkS1">&nbsp;{$vo['name']}</a></td>
+	            <td >{$vo['money']}</td>
+	            <td ><a href="__APP__/Account/view/id/{$vo['account_id']}" class="listViewTdLinkS1">{$vo['account_name']}</a></td>
+	            <td >{$vo['invoice_type']}</td>
+	            <td >{$vo['invoice_date']}</td>
+	    	<td >{$vo['handler']}</td>
+	    	<td >{$vo['user_name']}</td>
+	
+	</tr>
+	</volist>	
+	<tfoot>
+		<tr>
+			<td colspan="9">{$page}</td>
+		</tr>
+		<tr>
+			<th colspan="9">
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 1);'>全选</button>
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 0);'>取消选中</button>
+				<button type='submit' onclick="return del_records(this.form,'mass[]');">删除</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+</body></html>

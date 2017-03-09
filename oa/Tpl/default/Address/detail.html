@@ -1,0 +1,143 @@
+<include file="Public:header_module2" /> 
+<body>
+ <div class="KDStyle" id="main">
+
+ 
+
+    <!--active 为该文件夹操作-->
+
+
+<h2>{$desc}</h2>
+
+ <table>
+ 	<col width="200px" />
+    <thead>
+		<tr><th colspan="2">{$row.PSN_NAME}</th></tr>
+    </thead>
+	<tbody>
+	<tr><th class="acc" colspan="2">个人信息</th></tr>
+    <tr>
+      <td> 姓名：</td>
+      <td>{$row.PSN_NAME}</td>
+    </tr>
+    <tr>
+      <td> 性别：</td>
+      <td>{$row.SEX}</td>
+    </tr>
+    <tr>
+      <td>生日：</td>
+      <td>{$row.BIRTHDAY}</td>
+    </tr>
+    <tr>
+      <td> 昵称：</td>
+      <td>{$row.NICK_NAME}</td>
+    </tr>
+    <tr>
+      <td> 单位（部门）：</td>
+      <td>{$row.DEPT_NAME}</td>
+    </tr>
+    <tr>
+      <td> 职务：</td>
+      <td>{$row.MINISTRATION}</td>
+    </tr>
+    <tr>
+      <td> 配偶：</td>
+      <td>{$row.MATE}</td>
+    </tr>
+    <tr>
+      <td> 子女：</td>
+      <td class="">{$row.CHILD}</td>
+    </tr>
+
+    <tr>
+      <th  colspan="2" class="acc">联系方式（单位）</th>
+    </tr>
+
+    <tr>
+      <td> 单位名称：</td>
+      <td class="">{$row.DEPT_NAME}</td>
+    </tr>
+
+    <tr>
+      <td>单位地址：</td>
+      <td class="">{$row.ADD_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td> 单位邮编：</td>
+      <td class="">{$row.POST_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td> 单位电话：</td>
+      <td class="">{$row.TEL_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td> 单位传真：</td>
+      <td>{$row.FAX_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <th  colspan="2" class="acc">联系方式（家庭）</th>
+    </tr>
+
+    <tr>
+      <td> 家庭住址：</td>
+      <td>{$row.ADD_HOME}</td>
+    </tr>
+
+    <tr>
+      <td> 家庭邮编：</td>
+      <td>{$row.POST_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td> 家庭电话：</td>
+      <td>{$row.TEL_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td> 手机：</td>
+      <td>{$row.MOBIL_NO}</td>
+    </tr>
+
+    <tr>
+      <td> 寻呼机：</td>
+      <td>{$row.BP_NO}</td>
+    </tr>
+
+    <tr>
+      <td> 电子邮件：</td>
+      <td>{$row.EMAIL}</td>
+    </tr>
+
+    <tr>
+      <td> OICQ号码：</td>
+      <td>{$row.OICQ_NO}</td>
+    </tr>
+
+    <tr>
+      <td> ICQ号码：</td>
+      <td>{$row.ICQ_NO}</td>
+    </tr>
+
+    <tr>
+      <td> 备 注：</td>
+      <td>{$row.NOTES}</td>
+    </tr>
+	</tbody>
+    <tfoot>
+		<tr>
+      <th colspan="2">
+        <button class="BigButton" onclick="document.execCommand('Print');" title="直接打印表格页面">打印</button>&nbsp;&nbsp;&nbsp;&nbsp;
+           <button  class="BigButton" onClick="window.close();" title="关闭窗口">关闭</button>
+      </th>
+	  </tr>
+    </tfoot>
+
+  </table>
+
+</div>
+
+<include file="Public:footer" />

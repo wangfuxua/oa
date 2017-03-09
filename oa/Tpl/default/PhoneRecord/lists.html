@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>来电记录列表</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__APP__/PhoneRecord/lists" title=""><span>来电记录列表</span></a></li>
+		<li><a href="__APP__/PhoneRecord/create" title=""><span>新建来电记录</span></a></li>
+	</ul>
+<form action="__APP__/PhoneRecord/search" method="post">
+<table>
+	<caption class="nostyle">查找来电记录</caption>
+	<colgroup>
+		<col width="20%" />
+		<col width="30%" />
+		<col width="20% " />
+		<col width="30%" />
+	</colgroup>
+	<tbody>
+		    <tr>
+			    <td>主题:</td>    
+			    <td>
+			      <input type='text' name='subject' id='name' value=''>
+			    </td>
+				<td>电话:</td>    
+			    <td>
+			      <input type='text' name='phone' id='phone' value=''>
+			    </td>
+		   </tr>	<tr>
+			    <td>
+			     是否处理：
+			    </td>    
+			    <td>
+<!--			     <script>
+			change_selected('phonerecord_status', phonerecord_status, "");
+			</script>-->
+			<select name="phonerecord_status">
+			<option value="">请选择</option>
+			<volist name="xml_sta" id="vo_sta">
+			<option value="{$vo_sta['name']}">{$vo_sta['name']}</option>
+			</volist>
+			</select>
+			    </td>    
+		    <td>
+			     来电类型：
+			    </td>    
+			    <td>
+		<!--	<script>
+			change_selected('phonerecord_type', phonerecord_type, "");
+			</script>-->
+			<select name="phonerecord_type">
+			<option value="">请选择</option>
+			<volist name="xml_type" id="vo_type">
+			<option value="{$vo_type['name']}">{$vo_type['name']}</option>
+			</volist>
+			</select>
+			    </td>    
+		     </tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4">
+			        <button tabindex='2' title="查找"  class="button" type="submit" >查找</button>
+			        <button tabindex='2' title="重置"  class="button" type="reset">重置</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+<form action="__APP__/PhoneRecord/del" method='post' name='MassUpdate'  id="MassUpdate">
+ <table>
+	<caption class="nostyle">来电记录列表</caption>
+	<colgroup>
+		<col width="20" />
+		<col width="" />
+		<col width="10%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="15%" />
+		<col width="10%" />
+	
+	</colgroup>
+	<thead>
+		<tr>
+			<td colspan="7">{$page}</td>
+		</tr>
+		<tr height="20">
+			<th ><fieldset class="check"><input type='checkbox' class='checkbox' name='massall' value='' onclick='checkAll(document.MassUpdate, "mass[]", this.checked)'></fieldset></th>
+			<th><a href="{$sort_url}&field=subject">主题&nbsp;</a></th>
+			<th><a href="{$sort_url}&field=phonerecord_status">是否处理&nbsp;</a></th>
+			<th><a href="{$sort_url}&field=phonerecord_type">来电类型&nbsp;</a></th>
+			<th><a href="{$sort_url}&field=time_create">输入日期&nbsp;</a></th>
+			<th>负责人&nbsp;</th>
+		</tr>
+	</thead>
+	<volist name="phoneRecord_res" id="vo">
+	<tr height="20"  >
+	<td class="oddListRowS1" bgcolor="#f1f1f1"><fieldset class="check"><input type='checkbox' class='checkbox' name='mass[]' value="{$vo['id']}"></fieldset></td>
+	<td scope="row" ><a href="__APP__/PhoneRecord/view/id/{$vo['id']}" class="listViewTdLinkS1">&nbsp;{$vo['subject']}</a></td>
+	            <td >{$vo['phonerecord_status']}</td>
+	            <td >{$vo['phonerecord_type']}</td>
+	            <td >{$vo['time_create']}</td>
+	            <td >{$vo['user_name']}</td>
+	
+	</tr>
+	</volist>	
+	<tfoot>
+		<tr>
+			<td colspan="7">{$page}</td>
+		</tr>
+		<tr>
+			<th colspan="7">
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 1);'>全选</button>
+				<button type="button"  onclick='checkAll(document.MassUpdate, "mass[]", 0);'>取消选中</button>
+				<button type='submit' onclick="return del_records(this.form,'mass[]');">删除</button>
+			</th>
+		</tr>
+	</tfoot>
+</table>
+</form>
+</body></html>

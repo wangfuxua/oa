@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+/*顶部切换菜单*/
+#tags{ border-bottom:1px solid #96b5e0;background: url(../newimg/tabsBg.gif) repeat-x;}
+#tags ul{float:left}
+#tags li{ float:left; font-size:14px; font-weight:bold; cursor:pointer; height:25px; line-height:25px; margin-right:1px; padding-right:15px; background: url(../images/dm_menurbg.gif) right no-repeat; color:#000; display:inline}
+#tags li span{ float:left; padding-left:15px;height:25px; text-align:center; background:url(../images/dm_menulbg.gif) no-repeat left;CURSOR: hand}
+#tags li.current{ background:url(../images/dm_hovermenurbg.gif) no-repeat right; color:#fff}
+#tags li.current span{ background:url(../images/dm_hovermenulbg.gif); color:#4f73a6}
+/**/
+#capacity{float:right; padding:7px 10px 0 0; width:300px; color:#fff; position:absolute; top:30px; right:0px}
+#capacity span{ float:right; height:13px; font-size:12px; line-height:12px}
+#capacity p{ padding:0; margin:0}
+#capacity span b{float:left; padding:0; margin:0;overflow:hidden; height:12px;background:url(../newimg/powerbg.gif) repeat-x; font-size:9px;  text-align:center;}
+#capacity span cite{ font-style:normal}
+#capacity span#pp-bg{  position:relative; float:left; top:-2px; height:12px; overflow:hidden; width:100px; border-bottom:1px solid #ededed; border-left:1px solid #a7a6a6; border-right:1px solid #e0dede; border-top:1px solid #b5b5b5; background:#fff}
+#capacity span#pp-bg #percent{position:absolute;left:40px;top:0;color:#8d7152;font-family:Arial, Helvetica, sans-serif; font-weight:normal; }
+#capacity span.cbox{  padding-left:5px; text-align:right; width:85px;font-family:Arial, Helvetica, sans-serif; font-size:11px}
+/*个人文件柜*/
+#ger-box{ border:1px solid #B8C9DD; border-top:none;}
+#ger-box{ border-bottom:1px solid #B8C9DD;  }
+/*个人文件柜目录列表*/
+#ger-list{ margin:0px;float:left; top:0; left:0; height:560px; padding:10px 0 0 10px;overflow-x:auto;}
+#ger-list ul li ul,#ger-list ul li ul li ul{ padding-top:5px; padding-left:10px;}
+/*个人文件柜 文件信息*/
+#ger-info{height:570px;margin:0px;border-left:0px solid #B8C9DD;overflow:auto;}
+/*文件名*/
+#files_title{ height:30px; background:url(../images/bg/bgf1.gif) repeat-x bottom;border-bottom:1px solid #fff; padding:10px 10px 0;}
+#files_title h2{ float:left; width:auto; height:30px; line-height:24px; font-size:14px; padding-left:23px; background:url(../newimg/notify_open.gif) no-repeat left 2px}
+#files_title span{float:right; font-size:12px;}
+#files_title span input{ width:100px; margin:0 5px; height:18px; border:1px solid #ccc; background:#fff;}
+#files_title span button{ border:none; height:20px; margin:2px 0 0; color:#fff; padding:0 8px; background:url(../images/bg/TabBg2.gif) repeat-x;}
+/*用户文件操作工具条*/
+#active{ height:25px; padding:8px 0 ;line-height:25px; border:none;border-bottom:1px solid #8da7c5; background:url(../images/bg/bgf1.gif) repeat-x;}
+#active span{ float:left; margin-left:5px; padding:1px 6px; height:25px; line-height:25px; display:inline; cursor:pointer}
+#active span img{ padding-right:3px}
+
+/*当前文件内容*/
+#ger-centens{ padding:10px; border-bottom:1px solid #B8C9DD; border-top:1px solid #ccc}
+/*表格数据*/
+/*
+table#tb-date{ width:100%; border:none; border-right:1px solid #B8C9DD; border-bottom:1px solid #B8C9DD; margin:0;padding:0}
+table#tb-date thead{ padding:0; margin:0; border:none; }
+table#tb-date td{ color:#666}
+table#tb-date td,table#tb-date th{ padding:5px; border:none; border-top:1px solid #B8C9DD; border-left:1px solid #B8C9DD}
+table#tb-date thead th{color:#005DAA;background:#E3E9F5 url(../images/bg/bgf1.gif) repeat-x 0 -52px}
+table#tb-date .fuj{ position:relative;}
+table#tb-date .fuj span{ position:absolute; left:0; top:-4px; text-align:center; border:1px solid #ccc;}
+*/
+/*下侧工具条*/
+
+.tab-ft{height:20px; width:auto; padding:6px 5px 0; border:1px solid #B8C9DD; border-top:none; color:#005DAA;background-color:#E3E9F5}
+.tab-ft #check-all{ float:left}
+.tab-ft .btm-act{ float:left; height:35px;padding:0 10px;}
+.tab-ft .btm-act span{ float:left; margin-left:15px; display:inline; cursor:pointer}
+.tab-ft .btm-act span img{ padding-right:3px;}
+.tab-ft #page-Num{ float:right}
+.t_talbe table{width:90%; border-collapse:collapse; border:0; margin:10px auto 0; color:#666666; line-height:180%;}
+.t_talbe table a{color:#666;}
+.t_td{text-align:center;}
+/**/

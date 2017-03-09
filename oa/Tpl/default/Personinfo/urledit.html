@@ -1,0 +1,85 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.URL_DESC.value=="")
+   { alert("说明不能为空！");
+     return (false);
+   }
+   if(document.form1.URL.value=="")
+   { alert("网址不能为空！");
+     return (false);
+   }
+}
+$(function(){
+        setDomHeight("leftpannel", 56);
+        setDomHeight("mainPannel", 56);
+        setDomHeight("news_main",56);
+        setDomWidth("mainPannel", 200);
+
+		createHeader({
+        Title: "公告通知管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "个人资料", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-userInfo" },
+            { Title: "个性设置", Url: "__URL__/set", Cls: "", IconCls: "ico ico-userCustom" },
+            { Title: "个人网址", Url: "__URL__/url", Cls: "", IconCls: "ico ico-userUrl" },
+            { Title: "修改密码", Url: "__URL__/pass", Cls: "", IconCls: "ico ico-userPassword" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body onLoad="document.form1.URL_NO.focus();">
+
+<div class="KDStyle" id="main">
+	<div class="mainpanelHead"><h2>编辑网址</h2></div>
+
+<table>
+  <form action="__URL__/urlsubmit"  method="post" name="form1" onsubmit="return CheckForm();"> 
+   <col width="60px"/>
+   <tr>
+    <td>序号：</td>
+    <td>
+        <input type="text" name="URL_NO" class="BigInput" size="10" maxlength="25" value="{$row.URL_NO}">
+    </td>
+   </tr>
+   <tr>
+    <td>说明：</td>
+    <td>
+        <input type="text" name="URL_DESC" class="BigInput" size="25" maxlength="200" value="{$row.URL_DESC}">
+    </td>
+   </tr>
+   <tr>
+    <td>网址：</td>
+    <td>
+        <input type="text" name="URL" class="BigInput" size="25" maxlength="200" value="{$row.URL}">
+    </td>
+   </tr>
+   <tfoot>
+   <tr>
+    <th colspan="2">
+        <input type="hidden" value="{$row.URL_ID}" name="URL_ID">
+        <button type="submit" value="确定" class="btnFnt">确定</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/url'">返回</button>
+    </th>
+    </tr>
+    </tfoot>
+  </form>
+</table>
+</div>
+</div>
+<include file="Public:footer" />

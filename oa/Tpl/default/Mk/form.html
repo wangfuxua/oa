@@ -1,0 +1,80 @@
+<include file="Public:header" />
+
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/diary.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3">新建模块</span>
+    </td>
+  </tr>
+</table>
+
+<hr width="95%" height="1" align="left" class="big1">
+  <table border="0" width="700" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+  <form action="__URL__/formsubmit"  method="post" name="form1" onsubmit="return CheckForm();">
+    
+    <tr>
+      <td nowrap class="TableData" width="80">角色、位置：</td>
+      <td class="TableData">
+       {$user_priv}
+      </td>
+    </tr>
+       
+    <tr>
+      <td nowrap class="TableData" width="80">名称：</td>
+      <td class="TableData">
+       <input type="text" name="FUNC_NAME" size="50" maxlength="100" class="BigInput" value="{$row.FUNC_NAME}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">文件路径：</td>
+      <td class="TableData">
+       <input type="text" name="funcpath" size="50" maxlength="100" class="BigInput" value="{$row.funcpath}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">css文件：</td>
+      <td class="TableData">
+       <input type="text" name="css" size="50" maxlength="100" class="BigInput" value="{$row.css}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">moduleid：</td>
+      <td class="TableData">
+       <input type="text" name="clientjs_moduleid" size="50" maxlength="100" class="BigInput" value="{$row.clientjs_moduleid}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">moduletype：</td>
+      <td class="TableData">
+       <input type="text" name="clientjs_moduletype" size="50" maxlength="100" class="BigInput" value="{$row.clientjs_moduletype}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">配置js：</td>
+      <td class="TableData">
+       <input type="text" name="clientjs" size="50" maxlength="100" class="BigInput" value="{$row.clientjs}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">class名称：</td>
+      <td class="TableData">
+       <input type="text" name="class" size="50" maxlength="100" class="BigInput" value="{$row.class}">
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">内容js：</td>
+      <td class="TableData">
+       <input type="text" name="contentjs" size="50" maxlength="100" class="BigInput" value="{$row.contentjs}">
+      </td>
+    </tr>
+    <tr align="center" class="TableControl">
+      <td colspan="2" nowrap>
+        <input type="hidden" name="FUNC_ID" value="{$row.FUNC_ID}">
+        <input type="submit" value="保存" class="BigButton">&nbsp;&nbsp;
+        <input type="button" value="返回" class="BigButton" onClick="location='__URL__/index'">
+      </td>
+    </tr>
+  </table>
+</form>
+
+<include file="Public:footer" />

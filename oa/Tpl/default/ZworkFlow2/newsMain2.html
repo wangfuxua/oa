@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>工作流程设置</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h2 class="dm_schedule">常用模型</h2>
+	<div class="dm_conthree">
+		<form action="__APP__/ZworkModule/add"  method="post" name="form1" >	
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			
+			<tr>
+			<td class="dm_btnzan">模型名称</td>
+			<td class="dm_btnzan">操作</td>
+			</tr>
+			<iterate name="zworkList" id="vo">
+			<tr class="tdcenter">
+			<td>{$vo['modelName']}</td>
+			<td><a href="__URL__/createNew/modelId/{$vo['modelId']}">快速创建工作</a></td>
+			</tr>
+			</iterate>	
+		</table>
+		</form>
+	</div>
+</body>
+</html>

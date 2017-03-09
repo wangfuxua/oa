@@ -1,0 +1,50 @@
+<include file="Public:header" />
+<style type="text/css">
+#log{width:700px}
+#log li a{color:#0066CC}
+#log li {line-height:22px;padding:5px 0px;border-bottom:1px silver solid;color:#333333;margin:5px auto}
+#log li p {width:80%;float:left}
+#log li span {width:120px;float:right;display:block;color:silver}
+</style>
+<script>
+function delete_feed(did)
+{
+ msg='确认要删除该日志么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/from/index/did/" + did;
+  window.location=URL;
+ }
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>开发日志</span></a></li>
+		<if condition="$LOGIN_USER_PRIV eq 1">
+		<li><a href="__URL__/edit" title=""><span>添加日志</span></a></li>
+		</if>
+	</ul>
+<div id="log">
+	<ul>
+	  <volist name="list" id="vo">
+		<li>
+			<p>
+				{$vo.addtime|date='Y-m-d H:i:s',###}：
+			</p>
+			<p>
+				{$vo.content}
+			</p>
+			<span>
+			<if condition="$LOGIN_USER_PRIV eq 1">
+			<a href="__URL__/edit/did/{$vo.did}">修改</a>
+			<a href="javascript:delete_feed('{$vo.did}')">删除</a>
+			</if>
+			</span>
+		</li>
+		</volist>
+	</ul>
+	{$page}
+</div>
+
+
+<include file="Public:footer" />

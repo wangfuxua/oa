@@ -1,0 +1,52 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "工资上报录入",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "执行中的工资上报流程", Url: "#", Cls: "", Icon: "", IconCls: "ico ico-list" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+	<div class="KDStyle" id="main">
+		<table>
+			<thead>
+				<tr>
+						<th>起始日期  </th><th>截止日期 </th><th>备注 </th><th>操作 </th>
+				</tr>
+			</thead>
+			<tbody>  
+			<iterate name="salList" id="vo">
+					<tr>
+						<td>{$vo['BEGIN_DATE'],'full'|formatDate} </td><td>{$vo['END_DATE'],'full'|formatDate} </td><td>{$vo['CONTENT']} </td><td><a href="salIndex/FLOW_ID/{$vo['FLOW_ID']}"> 工资上报</a></td>
+					</tr>
+					</iterate>
+			</tbody>
+			<tfoot>
+					<tr>
+						<th colspan="4">
+						</th>
+					</tr>
+			</tfoot>
+		</table>
+</div>
+<include file="Public:footer" />

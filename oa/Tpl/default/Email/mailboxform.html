@@ -1,0 +1,69 @@
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.BOX_NO.value=="")
+   { alert("邮箱序号不能为空！");
+     return (false);
+   }
+   
+   if(document.form1.BOX_NAME.value=="")
+   { alert("邮箱名称不能为空！");
+     return (false);
+   }
+}
+
+function delete_mis(BOX_ID)
+{
+ msg='删除该邮箱将删除该邮箱下的所有邮件，确认要删除该邮箱么？';
+ if(window.confirm(msg))
+ {
+  URL="__APP__/Email/mailboxdelete/BOX_ID/" + BOX_ID;
+  window.location=URL;
+ }
+}
+</script>
+
+<style>
+form input{ border:none}
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+    <div id="title" class="clearfix">
+      <h2>邮箱管理</h2>
+     
+      <span class="rtact">全局查询
+     
+      <input type="hidden" id="READ_FLAG" name="READ_FLAG" value="-1">
+      <input type="hidden" id="BOX_ID" name="BOX_ID" value="{$BOX_ID}">
+      <input type="text" id="keyword" />
+      <button type="button" id="searchsub">搜索</button>
+      
+    </span> 
+    </div>
+    <div id="active" class="active">
+     <span id="mail-st"><a href="#" onclick='javascript:save();'>保存</a></span> 
+     <span id="mail-cl"><a href="#" onclick='javascript:$("#mail-act").load("__APP__/Email/mailbox")'>返回</a></span> 
+    </div>
+    <div id="mail-centens" class="clearfix" style="padding:0;border:none">
+      <div class="mailto"  id="mailtoinfo">  
+      <form enctype="multipart/form-data" action="__APP__/Email/mailboxsubmit"  method="post" name="form1" onsubmit="return CheckForm();">
+      <input type="hidden" value="{$row.BOX_ID}" name="BOX_ID">  
+        <ul class="clearfix">
+            <li style="position:relative"><strong id="sjr">序号：</strong><span style="position:relative; width:300px">
+            <input type="text" name="BOX_NO" maxlength="25" value="{$row.BOX_NO}">
+            </span></li>
+           <li><strong id="cs">名称：</strong><span style="position:relative; width:300px">
+            <input type="text" name="BOX_NAME" maxlength="25" value="{$row.BOX_NAME}">
+            </span></li>
+        </ul>
+      <p class="mailbutton" style="border:none">
+          <button type="submit">提交</button>
+          <button type="button" onclick='javascript:$("#mail-act").load("__APP__/Email/mailbox")'>返回</button>
+      </p>
+      </form>
+      </div>
+    </div>  

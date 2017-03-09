@@ -1,0 +1,155 @@
+<include file="Public:header" />
+<script language="JavaScript" type="text/javascript">
+function form_submit(){
+	var form = document.form1;
+	if(form.SBPD.value == ""){
+		alert("请填写终审评定");
+		return false;
+	}
+	if(form.SBYJ.value == ""){
+		alert("请填写终审意见");
+		return false;
+	}
+	form.submit();
+}
+</script>
+ 
+<body class="bodycolor" topmargin="5">
+ <table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+    <tr>
+      <td nowrap class="TableData">项目名称：</td>
+      <td class="TableData">{$row.MC}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">申报属性：</td>
+      <td class="TableData">{$row.SX_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">部门属性：</td>
+      <td class="TableData">{$row.BM_NAME}</td>
+    </tr>
+	<tr>
+      <td nowrap class="TableData">主申请人员：</td>
+      <td class="TableData">{$row.ZSBR_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">申请人员：</td>
+      <td class="TableData">{$row.FSBR_NAME}</td>
+	</tr>
+    <tr>
+      <td nowrap class="TableData">是否竞标：</td>
+      <td class="TableData"><if condition="$row[JB] eq 1">是<else />否</if></tr>
+    <tr>
+      <td nowrap class="TableData">申报时间：</td>
+      <td class="TableData">{$row.SJ}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">计划完成时间：</td>
+      <td class="TableData">{$row.WCSJ}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目来源：</td>
+      <td class="TableData">{$row.XMLY}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目预算资金：</td>
+      <td class="TableData">{$row.YSZJ}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">项目简介：</td>
+      <td class="TableData">{$row.XMJJ}</td>
+    </tr>
+    <tr class="TableHeader">
+      <td colspan="2">附件列表</td>
+    </tr>
+    <tr class="TableData">
+    <td colspan="2">{$row.att}</td>
+    </tr>
+    
+</table>
+
+<br>
+<table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+	<tr class="TableHeader">
+      <td nowrap align="center" width="40%">初审评定</td>
+      <td nowrap align="center" width="40%">初审意见</td>
+      <td nowrap align="center" width="20%">初审人员</td>
+  	</tr> 
+ <volist name="list" id="vo" key="k" mod="2">  	
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td nowrap align="center">{$vo.SBPD}</td>
+      <td nowrap align="center">{$vo.SBYJ}</td>
+      <td nowrap align="center">{$vo.USER_NAME}</td>
+  	</tr>
+  </volist>
+  
+ </table> 	  	
+<br>
+<table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+	<tr class="TableHeader">
+      <td nowrap align="center" width="40%">终审评定</td>
+      <td nowrap align="center" width="40%">终审意见</td>
+      <td nowrap align="center" width="20%">终审人员</td>
+  	</tr>
+ <volist name="listzs" id="vo" key="k" mod="2">  	
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td nowrap align="center">{$vo.SBPD}</td>
+      <td nowrap align="center">{$vo.SBYJ}</td>
+      <td nowrap align="center">{$vo.USER_NAME}</td>
+  	</tr>
+  </volist>
+  
+ </table>   	
+
+ <br>
+ 
+ <table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+	<form name="form1" action="__URL__/pauditSubmit" method="post">
+	<tr>
+      <td nowrap class="TableData">终审部门：</td>
+      <td class="TableData">{$dept_name}
+      </td>
+    <tr>
+      <td nowrap class="TableData">终审人员：</td>
+      <td class="TableData">{$user_name}
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">终审评定：</td>
+      <td class="TableData">
+    	<input type="text" name="SBPD" size="40" maxlength="100" class="BigInput" value="" />
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData">终审意见：</td>
+      <td class="TableData">
+    	<input type="text" name="SBYJ" size="40" maxlength="100" class="BigInput" value="" />
+      </td>
+    </tr>
+    
+    <tr>
+      <td nowrap class="TableData">提交给：</td>
+      <td class="TableData">{$listuser}</td>
+    </tr>
+    <td nowrap class="TableData">最终意见：</td>
+      <td class="TableData">
+    	<input type="checkbox" name="FINAL" value="T" />
+      </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" colspan="2" align="center">
+      	<input type="hidden" name="XM_ID" value="{$XM_ID}"/>
+      	<input type="hidden" name="TYPE_ID" value="{$TYPE_ID}"/>
+      	<input type="button" onclick="form_submit()" class="BigButton" value="提交审核并转交"/>
+	  </td>
+    </tr>
+    </form>
+</table>
+
+<include file="Public:footer" />

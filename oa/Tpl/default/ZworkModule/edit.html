@@ -1,0 +1,72 @@
+<include file="Public:header_news" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)},onsuccess:function(){alert('ddd');return false;}});
+	$("#modelName").formValidator({onshow:"请输入模板名称",onfocus:"模板名称不能为空",oncorrect:"模板名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模板名称两边不能有空符号"},onerror:"模板名称不能为空,请确认"});;
+	createHeader({
+	    Title: "{$row['modelName']}",
+	    Icon: "",
+	    IconCls: "ico ico-head-news",
+	    Cls: "",
+	    Active: 2,
+	    Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+	    Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改模型", Url: "__URL__/edit/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑控件", Url: "__URL__/filedIndex/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑流程", Url: "__URL__/flow/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑模板", Url: "__URL__/layout/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "预览模型", Url: "__URL__/view/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-view" }
+            ]
+	});
+});
+</script>
+<body>
+
+	<div id="main" class="KDStyle">
+		<form action="__URL__/update"  method="post" name="form1" >	
+		<table style="width:80%">
+		    <caption>编辑模板：{$row['modelName']}</caption>
+		
+        <thead><tr><th colspan="3"></th></tr></thead>
+        <tbody>
+		<tr>
+				<th valign="top" class="dm_zanal">模板名称（中文）：</th>
+				<td><input name="modelId" value="{$row['modelId']}" type="hidden">
+					<input name="modelName" id="modelName" value="{$row['modelName']}" type="text" class="dm_blur3" />
+				</td>
+				<td><div id="modelNameTip" ></div></td>
+			</tr>
+			<tr>
+				<th valign="top">模板名称（英文）：</th>
+				<td>
+					{$row['modelTableName']}*不能更改
+				</td>
+				<td></td>
+			</tr>
+			<tr><th>归类：</th><td><select name="category">
+			<iterate name="category" id="v" key="k">
+			<if condition="$row['category'] eq $k">
+			<option value="{$k}" selected>{$v}</option>
+			<else />
+			<option value="{$k}">{$v}</option>
+			</if>
+			</iterate>
+			</select></td><td></td></tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="3">
+					<button name="submit" type="submit"><div><span>保存</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+		</table>
+			</form>
+	</div>
+<include file="Public:footer" />

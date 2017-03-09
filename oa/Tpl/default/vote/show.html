@@ -1,0 +1,66 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "已发布的投票", Url: "__URL__/voteIndex", Cls: "", Icon: "", IconCls: "ico ico-voteList" },
+			{ Title: "投票结果———{$voteRow['SUBJECT']}", Url: "#", Cls: "", Icon: "", IconCls: "ico ico-view" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+
+	<div class="KDStyle" id="main">
+		<table>
+			<col />
+			<col />
+			<col width="80px" />
+			<col />
+			<thead>
+				<tr>
+					<th>选项</th>
+					<th>图标</th>
+					<th>票数</th>
+					<th>投票人员</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="voteItemList" id="vo">
+				<tr>
+					<td>{$vo['ITEM_NAME']}</td>
+					<td width="240">
+					    <img src="../Public/images/vote_bg.gif" width="{$vo[wh]}" height="10">{$vo['percent']}%
+					</td>
+					<td class="tcenter">{$vo['VOTE_COUNT']}票</td>
+					<td><if condition="$ANONYMITY neq 'on'">{$vo['VOTE_USER']}</if></td>
+				</tr>
+				</iterate>
+			</tbody>
+			<tfoot>
+			<tr>
+			<th colspan="4"><button onClick="javascript:window.history.back()">返回</button></th>
+			</tr>
+			</tfoot>	
+		</table>
+		
+	</div>
+<include file="Public:footer" />

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Jay" />
+<title>工资上报管理</title>
+
+<link href="../public/style/default/css/kdstyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KD.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/main.js"></script>
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script>
+function CheckForm()
+{
+   if(document.form1.BEGIN_DATE.value=="")
+   { alert("上报起始日期不能为空！");
+     return (false);
+   }
+
+   if(document.form1.END_DATE.value=="")
+   { alert("上报截止日期不能为空！");
+     return (false);
+   }
+
+   return (true);
+}
+function delete_flow(FLOW_ID)
+{
+ msg='确认要删除该流程吗？通过该流程上报的工资数据将被删除且不可恢复！';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/flowDel/FLOW_ID/" + FLOW_ID;
+  window.location=URL;
+ }
+}
+
+function stop_flow(FLOW_ID)
+{
+ msg='确认要终止该流程吗？将不可恢复为执行状态！';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/flowStop/FLOW_ID/" + FLOW_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "工资上报管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "工资项目定义", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "工资上报流程管理", Url: "__URL__/flowIndex", Cls: "", IconCls: "ico ico-list2" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+
+</head>
+<body>
+
+	<div class="KDStyle" id="main">
+	<form action="flowAdd" method="post" name="form1" onsubmit="return CheckForm();">
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2" >新建工资上报流程 </th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr>
+						<td width="20%">上报起始日期：</td><td><input name="BEGIN_DATE" type="text" class="dm_number5"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});"/>
+						<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onclick="WdatePicker({el:$dp.$('BEGIN_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+						
+						</td>
+					</tr>
+					<tr>
+						<td>上报截止日期：</td><td><input name="END_DATE" type="text" class="dm_number5"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});"/>
+						<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onclick="WdatePicker({el:$dp.$('END_DATE'),dateFmt:'yyyy-MM-dd'})"  />
+						</td>
+					</tr>
+					<tr>
+						<td>备注：</td><td><input name="CONTENT" type="text" value="" /></td>
+					</tr>
+    <tr>
+      <td> 提醒：</td>
+      <td>
+        <input type="checkbox" name="SMS_REMIND" checked>使用短信息提醒相关人员上报工资数据
+      </td>
+    </tr>
+    					
+			</tbody>
+			<tfoot>
+					<tr>
+						<th colspan="2" class="dm_btnzan">
+						<button name="Abutton1" type="submit">新建</button></th>
+					</tr>
+			</tfoot>
+		</table>
+		</form>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th colspan="6" >已定义的工资上报流程  </th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr>
+						<td>流程创建日期</td>
+						<td>起始日期</td>
+						<td>截止日期</td>
+						<td>备注</td>
+						<td>状态</td>
+						<td>操作</td>
+					</tr>
+					<iterate name="flowList" id="vo">
+					<tr>
+					    <td>{$vo['SEND_TIME']|formatdate}</td><td>{$vo['BEGIN_DATE'],'full'|formatDate}</td><td>{$vo['END_DATE'],'full'|formatDate}</td>
+						<td>{$vo['CONTENT']}</td>
+						<td>
+						<?php $RUNNING=0?>
+						<if condition="$vo[BEGIN_DATE] gt time()">待执行
+						<elseif condition="$vo[END_DATE] gt time()" />执行中<?php $RUNNING=1?>
+						<elseif condition="$vo[END_DATE] eq 0" />执行中<?php $RUNNING=1?>
+						<else />已终止
+						</if>
+						</td>
+						<td><a href="flowReport/FLOW_ID/{$vo.FLOW_ID}">工资报表</a>
+						    <?php
+						    if ($RUNNING==1){ 
+						    ?>
+					        <a href="javascript:stop_flow({$vo.FLOW_ID});">终止</a>    
+					        <?php
+						    }
+					        ?>
+					        <a href="javascript:delete_flow({$vo.FLOW_ID});">删除</a>
+					    </td>
+					</tr>
+					</iterate>
+
+			</tbody>
+			<tfoot>
+					<tr>
+						<th colspan="6" class="dm_btnzan">
+						{$page}
+						</th>
+					</tr>
+			</tfoot>
+		</table>
+
+</div>
+</body>
+</html>

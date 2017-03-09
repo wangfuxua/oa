@@ -1,0 +1,323 @@
+<html>
+<head>
+<title>主菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="/Tpl/default/Public/images/style.css">
+<link rel="stylesheet" type="text/css" href="/Tpl/default/Public/images/menu.css">
+</head>
+
+<body topmargin="3" leftmargin="0" rightMargin="0" class="panel" marginwidth="0" marginheight="0">
+<!-- OA树开始-->
+<table class="small" border="0" width="100%" cellspacing="0" cellpadding="0" align="center"><tr><td>
+   <!-- OA树标题 -->
+   <table class="small" border="0" cellspacing="0" cellpadding="0" height="25" width="100%" >
+    <tr>
+     <td valign="top"><img src="/Tpl/default/Public/images/avatar/{$users.AVATAR}.gif">&nbsp; <b>[{$users.USER_NAME}]</b>
+     &nbsp;&nbsp;<a href="javascript:menu_expand()"><u>展开/收缩</u></a>
+     </td>
+    </tr>
+   </table>
+   <iterate name="sysmenus" id="mu">
+   <?php
+    
+   $MENU_COUNT1++;
+    $MENU_ID1=$mu["MENU_ID"];
+    $MENU_NAME=$mu["MENU_NAME"];
+    $IMAGE=$mu["IMAGE"];
+    
+        $SUB_MENU_COUNT=0;
+        $MENU_ID1=$mu["MENU_ID"];
+    	$mds=new Model();
+        $dbre=$mds->query("SELECT * from SYS_FUNCTION where MENU_ID like '$mu[MENU_ID]%' and length(MENU_ID)=4 order by MENU_ID");
+        foreach ($dbre as $menu1) {
+        	  $MENU_ID2=$menu1["MENU_ID"]; 
+       
+		       $FUNC_ID=$menu1["FUNC_ID"];
+		       $FUNC_NAME=$menu1["FUNC_NAME"];
+		       $FUNC_CODE=$menu1["FUNC_CODE"];
+               	  
+	          if(strstr($FUNC_CODE,"http://"))
+		         $FUNC_IMAGE="menu_url";
+		      elseif(strstr($FUNC_CODE,"file://"))
+		         $FUNC_IMAGE="winexe";
+		      elseif(strstr($FUNC_CODE,"/"))
+		         $FUNC_IMAGE=substr($FUNC_CODE,0,strpos($FUNC_CODE,"/"));
+		      else
+		         $FUNC_IMAGE=$FUNC_CODE;
+		      if($FUNC_CODE=="bbs2/admin")
+		         $FUNC_IMAGE="system";
+		         
+			  if(find_id($userprivs[FUNC_ID_STR],$menu1[FUNC_ID]))
+			       {
+			         $SUB_MENU_COUNT++;
+			         $FOUND=0;
+			         $MENU_END1=0;
+                     //--- 检查是否是1级菜单最后 ---
+                     $dbre2 =$mds->query("SELECT * from SYS_FUNCTION where  MENU_ID not like '$mu[MENU_ID]%' and length(MENU_ID)=4 and MENU_ID>'$mu[MENU_ID]'");
+                          foreach ($dbre2 as $menu2){
+                          	  if(find_id($userprivs[FUNC_ID_STR],$menu2[FUNC_ID]))
+								{
+								     $FOUND=1;
+								     break;
+								}
+                          	
+                          }
+                          
+		             if($FOUND==0)
+				         {
+				            $MENU_END1=1;
+				         }
+				     //--- 检查是否是2级菜单最后 ---
+				     $FOUND=0;
+                     $MENU_END2=0;				     
+				     $dbre3 =$mds->query("SELECT * from SYS_FUNCTION where  MENU_ID like '$MENU_ID1%' and length(MENU_ID)=4 and MENU_ID>'$MENU_ID2'");    
+				         foreach ($dbre3 as $menu3){
+                          	  if(find_id($userprivs[FUNC_ID_STR],$menu3[FUNC_ID]))
+								{
+								     $FOUND=1;
+								     break;
+								}				         	
+				         }
+		             if($FOUND==0)
+				         {
+				            $MENU_END2=1;
+				         }     
+                       
+		          }
+			       			       
+         //---- 第一个，显示主菜单项 ----
+         if($SUB_MENU_COUNT==1){
+   ?>
+   <table class="small" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END1)echo "tree_plusl";else echo "tree_plus";?>.gif" id="MEMU_{$mu.MENU_ID}" class="outline" style="cursor:hand" title="展开/收缩"></td>
+      <td><img src="/Tpl/default/Public/images/menu/{$mu.IMAGE}.gif" border="0" WIDTH="19" HEIGHT="17" alt="{$mu.MENU_NAME}"></td>
+      <td colspan="3"><a href="#A" onclick="MEMU_{$mu.MENU_ID}.click();">&nbsp;{$mu.MENU_NAME}</a></td>
+     </tr>
+   </table><table class="small" border="0" cellspacing="0" cellpadding="0" id="MEMU_<?php echo $MENU_ID1;?>d" style="display:none">
+     <tr><td>
+ <?php
+         }
+         //--- 判断是否是子菜单 ----
+         if(substr($FUNC_CODE,0,1)!="@")
+         {
+            if(strstr($FUNC_CODE,"http://"))
+               $CLICK_STR="openURL('$FUNC_CODE')";
+            //elseif(strstr($FUNC_CODE,"file://"))
+             //  $CLICK_STR="winexe('$FUNC_NAME','".str_replace("\\","/",str_replace("file://","",$FUNC_CODE))."')";
+            else
+               $CLICK_STR="openURL('/general/$FUNC_CODE')";
+                        
+         
+ ?>  
+        <table class="small" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+           <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END1)echo "tree_transp";else echo "tree_line";?>.gif" border="0"></td>
+           <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END2)echo "tree_blankl";else echo "tree_blank";?>.gif"></td>
+           <td><img src="/Tpl/default/Public/images/menu/<?php echo $FUNC_IMAGE?>.gif" border="0" WIDTH="19" HEIGHT="17" alt="<?php echo $FUNC_NAME?>"></td>
+           <td colspan="2"><a href="#A"  onclick="<?php echo $CLICK_STR?>">&nbsp;<?php echo $FUNC_NAME?></a></td>
+          </tr>
+        </table>
+ <?php
+         }
+         else
+         {
+?>
+        <table class="small" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+           <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END1)echo "tree_transp";else echo "tree_line";?>.gif" border="0"></td>
+           <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END2)echo "tree_plusl";else echo "tree_plus";?>.gif"   id="MEMU_<?php echo $MENU_ID2?>" class="outline" style="cursor:hand"></td>
+           <td><img src="/Tpl/default/Public/images/menu/<?php echo $FUNC_IMAGE?>.gif" border="0" WIDTH="19" HEIGHT="17" alt="<?php echo $FUNC_NAME?>"></td>
+           <td colspan="2"><a href="#A"  onclick="MEMU_<?php echo $MENU_ID2?>.click();">&nbsp;<?php echo $FUNC_NAME?></a></td>
+          </tr>
+        </table>
+        <table class="small" border="0" cellspacing="0" cellpadding="0" id="MEMU_<?php echo $MENU_ID2?>d" style="display:none">
+          <tr>
+           <td><?php
+           $dbres = $mds->query("SELECT * from SYS_FUNCTION where MENU_ID like '$MENU_ID2%' and length(MENU_ID)=6 order by MENU_ID");
+           foreach ($dbres as $ROW)
+           {
+              $MENU_ID3=$ROW["MENU_ID"];
+              $FUNC_ID=$ROW["FUNC_ID"];
+              $FUNC_NAME=$ROW["FUNC_NAME"];
+              $FUNC_CODE=$ROW["FUNC_CODE"];
+
+              if(strstr($FUNC_CODE,"http://"))
+                 $FUNC_IMAGE="menu_url";
+              elseif(strstr($FUNC_CODE,"file://"))
+                 $FUNC_IMAGE="winexe";
+              elseif(strstr($FUNC_CODE,"/"))
+                 $FUNC_IMAGE=substr($FUNC_CODE,0,strpos($FUNC_CODE,"/"));
+              else
+                 $FUNC_IMAGE=$FUNC_CODE;
+
+              if($FUNC_CODE=="bbs2/admin")
+                 $FUNC_IMAGE="system";
+
+              if(find_id($USER_FUNC_ID_STR,$FUNC_ID))
+              {
+                //--- 检查是否是3级菜单最后 ---
+                $dbres2 = $mds->query("SELECT * from SYS_FUNCTION where  MENU_ID like '$MENU_ID2%' and length(MENU_ID)=6 and MENU_ID>'$MENU_ID3'");
+                $FOUND=0;
+                $MENU_END3=0;
+                foreach ($dbres2 as $ROW)
+                {
+                   $FUNC_ID=$ROW["FUNC_ID"];
+                   if(find_id($USER_FUNC_ID_STR,$FUNC_ID))
+                   {
+                      $FOUND=1;
+                      break;
+                   }
+                }
+                if($FOUND==0)
+                {
+                   $MENU_END3=1;
+                }
+                if(strstr($FUNC_CODE,"http://"))
+                   $CLICK_STR="openURL('$FUNC_CODE')";
+                //elseif(strstr($FUNC_CODE,"file://"))
+                 //  $CLICK_STR="winexe('$FUNC_NAME','".str_replace("\\","/",str_replace("file://","",$FUNC_CODE))."')";
+                else
+                   $CLICK_STR="openURL('/general/$FUNC_CODE')";
+           
+           ?>
+           <table class="small" border="0" cellspacing="0" cellpadding="0">
+                 <tr>
+                  <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END1)echo "tree_transp";else echo "tree_line";?>.gif"></td>
+                  <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END2)echo "tree_transp";else echo "tree_line";?>.gif" border="0"></td>
+                  <td><img src="/Tpl/default/Public/images/menu/<?php if($MENU_END3)echo "tree_blankl";else echo "tree_blank";?>.gif"></td>
+                  <td><img src="/Tpl/default/Public/images/menu/<?php echo $FUNC_IMAGE?>.gif" border="0" WIDTH="19" HEIGHT="17" alt="<?php echo $FUNC_NAME?>"></td>
+                  <td colspan="2"><a href="#A" onclick="<?php echo $CLICK_STR?>">&nbsp;<?php echo $FUNC_NAME?></a></td>
+                 </tr>
+               </table><?PHP
+              }
+           }//while sub_menu
+?>
+           </td>
+          </tr>
+         </table>
+<?PHP
+         }//if sub_menu
+
+       }//if(find_id
+    
+?>      
+      </td>
+     </tr>
+    </table>   
+   <?php
+   
+   
+   
+   ?>
+</iterate>
+
+<script language="JavaScript">
+var openedid;
+var openedid_ft;
+var flag=0,sflag=0;
+
+//-------- 菜单点击事件 -------
+function clickHandler()
+{
+        var targetid,srcelement,targetelement;
+        var strbuf;
+        srcelement=window.event.srcElement;
+
+        //-------- 如果点击了展开或收缩按钮---------
+        if(srcelement.className=="outline")
+        {
+                //if(srcelement.title!="" && srcelement.src.indexOf("plus")>-1)
+                  // menu_shrink();
+
+                targetid=srcelement.id+"d";
+                targetelement=document.all(targetid);
+
+                if (targetelement.style.display=="none")
+                {
+                        targetelement.style.display='';
+                        strbuf=srcelement.src;
+                        if(strbuf.indexOf("plus.gif")>-1)
+                                srcelement.src="/images/menu/tree_minus.gif";
+                        else
+                                srcelement.src="/images/menu/tree_minusl.gif";
+                }
+                else
+                {
+                        targetelement.style.display="none";
+                        strbuf=srcelement.src;
+                        if(strbuf.indexOf("minus.gif")>-1)
+                                srcelement.src="/images/menu/tree_plus.gif";
+                        else
+                                srcelement.src="/images/menu/tree_plusl.gif";
+                }
+        }
+}
+
+document.onclick = clickHandler;
+
+
+
+//-------- 菜单全部展开/收缩 -------
+var menu_flag=0;
+function menu_expand()
+{
+  menu_flag=1-menu_flag;
+
+  for (i=0; i<document.all.length; i++)
+  {
+        srcelement=document.all(i);
+        if(srcelement.className=="outline")
+        {
+                targetid=srcelement.id+"d";
+                targetelement=document.all(targetid);
+                if (menu_flag==1)
+                {
+                        targetelement.style.display='';
+                        strbuf=srcelement.src;
+                        if(strbuf.indexOf("plus.gif")>-1)
+                                srcelement.src="/images/menu/tree_minus.gif";
+                        else
+                                srcelement.src="/images/menu/tree_minusl.gif";
+                }
+                else
+                {
+                        targetelement.style.display="none";
+                        strbuf=srcelement.src;
+                        if(strbuf.indexOf("minus.gif")>-1)
+                                srcelement.src="/images/menu/tree_plus.gif";
+                        else
+                                srcelement.src="/images/menu/tree_plusl.gif";
+                }
+        }
+  }
+}
+
+//-------- 收缩打开的主菜单项 -------
+function menu_shrink()
+{
+  for (i=0; i<document.all.length; i++)
+  {
+        srcelement=document.all(i);
+        if(srcelement.title!="")
+        {
+              strbuf=srcelement.src;
+
+              if(strbuf.indexOf("minus")>-1)
+              {
+                 targetid=srcelement.id+"d";
+                 targetelement=document.all(targetid);
+                 targetelement.style.display='none';
+
+                 if(strbuf.indexOf("minus.gif")>-1)
+                    srcelement.src="/images/menu/tree_plus.gif";
+                 else
+                    srcelement.src="/images/menu/tree_plusl.gif";
+               }
+         }
+  }
+}
+</script>
+
+</body>
+</html>

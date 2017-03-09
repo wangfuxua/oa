@@ -1,0 +1,251 @@
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" >
+<link rel="stylesheet" type="text/css" href="../Public/css/command.css" />
+<link rel="stylesheet" type="text/css" href="../Public/css/index.css" />
+<script type="text/javascript" src="../Public/js/iframe.js" ></script>
+<script type="text/javascript" src="../Public/js/tree.js"></script>
+<script type="text/javascript" src="../Public/js/js.js"></script>
+<script type="text/javascript" src="../Public/js/index.js" defer="defer"></script>
+<title>凯达OA</title>
+</head>
+
+<body onload="RefreshMsg()">
+
+<table class="frame_default" cellpadding="0" cellspacing="0">
+	<colgroup>
+		<col width="">
+		<col width="">
+	</colgroup>
+	<thead>
+	<tr>
+		<th colspan="2">
+			<div class="TopPanel">
+				<div class="logo"></div>
+				<div id="quicktips"></div>
+				<div id="toolbar">
+					<ul>
+						<li><a href="__APP__/mytable/index" title="我的桌面" target="icontent"><img alt="我的桌面" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_promotion.gif" width="32"><span>桌面</span></a></li>	
+						<li><a href="__APP__/email" title="邮件" target="icontent"><img alt="邮件" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_mail.gif" width="32"><span>邮件</span></a></li>
+						<li><a href="__APP__/address/privateaddress" title="个人通讯薄" target="icontent"><img alt="个人通讯薄" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_users.gif" width="32"><span>通讯</span></a></li>
+						<li><a href="__APP__/calendar" title="日程安排" target="icontent"><img alt="日程安排" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_calendar.gif" width="32"><span>日程</span></a></li>
+						<!--<li><a href="__APP__/" title="考勤" target="icontent"><img alt="考勤管理" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_clock.gif" width="32"><span>考勤</span></a></li>-->
+						<li><a href="__APP__/file/index/file_sort/2" title="个人文件柜" target="icontent"><img alt="个人文件柜" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_folder.gif" width="32"><span>文件</span></a></li>
+						<li><a href="__APP__/forum" title="交流论坛" target="icontent"><img alt="论坛" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_comment.gif" width="32"><span>讨论</span></a></li>
+						<li><a href="__APP__/personinfo" title="个人设置" target="icontent"><img alt="个人设置" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_process.gif" width="32"><span>设置</span></a></li>
+						<li><a href="__APP__/feedback" title="意见反馈" target="icontent"><img alt="意见反馈" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_note.gif" width="32"><span>反馈</span></a></li>
+						<li><a href="__APP__/development" title="开发日志" target="icontent"><img alt="开发日志" height="32" src="/oa/Tpl/default/Public/images/ico/toolbar_full_page.gif" width="32"><span>日志</span></a></li>
+					</ul>
+				</div>
+				<div class="topinfo">
+					<div class="topSearch">
+						<ul>
+					    <li class="topLogout"><a title="" href="__APP__/Public/logout">退出</a></li>
+						<li class="topUser">
+							<span id="topUserID" style="cursor:pointer" class="usOnline"><strong>{$LOGIN_USER_NAME}</strong></span>
+							<if condition="$LOGIN_DEPT_NAME"><span>部门：{$LOGIN_DEPT_NAME}</span></if>
+							<span>身份：<strong>{$USER_PRIV}</strong></span>
+							
+                        </li>
+					    </ul>
+					</div>
+					<ul>
+						<li class="topWeather"><iframe src=""  marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="No" id="ifrWeather"></iframe></li>
+						<li class="topTime"><div id="Clock"></div></li>
+					</ul>			
+					
+				</div>
+				<!-- topinfo END -->
+			</div>
+			<!-- TopPanel END -->
+			
+
+		</th>
+	</tr>
+	</thead>
+	<!-- frame_head END -->
+	<tbody>
+	<tr class="Tabbar TabBg">
+                <td>
+                    <div id="leftTab">
+				<ul>
+					<li id="tab1"><a id="left1" title="" href="javascript:" class="TabOn" onclick="setTab('left',1,5)" ><span>主菜单</span></a></li>
+					<li id="tab2"><a id="left2" title="" href="javascript:" onclick="setTab('left',2,5)"><span style="width:95px">部门(在线{$count})</span></a></li>
+                                <li class="tabarrow" id="showMenu"><span class="closeleft"></span></li>
+				</ul>
+			</div>
+		</td>
+		<td>
+			<div id="QuickBar">
+                		<ul>
+                			<li><a title="" href="javascript:" id="btn_refresh">刷新</a></li>
+                		</ul>
+                	</div>
+
+			<div class="TabIndex">
+				<ul>
+					<li><a title="" href="__APP__/mytable/index" class="TabOn" id="showMain1" target="icontent"><span>桌面</span></a></li>
+					<li style="display:none"><a title="" href="javascript:" onclick="setTab('showMain',2,2)"  id="showMain2"><span>当前页</span></a></li>
+				</ul>
+			</div>
+		</td>
+	</tr>
+	
+	<!-- content START -->
+	<tr>
+		<!-- LeftPanel START-->
+		<td class="LeftPanel">
+                    <div class="LeftContent" style="width:190px">
+				<!-- LeftPanel START-->
+				<div id="left1_con">
+					<div class="sTree">
+						<script type="text/javascript">
+							<!--
+							var d = new sTree('d');		
+							d.selectedNode=1010;
+							d.selectedFound=false;
+							// id, pid, name, url, title, target, icon, iconOpen, open, cls
+							d.add(0,-1,'','javascript:test(\'jay\')','','','','','','tree-root');
+							<volist name="list" id="vo">
+							<if condition="$vo[subcount] eq 1">
+							d.add({$vo[id]},{$vo[pid]},'{$vo[MENU_NAME]}','javascript:','','','','','','menuBg');
+							</if>
+								<sublist name="vo['sub']" id="sub">
+		                          <if condition="$sub[sub2] neq ''">						
+								  d.add({$sub[id]},{$sub[pid]},'{$sub[FUNC_NAME]}','javascript:','','','../Public/images/c_b1.gif','../Public/images/c_b1.gif');
+								  <else />
+								  d.add({$sub[id]},{$sub[pid]},'{$sub[FUNC_NAME]}','__APP__/{$sub[FUNC_CODE]}','{$sub[FUNC_NAME]}','icontent');
+                                  </if>
+								    <iterate name="sub['sub2']" id="sub2">
+									  d.add({$sub2[id]},{$sub2[pid]},'{$sub2[FUNC_NAME]}','__APP__/{$sub2[FUNC_CODE]}','{$sub2[FUNC_NAME]}','icontent');
+									</iterate>
+								</sublist>
+							</volist>
+							document.write(d);
+							//-->
+						</script>
+					</div>
+					<!-- Left Content 1 END -->
+				</div>
+				<div id="left2_con">
+					<!-- 这里是在线人员的详细内容-->
+					<script type="text/javascript">
+				    		iframe('__APP__/userOnline/index','100%','100%','userOnline');
+				    	</script>
+				</div>
+				<div id="left3_con">
+					<!-- 快捷组内容 -->
+					<script type="text/javascript">
+						    iframe('__APP__/left/quick', '100%', '100%', 'ifrQuick');
+				    	</script>
+				</div>
+				<div id="left4_con">
+					<!-- 短信息内容 -->
+					<script type="text/javascript">
+						    iframe('__APP__/sms/leftmsg', '100%', '100%', 'ifrMsg');
+				    	</script>
+
+				</div>
+				<div id="left5_con">
+					<!-- 收藏夹内容 -->
+					<script type="text/javascript">
+						    iframe('__APP__/url/lefturl', '100%', '100%', 'ifrMain');
+				    	</script>
+
+				</div>
+			</div>
+		</td>
+		<!-- LeftPanel END -->
+		<!-- Main START-->
+		<td>
+			<div class="MainWrap">
+				<iframe id="mainDesktop" name="icontent" frameborder="0" src="__APP__/mytable/index">浏览器不支持嵌入式框架，或被配置为不显示嵌入式框架。</iframe>
+			</div>
+
+
+	
+
+			
+			
+		</td>
+		<!-- Main END -->
+	</tr>
+	</tbody>
+	<!-- content END -->
+	<!-- foot START -->
+	<tfoot>
+	<tr>
+                <td class="Btnbar" id="footBar">
+			<ul>
+				<li><a id="left3" title="" href="javascript:" onclick="setTab('left',3,5)"><span>快捷组</span></a></li>
+				<li><a id="left4" title="" href="javascript:" onclick="setTab('left',4,5)"><span>短信息</span></a></li>
+				<li><a id="left5" title="" href="javascript:" onclick="setTab('left',5,5)"><span>收藏夹</span></a></li>
+			</ul>
+		</td>
+		<td class="BtnInfo"><p id="copyright">Copyright &copy; 2008 金凯通达</p></td>
+	</tr>
+	</tfoot>
+	<!-- foot END -->
+		
+</table>
+
+<div id="IMwrap">
+    <div id="talkTips" style="display:none">与<a title="" href="javascript:" class="userTxt">某某某</a>对话中</div>
+	<div id="KDIM" style="display:none">
+	<h3 class="talkOn">与<span>某某某</span>对话中</h3>
+	<div class="imbox">
+		<div class="imbox-wrap">
+			<ul class="imbox-list" id=""></ul>
+			<div class="imbox-con">
+				<div class="imbox-con-main">
+				    <div id="imbox-main"></div>
+				    <div id="imbox-end"></div>
+				</div>
+				<div class="imbox-bar">
+					<!--<a title="" href="" class="imbox-bar-emote">表情</a>-->
+					<span>Ctrl+Enter提交内容信息</span>
+				</div>
+				<div class="imbox-text">
+				    <form method="post" action="" name="talkForm"></form>
+					<textarea name="talkcon" id="talkcontent" cols="20" rows="2" wrap="virtual" style="width:198px"></textarea>
+					<textarea name="userArray" id="uArray" style="display:none"></textarea>
+					<button name="Abutton1" type="submit" onclick="talkPost()">发送</button>
+					<input type="hidden" value="jay" name="fromuserID" />
+					<input type="hidden" value="haha" name="touserID" />
+				</div>
+			</div>
+		</div>
+	</div>
+		<iframe class="imbox-iframe"></iframe>
+	</div>
+</div>
+
+<div id="userStateWrap" style="display:none">
+	<div id="userState">
+		<ul>
+			<li id="usOnline"><span class="usOnline"></span>在线</li>
+			<li id="usBusy"><span class="usBusy"></span>忙碌</li>
+			<li id="usLeave"><span class="usLeave"></span>离开</li>
+		</ul>
+	</div>
+	<div class="userStateBg"></div>
+	<iframe></iframe>
+</div>
+
+<div id="Msg">
+	<!-- MsgBox START-->
+	<div id="MsgTips" onclick="oAmsg.click()" style="display:none">
+		 <img src="../Public/images/ico/newMsg.gif" alt="您有新的短信息" id="MsgIco"><span class="MsgNew" id="MsgNum"></span>
+		<span class="MsgClose"></span>
+	</div>
+	<div id="MsgBox">
+			<iframe id="MsgInfo" name="ifrMsgShow" frameborder="0" src="__APP__/sms/msghtml"></iframe>
+	</div>
+	<!-- MsgBox END -->
+</div>
+
+
+</body>
+
+</html>

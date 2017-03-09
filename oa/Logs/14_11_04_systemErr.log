@@ -1,0 +1,87 @@
+[ 14-11-04 08:43:29 ]
+
+错误信息：[ oa Public login ]Access denied for user 'admin'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 08:43:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (267) DbMysql->connect()
+[14-11-04 08:43:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Driver/DbMysql.class.php (114) Db->initConnect()
+[14-11-04 08:43:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (925) DbMysql->_query()
+[14-11-04 08:43:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (1067) Db->query(, , , )
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Db->find(, unit, *, , , , , , , , )
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Model->_read(, *, , , , , , , , , )
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (194) Model->find()
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (100) PublicAction->_unit()
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->login()
+[14-11-04 08:43:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 08:43:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-04 08:52:37 ]
+
+错误信息：[ oa Public login ]Access denied for user 'admin'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 08:52:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (267) DbMysql->connect()
+[14-11-04 08:52:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Driver/DbMysql.class.php (114) Db->initConnect()
+[14-11-04 08:52:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (925) DbMysql->_query()
+[14-11-04 08:52:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (1067) Db->query(, , , )
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Db->find(, unit, *, , , , , , , , )
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Model->_read(, *, , , , , , , , , )
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (194) Model->find()
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (100) PublicAction->_unit()
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->login()
+[14-11-04 08:52:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 08:52:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-04 09:08:53 ]
+
+错误信息：[ oa Public login ]Access denied for user 'admin'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 09:08:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (267) DbMysql->connect()
+[14-11-04 09:08:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Driver/DbMysql.class.php (114) Db->initConnect()
+[14-11-04 09:08:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (925) DbMysql->_query()
+[14-11-04 09:08:11] /www/web/oa/public_html/ThinkPHP/Lib/Think/Db/Db.class.php (1067) Db->query(, , , )
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Db->find(, unit, *, , , , , , , , )
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Temp/~runtime.php (9) Model->_read(, *, , , , , , , , , )
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (194) Model->find()
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Lib/Action/PublicAction.class.php (100) PublicAction->_unit()
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) PublicAction->login()
+[14-11-04 09:08:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 09:08:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-04 10:28:57 ]
+
+错误信息：[ oa Contract loading.swf ]非法操作loading.swf
+错误页面：/index.php/Contract/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 10:28:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-04 10:28:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) ContractAction->loading.swf()
+[14-11-04 10:28:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 10:28:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-04 11:14:45 ]
+
+错误信息：[ oa AccountStatistics loading.swf ]非法操作loading.swf
+错误页面：/index.php/AccountStatistics/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) AccountStatisticsAction->loading.swf()
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 11:14:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-04 11:14:52 ]
+
+错误信息：[ oa SaleStatistics loading.swf ]非法操作loading.swf
+错误页面：/index.php/SaleStatistics/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) SaleStatisticsAction->loading.swf()
+[14-11-04 11:14:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-04 11:14:11] /www/web/oa/public_html/index.php (19) App->run()
+

@@ -1,0 +1,106 @@
+<include file="Public:header" />
+<script>
+var MENU_ID_ARRAY = new Array();
+{$MENU_ID_ARRAY}
+
+
+function check_all(menu_all,MENU_ID)
+{
+
+ for (i=0;i<document.all(MENU_ID).length;i++)
+ {
+   if(menu_all.checked)
+      document.all(MENU_ID).item(i).checked=true;
+   else
+      document.all(MENU_ID).item(i).checked=false;
+ }
+
+ if(i==0)
+ {
+   if(menu_all.checked)
+      document.all(MENU_ID).checked=true;
+   else
+      document.all(MENU_ID).checked=false;
+ }
+}
+
+function mysubmit()
+{
+  func_id_str="";
+
+  for(j=1;j<={$menu_id_count};j++)
+  {
+    menu_id=MENU_ID_ARRAY[j-1]+'';
+
+    for(i=0;i<document.all(menu_id).length;i++)
+    {
+        el=document.all(menu_id).item(i);
+        if(el.checked)
+        {  val=el.value;
+           func_id_str+=val + ",";
+        }
+    }
+
+    if(i==0)
+    {
+        el=document.all(menu_id);
+        if(el.checked)
+        {  val=el.value;
+           func_id_str+=val + ",";
+        }
+    }
+  }
+
+  location="__URL__/updatepriv/FUNC_ID_STR/"+ func_id_str +"/USER_PRIV/{$USER_PRIV}";
+}
+</script>
+
+<body>
+
+<table>
+   <caption class="nostyle">编辑角色权限 - （{$ROW.PRIV_NAME}）
+     <input type="button" value="确定" class="btnFnt" onclick="mysubmit();">&nbsp;&nbsp;
+     <input type="button" value="返回" class="btnFnt" onclick="location='__URL__/index'">
+   </caption>
+   <tr>
+   <volist name="list" id="vo">
+	   <td class="tdtop">
+	  <table>
+	    <thead>
+	     <tr title="{$vo.MENU_NAME}">
+	      <th>
+	        <input type="checkbox" name="MENU_{$vo.MENU_ID}" onClick="check_all(this,'{$vo.MENU_ID}');">
+	        {$vo.MENU_NAME}
+	      </td>
+	     </tr>
+	     </thead>
+        <sublist name="vo['sub']" id="sub">
+	     <tr title="{$sub.FUNC_NAME}">
+          <td>
+          <input type="checkbox" name="{$vo[MENU_ID]}" value="{$sub[FUNC_ID]}" <if condition="find_id($ROW[FUNC_ID_STR],$sub[FUNC_ID])"> checked </if>>
+          {$sub[FUNC_NAME]}
+             
+            <iterate name="sub['sub2']" id="sub2">
+                          <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="checkbox" name="{$vo[MENU_ID]}" value="{$sub2[FUNC_ID]}" <?php if(find_id($ROW[FUNC_ID_STR],$sub2[FUNC_ID]))echo "checked";?>>
+                          {$sub2[FUNC_NAME]}
+             </iterate>  
+            </td>
+        </tr>         
+       </sublist>
+    </table>
+  </td>
+   </volist>
+ </tr>
+ <tfoot>
+ <tr>
+   <td colspan="50">
+     <input type="hidden" value="{$USER_PRIV}" name="USER_PRIV">
+     <input type="button" value="确定" class="btnFnt" onclick="mysubmit();">
+     <input type="button" value="返回" class="btnFnt" onclick="location='__URL__/index'">
+   </td>
+ </tr>
+ </tfoot>
+</table>
+
+<include file="Public:footer" />

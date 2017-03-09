@@ -1,0 +1,204 @@
+<include file="Public:header_news" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({formid:"form1",onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#name").formValidator({onshow:"请输入控件名",onfocus:"控件名不能为空",oncorrect:"控件名合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"控件名两边不能有空符号"},onerror:"控件名不能为空,请确认"});
+	$("#formtype").formValidator({onshow:"请输入控件类型",onfocus:"控件类型不能为空",oncorrect:"控件类型合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"控件类型两边不能有空符号"},onerror:"控件类型不能为空,请确认"});
+	createHeader({
+	    Title: "{$row['modelName']}",
+	    Icon: "",
+	    IconCls: "ico ico-head-news",
+	    Cls: "",
+	    Active: 3,
+	    Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+	    Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改模型", Url: "__URL__/edit/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑控件", Url: "__URL__/filedIndex/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑流程", Url: "__URL__/flow/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑模板", Url: "__URL__/layout/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "预览模型", Url: "__URL__/view/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-view" }
+            ]
+	});
+});
+</script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+
+<body>
+
+		<div id="main" class="KDStyle">
+		
+		<form action="__URL__/filedadd"  method="post" name="form1" id="form1">	
+		<table style="width:80%">
+		<caption>创建工作流控件</caption>
+			<input name="modelId" type="hidden" value="{$modelId}">
+			<tbody>
+		<tr>
+				<th valign="top">
+					<font color="red">*</font> <strong>控件名</strong><br />
+	  			</th>
+				<td colspan="2">
+					<input name="name" id="name"  type="text" class="dm_blur3" />
+				</td>
+				<td><div id="nameTip" style="width:250px"></div></td>
+		</tr>
+		<tr>
+    	<th valign="top">
+					<font color="red">*</font> <strong>控件类型</strong><br />
+	  			</th>
+	  			<td colspan="2">
+       <select name="formtype" id="formtype" onChange="selectChoose(this.value,this.name,'msg','__URL__/select')">
+       					<option value="">选择类型</option>
+						<option value="text">单行文本</option>
+						<option value="textarea">多行文本</option>
+						<option value="box">选项</option>
+						<option value="datetime">日期和时间</option>
+	  				</select>
+	  				</td>
+	  				<td><div id="formtypeTip" style="width:250px"></div></td>
+    </tr>
+    <tr><th><strong>相关参数</strong>
+设置表单相关属性</th><td colspan="2"><div id="msg"></div></td><td></td></tr>
+</tbody>
+<tfoot>
+	<tr>
+		<th colspan="4">
+		<button name="submit" type="submit" ><div><span>提交</span></div></button>
+		</th>
+	</tr>
+	</tfoot>
+	</table>
+	</form>    
+
+<h2 class="dm_schedule"></h2>
+
+		<form action="__URL__/fileOrder"  method="post" name="form1" >	
+		<table style="width:80%">
+		<caption>模型使用控件</caption>
+		<thead>
+		<tr>	<th>排序</th>
+				<th valign="top">控件名</th>
+				<th>类型</th>
+				<th>管理</th>
+			</tr>
+			</thead>
+			<tbody>
+		<iterate name="filedList" id="vo">
+			<tr>
+				<td width="20%"><input name='listorder[{$vo[filedId]}]' type='text' value='{$vo[order]}' maxlength="3"></td>
+				<td width="30%">{$vo['name']}</td>
+				<td width="20%">{$vo['formtype']}</td>
+				<td width="30%"><a href="__URL__/filedEdit/filedId/{$vo['filedId']}">修改</a>&nbsp;|&nbsp;<a href="__URL__/fileDel/filedId/{$vo['filedId']}">删除</a></td>
+			</tr>
+		</iterate>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="4">
+					<button name="submit" type="submit"><div><span>更新排序</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+		</table></form>
+</div>
+
+<!--选择控件开始-->
+         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<div id="mask"></div>
+		<script type="text/javascript" src="/oa/Tpl/default/Public/js/tree.js"></script>
+		<div class="win" id="massage_box">
+	        <form action="" method="post">
+		        <table>
+			        <caption>选择系统默认参数</caption>
+			        <tr>
+				        <td>
+				        <div class="usertree">
+				        <script type="text/javascript">
+			                <!--
+				            var filed = new sTree('filed');
+				            filed.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            filed.add(0, -1, '系统默认代码', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');           
+							filed.add(11,0,'默认登陆用户','javascript:ch(\'$this->LOGIN_USER_NAME\',\'11\');','','','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','','oTree-bg');
+							filed.add(12,0,'默认登陆用户部门','javascript:ch(\'$this->LOGIN_DEPT_NAME\',\'12\');','','','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','','oTree-bg');
+							filed.add(13,0,'默认登陆用户职位','javascript:ch(\'$this->LOGIN_POST_NAME\',\'13\');','','','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','/oa/Tpl/default/Public/images/treeicon/t_ini.gif','','oTree-bg');
+				            document.write(filed);
+			                //-->
+		                </script>
+				            </div>
+				            <input name="hiddenName" type="hidden" value="" id="hiddenName" />
+				        </td>
+			        </tr>
+			        <tfoot>
+				        <tr>
+					        <td>
+					            
+					            <button name="Abutton1" onclick="senddata()">关闭</button>
+					        </td>
+				        </tr>
+			        </tfoot>
+		        </table>
+	        </form>
+        </div>
+        <script type="text/javascript" defer="defer" src="/oa/Tpl/default/Public/js/selectuser.js"></script>
+        <!--选择控件结束-->
+<include file="Public:footer" />

@@ -1,0 +1,18 @@
+<include file="Public:header" />
+<script>
+function win_run()
+{
+  CoolRun.Path="{$PROG}";
+  CoolRun.RunPath();
+  window.setTimeout(' window.close();',3000);
+}
+</script>
+<body onload="win_run()">
+
+<object classid="clsid:4AB8AC1A-AE97-49ff-A74C-1F3C0CFC9870" id="CoolRun" codebase="../Public/exe/CoolRun.cab#version=1,0,0,0"></object>
+
+<div align="center">
+<h1>{$NAME}<h1>
+</div>
+
+<include file="Public:footer" />

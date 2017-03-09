@@ -1,0 +1,32 @@
+<include file="Public:header" />
+
+<div class="addr-main">
+	<ul class="dm_submenuul">
+	    <if condition="$USER_ID neq ''">
+		<li><a href="__URL__/infolist/USER_ID/{$USER_ID}" title=""><span>日志列表</span></a></li>
+		<li><a href="__URL__/infosearch/USER_ID/{$USER_ID}" title=""><span>日志查询</span></a></li>
+        <li class="dm_on"><a href="#" title=""><span>查看日志</span></a></li>
+       </if>        		
+	</ul>
+<div>
+<table>
+<caption class="nostyle"></caption>
+				<thead>
+					<tr>
+						<th>{$USER_NAME}&nbsp;{$row[DIA_DATE]}&nbsp;日志</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{$row[CONTENT]}</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td><button title="返回" onclick="javascript:window.history.back();">返回</button></td>
+					</tr>
+				</tfoot>				
+</table>					
+</div>
+</div>
+<include file="Public:footer" />

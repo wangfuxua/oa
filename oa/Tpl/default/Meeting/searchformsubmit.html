@@ -1,0 +1,53 @@
+<include file="Public:header" />
+
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/search/M_STATUS/0" title=""><span>待批会议</span></a></li>
+		<li><a href="__URL__/search/M_STATUS/1" title=""><span>已准会议</span></a></li>
+        <li><a href="__URL__/search/M_STATUS/2" title=""><span>进行中会议</span></a></li>		
+        <li><a href="__URL__/search/M_STATUS/3" title=""><span>未准会议</span></a></li>
+        <li><a href="__URL__/search/M_STATUS/4" title=""><span>已结束会议</span></a></li>
+        <li class="dm_on"><a href="__URL__/searchform" title=""><span>全部会议查询</span></a></li>
+	</ul>
+<div>
+
+<table>
+<caption class="nostyle">{$status[$M_STATUS]}会议&nbsp;&nbsp;共<span class="big4">&nbsp;{$COUNT}</span>&nbsp;条会议记录</caption>
+<col width="100"></col>
+<col width="200"></col>
+<col width="120"></col>
+<col width="120"></col>
+<col></col>
+<col width="100"></col>
+  <thead>
+  <tr>
+      <th>会议申报人</th>
+      <th>会议主题</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>参加人员</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <sublist name="list" id="sub" key="k" mod="2">
+      <tr>
+      <td>{$sub.M_PROPOSER|getUsername}</td>
+      <td>{$sub.M_TOPIC}</td>
+      <td>{$sub.M_START}</td>
+      <td>{$sub.M_END}
+      </td>
+      <td>
+      内部人员：{$sub.M_RENYUAN_NAME|csubstr=###,0,60} 外部人员：{$sub.M_RENYUAN|csubstr=###,0,60}
+      </td>
+      <td>
+      <a href="javascript:;" onClick="window.open('__URL__/meetingdetail/M_ID/{$sub.M_ID}','','height=350,width=450,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,resizable=yes');">详细信息</a>
+      </td>
+    </tr>
+    </sublist>
+</tbody>
+   </table>
+   
+</div>   
+
+<include file="Public:footer" />

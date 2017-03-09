@@ -1,0 +1,31 @@
+	<link rel="stylesheet" type="text/css" href="../Public/css/tree.css" />
+	<script type="text/javascript" src="../Public/js/tree.js"></script>
+	<style type="text/css">
+		body{height:100%}
+	</style>
+	<body>
+	<div class="addr-menu">
+		<script type="text/javascript">
+	        <!--
+            var online = new sTree('online');
+	        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+            online.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+            
+            online.add(1,0,'联系人分组','','','','','','','oTree-bg');
+            	online.add(10001,1,'默认','__URL__/index/GROUP_ID/0','','','../Public/images/ico/user.png','','','');
+			<volist name="menulist" id="vo" key="k">
+			    online.add({$vo[GROUP_ID]+1000},1,'{$vo.GROUP_NAME}','__URL__/index/GROUP_ID/{$vo.GROUP_ID}','','','../Public/images/ico/user.png','','','');
+			</volist>
+			
+	        online.add(2,0,'索引(按姓氏)','','','','','','','oTree-bg');
+			<volist name="names" id="vo" key="m">
+			   online.add({$m+2000}, 2, '{$vo.TABLE_STR}', '__URL__/SearchSubmit/ID_STR/{$vo.ID_STR}/TABLE_STR/{$vo[TABLE_STR_URL]}', '', '', '../Public/images/ico/user.png', '', '', '');
+			</volist>
+			
+		        online.add(3,0,'查找(关键字)','__URL__/search','','','../Public/img/folder.gif','','','oTree-bg');
+		        online.add(4,0,'管理分组','__URL__/group','','','../Public/img/folder.gif','/img/folder.gif','','oTree-bg');
+	        document.write(online);
+	        //-->
+        </script>
+	</div>
+			

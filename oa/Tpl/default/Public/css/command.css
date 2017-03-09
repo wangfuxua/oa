@@ -1,0 +1,37 @@
+﻿td,input,button,select,body,div {font-family:"lucida Grande",Verdana;font-size:12px;}
+body{overflow:hidden} /*页面不出现滚动条*/
+form,body {margin:0;padding:0;}
+select,body,textarea {background:#fff;font-size:12px;}
+select {font:normal 12px Arial;line-height:20px;}
+textarea {width:540px;border:1px solid #718da6;padding:3px;font-family:"lucida Grande",Verdana;}
+img {border:none}
+a {text-decoration:none;cursor:pointer;color:#0066CC}
+a:hover{text-decoration:underline;color:#CC0000}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-size:12px;font-weight:normal;}
+ul,ol,li{list-style:none;padding:0;margin:0}
+
+.frame_class {overflow:hidden;height:100%;margin:0;border:none;padding:0 0 0 2px}
+.hide {display:none;}
+.f_size,.f_sizetd {font-size:12px;}
+.f_family {font-family:宋体;}
+input.txt {padding:2px 2px 0}
+.txt_center {text-align:center}
+.txt_left {text-align:left}
+.txt_right {text-align:right}
+.nounderline {text-decoration:none}
+.b_size {font-size:14px;}
+.bold {font-weight:bold}
+.normal {font-weight:normal}
+.pointer {cursor:pointer;}
+.cur_default  {cursor:default;}
+.black {color:#000;}
+.nowrap {white-space:nowrap}
+.green,a.green,a.green:link,a.green:visited,.green {color:#5fa207;}
+.blue,a.blue{color:#0066CC}
+.red,a.red{color:#CC0000}
+.gray,a.gray{color:#999999}
+
+.darkblue {color:#0c3980;}
+.grn {color:#5fa207}
+.bigfonts {font-size:14px;}
+.clr {clear:both;}

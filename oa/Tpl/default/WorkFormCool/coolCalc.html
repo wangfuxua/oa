@@ -1,0 +1,88 @@
+<include file="Public:header" />
+
+<script>
+function my_submit()
+{
+  if(ITEM_NAME.value=="")
+  {
+     alert("控件名称不能为空");
+     return;
+  }
+  else if(ITEM_VALUE.value=="")
+  {
+     alert("计算公式不能为空");
+     return;
+  }
+
+  if(edit_flag==0)
+  {
+     var parent_window = parent.dialogArguments;
+     control_html="<input type=text  title=\""+ITEM_NAME.value.replace("\"","&quot;")+"\" class=\"CALC\" value=\""+ITEM_VALUE.value+"\" style=\"font-size:"+ITEM_SIZE.value+"\">";
+     parent_window.EDIT_HTML.insertHtml(control_html);
+  }
+  else
+  {
+     oSelection = dialogArguments.document.selection.createRange();
+     sRangeType = dialogArguments.document.selection.type;
+
+     if (sRangeType == "Control")
+     {
+   	oSelection(0).title = ITEM_NAME.value;
+   	oSelection(0).value = ITEM_VALUE.value;
+   	oSelection(0).style.fontSize = ITEM_SIZE.value;
+      }
+  }
+
+  window.close();
+}
+
+//-- 获取控件属性 --
+var edit_flag=0;
+function LoadDo()
+{
+  oSelection = dialogArguments.document.selection.createRange();
+  sRangeType = dialogArguments.document.selection.type;
+  
+  if (sRangeType == "Control") 
+  {
+  	edit_flag=1;
+  	ITEM_NAME.value = oSelection(0).title;
+  	ITEM_VALUE.value = oSelection(0).value;
+  	ITEM_SIZE.value = oSelection(0).style.fontSize.replace("px","");
+  }
+  ITEM_NAME.focus();
+}
+</script>
+
+
+<body topmargin="0" onLoad="LoadDo();">
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+  <tr class="TableContent">
+      <td nowrap>控件名称：
+      </td>
+      <td nowrap>
+       <Input name="ITEM_NAME" type="text" class="SmallInput" size="20">
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap>计算公式：
+      </td>
+      <td nowrap>
+       <textarea name="ITEM_VALUE" class="SmallInput" cols="26" rows="3"></textarea>
+      </td>
+  </tr>
+  <tr class="TableContent">
+      <td nowrap>字体大小：
+      </td>
+      <td nowrap>
+       <Input name="ITEM_SIZE" type="text" class="SmallInput" size="20" title="可选，默认13像素">
+      </td>
+  </tr>
+  <tr>
+      <td class="TableControl" colspan="2" align="center">
+        <input type="submit" onClick="my_submit();" value="确 定" class="SmallButton">
+      </td>
+  </tr>
+</table>
+<include file="Public:footer" />

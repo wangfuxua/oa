@@ -1,0 +1,64 @@
+<script>
+function delete_group(setid)
+{
+ msg="确认要删除该邮箱么？";
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/setid/"+setid;
+  window.location=URL;
+ }
+}
+</script>
+<script type="text/javascript">
+//查看邮件
+function view_mail(mailid){
+		   $("#mail-act").html('');
+		   $("#mail-act").load("/index.php/WebMail/view/?idx="+mailid);
+}
+
+$("#index_icon").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("/index.php/WebMailSet/index");
+})
+
+$("#form_icon").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("/index.php/WebMailSet/form");
+})
+
+</script>
+<style>
+form input{ border:none}
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="#" id="index_icon" title=""><span>管理邮箱</span></a></li>
+		<li><a href="#" id="form_icon" title=""><span>新建邮箱</span></a></li>
+	</ul>
+	
+<div style="width:100%">
+<table style="width:100%" border="0">
+    <thead>
+      <th height="23">排序</th>
+      <th>名称</th>
+      <th>邮箱</th>
+      <th>操作</th>
+    </thead>
+    <volist name="list" id="vo">
+    <tr>
+      <td height="22">{$vo.listorder}</td>
+      <td>{$vo.accname}</td>
+      <td>{$vo.email}</td>
+      <td>
+        <a href="#" onclick='javascript:$("#mail-act").load("__URL__/form/setid/{$vo.setid}")'> 编辑</a>&nbsp;&nbsp;
+        <a href="javascript:delete_group('{$vo.setid}')"> 删除</a>
+      </td>
+    </tr>
+    </volist>
+ </table>        
+</div>

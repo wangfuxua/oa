@@ -1,0 +1,327 @@
+<include file="Public:header2" />
+<script>
+my_top=50;
+my_left=50;
+
+function my_note(DIA_ID)
+{
+  my_top+=25;
+  my_left+=15;
+
+  window.open("__URL__/note/?DIA_ID="+DIA_ID,"note_win"+DIA_ID,"height=400,width=300,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+
+function My_Submit()
+{
+  document.form1.submit();
+}
+function set_year(op)
+{
+  if(op==-1 && document.form1.YEAR.selectedIndex==0)
+     return;
+  if(op==1 && document.form1.YEAR.selectedIndex==(document.form1.YEAR.options.length-1))
+     return;
+  document.form1.YEAR.selectedIndex=document.form1.YEAR.selectedIndex+op;
+
+  My_Submit();
+}
+
+function set_mon(op)
+{
+  if(op==-1 && document.form1.MONTH.selectedIndex==0)
+     return;
+  if(op==1 && document.form1.MONTH.selectedIndex==(document.form1.MONTH.options.length-1))
+     return;
+  document.form1.MONTH.selectedIndex=document.form1.MONTH.selectedIndex+op;
+
+  My_Submit();
+}
+
+function user_list(str)
+{
+  window.location=str;
+}
+
+function cur_month(str)
+{
+  location=str;
+}
+
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 26);
+
+		createHeader({
+
+        Active: <eq name="type" value="week">3</eq><eq name="type" value="month">4</eq>,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+				<if condition="$USER_ID neq ''">
+            { Title: "日志列表", Url: "__URL__/infolist/USER_ID/{$USER_ID}", Cls: "", Icon: "", IconCls: "ico ico-view" },
+            { Title: "日志查询", Url: "__URL__/infosearch/USER_ID/{$USER_ID}", Cls: "", IconCls: "ico ico-query" },
+            { Title: "周报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/week", Cls: "", IconCls: "ico ico-list" },
+            { Title: "月报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/month", Cls: "", IconCls: "ico ico-list2" }
+			</if>
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 26); 
+    
+    });
+
+</script>
+<style type="text/css">
+	.ym{ margin:10px auto; width:90%; overflow:hidden; height:30px}
+	.ym span {float:left}
+	.ym b {width:20px; margin:-2px 5px 0 -8px}
+	table.tdate{ width:90%}
+	.tdate th,.tdate td { text-align:center}
+	.tdate tbody td { height:50px}
+</style>
+<body>
+<div class="KDStyle" id="main">
+
+	    <form action="__URL__/statistics/USER_ID/{$USER_ID}/type/{$type}"  method="post" name="form1"> 
+		<div class="ym">
+			<span><b class="ico ico-prev" title="上一年" onclick="set_year(-1);"></b></span>
+			<span>
+			<select name="YEAR" onchange="My_Submit();">
+<?php
+        for($I=2000;$I<=2050;$I++)
+        {
+?>
+          <option value="<?php echo $I?>" <?php if($I==$YEAR) echo "selected";?>><?php echo $I?></option>
+<?php
+        }
+?>
+			    </select>
+				</span>
+			<span><b class="ico ico-next2" title="下一年" onclick="set_year(1);"></b></span>
+			<span>年</span>
+			
+			<span><b class="ico ico-prev" title="上一月" onclick="set_mon(-1);"></b></span>
+			<span>
+			<select name="MONTH" onchange="My_Submit();">
+<?php
+        for($I=1;$I<=12;$I++)
+        {
+          if($I<10)
+             $I="0".$I;
+?>
+          <option value="<?php echo $I?>" <?php if($I==$MONTH) echo "selected";?>><?php echo $I?></option>
+<?php
+        }
+?>
+			     </select>
+			</span>
+			<span><b class="ico ico-next2" title="下一月" onclick="set_mon(1);"></b></span>
+			<span>月</span>
+			<span>
+			<button onclick="javascript:cur_month('__URL__/statistics/USER_ID/{$USER_ID}/type/{$type}/?YEAR=<?php echo $CUR_YEAR?>&MONTH=<?php echo $CUR_MONTH?>');" />本月</button>
+			</span>
+			
+			<span></span>
+			<span></span>
+		</div>
+		</form>
+<?php
+if ($type=="week") {
+?>		
+  <table class="tdate">
+    <thead>
+     <tr>
+      <th>日</th>
+      <th>一</th>
+      <th>二</th>
+      <th>三</th>
+      <th>四</th>
+      <th>五</th>
+      <th>六</th>
+      <th>周次</th>
+    </tr>
+   </thead>
+<?php
+$WEEK_COUNT=0;
+while ($DAY<$DATE)
+{
+  if($DAY == $CUR_DAY && $YEAR == $CUR_YEAR && $MONTH == $CUR_MON)
+     $DAY_COLOR = " class=\"dm_schver\"";
+  else
+     $DAY_COLOR = "";
+
+  $WEEK=date("w",mktime(0,0,0,$MONTH,$DAY,$YEAR));
+  if ($WEEK==0 || $DAY==1)
+  {
+?>
+   <tr>
+<?php
+  }
+
+  if($DAY==1)
+  {
+    for($I=0;$I<$WEEK;$I++)
+    {
+?>
+     <td>&nbsp;</td>
+<?php
+    }
+  }
+?>
+     <td><a  href="#" <?php echo $DAY_COLOR?>><?php echo $DAY?></a></td>
+<?php
+  if ($WEEK==6)
+  {
+
+      $WEEK_COUNT++;
+
+      $BEGIN_DAY=$DAY-6;
+      if($BEGIN_DAY<0)
+         $BEGIN_DAY=1;
+?>
+     <td><a href="javascript:user_list('__URL__/statistics/USER_ID/{$USER_ID}/type/{$type}/?YEAR=<?php echo $YEAR?>&MONTH=<?php echo $MONTH?>&BEGIN_DAY=<?php echo $BEGIN_DAY?>&END_DAY=<?php echo $DAY?>')">第<?php echo $WEEK_COUNT?>周</a></td>
+   </tr>
+<?php
+  }
+
+  $DAY++;
+}//while
+
+//------------- 补结尾空格 -------------
+if($WEEK!=6)
+{
+  for($I=$WEEK;$I<6;$I++)
+  {
+?>
+     <td>&nbsp;</td>
+<?php
+  }
+
+  $WEEK_COUNT++;
+
+  $DAY--;
+  $BEGIN_DAY=$DAY-$WEEK;
+  if($BEGIN_DAY<0)
+     $BEGIN_DAY=1;
+?>
+     <td><a href="javascript:user_list('__URL__/statistics/USER_ID/{$USER_ID}/type/{$type}/?YEAR=<?php echo $YEAR?>&MONTH=<?php echo $MONTH?>&BEGIN_DAY=<?php echo $BEGIN_DAY?>&END_DAY=<?php echo $DAY?>');">第<?php echo $WEEK_COUNT?>周</a></td>
+   </tr>
+<?php
+}
+?>
+</table>
+<?php
+}
+?>		
+    <table style="width:90%">
+			<caption class="nostyle">{$desc}</caption>
+			<colgroup>
+				<col width="120"></col>
+				<col width=""></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>日志内容</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="headlist" id="vo" key="k">
+				<tr>
+					<td>{$YEAR}-{$MONTH}-{$vo.DAYI}(周{$vo.WEEK_DESC})</td>
+					<td <if condition="$vo[week] eq '0'">style="background:#f5f5f5"<elseif condition="$vo[week] eq '6'" />style="background:#f5f5f5"</if> >
+					<sublist name="vo[sublist]" id="subvo" key="subk">
+					
+					{$subk}：{$subvo[ADD_DATE]} {$subvo[DIA_TYPE]|getDiaryTypeName} <a href="javascript:my_note('{$subvo.DIA_ID}')" title="{$subvo.CONTENT|strip_tags}">{$subvo.SUBJECT|strip_tags|csubstr=###,0,50} </a><br>
+					</sublist>
+					</td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">{$page}</th>
+				</tr>
+			</tfoot>
+    </tr>
+   </table>
+   
+<if condition="$type eq 'week'">
+    <table style="width:90%">
+			<caption class="nostyle">{$desc_week}</caption>
+			<colgroup>
+				<col width="120"></col>
+				<col width=""></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>内容</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="headlistweek" id="vo" key="k">
+				<tr>
+					<td>{$YEAR}-{$MONTH}-{$vo.DAYI}(周{$vo.WEEK_DESC})</td>
+					<td <if condition="$vo[week] eq '0'">style="background:#f5f5f5"<elseif condition="$vo[week] eq '6'" />style="background:#f5f5f5"</if> >
+					<sublist name="vo[sublist]" id="subvo" key="subk">
+					
+					{$subk}：{$subvo[ADD_DATE]} {$subvo[DIA_TYPE]|getDiaryTypeName} <a href="javascript:my_note('{$subvo.DIA_ID}')" title="{$subvo.CONTENT|strip_tags}">{$subvo.CONTENT|strip_tags|csubstr=###,0,50} </a><br>
+					</sublist>
+					</td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">{$page}</th>
+				</tr>
+			</tfoot>
+    </tr>
+   </table>
+   </if>
+
+<if condition="$type eq 'month'">
+    <table style="width:90%">
+			<caption class="nostyle">{$desc_month}</caption>
+			<colgroup>
+				<col width="120"></col>
+				<col width=""></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>内容</th>
+				</tr>
+			</thead>
+			<tbody>
+			<iterate name="headlistweek" id="vo" key="k">
+				<tr>
+					<td>{$YEAR}-{$MONTH}-{$vo.DAYI}(周{$vo.WEEK_DESC})</td>
+					<td <if condition="$vo[week] eq '0'">style="background:#f5f5f5"<elseif condition="$vo[week] eq '6'" />style="background:#f5f5f5"</if> >
+					<sublist name="vo[sublist]" id="subvo" key="subk">
+					
+					{$subk}：{$subvo[ADD_DATE]} {$subvo[DIA_TYPE]|getDiaryTypeName} <a href="javascript:my_note('{$subvo.DIA_ID}')" title="{$subvo.CONTENT|strip_tags}">{$subvo.CONTENT|strip_tags|csubstr=###,0,50} </a><br>
+					</sublist>
+					</td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">{$page}</th>
+				</tr>
+			</tfoot>
+    </tr>
+   </table>
+   </if>
+      
+</div>
+
+<include file="Public:footer" />

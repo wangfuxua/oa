@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>用户选择</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script>
+var one = '{$one}';  // 单选多选id
+var ids = '{$ids}';  // 用户id的id
+var names = '{$names}'; // 用户名的id
+</script>
+</head>
+<frameset rows="*" frameborder="no" border="1" framespacing="0" id="frame1" >
+   <frameset cols="30%,*"  rows="*" frameborder="yes" border="1" framespacing="0" id="frame2">
+      <frame id='frame1' name="menu_control" src="__APP__/UserCategorySearch/menuControl">
+      <frame name="user_control" src="__APP__/UserCategorySearch/userControl/selected/1" scrolling="auto">
+   </frameset>
+  <!-- <frame name="close_control" scrolling="no" src="__APP__/UserCategorySearch/closeControl">-->
+</frameset>
+</html>

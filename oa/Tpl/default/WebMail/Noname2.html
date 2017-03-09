@@ -1,0 +1,82 @@
+
+<style>
+form input{ border:none}
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+<div id="title" class="clearfix">
+      <h2>新建邮件</h2>
+      <span class="rtact">全局查询
+      <input type="text" />
+      <button type="button">搜索</button>
+      </span>
+</div>
+
+   <form action="__URL__/sendMail" method="POST" enctype="multipart/form-data">        
+    <div id="active" class="active">
+     <span id="mail-send"><a href="#">发送</a></span> 
+     <span id="mail-st"><a href="#">保存</a></span> 
+     <span id="mail-cl"><a href="#">取消</a></span> 
+     </div>
+      <div id="mail-centens" class="clearfix" style="padding:0">
+      <div class="mailto"  id="mailtoinfo">  
+        <ul class="clearfix">
+          <li style="position:relative"><strong id="sjr">发件人：</strong><span id="selectdown" style="position:relative; width:300px">
+            <input type="text" name="WP_send[from_profile]" value="{$row.email}"  onclick="(this.value=='请输入收件人邮箱'?this.value = '':this.value)" onblur="(this.value==''?this.value='请输入收件人邮箱':this.value)"  id="sendername"/>
+            <input type="hidden" value="{$row.setid}" name="setid" id="idarr"/>
+         <b style="position:absolute; right:-3px; _right:-7px; top:-2px">
+         <img src="../Public/newimg/selected.gif" style="display:block; background:#fff; border:1px solid #B8C9DD" /></b> </span> 
+         <ul id="senderlist"  class="clearfix" style="display:none">
+          <li>shulin2008cn@yahoo.com.cn</li>
+          <li>nicolas@yahoo.com.cn</li>
+          <li><a href="#" >添加其他联系人</a></li>
+         </ul>        
+       </li>        
+           <li><strong id="cs">收件人：</strong><span>
+             <input type="text" name="WP_send[to]" id="to" />
+          </span>
+          </li>
+          
+          <li><strong id="zt">主题：</strong><span>
+            <input type="text" value="请输入邮件主题" id="htitle" name="WP_send[subj]" onclick="(this.value=='请输入邮件主题'?this.value = '':this.value);this.style.background='#fff'" onblur="(this.value==''?this.value='请输入邮件主题':this.value);if(this.value=='请输入邮件主题')this.style.background='#f6bbbb';this.style.color='#000'"/>
+          </span></li>
+        </ul>
+        <p id="addfile"><input type="file" name="myfile" id="myfile" value=""  size="1"/><a href="#"><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" />添加附件</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">批量添加</a></p>
+        <p id="addfilebox" class="clearfix"></p>
+      </div>
+    </div>
+    <div id="editorbox">
+      <!--strat Editor-->
+          <textarea name="WP_send[body]" style="display:none" id="CONTENT">{$ROW.CONTENT}</textarea>
+		  <iframe ID="Editor" name="Editor" src="../Public/oaeditor/htmltool.htm?ID=CONTENT" frameBorder="0" marginHeight="0" marginWidth="0" scrolling="no" style="height:200px;width:100%;"></iframe>
+      <!--end editor-->
+      
+    </div>
+      <p class="mailbutton">
+          <button type="button" onclick="subform()">发送</button>
+          <button type="button">取消</button>
+      </p>
+ </form>
+<script>
+function subform(){
+
+	var name=$("#sendername").val();
+	var htitle=$("#htitle").val();
+	$.ajax({
+		type:'post',
+		data:"name="+name+"&htitle="+htitle,
+		url:"/index.php/WebMail/sendMail",
+		success:function(d){
+			alert(d)
+		}
+	})
+	
+	
+}
+
+</script>
+

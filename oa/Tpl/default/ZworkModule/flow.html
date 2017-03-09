@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-J-Jay" />
+<title>定义流程管理</title>
+<link href="../public/style/default/css/form.css" rel="stylesheet" type="text/css" />
+<link href="../public/style/default/css/table.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="../public/style/default/css/style.css" />
+<script type="text/javascript" src="../public/style/default/js/KD.js" ></script>
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<script type="text/javascript">
+$(function() { 
+    createHeader({
+        Title: "{$row['modelName']}",
+        Icon: "",
+        IconCls: "ico ico-head-news",
+        Cls: "",
+        Active: 4,
+        Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+        Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改模型", Url: "__URL__/edit/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑控件", Url: "__URL__/filedIndex/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑流程", Url: "__URL__/flow/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "编辑模板", Url: "__URL__/layout/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "预览模型", Url: "__URL__/view/modelId/{$row['modelId']}", Cls: "", Icon: "", IconCls: "ico ico-view" }
+            ]
+    });
+
+});
+</script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+	
+
+		<div class="KDStyle" id="main">
+		<form action="__URL__/flowAdd"  method="post" name="form1" >	
+			<input name="modelId" type="hidden" value="{$modelId}">
+		<table style="width:80%">	
+		<caption>新增流程</caption>	
+		<col width="150px" />
+		<col width="" />
+		<thead><tr><th colspan="2"></th></tr></thead>
+		<tbody>
+		<tr>
+				<th>
+					<font color="red">*</font> <strong>流程名称</strong><br />
+	  			</td>
+				<td>
+					<input name="flowName"  type="text" class="dm_blur3" />
+				</td>
+		</tr>
+		<tr>
+				<th valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>添加流程操作内容</strong><br />
+	  			</th>
+				<td><input type="hidden" name="TO_ID" value="">
+					<input name="TO_NAME"  type="text" class="dm_blur3" style="width:50%" readonly />
+					&nbsp;<button name="Abutton1" onclick="oWin('TO')" style="margin-top:-7px"><div><span>添加</span></div></button>
+					&nbsp;&nbsp;<button name="Abutton1" onClick="chclear('TO')" style="margin-top:-7px"><div><span>清空</span></div></button>
+				</td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr>
+				<th colspan="2" class="dm_btnzan">
+					<button name="submit" type="submit"><div><span>提交</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+		</table>
+		</form>
+
+		<form action="__URL__/add"  method="post" name="form1" >	
+		<table style="width:80%">
+		<caption>模型流程列表</caption>
+		<colgroup>
+			<col width="100px" />
+			<col width="180px"/>
+			<col />
+			<col width="80px" />
+		</colgroup>
+		<thead>
+		<tr>
+				<th valign="top" class="dm_zanal">流程</th>
+				<th>流程名称</th>
+				<th>被控控件</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		<iterate name="moduleFlowList" id="vo">
+			<tr>
+				<td>第{$vo['flowId']}流程</td>
+				<td>{$vo['flowName']}</td>
+				<td>{$vo['filedName']}</td>
+				<td><a href="__URL__/flowEdit/flowId/{$vo['flowId']}/moduleId/{$vo['moduleId']}">修改</a>&nbsp;|&nbsp;<a href="__URL__/moduleFlowDel/moduleId/{$vo['moduleId']}/flowId/{$vo['flowId']}">删除</a></td>
+			</tr>
+		</iterate>
+		</tbody>
+		</table>
+		</form>
+		</div>
+		
+<!--选择控件开始-->
+         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<div id="mask"></div>
+		<script type="text/javascript" src="/oa/Tpl/default/Public/js/tree.js"></script>
+		<div class="win" id="massage_box">
+	        <form action="" method="post">
+		        <table>
+			        <caption>选择控件</caption>
+			        <tr>
+				        <td>
+				        <div class="usertree">
+				        <script type="text/javascript">
+			                <!--
+				            var filed = new sTree('filed');
+				            filed.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            filed.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');           
+				            {$treefiled};
+				            document.write(filed);
+			                //-->
+		                </script>
+				            </div>
+				            <input name="hiddenName" type="hidden" value="" id="hiddenName" />
+				        </td>
+			        </tr>
+			        <tfoot>
+				        <tr>
+					        <td>
+					            
+					            <button name="Abutton1" onclick="senddata()">关闭</button>
+					        </td>
+				        </tr>
+			        </tfoot>
+		        </table>
+	        </form>
+        </div>
+        <script type="text/javascript" defer="defer" src="/oa/Tpl/default/Public/js/selectuser.js"></script>
+        <!--选择控件结束-->
+		
+		</body>
+</html>

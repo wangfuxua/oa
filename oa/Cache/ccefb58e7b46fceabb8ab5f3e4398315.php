@@ -1,0 +1,5 @@
+<?php if(is_array($listmsg)): ?><?php $i = 0;?><?php $__LIST__ = $listmsg?><?php if( count($__LIST__)==0 ) : echo "" ; ?><?php else: ?><?php foreach($__LIST__ as $key=>$vo): ?><?php ++$i;?><?php $mod = (($i % 2 )==0)?><?php if($LOGIN_USER_ID == $vo[user_name]): ?><p><span class='green'>我 </span> <span class='talkTime'><?php echo (is_array($vo)?$vo["dis_time"]:$vo->dis_time); ?></span>
+						<br /><?php echo (is_array($vo)?$vo["msg"]:$vo->msg); ?></p>
+						<?php else: ?>
+					    <p><span class='blue'><?php echo (is_array($vo)?$vo["user_name"]:$vo->user_name); ?></span> <span class='talkTime'><?php echo (is_array($vo)?$vo["dis_time"]:$vo->dis_time); ?></span>
+						<br /><?php echo (is_array($vo)?$vo["msg"]:$vo->msg); ?></p><?php endif; ?><?php endforeach; ?><?php endif; ?><?php else: echo "" ;?><?php endif; ?>

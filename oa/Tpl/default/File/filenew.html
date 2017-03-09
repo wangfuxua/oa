@@ -1,0 +1,178 @@
+ 
+<link href="../Public/swfupload/css/default.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="../Public/swfupload/js/swfupload.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/fileprogress.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/handlers.js"></script>
+<style type="text/css">
+<!--
+#btnCancel{
+	width:80px;
+	height:29px;
+}
+-->
+</style> 
+<script Language="JavaScript">
+function CheckForm()
+{ 
+   return (true);
+} 
+function delete_attach(ATTACHMENT_ID,ATTACHMENT_NAME)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  { 
+  $.ajax({
+		type: "POST",
+		url: "__URL__/deleteattach/file_sort/{$file_sort}/sort_id/{$sort_id}/CONTENT_ID/{$_REQUEST[CONTENT_ID]}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/ATTACHMENT_NAME/"+ATTACHMENT_NAME,
+		success: function(){
+		alert("删除成功！");
+		$('#a_'+ATTACHMENT_ID).remove();
+		}
+	}); 
+  } 
+}
+function delete_attach_uploading(ATTACHMENT_ID,ATTACHMENT_NAME,fileid)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  {
+     $.ajax({
+		type: "POST",
+		url: "__URL__/deleteattach/file_sort/{$file_sort}/sort_id/{$sort_id}/CONTENT_ID/{$_REQUEST[CONTENT_ID]}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/ATTACHMENT_NAME/"+ATTACHMENT_NAME,
+		success: function(){
+			$('#'+fileid).remove(); 
+		}
+	}); 
+  } 
+}
+</script>
+<body>
+ <form enctype="multipart/form-data" action="__URL__/fileSubmit"  method="post" name="form1" id="form1" onsubmit="return CheckForm();">
+ <table>
+ 			<caption class="nostyle">{$desc}</caption>
+			<colgroup>
+				<col width="100"></col>
+				<col></col>
+			</colgroup>
+<tbody>
+     <tr>
+      <th> 文件名称：</th>
+      <td>
+        <input type="text" name="SUBJECT" id="subject" size="50" maxlength="100" class="BigInput" value="{$row.SUBJECT}">
+		<span id="subjectTip" width="200" style="padding:5px;width:200px;"></span>
+      </td>
+    </tr>
+    <tr>
+      <th> 文件内容：</th>
+      <td>
+          <textarea name="CONTENT" style="display:none" id="content">{$row.CONTENT}</textarea>
+		  <iframe ID="Editor" name="Editor" src="../Public/oaeditor/htmltool.htm?ID=content" frameBorder="0" marginHeight="0" marginWidth="0" scrolling="no" style="height:200px;width:100%;"></iframe>
+      </td>
+    </tr>
+<script type="text/javascript">
+		var swfu;
+
+		//window.onload = function() {
+		function UploadInit() {
+
+					var settings = {
+				flash_url : "../Public/swfupload/swfupload.swf",
+				upload_url: "__APP__/Swfupload/index",	// Relative to the SWF file
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+				file_size_limit : "{$upload_max_filesize} MB",
+				file_types : "*.*",
+				file_types_description : "All Files",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "../Public/swfupload/images/TestImageNoText_65x29.png",	// Relative to the Flash file
+				button_width: "65",
+				button_height: "29",
+				button_placeholder_id: "spanButtonPlaceHolder",
+				button_text: '<span class="theFont">添加附件</span>',
+				button_text_style: ".theFont { font-size: 12;font-color:#333aaa;border:1px solid #97b8cc; }",
+				button_text_left_padding: 7,
+				button_text_top_padding: 4,
+
+				// The event handler functions are defined in handlers.js
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess
+			};
+
+			swfu = new SWFUpload(settings);
+
+
+
+	     };
+
+	</script>
+ 	<tr>
+      <th>附件文档：</th>
+      <td>
+						<if condition="$row[ATTACHMENT_NAME] eq ''"><else />
+						<volist name="listatt" id="vo">
+						<span  id="a_{$vo[attid]}" style="float:left"><img src="../Public/images/email_atta.gif"><a href="__APP__/attach/view/attid/{$vo[attid]}">{$vo[filename]}</a>&nbsp;&nbsp;({$vo[filesize]}字节)&nbsp;&nbsp;<a href="javascript:delete_attach('{$vo[attid]}','{$vo[filename]}')">删除</a>
+						<input type="hidden" name="oldattid[]" value="{$vo[attid]}">
+						<input type="hidden" name="oldattname[]" value="{$vo[filename]}"></span><br>
+						</volist>
+						</if>
+				<div style="float:left;display:inline;overflow:hidden;width:auto" id="fsUploadProgress"></div>
+				<div style="float:left;display:none;" id="divStatus"></div>
+      </td>
+    </tr>
+	<tr>
+			<th> 附件上传：</th>
+			<td>
+						<div>
+							  <div style="float:left;width:70px;"><span id="spanButtonPlaceHolder"></span></div>
+							  <!-- <div style="float:left;display:none"><input id="btnCancel" type="button" value="取消上传" onclick="swfu.cancelQueue();" disabled="disabled" /></div> -->
+			<input type="button" class="upBtn" value="开始上传" onclick="swfu.startUpload();"  />
+								&nbsp;&nbsp;(附件最大：{$upload_max_filesize})
+						</div>
+				   </td>
+
+    </tr>
+
+	    <tr>
+      <th> 附件说明：</th>
+      <td>
+        <input type="text" name="ATTACHMENT_DESC" size="30" maxlength="50" class="BigInput" value="{$row.ATTACHMENT_DESC}">
+      </td>
+    </tr>
+ 
+    <tr>
+      <td colspan="2" align="center">
+        <input type="hidden" value="{$row.CONTENT_ID}" name="CONTENT_ID">
+        <input type="hidden" name="OP" value="">
+        <input type="hidden" name="SORT_ID" value="{$sort_id}" >
+        <input type="hidden" name="FILE_SORT" value="{$file_sort}" >
+        <p style="text-align:center;"><button type="submit" title="确定">确定</button>
+        <button type="button" title="返回"  onClick="location='__URL__/index/file_sort/{$file_sort}/sort_id/{$sort_id}'">返回</button></p>
+      </td>
+    </tr> 
+    </tbody>
+    <tfoot>
+    	<tr><td colspan="2"></td></tr>
+    </tfoot>
+  </table>
+</form>
+<script src="../Public/js/formValidator.js" type="text/javascript" charset="UTF-8"></script>
+<script src="../Public/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script>
+UploadInit();
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#subject").formValidator({onshow:"请输入文件名称",onfocus:"文件名称不能为空",oncorrect:"文件名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"文件名称两边不能有空符号"},onerror:"文件名称不能为空,请确认"});
+	$("#content").formValidator({onshow:"请输入文件内容",onfocus:"文件内容不能为空",oncorrect:"文件内容合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"文件内容两边不能有空符号"},onerror:"文件内容不能为空,请确认"});
+
+</script>
+ 

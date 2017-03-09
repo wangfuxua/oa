@@ -1,0 +1,61 @@
+<include file="Public:header" />
+<script>
+function delete_sbsx(ID)
+{
+ msg='确认要删除该项目类别吗？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/whdelete/id/"+ID;
+  window.location=URL;
+ }
+}
+</script>
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_new.gif" align="absmiddle"><span class="big3"> 新建维护类别</span><br>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+<input type="button"  value="新建维护类别" class="BigButton" onClick="location='whform';" title="新建维护类别">
+</div>
+
+<br>
+
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="../Public/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_open.gif" align="absmiddle"><span class="big3"> 管理维护类别</span><br>
+    </td>
+  </tr>
+</table>
+<br>
+
+  <table border="0" cellspacing="1" width="400" align="center" class="small" bgcolor="#000000" cellpadding="3">
+    <tr class="TableHeader">
+      <td nowrap align="center">类别名称</td>
+      <td nowrap align="center">操作</td>
+    </tr>
+	<volist name="list" id="vo" key="k" mod="2">
+        <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td width="250" nowrap align="center">{$vo.value1}</td>
+      <td nowrap align="center">
+          <a href="__URL__/whform/id/{$vo.id}">编辑维护类别</a>&nbsp;&nbsp;
+          <a href="javascript:delete_sbsx({$vo.id});">删除</a>&nbsp;
+      </td>
+    </tr>
+    </volist>
+</table>        
+
+<include file="Public:footer" />

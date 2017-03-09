@@ -1,0 +1,63 @@
+ 
+<script>
+function CheckForm()
+{
+   if(document.form1.SUBJECT.value=="" && document.form1.KEY1.value=="" && document.form1.KEY2.value=="" && document.form1.KEY3.value=="" && document.form1.ATTACHMENT_DESC.value=="" && document.form1.ATTACHMENT_NAME.value=="" && document.form1.ATTACHMENT_DATA.value=="")
+   { alert("请指定至少一个查询条件！");
+     return (false);
+   }
+
+   return true;
+}
+
+</script>
+<body onload="document.form1.SUBJECT.focus();">
+<form action="__URL__/filesearch" name="form1" method="POST" onsubmit="return CheckForm();">
+<table border="0" cellspacing="1" width="450" class="small"  cellpadding="3" align="center">
+
+ 			<caption class="nostyle">{$SORT_NAME}（{$SORT_TYPE_DESC}）- 查询文件</caption>
+			<colgroup>
+				<col width="150"></col>
+				<col></col>
+			</colgroup>
+<tbody>
+  <tr>
+      <td>标题包含文字：</td>
+      <td nowrap><input type="text" name="SUBJECT" size="20"></td>
+  </tr>
+  <tr>
+    <td>内容[关键词1]：</td>
+    <td><input type="text" name="KEY1" size="20"></td>
+  </tr>
+  <tr>
+    <td>内容[关键词2]：</td>
+    <td><input type="text" name="KEY2" size="20"></td>
+  </tr>
+  <tr>
+    <td>内容[关键词3]：</td>
+    <td><input type="text" name="KEY3" size="20"></td>
+  </tr>
+  <tr>
+      <td>附件说明包含文字：</td>
+      <td nowrap><input type="text" name="ATTACHMENT_DESC" size="20"></td>
+  </tr>
+  <tr>
+      <td>附件文件名包含文字：</td>
+      <td nowrap><input type="text" name="ATTACHMENT_NAME" size="20"></td>
+  </tr>
+  <tr >
+      <td colspan="2">
+          <input type="hidden" name="sort_id" value="{$sort_id}">
+          <input type="hidden" name="file_sort" value="{$file_sort}">
+        <p style="text-align:center;">  <input type="submit" value="查询" class="btnFnt" title="进行文件查询">
+          <input type="button" value="返回" class="btnFnt" onclick="location='__URL__/index/file_sort/{$file_sort}/sort_id/{$sort_id}'"></p>
+      </td>
+  </tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"></td></tr>
+</tfoot>
+</table>
+</form>
+
+ 

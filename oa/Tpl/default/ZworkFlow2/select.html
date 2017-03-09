@@ -1,0 +1,18 @@
+<table>
+	<tr><td>流程序号</td><td>控制内容</td><td>经办人</td></tr>
+	<iterate name='v' id='vo' key="k">
+	<tr><td>{$vo}</td><td>
+	<textarea cols="100" rows="2" name="filed[{$k}]_NAME" readonly></textarea>
+	<input type="hidden" name="filed[{$k}]_ID" readonly>
+	&nbsp;<button name="Abutton1" onclick="oWin2('filed[{$k}]')">添加</button>
+	&nbsp;&nbsp;<button name="Abutton1" onClick="chclear2('TO')">清空</button>
+	<td>
+
+	<textarea cols="100" rows="1" name="userId[{$k}]_NAME" readonly></textarea>
+	<input type="hidden" name="userId[{$k}]_ID">
+	&nbsp;&nbsp;<button name="Abutton1" onClick="oWin('userId[{$k}]')">添加</button>
+	&nbsp;<button name="Abutton1" onClick="chclear('TO')">清空</button>
+	</td>
+	</tr>
+	</iterate>
+</table>

@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<script>
+function hide(dept)
+{
+   obj=document.all(dept);
+   if(obj.style.display=="")
+      obj.style.display="none";
+   else
+      obj.style.display=""
+}
+</script>
+
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr onclick="hide('DEPT_ALL');" style="cursor:hand" title="点击展开全体计划">
+    <td class="Big"><img src="../Public/images/menu/work_plan.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 全体工作计划</span><br>
+    </td>
+  </tr>
+</table>
+<iframe id="DEPT_ALL" style="display:none" frameborder=0 height="200" marginheight=0 marginwidth=0 scrolling=yes src="__URL__/query/RANGE/0/DATE/{$DATE}" width=95%></iframe>
+<br>
+<br>
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="../Public/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr onclick="hide('DEPT');" style="cursor:hand" title="点击展开部门计划">
+    <td class="Big"><img src="../Public/images/menu/work_plan.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 部门工作计划</span><br>
+    </td>
+  </tr>
+</table>
+<iframe id="DEPT" frameborder=0 height="200" marginheight=0 marginwidth=0 scrolling=yes src="__URL__/query/RANGE/1/DATE/{$DATE}" width=95%></iframe>
+<include file="Public:footer" />

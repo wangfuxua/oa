@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>发票记录view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__APP__/InvoiceLog/lists" title=""><span>发票记录列表</span></a></li>
+		<li><a href="__APP__/InvoiceLog/create" title=""><span>新建发票记录</span></a></li>
+	</ul>
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/InvoiceLog/del" method="post"  id="form">
+				<input type="hidden" name="id" value="{$invoiceLog_res['id']}">
+				<button onclick=location="__APP__/InvoiceLog/edit/id/{$invoiceLog_res['id']}/update/1" type="button"  title="编辑">编辑</button>
+				<button onclick=location="__APP__/InvoiceLog/edit/id/{$invoiceLog_res['id']}/copy/1" type="button" title="复制">复制</button>
+				<button onclick="return confirm('确定要删除当前记录吗?')" title="刪除" type="submit">删除</button>
+				<button onclick=location="__APP__/InvoiceLog/lists" type="button">返回列表</button>
+			</form>
+	</caption>
+	
+	<thead>
+		<tr>
+			<th colspan="4">
+				发票记录: {$invoiceLog_res['name']}
+			</th>
+		</tr>
+	</thead>
+  <tr>
+     <td width="15%" class="tabDetailViewDL">名称:</td>
+     <td width="35%" class="tabDetailViewDF">{$invoiceLog_res['name']}</td>
+     <td width="15%" class="tabDetailViewDL">负责人:</td>
+     <td width="35%" class="tabDetailViewDF">{$manager_res['USER_NAME']}</td>
+    </tr>
+	<tr>
+	<td class="tabDetailViewDL">客户:</td>
+	<td class="tabDetailViewDF"><a href="__APP__/Account/view/id/{$invoiceLog_res['account_id']}" class="tabDetailViewDFLink">{$invoiceLog_res['account_name']}</a></td>
+     <td width="15%" class="tabDetailViewDL">票据金额:</td>
+     <td width="35%" class="tabDetailViewDF">{$invoiceLog_res['money']}</td>
+    </tr><tr>
+     <td width="15%" class="tabDetailViewDL">开票日期:</td>
+     <td width="35%" class="tabDetailViewDF">{$invoiceLog_res['invoice_date']}</td>
+	<td width="15%" valign="top" class="tabDetailViewDL">票据类型:</td>
+	<td width="35%" valign="top" class="tabDetailViewDF">{$invoiceLog_res['invoice_type']}</td>
+	</tr><tr>
+	<td width="15%" valign="top" class="tabDetailViewDL">期次:</td>
+	<td width="35%" valign="top" class="tabDetailViewDF">{$invoiceLog_res['invoice_times']}</td>
+	<td width="15%" valign="top" class="tabDetailViewDL">经手人:</td>
+	<td width="35%" valign="top" class="tabDetailViewDF">{$invoiceLog_res['handler']}</td>
+	</tr><tr>
+	<td width="15%" valign="top" class="tabDetailViewDL">描述:</td>
+	<td width="35%" valign="top" class="tabDetailViewDF">{$invoiceLog_res['description']}</td>
+	<td width="15%" valign="top" class="tabDetailViewDL">输入日期:</td>
+	<td width="35%" valign="top" class="tabDetailViewDF">{$invoiceLog_res['time_create']}</td>
+	</tr>
+</table>
+
+
+
+</body></html>

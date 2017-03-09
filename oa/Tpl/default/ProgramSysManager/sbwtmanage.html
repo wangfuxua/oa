@@ -1,0 +1,55 @@
+<include file="Public:header_module" />
+
+
+<script language="JavaScript" type="text/javascript">
+function formSubmit(OP,WT_ID){
+	document.form1.OP.value = OP;
+	document.form1.WT_ID.value = WT_ID;
+	document.form1.submit();
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>申报属性</span></a></li>
+		<li><a href="__URL__/sblc" title=""><span>申报流程</span></a></li>
+		<li class="dm_on"><a href="__URL__/sbwt" title=""><span>问题类型</span></a></li>
+		<li><a href="__URL__/mbgl" title=""><span>模板管理</span></a></li>
+	</ul>
+	
+
+	<div class="dm_conone">
+		<h2>管理{$TYPENAME}问题类型</h2>
+
+<form name="form1" action="__URL__/sbwtmanagesubmit" method="post">
+<table>
+	<thead>
+     	<td nowrap align="center">{$TYPENAME}问题类型</td>
+      	<td nowrap align="center">操作</td>
+	</thead>
+	<tbody>
+<volist name="list" id="vo" key="k" mod="2">
+    <tr>
+     	<td>{$vo.WT_NAME}</td>
+      	<td>
+      		<a href="javascript:formSubmit('del','{$vo.WT_ID}')">删除</a>
+      	</td>
+	</tr>
+</volist>
+	<tbody>
+    <tfoot>
+     	<td nowrap align="center" colspan="3">
+		  <input type="text" class="BigInput" name="WT_NAME" value=""/>&nbsp;&nbsp;
+		  <input type="button" value="添加" class="BigButton" onclick="formSubmit('add','')" />&nbsp;&nbsp;
+		  <input type="button" value="返回" class="BigButton" onclick="window.location='__URL__/sbwt'" />
+		</td>
+	</tfoot>
+	
+</table>
+<input type="hidden" name="OP"/>
+<input type="hidden" name="WT_ID"/>
+<input type="hidden" name="TYPENAME" value="{$TYPENAME}"/>
+<input type="hidden" name="TYPEID" value="{$TYPEID}"/>
+</form>
+</div>
+
+<include file="Public:footer" />

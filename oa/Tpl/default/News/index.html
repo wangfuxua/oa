@@ -1,0 +1,98 @@
+<include file="Public:header_news" />
+<script>
+function delete_news(NEWS_ID)
+{
+ msg='确认要删除该项新闻么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/del/id/" + NEWS_ID;
+  window.location=URL;
+ }
+}
+
+
+function delete_all()
+{
+ msg='确认要删除所有新闻么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delAll";
+  window.location=URL;
+ }
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "新闻",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "查看已发布新闻", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "添加新闻", Url: "__URL__/create", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div id="main" class="KDStyle">
+
+		<form method="post" action="">
+		<table class="">
+			<caption></caption>
+			<colgroup>
+				<col></col>
+				<col width="100"></col>
+				<col width="120"></col>
+				<col width="60"></col>
+				<col width="100"></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>标题</th>
+					<th>发布人</th>
+					<th>发布时间</th>
+					<th>点击次数</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody><iterate name="list" id="vo">
+				<tr>
+					<td><a href="__URL__/article/id/{$vo.newId}">{$vo.title}</a></td>
+					<td class="tcenter">{$vo.PROVIDER}</td>
+					<td class="tcenter">{$vo.createTime|date="Y-m-d H:i:s",###}</td>
+					<td class="tcenter">{$vo.CLICK_COUNT}</td>
+					<td class="tcenter">
+						<a href="__URL__/upload/id/{$vo.newId}">修改</a> 
+						<a href="javascript:delete_news('{$vo.newId}');">删除</a>
+					</td>
+				</tr>
+				</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="5">
+						<button name="Abutton1" onClick="delete_all()"><div><span>全部删除</span></div></button>{$page}
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+		</form>
+</div>
+<include file="Public:footer" />

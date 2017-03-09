@@ -1,0 +1,113 @@
+<include file="Public:header2" />
+	<script>
+	function delete_vote(VOTE_ID)
+	{
+		 	msg='确认要删除该项投票吗？';
+		 	if(window.confirm(msg))
+		 	{
+		  	URL="__URL__/del/VOTE_ID/" + VOTE_ID;
+		 	 window.location=URL;
+		 	}
+ 		
+   }
+	function stop_vote(VOTE_ID)
+	{
+		 	msg='确认要终止该项投票吗？';
+		 	if(window.confirm(msg))
+		 	{
+		  	URL="__URL__/stopvote/VOTE_ID/" + VOTE_ID;
+		 	 window.location=URL;
+		 	}
+ 		
+   }
+      
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+        Title: "投票管理设置",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "投票管理", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "新建投票", Url: "__URL__/add", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+
+	<div class="KDStyle" id="main">
+		<table>
+		<col width="80px" />
+		<col width="110px" />
+		<col />
+		<col width="60px" />
+		<col width="60px" />
+		<col width="110px" />
+		<col width="110px" />
+		<col width="60px" />
+		<col width="170px" />
+			<thead>
+				<tr>
+					<th>发送人</th>
+					<th>发送范围</th>
+					<th>标题</th>
+					<th>类型</th>
+					<th>匿名</th>
+					<th>生效日期</th>
+					<th>终止日期</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody><iterate name="voteList" id="vo">
+				<tr>
+					<td>{$vo.FROM_ID|getUsername}</td>
+					<td><if condition="$vo[TO_ID] eq ''">所有部门<elseif condition="$vo[TO_ID] eq 'ALL_DEPT,'" />所有部门<elseif condition="$vo[TO_ID] eq 'all'" />所有部门<else />{$vo.TO_ID||getList_name}</if></td>
+					<td><a href="show/VOTE_ID/{$vo.VOTE_ID}">{$vo.SUBJECT}</a></td>
+					<td class="tcenter"><if condition="$vo[TYPE] eq 0">单选<else />多选</if></td>
+					<td class="tcenter"><if condition="$vo[ANONYMITY] eq 'on'">允许<else />不允许</if></td>
+					<td>{$vo.BEGIN_DATE}</td>
+					<td><if condition="$vo[END_DATE] eq '0000-00-00'"> <else />{$vo.END_DATE}</if></td>
+					<td class="tcenter">{$vo['BEGIN_DATE']|FormatTimeStatusStr=###,$vo['END_DATE']}</td>
+					<td class="tcenter">
+						<a href="__URL__/item/VOTE_ID/{$vo.VOTE_ID}" title="">投票项目</a>
+						<a href="__URL__/update/VOTE_ID/{$vo.VOTE_ID}" title="">修改</a>
+						<a href="javascript:delete_vote('{$vo.VOTE_ID}');" title="">删除</a>
+						
+						<if condition="FormatTimeStatus($vo[BEGIN_DATE],$vo[END_DATE]) eq 1">
+						<a href="__URL__/setvote/VOTE_ID/{$vo.VOTE_ID}/OP/1" title="">立即生效</a> 
+						<elseif condition="FormatTimeStatus($vo[BEGIN_DATE],$vo[END_DATE]) eq 2" />
+						<a href="__URL__/setvote/VOTE_ID/{$vo.VOTE_ID}/OP/2" title="">立即终止</a>
+						<elseif condition="FormatTimeStatus($vo[BEGIN_DATE],$vo[END_DATE]) eq 3" />
+						<a href="__URL__/setvote/VOTE_ID/{$vo.VOTE_ID}/OP/3" title="">恢复生效</a>
+						</if>
+						
+					</td>
+				</tr>
+				</iterate>
+			</tbody>
+			<tfoot>
+			<tr>
+			<td colspan="9">{$page}</td>
+			</tr>
+			</tfoot>
+		</table>
+	</div>
+<include file="Public:footer" />

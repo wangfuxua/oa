@@ -1,0 +1,3 @@
+.facebox { padding: 8px; width: 250px; border: 1px solid #CCC; background: #FFF; z-index: 100000;}
+.facebox ul li { float: left; width: 25px; height: 25px; overflow: hidden; }
+.face { margin: 0 1px; vertical-align: middle; }

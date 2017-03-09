@@ -1,0 +1,12 @@
+﻿    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+				<ul class="ul1" id="c2">
+       <if condition="$newslist">
+       <iterate name="newslist" id="vo">
+       <li><a href="__APP__/News/article/id/{$vo.newId}" title="">{$vo.title}</a>&nbsp;&nbsp;{$vo.createTime|formatdate}&nbsp;&nbsp;</li>
+       </iterate>
+       <else />
+       没有新闻
+       </if>
+
+				</ul>

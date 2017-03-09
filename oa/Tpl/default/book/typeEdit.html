@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Jay" />
+<title>图书管理</title>
+
+<link href="../public/style/default/css/kdstyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KD.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/main.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 30);
+
+		createHeader({
+        Title: "图书类别定义",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 30); 
+    
+    });
+
+</script>
+</head>
+
+<body>
+
+	<div class="KDStyle" id="KDMain">
+<form action="__APP__/book/typeUpdate"  method="post" name="form1">
+ 		<table style="width:50%">
+		<col width="80px" />
+			<thead>
+				<tr>
+					<th colspan="2" >图书类别编辑</th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr>
+						<th>类别名称</td><td><input name="TYPE_NAME" value="{$bookRow['TYPE_NAME']}" type="text" class="dm_blur3"  /></th>
+					</tr>
+			</tbody>
+			<tfoot>
+					<tr>
+						<th colspan="2" >
+						<input type="hidden" value="{$bookRow['TYPE_ID']}" name="TYPE_ID">
+						<button type="submit" name="Abutton1">更新</button>
+						</th>
+					</tr>
+			</tfoot>
+		</table>
+</form>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<include file="Public:header" />
+<script type="text/javascript">
+$(document).ready(function(){
+	//$.formValidator.initConfig({formid:"form1",onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#modelName").formValidator({onshow:"请输入模型名称",onfocus:"模型名称不能为空",oncorrect:"模型名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模型名称两边不能有空符号"},onerror:"模型名称不能为空,请确认"});;
+	$("#modelTableName").formValidator({onshow:"请输入模型（英文名称）",onfocus:"模型（英文名称）不能为空",oncorrect:"模型（英文名称）合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"模型（英文名称）两边不能有空符号"},onerror:"模型（英文名称）不能为空,请确认"}).regexValidator({regexp:"username",datatype:"enum",onerror:"模型（英文名称）格式不正确，只能输入字母或数字"});
+});
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+	</ul>
+
+	<h2 class="dm_schedule">新建模型</h2>
+	<div class="dm_conthree">
+		<form action="__URL__/add"  method="post" name="form1" id="form1">	
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<tr>
+			<td class="dm_zanal">模型名称：</td>
+			<td width="300"><input name="modelName" id="modelName" type="text" class="dm_inputsen"/></td>
+			<td><div id="modelNameTip" ></div></td>
+			</tr>
+			<tr>
+			<td class="dm_zanal">模型（英文名称）：</td>
+			<td><input name="modelTableName" id="modelTableName" type="text" class="dm_inputsen" /></td>
+			<td><div id="modelTableNameTip" ></div></td>
+			</tr>
+			<tr><td class="dm_zanal">归类：</td><td><select name="category">
+			<iterate name="category" id="v" key="k">
+			<option value="{$k}">{$v}</option>
+			</iterate>
+			</select></td></tr>
+			<tr>
+				<td colspan="3" class="dm_btnzan">
+					 <button name="Abutton1" type="submit">确定</button>
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	<h2 class="dm_schedule">管理模型</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<tr>
+				<th>模型名称</th>
+				<th>操作</th>
+			</tr>
+			<iterate name="workModuleList" id="vo">
+			<tr>
+				<td><div align="center">{$vo['modelName']}</div></td>
+				<td><div align="center"><a href="__URL__/edit/modelId/{$vo['modelId']}">编辑模型名称</a>/<a href="__URL__/filedIndex/modelId/{$vo['modelId']}">模型控件定义</a>/<a href="__URL__/flow/modelId/{$vo['modelId']}">流程定义</a>/<a href="__URL__/layout/modelId/{$vo['modelId']}">编辑模板样式</a>/<a href="__URL__/del/modelId/{$vo['modelId']}">删除</a></div></td>
+			</tr>
+			</iterate>	
+			<tr><td colspan="2">{$page}</td></tr>
+		</table>
+	</div>
+<include file="Public:footer" />

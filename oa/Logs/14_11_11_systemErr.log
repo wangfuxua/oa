@@ -1,0 +1,33 @@
+[ 14-11-11 08:41:00 ]
+
+错误信息：[ oa manage NOTIFY_ID ]非法操作NOTIFY_ID
+错误页面：/index.php/manage//NOTIFY_ID/ATTACHMENT_ID
+错误类型：ThinkException
+错误跟踪：
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(NOTIFY_ID, Array)
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) manageAction->NOTIFY_ID()
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-11 08:41:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-11 08:41:03 ]
+
+错误信息：[ oa manage NOTIFY_ID ]非法操作NOTIFY_ID
+错误页面：/index.php/manage//NOTIFY_ID/ATTACHMENT_ID
+错误类型：ThinkException
+错误跟踪：
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(NOTIFY_ID, Array)
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) manageAction->NOTIFY_ID()
+[14-11-11 08:41:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-11 08:41:11] /www/web/oa/public_html/index.php (19) App->run()
+
+[ 14-11-11 09:44:12 ]
+
+错误信息：[ oa Account loading.swf ]非法操作loading.swf
+错误页面：/index.php/Account/loading.swf
+错误类型：ThinkException
+错误跟踪：
+[14-11-11 09:44:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) Action->__call(loading.swf, Array)
+[14-11-11 09:44:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) AccountAction->loading.swf()
+[14-11-11 09:44:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-11 09:44:11] /www/web/oa/public_html/index.php (19) App->run()
+

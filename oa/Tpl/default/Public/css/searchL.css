@@ -1,0 +1,19 @@
+/* CSS Document */
+
+*{margin:0; padding:0;}
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,img,div{margin:0;padding:0;border:0;}
+body{background:#fff;color:#000;font-size:12px;margin:0 auto; font-family:"宋体",tahoma,Simsun, Microsoft YaHei,Arial Unicode MS, Mingliu, Arial, Helvetica;}
+ul,ol{list-style-type:none;}
+select,input,img{vertical-align:middle;}
+a,a:link{color:#777;text-decoration:none;}
+a:hover{color:#ff4909;text-decoration:underline;}
+h1,h2,h3{font-size:14px;}
+em{font-style:normal;}
+.clear{clear:both;height:0;line-height:0%;font-size:0;overflow:hidden;}
+
+.seachL{border-bottom:1px solid #B6C9D8; background:#EDF4FE; overflow:hidden; width:99%; margin:10px auto; line-height:30px;}
+.seachL h3{ font-weight:normal;border:1px solid #B6C9D8; border-bottom:none;cursor: pointer; padding-left:34px; background:url(../images/searchL_1.gif) no-repeat 8px 7px; }
+.seachL ul{ background:#fff; border-top:1px solid #B6C9D8; padding:5px 0; line-height:24px; border-left:1px solid #B6C9D8; border-right:1px solid #B6C9D8;}
+.seachL li{padding-left:25px; background:url(../images/dot.gif) no-repeat 15px 10px;}
+.seachL h3.active {background:url(../images/searchL_2.gif) no-repeat 8px 7px;}
+.auto_d{width:100%;height:auto;overflow:auto;}

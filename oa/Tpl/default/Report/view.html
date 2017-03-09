@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户反馈view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__APP__/Report/lists" title=""><span>客户反馈列表</span></a></li>
+		<li><a href="__APP__/Report/create" title=""><span>新建客户反馈</span></a></li>
+	</ul>
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/Report/del" method="post" name="DetailView" id="form">
+				<input type="hidden" name="id" value="{$report_res['id']}">
+				<button onclick=location="__APP__/Report/edit/id/{$report_res['id']}/update/1" name="Edit"  title="编辑">编辑</button>
+				<button onclick=location="__APP__/Report/edit/id/{$report_res['id']}/copy/1" name="Duplicate" title="复制 [Alt+U]">复制</button>
+				<button onclick="return confirm('确定要删除当前记录吗?')"  name="Delete" title="刪除 [Alt+D]" accessKey="D" type="submit">删除</button>
+				<button onclick=location="__APP__/Report/lists" >返回列表</button>
+			</form>
+	</caption>
+	
+	<thead>
+		<tr>
+			<th colspan="4">
+				客户反馈: {$report_res['subject']}
+			</th>
+		</tr>
+	</thead>
+<tr>
+	<td width="15%">客户反馈编号：</td>
+	<td width="35%" class="tabDetailViewDF"><div align="left">{$report_res['id']}</div></td>
+	<td width="15%">优先级：</td>
+	<td width="35%" class="tabDetailViewDF">{$report_res['priority']}</td>
+	</tr><tr>
+	<td valign="top">负责人：</td>
+	<td  valign="top" class="tabDetailViewDF">{$manager_res['USER_NAME']}</td>
+	<td>处理状态：</td>
+	<td  class="tabDetailViewDF">{$report_res['status']}</td>
+	</tr><tr>
+	<td width="15%">客户名称：</td>
+	<td width="35%" class="tabDetailViewDF"><a href="__APP__/Account/view/id/{$report_res['account_id']}" class="tabDetailViewDFLink">{$report_res['account_name']}</a></td>
+	<td>反馈原因：</td>
+	<td class="tabDetailViewDF">{$report_res['reason']}</td>
+	</tr><tr>
+	<td>反馈类型：</td>
+	<td  class="tabDetailViewDF">{$report_res['type']}</td>
+	<td>反馈来源：</td>
+	<td  class="tabDetailViewDF">{$report_res['source']}</td>
+	</tr><tr>
+	<td>输入日期：</td>
+	<td  class="tabDetailViewDF">{$report_res['time_create']} 由 {$builder_res['USER_NAME']}</td>
+	<td>最后更新：</td>
+	<td  class="tabDetailViewDF">{$report_res['time_modify']} 由 {$modify_res['USER_NAME']}</td>
+	</tr><tr>
+	<td valign="top">主题：</td>
+	<td colspan="4" class="tabDetailViewDF">{$report_res['subject']}</td>
+	</tr><tr>
+	<td valign="top">描述：</td>
+	<td colspan="4" class="tabDetailViewDF">{$report_res['description']}</td>
+	</tr><tr>
+	<td valign="top">分析：</td>
+	<td colspan="4" class="tabDetailViewDF">{$report_res['resolution']}</td>
+</tr>
+</table>
+
+</body></html>

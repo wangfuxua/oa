@@ -1,0 +1,89 @@
+﻿<div id="title" class="clearfix">
+      <h2>收件箱</h2>
+      <p>(共<span id="allmail"> 51</span> 封，其中<em> 未读邮件</em> <span id="newmail">0</span> 封)</p>
+      <span class="rtact">全局查询<input type="text" /><button type="button">搜索</button>
+    </span> </div>
+<div id="active" class="active">
+        <span id="mail-moveto"><a href="#">转移</a></span>
+        <span id="mail-del"><a href="#">删除</a></span>
+        <span id="mail-sc"><a href="#">查询邮件</a></span>     
+        <span id="maill-delAll"><a href="#">全部删除</a></span> 
+       </div>     
+  <div id="mail-centens">
+      <table id="mail-date"  border="0" cellspacing="0" cellpadding="0">
+      <thead>
+          <th width="14"><input type="checkbox" name="topcheck" id="topcheck" onclick="checkAll()"/></th>
+          <th width="14"><img src="../Public/images/ico/mail_tit_1.gif" width="15" height="12" align="absmiddle" /></th>
+          <th width="160">发件人</th>
+          <th>主题</th>
+          <th width="30">附件</th>
+          <th width="30" >日期</th>
+          <th width="40">大小</th>
+          </thead>
+        <tr>
+		<tbody id="mail-list">
+		<tr>
+          <td width="14" align="center"><input type="checkbox" name="" /></td>
+          <td width="14"><span class="readnow">已读</span></td>
+          <td width="160">123</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td width="30"><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td width="30" align="center">2008/02/16</td>
+          <td width="40" align="center">23.4k</td>
+        </tr>
+        <tr>
+          <td  align="center"><input type="checkbox" name="" /></td>
+          <td width="14"><span class="readed">已读</span></td>
+          <td>1234</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td align="center">2008/02/16</td>
+          <td align="center">23.4k</td>
+        </tr>
+        <tr>
+          <td align="center"><input type="checkbox" name="" /></td>
+           <td width="14"><span class="readed">已读</span></td>
+          <td>1235</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td align="center">2008/02/16</td>
+          <td align="center">23.4k</td>
+        </tr>
+        <tr>
+          <td align="center"><input type="checkbox" name="" /></td>
+           <td width="14"><span class="readed">已读</span></td>
+          <td>1236</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td align="center">2008/02/16</td>
+          <td align="center">23.4k</td>
+        </tr>
+        <tr>
+          <td align="center"><input type="checkbox" name="" /></td>
+           <td width="14"><span class="readed">已读</span></td>
+          <td>1237</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td align="center">2008/02/16</td>
+          <td align="center">23.4k</td>
+        </tr>
+        <tr>
+          <td align="center"><input type="checkbox" name="" /></td>
+          <td width="14"><span class="readed">已读</span></td>
+          <td>1238</td>
+          <td><span class="til"><a href="#">123</a></span></td>
+          <td><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /></td>
+          <td align="center">2008/02/16</td>
+          <td align="center">23.4k</td>
+        </tr>
+		</tbody>
+		</tr>
+      </table>
+      <div class="tab-ft">
+		<span id="check-all" style="width:50px;"><label for="btmcheck"><input type="checkbox" name="btmcheck" id="btmcheck" onclick="checkAll()"/>全选</label></span>
+        <div class="btm-act">
+		<span>转移到：<select style="border:1px solid #ccc"><option selected="selected">收件箱</option><option selected="selected">发件箱</option><option selected="selected">垃圾邮件</option><option selected="selected">自定义</option></select></span>       </div>
+        <div id="page-Num">[首页][上一页]2 3 4 5 [下一页][尾页]</div>
+      </div>
+    </div>
+<script src="../Public/script/mudel.js" type="text/javascript"></script>

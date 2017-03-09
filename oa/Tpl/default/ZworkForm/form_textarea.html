@@ -1,0 +1,14 @@
+<table cellpadding="2" cellspacing="1">
+	<tr> 
+      <td>文本域行数</td>
+      <td><input type="text" name="setting[rows]" value="10" size="10"></td>
+    </tr>
+	<tr> 
+      <td>文本域列数</td>
+      <td colspan="2"><input type="text" name="setting[cols]" value="60" size="10"></td>
+    </tr>
+	<tr> 
+      <td>默认值</td>
+      <td colspan="2"><textarea name="setting[defaultvalue]" rows="2" cols="20" id="defaultvalue" style="height:60px;width:250px;"><?php if($setting['defaultvalue']){echo $setting['defaultvalue'];}?></textarea></td>
+    </tr>
+</table>

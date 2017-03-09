@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>待办工作</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>待办工作</span></a></li>
+		<li><a href="news" title=""><span>新建工作</span></a></li>
+	</ul>
+		<h2 class="dm_schedule">转交</h2>
+		<div class="dm_conthree"><form action="__URL__/deliverSave" method="POST">
+		<input type="hidden" name="id" value="{$flowRow['id']}">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<tr>
+			<td>转交人</td>
+			<td><input type="text" value="" name="user_NAME" readonly>
+			
+			<input type="hidden" name="user_ID">
+			&nbsp;&nbsp;<button name="Abutton1" onClick="oWin('user')">添加</button>
+			&nbsp;<button name="Abutton1" onClick="chclear('TO')">清空</button>
+			</td>
+		</tr>
+		<tr>
+			<td>原因</td>
+			<td><textarea name="tag" value="tag" rows="2" cols="20"></textarea></td>
+		</tr>
+		<tr><td colspan="2"><button type="submit" name="submit">转交</button></td></tr>
+		</table></form>
+		</div>
+<!--选择用户模块开始-->
+  <include file="Public:userselect" />
+        <!--选择用户模块结束-->
+</body>
+</html>

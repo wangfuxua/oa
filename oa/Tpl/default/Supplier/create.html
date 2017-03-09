@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>新建供应商</title>
+
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/js/crm_data.js"></script>
+<script type="text/javascript" src="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/Supplier/lists" title=""><span>供应商列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/Supplier/create" title=""><span><if condition="$update">修改<else/>新建</if>供应商</span></a></li>
+	</ul>
+
+<form method="POST" name="form1" action='<if condition="$update">__APP__/Supplier/update<else/>__APP__/Supplier/save</if>' onsubmit="return idNull('name','name_msg','姓名不能为空！');">		
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="supplier_id" value="{$supplier_res['id']}" />
+			<input type="hidden" name="address_id" value="{$address_res['id']}" />
+			<input type="hidden" name="bankinfo_id" value="{$bankinfo_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset" >重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+	<tr><th class="tdtit" colspan="4"><h4>基本信息</h4></th></tr>
+	<tr>
+		<td>供应商名称： <span class="required" style="color:red;">*</span></td>
+		<td colspan="3"><input name='name' id="name" tabindex='1' size='35' maxlength='150' type="text" value="{$supplier_res['name']}" onblur="idNull('name','name_msg','姓名不能为空！');" /><span id="name_msg"></span></td>
+	</tr><tr>
+		<td>供应商简称：</td>
+		<td><input name='short_name' type="text" tabindex='2' size='20' maxlength='25'  value="{$supplier_res['short_name']}" /></td>
+		<td>供应商编码：</td>
+		<td><input name='encode' type="text" tabindex='1' size='28' maxlength='255' value="{$supplier_res['encode']}" /></td>
+	</tr><tr>
+		<td>电话：</td>
+		<td><input name='phone' type="text" tabindex='1' size='18' maxlength='20' value="{$supplier_res['phone']}" /></td>
+		<td>传真：</td>
+		<td><input name='fax' type="text" tabindex='2' size='20' maxlength='25' value="{$supplier_res['fax']}" /></td>
+	</tr><tr>
+		<td>网址：</td>
+		<td><input name='website' type="text" size='30' value="{$supplier_res['website']}"/>
+		</td>
+		<td>电子邮件：</td>
+		<td><input name='mail' type="text" tabindex='2' size='35' maxlength='100' value="{$supplier_res['mail']}" onblur="checkEmail('mail','mail_msg','请输入正确的邮箱！');" />
+		<span id='mail_msg'></span></td>
+	</tr>
+	<tr><th class="tdtit" colspan="4"><h4>地址信息</h4></th></tr>
+	<tr>
+		<td >省份：</td>
+		<td >
+<script>showprovince('province', 'city', "{$address_res['province']}");</script>
+		</td>
+		<td>城市：</td>
+		<td >
+<script>showcity('city', "{$address_res['city']}", 'province');</script>
+		</td>
+    </tr>
+    <tr>
+		<td >地址：</td>
+		<td ><textarea name='street' rows="2" tabindex='3' cols="30">{$address_res['street']}</textarea></td>
+		<td >邮编：</td>
+		<td><input name='postcode' tabindex='3' size='15' maxlength='20' value="{$address_res['postcode']}" onblur="checkNumber('postcode','postcode_msg','请填写数字!');" /><span id='postcode_msg'></span></td>
+	</tr>
+		<tr><th class="tdtit" colspan="4"><h4>银行财务信息</h4></th></tr>
+	
+	<tr>
+		<td >开户银行：</td>
+		<td ><input name='bank1_name' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_name']}" />
+		</td>
+		<td >银行帐号：</td>
+		<td ><input name='bank1_account' type="text" tabindex='1' size='25' maxlength='100' value="{$bankinfo_res['bank1_account']}" onblur="checkNumber('bank1_account','bank1_account_msg','请填写数字!');" /><span id='bank1_account_msg'></span>
+    </tr>
+    <tr><th class="tdtit" colspan="4"><h4>说明信息</h4></th></tr>
+	<tr>
+		<td>说明：</td>
+		<td colspan="3"><textarea name='description' tabindex='5' cols="60" rows="8">{$supplier_res['description']}</textarea></td>
+	</tr>
+
+</table>
+
+</form>
+</body></html>

@@ -1,0 +1,98 @@
+<include file="Public:header" />
+<SCRIPT>
+function check_all()
+{
+ for (i=0;i<document.all("menu_select").length;i++)
+ {
+   if(document.all("all").checked)
+      document.all("menu_select").item(i).checked=true;
+   else
+      document.all("menu_select").item(i).checked=false;
+ }
+ 
+ if(i==0)
+ {
+   if(document.all("all").checked)
+      document.all("menu_select").checked=true;
+   else
+      document.all("menu_select").checked=false;
+ }
+}
+
+function check_one(el)
+{
+   if(!el.checked)
+      document.all("allbox").checked=false;
+}
+
+</SCRIPT>
+
+<script Language="JavaScript">
+function delete_WIN(WIN_ID)
+{
+ msg='确认要删除该项快捷方式么？';
+ if(window.confirm(msg))
+ {
+  WIN="__URL__/winexeDelete?WIN_ID=" + WIN_ID;
+  window.location=WIN;
+ }
+}
+
+
+function delete_all()
+{
+ msg='确认要删除所有快捷方式么？';
+ if(window.confirm(msg))
+ {
+  WIN="__URL__/winexeDeleteAll";
+  window.location=WIN;
+ }
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/winexeIndex" title=""><span>Windows快捷菜单管理</span></a></li>
+		<li><a href="__URL__/winexeForm" title=""><span>添加Windows快捷方式</span></a></li>
+	</ul>
+<div>	
+<form action="__URL__/winexeListorder"  method="post" name="form1">
+  <table>
+				<colgroup>
+					<col width="80"></col>
+					<col width="80"></col>
+					<col></col>
+					<col></col>
+					<col width="120"></col>
+				</colgroup>
+	<thead>	
+	 <tr>
+	  <th>ID</th>
+	  <th>排序</th>
+	  <th>名称</th>
+	  <th>路径</th>
+	  <th>操作</th>
+	 </tr>
+	<thead>
+    <tbody>				  
+	<volist name="list" id="vo">
+	 <tr>
+	  <td>{$vo.WIN_ID}</td>
+	  <td><input type="text" name="listorder[{$vo.WIN_ID}]" value="{$vo.WIN_NO}" size="5" maxlength="5"></td>
+	  <td>{$vo.WIN_DESC}</td>
+	  <td>{$vo.WIN_PATH}</td>
+	  <td><a href="__URL__/winexeForm/?WIN_ID={$vo[WIN_ID]}">编辑</a>&nbsp;<a href="javascript:delete_WIN('{$vo[WIN_ID]}');">删除</a></td>
+	 </tr>
+	</volist>
+    <tbody>
+    
+    <tfoot>
+    <tr>
+      <td colspan="5"><input type="submit" name="all" value="排序" class="btnFnt"></td>
+    </tr>
+    <tfoot>
+  </table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

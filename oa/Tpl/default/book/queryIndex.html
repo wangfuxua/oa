@@ -1,0 +1,122 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "图书查询",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "图书列表", Url: "__URL__/bookList", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "图书查询", Url: "__URL__/queryIndex", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body onLoad="document.form1.BOOK_NAME.focus();">
+
+<div class="KDStyle" id="KDMain">
+	
+<form action="__URL__/queryList"  method="post" name="form1" >  
+<table>
+<col width="120px" />
+  <tbody>
+   <tr>
+    <th>部门：</th>
+    <td>
+        <select name="DEPT_ID" class="BigSelect">
+          <option value="all">所有</option>
+           {$select}
+        </select>
+    </td>
+   </tr>
+  
+   <tr>
+    <th>图书类别：</th>
+    <td>
+        <select name="TYPE_ID" class="BigSelect">
+        <option value="all">所有</option>
+         <iterate name="bookList" id="vo">
+          <option value="{$vo.TYPE_ID}" >{$vo.TYPE_NAME}</option>
+        </iterate>
+        </select>
+    </td>
+   </tr>
+	<tr>
+		<th>借阅状态：</th>
+		<td>
+			<select name="LEND">
+				<option value="-1">不限</option>
+				<option value="0">未借出</option>
+				<option value="1">已借出</option>
+			</select>
+		</td>
+	</tr>   
+   <tr>
+    <th>书名： </th>
+    <td>
+        <input type="text" name="BOOK_NAME" class="BigInput" size="25" maxlength="25">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>作者： </th>
+    <td>
+        <input type="text" name="AUTHOR" class="BigInput" size="25" maxlength="25">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>ISBN号： </th>
+    <td>
+        <input type="text" name="ISBN" class="BigInput" size="25" maxlength="25">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>出版社： </th>
+    <td>
+        <input type="text" name="PUB_HOUSE" class="BigInput" size="25" maxlength="25">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>存放地点： </th>
+    <td>
+        <input type="text" name="AREA" class="BigInput" size="25" maxlength="25">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>排序字段：</th>
+    <td>
+        <select name="ORDER_FIELD">
+          <option value="DEPT_ID">部门 </option>
+          <option value="TYPE_ID">类别 </option>
+          <option value="BOOK_NAME">书名 </option>
+          <option value="AUTHOR">作者 </option>
+          <option value="PUB_HOUSE">出版社 </option>
+        </select>
+    </td>
+   </tr>
+   </tbody>
+   <tfoot>
+   <tr>
+    <th colspan="2">
+        <button type="submit" value="查询" title="模糊查询" name="button">查询</button>
+    </th>
+   </tr>
+   </tfoot>
+</table>
+</form>
+</div>
+<include file="Public:footer" />

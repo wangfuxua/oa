@@ -1,0 +1,48 @@
+<include file="Public:header" />
+<style type="text/css">
+<!--
+.wp1 {
+	font-size: 24px;
+}
+.table{
+	width:70%;
+}
+.button{
+	padding:0 10px;margin:0 5px;background:#DDF0FF url(../images/bg/bgf1.gif) repeat-x 0 -453px;border:1px solid #87A3C1;color:#174B73;font-weight:bold;height:22px;line-height:22px;cursor:pointer !important
+	width:60px;height:20px;line-height:20px;padding:0;border:1px silver outset;margin:0 0 0 5px
+}
+-->
+</style>
+<body>
+
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>待办工作</span></a></li>
+		<li><a href="__URL__/news" title=""><span>新建工作</span></a></li>
+		<li><a href="__URL__/workControl" title=""><span>工作监控</span></a></li>
+	</ul>
+<h2 class="dm_schedule">办理工作</h2>
+<form action="__APP__/WorkExecute/FlowSave" method="POST">
+		<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<input type="hidden" value="{$workRow['zworkId']}" name="zworkId">
+		<input type="hidden" value="{$TableName}" name="TableName">
+		<tr>
+		<th colspan="2" ><p class="wp1">{$modelName}</p></th>
+		</tr>
+		<tr><th colspan="2"><div align="left">文号：{$workRow['zworkName']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间：{$workRow['zworkTime']|formatDate}</div></th></tr>
+		<iterate name="modelList" id="vo">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>{$vo['name']}</strong><br />
+	  			</td>
+				<td>
+					{$vo['form']}
+				</td>
+		</tr>
+		</iterate>
+		<tr><td colspan="2"><input name="submit" type="submit" value="保存" class="button"><input name="submit" type="submit" value="完成" class="button"><input name="submit" type="submit" value="转交" class="button"><input name="submit" type="submit" value="中止" class="button"></td></tr>
+  </table>
+  </div>
+    </form>
+<include file="Public:footer" />

@@ -1,0 +1,18 @@
+<table cellpadding="2" cellspacing="1" bgcolor="#ffffff">
+	<tr> 
+      <td><strong>时间格式：</strong></td>
+      <td colspan="2">
+	  <input type="radio" name="setting[dateformat]" checked>日期 显示格式：
+	  <select name="setting[format]">
+	  <option value="yyyy-MM-dd HH:mm:ss" <?php if($setting[format]=='yyyy-MM-dd HH:mm:ss'){echo 'selected';}?> ><?=date('Y-m-d H:i:s')?></option>
+	  <option value="yyyy-MM-dd" <?php if($setting[format]=='yyyy-MM-dd'){echo 'selected';}?>><?=date('Y-m-d')?></option>
+	  </select>
+	  </td>
+    </tr>
+	<tr> 
+      <td><strong>默认值：</strong></td>
+      <td colspan="2">
+	  <input type="radio" name="setting[defaulttype]" value="0" checked/>无<br />
+	  <input type="radio" name="setting[defaulttype]" value="1" <?php if($setting[defaulttype]=='1'){echo 'checked';}?>/>当前时间<br />
+    </tr>
+</table>

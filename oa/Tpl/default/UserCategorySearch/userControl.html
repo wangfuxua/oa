@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../Public/css/user_style.css" rel="stylesheet" type="text/css" />
+</head>
+<script>
+// 通过id获取对象
+var $ = function(id) {return document.getElementById(id);};
+
+// 获取浏览器信息
+var userAgent = navigator.userAgent.toLowerCase();
+var isSafari = userAgent.indexOf("Safari")>=0;
+var is_opera = userAgent.indexOf('opera') != -1 && opera.version();
+var is_moz = (navigator.product == 'Gecko') && userAgent.substr(userAgent.indexOf('firefox') + 8, 3);
+var is_ie = (userAgent.indexOf('msie') != -1 && !is_opera) && userAgent.substr(userAgent.indexOf('msie') + 5, 3);
+var parent_window = getOpenner();
+
+/**获取原始窗口单多选对象，用户id对象，用户名对象*/
+var to_id =   parent_window.getElementById(parent.ids);
+var to_name = parent_window.getElementById(parent.names);
+var onlyone = parent_window.getElementById(parent.one);
+
+/**判断是单选还是多选*/
+if(onlyone.value.toLowerCase() == 'y') var res = true;
+else var res = false;
+
+var allElements=document.getElementsByTagName("*");
+
+// 获取父窗口信息
+function getOpenner(){
+	if(is_moz){
+		//return parent.opener.document;
+		return parent.parent.document;
+	}else{
+		//return parent.dialogArguments.document;
+		//return parent.opener.document;
+		return parent.parent.document;
+	}
+}
+
+// 添加样式
+function borderize_on(targetelement){
+	 var color="#003FBF";
+	 targetelement.style.borderColor="black";
+	 targetelement.style.backgroundColor=color;
+	 targetelement.style.color="white";
+	 targetelement.style.fontWeight="bold";
+}
+
+// 添加样式
+function borderize_off(targetelement){
+	targetelement.style.backgroundColor="";
+	targetelement.style.borderColor="";
+	targetelement.style.color="";
+	targetelement.style.fontWeight="";
+}
+
+// 选择用户或取消选中
+function click_user(user_id){
+	var TO_VAL=to_id.value;
+	var TO_NAME=to_name.value;
+	var targetelement=$(user_id);
+	var user_name=targetelement.title;
+	var split_id = split_name = new Array();
+	if(!res){
+		if(TO_VAL.indexOf(","+user_id+",")>0 || TO_VAL.indexOf(user_id+",")==0){
+			if(TO_VAL.indexOf(user_id+",")==0){
+				to_id.value=to_id.value.replace(user_id+",","");
+				if(TO_NAME.indexOf(user_name+",")==0)
+				to_name.value=to_name.value.replace(user_name+",","");
+			}else if(TO_VAL.indexOf(","+user_id+",")>0){
+				split_id = TO_VAL.split(","+user_id+",");
+				split_id = split_id[0].split(",");
+				split_name = TO_NAME.split(",");
+				split_name.splice(split_id.length,1);
+				split_name.splice(split_name.length-1,1);
+				split_name = split_name.toString();
+				to_id.value=to_id.value.replace(","+user_id+",",",");
+				to_name.value = split_name+",";
+			}
+			borderize_off(targetelement);
+		}else{
+			to_id.value+=user_id+",";
+			to_name.value+=user_name+",";
+			borderize_on(targetelement);
+		}
+	}else{
+		if(TO_VAL == user_id){
+			to_id.value="";
+			to_name.value="";
+			borderize_off(targetelement);
+		}else{
+			to_id.value = user_id;
+			to_name.value = user_name;
+			borderize_on(targetelement);
+			if('{$category_name}' != '已选人员'){
+				var ids_string = '{$ids_string}';
+				var ids_arr = new Array();
+				if(ids_string != ''){
+					ids_arr = ids_string.split(',');
+					for(var i=0;i<ids_arr.length-1;i++){
+						if(user_id != ids_arr[i])borderize_off($(ids_arr[i]));
+					}
+				}
+			}
+		}
+	}
+}
+
+// 选取所有
+function add_all(flag){
+	if(isUndefined(flag)) flag="";
+	TO_VAL=to_id.value;
+	for (step_i=0; step_i<allElements.length; step_i++){
+		if(allElements[step_i].className.indexOf("menulines"+flag)>=0){
+			user_id=allElements[step_i].id;
+			user_name=allElements[step_i].title;
+			if(TO_VAL.indexOf(","+user_id+",")<0 && TO_VAL.indexOf(user_id+",")!=0){
+				to_id.value+=user_id+",";
+				to_name.value+=user_name+",";
+				borderize_on(allElements[step_i]);
+			}
+		}
+	}
+}
+
+// 取消所有选中
+function del_all(flag){
+	if(isUndefined(flag)) flag="";
+	for (step_i=0; step_i<allElements.length; step_i++){
+		TO_VAL=to_id.value;
+		TO_NAME=to_name.value;
+		if(allElements[step_i].className.indexOf("menulines"+flag)>=0){
+			user_id=allElements[step_i].id;
+			user_name=allElements[step_i].title;
+			if(TO_VAL.indexOf(user_id+",")==0)
+				to_id.value=to_id.value.replace(user_id+",","");
+			else if(TO_VAL.indexOf(","+user_id+",")>0)
+				to_id.value=to_id.value.replace(","+user_id+",",",");
+			if(TO_NAME.indexOf(user_name+",")==0)
+				to_name.value=to_name.value.replace(user_name+",","");
+			else if(TO_NAME.indexOf(","+user_name+",")>0)
+				to_name.value=to_name.value.replace(","+user_name+",",",");
+			borderize_off(allElements[step_i]);
+		}
+	}
+}
+
+// 判断是否定义
+function isUndefined(variable) {
+	return typeof variable == 'undefined' ? true : false;
+}
+
+// 给选中用户添加样式
+function selected_color(user_id){
+	var TO_VAL=to_id.value;
+	var TO_NAME=to_name.value;
+	var tarele=$(user_id);
+	var user_name=tarele.title;
+	if(!res){
+		if(TO_VAL.indexOf(","+user_id)>0 || TO_VAL.indexOf(user_id+",")==0) borderize_on(tarele);
+		else borderize_off(tarele);
+	}else{
+		if(TO_VAL == user_id) borderize_on(tarele);
+		else  borderize_off(tarele);
+	}
+}
+
+// 生成选中用户列表
+function selected_user(){
+	var user_ids = user_names = new Array();
+	var html;
+	var TO_VAL=to_id.value;
+	var TO_NAME=to_name.value;
+	if(TO_VAL == ''){
+		html = '<tr class="TableControl"><td style="cursor:pointer" align="center" colspan="2">没有选择用户</td></tr>';
+		document.write(html);
+	}else{
+		if(!res){
+			user_ids = TO_VAL.split(',');
+			user_names = TO_NAME.split(',');
+			document.write('<tr class="TableControl"><td onclick="add_all(1);" style="cursor:pointer" align="center" colspan="2">全部添加</td></tr><tr class="TableControl"><td onclick="del_all(1);" style="cursor:pointer" align="center" colspan="2">全部删除</td></tr>');
+			for(var i = 0; i<user_ids.length-1;i++){
+				html = '<tr class="TableData" style="cursor:pointer"><td class="menulines1" id="'+user_ids[i]+'" title="'+user_names[i]+'" align="center" onclick="javascript:click_user(this.id)" width="50%" colspan="2">'+user_names[i]+'</td></tr>';
+				document.write(html);
+				selected_color(user_ids[i]);
+			}
+		}else{
+			html = '<tr class="TableData" style="cursor:pointer"><td class="menulines1" id="'+TO_VAL+'" title="'+TO_NAME+'" align="center" onclick="javascript:click_user(this.id)" width="50%" colspan="2">'+TO_NAME+'</td></tr>';
+			document.write(html);
+			selected_color(TO_VAL); 
+		}
+	}
+}
+
+// 
+</script>
+<body class="bodycolor" topmargin="1" leftmargin="0">
+<table class="TableBlock" width="100%">
+<tr class="TableHeader">
+  <td align="center" colspan="2"><b>{$category_name}</b></td>
+</tr>
+<if condition="$user_res">
+<script>
+var html = '';
+if(!res){
+	html += '<tr class="TableControl"><td onclick="add_all(1);" style="cursor:pointer" align="center" colspan="2">全部添加</td></tr><tr class="TableControl"><td onclick="del_all(1);" style="cursor:pointer" align="center" colspan="2">全部删除</td></tr>'
+}
+document.write(html);
+</script>
+<else />
+<neq name="category_name" value="已选人员">
+<tr class="TableControl">
+  <td style="cursor:pointer" align="center" colspan="2">没有用户</td>
+</tr>
+</neq>
+</if>
+
+<if condition="$category_name eq '已选人员'">
+<script>selected_user();</script>
+<elseif condition="$category_name eq '在线人员'" />
+<volist name="user_res" id="user_vo"><tr class="TableData" style="cursor:pointer">
+<tr class="TableData" style="cursor:pointer">
+  <td class="menulines1" id="{$user_vo['uid']}" title="{$user_vo['USER_NAME']}" align="center" onclick="javascript:click_user(this.id)" width="50%">{$user_vo['USER_NAME']}<script>selected_color({$user_vo['uid']});</script></td>
+<td class="menulines1" width="50%" align="center">{$user_vo['department']}<td>
+</tr>
+</volist>
+<else />
+<volist name="user_res" id="user_vo"><tr class="TableData" style="cursor:pointer">
+<tr class="TableData" style="cursor:pointer">
+  <td  colspan="2" class="menulines1" id="{$user_vo['uid']}" title="{$user_vo['USER_NAME']}" align="center" onclick="javascript:click_user(this.id)">{$user_vo['USER_NAME']}<eq name="user_vo['login']" value="1"><span style="color:red;">(在线)</span></eq><script>selected_color({$user_vo['uid']});</script></td>
+</tr>
+</volist>
+</if>
+</table>
+</body>
+</html>

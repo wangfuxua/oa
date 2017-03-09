@@ -1,0 +1,72 @@
+[ 10-03-07 23:02:40 ]
+
+错误信息：[ oa Public login ]Access denied for user 'root'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (267) DbMysql->connect(Access denied for user 'root'@'localhost' (using password: YES))
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Driver\DbMysql.class.php (114) Db->initConnect()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (925) DbMysql->_query()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (1067) Db->query()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Db->find(, , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Model->_read(, unit, *, , , , , , , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (194) Model->find(, *, , , , , , , , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (100) PublicAction->_unit()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) PublicAction->login()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) App->exec()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\index.php (19) App->run()
+
+[ 10-03-07 23:02:45 ]
+
+错误信息：[ oa Public login ]Access denied for user 'root'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (267) DbMysql->connect(Access denied for user 'root'@'localhost' (using password: YES))
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Driver\DbMysql.class.php (114) Db->initConnect()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (925) DbMysql->_query()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (1067) Db->query()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Db->find(, , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Model->_read(, unit, *, , , , , , , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (194) Model->find(, *, , , , , , , , , )
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (100) PublicAction->_unit()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) PublicAction->login()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) App->exec()
+[10-03-07 23:02:03] D:\PC_webserver\www\oa\index.php (19) App->run()
+
+[ 10-03-07 23:04:30 ]
+
+错误信息：[ oa Public login ]Access denied for user 'root'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (267) DbMysql->connect(Access denied for user 'root'@'localhost' (using password: YES))
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Driver\DbMysql.class.php (114) Db->initConnect()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (925) DbMysql->_query()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (1067) Db->query()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Db->find(, , , )
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Model->_read(, unit, *, , , , , , , , )
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (194) Model->find(, *, , , , , , , , , )
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (100) PublicAction->_unit()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) PublicAction->login()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) App->exec()
+[10-03-07 23:04:03] D:\PC_webserver\www\oa\index.php (19) App->run()
+
+[ 10-03-07 23:06:22 ]
+
+错误信息：[ oa Public login ]Access denied for user 'root'@'localhost' (using password: YES)
+错误页面：/index.php/Public/login
+错误类型：ThinkException
+错误跟踪：
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (267) DbMysql->connect(Access denied for user 'root'@'localhost' (using password: YES))
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Driver\DbMysql.class.php (114) Db->initConnect()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (925) DbMysql->_query()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\ThinkPHP\Lib\Think\Db\Db.class.php (1067) Db->query()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Db->find(, , , )
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (9) Model->_read(, unit, *, , , , , , , , )
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (194) Model->find(, *, , , , , , , , , )
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Lib\Action\PublicAction.class.php (100) PublicAction->_unit()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) PublicAction->login()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\oa\Temp\~runtime.php (7) App->exec()
+[10-03-07 23:06:03] D:\PC_webserver\www\oa\index.php (19) App->run()
+

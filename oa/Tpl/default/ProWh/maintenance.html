@@ -1,0 +1,128 @@
+<include file="Public:header" />
+<script language="JavaScript" type="text/javascript">
+  function changeWH(){
+  	form1.action="__URL__/maintenance";
+  	form1.submit();
+  }
+  function submitXM(){
+  	window.location.href='submit.php?XM_ID=<?php echo $XM_ID ?>&MC=<?php echo $MC ?>';
+  }
+  function SubmitAttach(){
+   if (document.form1.ATTACHMENT.value=="")
+   {
+   		alert("请先选择一个附件！");
+   }
+   else if(document.form1.SHR.value == ""){
+   	    alert("请选择一个审核人！");
+   }
+   else{
+   		var file_temp=document.form1.ATTACHMENT.value,file_name;
+	    var Pos;
+	    Pos=file_temp.lastIndexOf(".");
+	    file_name=file_temp.substring(Pos+1,file_temp.length);
+	    document.form1.ATTACHMENT_NAME.value=file_name;
+	  	document.form1.OPERATION.value = "add";
+	    document.form1.submit();
+   		
+   }
+  }
+  function displayDiv(ID,displayValue){
+  	var el = document.getElementById(ID);
+  	if(el != null){
+  		el.style.display=displayValue;
+  	}
+  }
+  function delete_attach(ID,ATTACHMENT_NAME)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg)){
+  	document.form1.ATTACHMENT_NAME.value=ATTACHMENT_NAME;
+  	document.form1.ID.value = ID;
+  	document.form1.OPERATION.value = "del";
+    document.form1.submit();
+  }
+}
+
+function resubmit(ID,WH_ID,XM_ID,MC,FL){
+	var el = document.getElementById("SHR_"+ID);
+	window.location.href = "reattachsumbit.php?ID="+ID+"&WH_ID="+WH_ID+"&XM_ID="+XM_ID+"&MC="+MC+"&FL="+FL+"&SHR="+el.value;
+}
+</script>
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_open.gif" align="absmiddle"><span class="big3"> 项目维护-{$MC}[{$FL}]</span><br>
+    </td>
+  </tr>
+</table>
+<div align="left">
+<form enctype="multipart/form-data" method="post" name="form1" action="__URL__/attachsubmit">
+上传项目维护附件：
+	<select name="WH_ID" class="SmallSelect" onchange="changeWH()">
+	<volist name="list1" id="vo">
+	<option value="{$vo.id}" <if condition="$WH_ID eq $vo[id]">selected</if>>{$vo.value1}</option>
+	</volist>
+
+	</select>
+	<select name="SHR" class="SmallSelect">
+		<option value="">请选择一个审核人</option>
+		<volist name="listuser" id="vo">
+	       <option value="{$vo.USER_ID}">{$vo.USER_NAME}</option>
+	    </volist>
+	</select>
+	<input type="hidden" name="OPERATION" />
+	<input type="hidden" name="ID"/>
+	<input type="hidden" name="XMZT" value="{$XMZT_WH}"/>
+	<input type="hidden" name="FJ_ID" value="{$XM_ID}" />
+	<input type="hidden" name="XM_ID" value="{$XM_ID}" />
+	<input type="hidden" name="MC" value="{$MC}" />
+	<input type="hidden" name="FL" value="{$FL}" />
+	<input type="hidden" name="ATTACHMENT_NAME"/>
+	<input type="file" name="ATTACHMENT" size="20" class="SmallInput" title="选择附件文件"/>
+	<input type="button" value="上传" class="SmallButton" onclick="SubmitAttach()"/>
+</form>
+</div>
+<br/>
+<br/>
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3">
+	<tr class="TableHeader">
+      <td nowrap align="center">维护类别</td>
+      <td nowrap align="center">附件名称</td>
+      <td nowrap align="center">附件状态</td>
+      <td nowrap align="center">附件操作</td>
+  </tr>
+  
+    <volist name="list" id="vo" key="k" mod="2">
+      <tr class='<eq name="mod" value="1">TableLine1</eq><eq name="mod" value="0">TableLine2</eq>'>
+	        <td nowrap align="center" rowspan="{$vo.rowspan}">{$vo.WH_NAME}</td>
+	        <if condition="$vo[sub] neq ''">
+	     	<?php $bFirst=1;?>
+	        <sublist name="vo[sub]" id="sub">
+	     	<if condition="$bFirst neq 1"><tr class='<eq name="mod" value="1">TableLine1</eq><eq name="mod" value="0">TableLine2</eq>'></if>
+	        <td nowrap align="center">{$sub[FJ_NAME]}</td>
+	     	<td nowrap align="center">{$sub[SH]}</td>
+	     	<td nowrap align="left">{$sub[LINK]}</td>
+	     	<if condition="$bFirst neq 1"></tr></if>
+	     	<?php if($bFirst==1) $bFirst=0;?>
+	     	</sublist>
+	     	<else />
+             
+	        <td nowrap align="center">无附件</td>
+	     	<td nowrap align="center">&nbsp;</td>
+	     	<td nowrap align="left">&nbsp;</td>
+	     		     	
+	     	</if>
+	     </tr>
+	     
+	 </volist>    
+	     		        
+  </table>
+<br/>
+<div align="center">
+<input type="button" class="BigButton" value="提交审批" onclick="submitXM();"/>
+<input type="button" class="BigButton" value="返回" onclick="location='index.php'"/>
+</div>
+
+
+<include file="Public:footer" />

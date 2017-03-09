@@ -1,0 +1,46 @@
+﻿/*
+  * ICON Style
+  *
+  */
+b,.ico{width:30px;height:30px;display:inline;float:left;background-repeat:no-repeat;background-color:transparent;background-image:url('../images/ico/KD_ICON.gif')}
+.ico-tit{background-image:url('../images/ico/KD_ICON_Title.gif')}
+.ico-btn-ie6{background-image:url('../images/ico/KD_ICON_Btn.gif')}
+.ico-btn{background-image:url('../images/ico/KD_ICON_Btn.png');_background-image:url('../images/ico/KD_ICON.gif')}
+/* Title Bar */
+.mydesktop{background-position:-30px -121px}
+.ico-head-news{background-position:-60px -62px}
+/* Btn */
+.ico-custombtn{background-position:-30px -125px}
+.ico-funbar-module{background-position:-120px -125px}
+.ico-funbar-layout{background-position:-150px -125px}
+.ico-funbar-style{background-position:-180px -125px}
+.ico-save {background-position:-60px -125px}
+.ico-reset{background-position:-90px -125px}
+
+.ico-arrow-bottom{ background-position:-24px -272px}
+.ico-close{background-position:-64px -272px}
+.ico-tips-cue{background-position:-210px -125px}
+
+.ico-list { background-position:-240px -124px}
+.ico-list2 { background-position:-270px -124px}
+.ico-add{ background-position:-450px -124px}
+.ico-edit{ background-position:-330px -124px}
+.ico-help{ background-position:-390px -156px}
+.ico-view{background-position:-300px -124px}
+.ico-query{background-position:-360px -124px}
+.ico-refresh {background-position:-420px -156px}
+.ico-accept {background-position:-420px -124px}
+.ico-send {background-position:-390px -124px}
+.ico-calendar {background-position:-180px -64px}
+.ico-clock {background-position:-210px -64px}
+.ico-userInfo {background-position:-600px -214px}
+.ico-userCustom {background-position:-300px -154px}
+.ico-userUrl {background-position:-180px -244px}
+.ico-userPassword {background-position:-510px -124px}
+.ico-voteList {background-position:-570px -124px}
+.ico-vote {background-position:-540px -124px}
+.ico-up {background-position:-270px -694px}
+.ico-previous {background-position:-660px -694px}
+.ico-prev {background-position:-690px -694px}
+.ico-next {background-position:-630px -694px}
+.ico-next2 {background-position:-720px -694px}

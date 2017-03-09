@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>修改控件</title>
+<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+		
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<h2 class="dm_schedule">修改控件</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		
+		<form action="__URL__/update"  method="post" name="form1" >	
+			<input name="fieldId" type="hidden" value="{$row['fieldId']}">
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>控件名</strong><br />
+	  			</td>
+				<td>
+					<input name="name"  type="text" class="dm_blur3" value="{$row['name']}"/>
+				</td>
+		</tr>
+		<tr>
+				<td valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>序号</strong><br />
+	  			</td>
+				<td>
+					<input name="order"  type="text" class="dm_blur3" value="{$row['order']}"/>
+				</td>
+		</tr>
+		<tr><td>控件类型</td><td><select name="formtype" onchange="selectChoose(this.value,this.name,'msg','__URL__/select')">
+       					<option value="">选择类型</option>
+						<option value="text" <eq name="row[formtype]" value="text">selected</eq> >单行文本</option>
+						<option value="textarea" <eq name="row[formtype]" value="textarea">selected</eq>>多行文本</option>
+						<option value="box" <eq name="row[formtype]" value="box">selected</eq>>选项</option>
+						<option value="datetime" <eq name="row[formtype]" value="datetime">selected</eq>>日期和时间</option>
+						<option value="file" <eq name="row[formtype]" value="file">selected</eq>>文件上传</option>
+	  				</select></td></tr>
+	  	    <tr><td><strong>相关参数</strong>
+设置表单相关属性</td><td><div id="msg"></div></td></tr>			
+				<td colspan="2" class="dm_btnzan">
+					<button name="submit" type="submit">修改</button><button name="" onclick="window.history.go(-1)">返回</button>
+					
+				</td>
+			</tr>
+</form>    </table>
+	</div>
+		</body>
+</html>

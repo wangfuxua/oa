@@ -1,0 +1,30 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<tagLib name="cx,html" />
+Date: {$ROW[SEND_TIME]|strtotime|gmdate='r'}
+From: "{$ROW[FROM_NAME]}" <{$ROW[FROM_ID]}>
+MIME-Version: 1.0
+To: "{$ROW[TO_NAME]}" <{$ROW[TO_ID]}>
+<if condtion="$ROW[COPY_TO_ID] neq ''">
+Cc: "{$ROW[COPY_TO_NAME]}" <{$ROW[COPY_TO_ID]}>
+Subject: {$ROW[SUBJECT]};
+Content-Type: multipart/mixed;
+ boundary="==========KDOA=========="
+This is a multi-part message in MIME format.
+--==========KDOA==========
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+
+{$ROW[CONTENT]|base64_encode|chunk_split}
+
+<volist name="list" id="vo">
+--==========KDOA==========
+Content-Type: application/octet-stream;
+	name="{$vo[name]}"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="{$vo[name]}"
+{$vo[contents]|base64_encode|chunk_split}
+</volist>
+
+--==========KDOA==========--

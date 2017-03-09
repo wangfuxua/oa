@@ -1,0 +1,19 @@
+.purview-icon {
+    background-image:url(images/purview-ico.png) !important;
+}
+.purview-shortcut img {
+    background-image: url(images/purview.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='system/modules/Setting/purview/images/purview.png', sizingMethod='scale');
+}
+.x-layout-split {
+	background-color:#ffffff !important;
+}
+.purview-label .x-form-item-label{
+	
+}
+.purview-label .x-form-check-wrap-inner {
+	
+}
+.purview-label .x-form-check-wrap {
+	
+}

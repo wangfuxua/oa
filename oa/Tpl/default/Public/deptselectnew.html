@@ -1,0 +1,53 @@
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />
+<!--弹出-->
+<div id="addDrug" style="display:none;"></div>
+   <div id="addbox" style="display:none;">
+   		<div id="titlebar">
+       	<h2>添加</h2>
+       		<span class="closed"><img src="../Public/newimg/mail_close.gif" width="17" height="17" alt="退出" /></span> 
+     	</div>
+     	<div class="selectbox">
+			<div class="selectboxbder1">
+  				<div id="waitselect">
+    				<p class="ss"><input type="text" value="输入搜索内容汉字或拼音" name="" id="sc-name"  onclick="slect()"/><span id="go-sc"><img src="../Public/newimg/mail_input_sc_bg.gif" width="18" height="16" /></span></p> 
+				    <h3>金凯通达（北京）国际投资有限公司</h3>
+				    <h4 class="over">按部门选择</h4>
+				    <div id="bumen">
+				       {$pub_deptstr}
+				    </div>
+				    <h4>按角色选择</h4>
+				    <div id="juese" style="display:none">      
+				       <ul>
+					       <volist name="pub_privlist" id="vo">
+					       		<li id="P_{$vo.USER_PRIV}">{$vo.PRIV_NAME}</li> 
+					       </volist>         
+				       </ul>
+				    </div>
+				    <h4>按人员选择</h4>
+				    <div id="renyuan" style="display:none">
+				      <ul>
+					       <volist name="pub_userlist" id="vo">
+					       		<li id="U_{$vo.uid}">{$vo.USER_NAME}</li> 
+					       </volist>  
+				     </ul>
+				   	</div>
+  				</div>
+			</div>
+			<div class="selectboxbder2">
+  				<div id="selected">
+					<div class="tl">
+				  	<h3>已添加联系人：</h3><span>清空</span>
+				  	</div>
+				  	<div id="sld-list"> 
+								  	<ul class="bumen"></ul>
+								  	<ul class="juese"></ul>
+								  	<ul class="renyuan"></ul>
+					</div>     
+  			</div>
+		</div>
+     </div>
+     <p class="subotton" style="text-align:center; padding:8px 0; height:20px;background:#f5f8fb"><button type="button" id="qd">确定</button><button type="button" id="qx">取消</button></p>
+   
+     <div><img src="../Public/newimg/mail_added_btm_bg.gif" width="480" height="7" /></div>
+</div> 
+<script type="text/javascript" src="../Public/js/file.js"></script>	 

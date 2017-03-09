@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+<!--	<ul class="dm_submenuul">
+		<li><a href="__URL__/lists" title=""><span>合同记录列表</span></a></li>
+		<li><a href="__URL__/create" title=""><span>新建合同记录</span></a></li>
+	</ul>-->
+<table>
+	<caption class="nostyle">
+			<form action="__URL__/del" method="post" id="form">
+				<input type="hidden" name="id" value="{$contract_res['id']}" />
+<!--				<button  onclick="location='__URL__/edit/id/{$contract_res['id']}/update/1'"  type="button"  title="编辑">编辑</button>
+				<button onclick="location='__URL__/edit/id/{$contract_res['id']}'" type="button" title="复制">复制</button>
+				<button onclick="return confirm('确定要删除当前记录吗?')"  title="刪除" type="submit">删除</button>-->
+				<button onclick="location='__URL__/lists'" type="button">返回列表</button>
+			</form>
+	</caption>
+	<colgroup>
+		<col width="15%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="4">
+				合同记录: {$contract_res['name']}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th class="tdtit" colspan="4"><h4>基本信息：</h4></th></tr>
+	<tr>
+      <td>合同编号：</td>
+      <td>{$contract_res['code']}</td>
+		<td>合同名称：</td>
+		<td >{$contract_res['name']}</td>
+	</tr>	
+    <tr>
+      <td>客户名称：</td>
+      <td>
+		<a href="__APP__/Account/view/id/{$contract_res['account_id']}">{$contract_res['account_name']}</a>
+      </td>
+      <td>合同类型：</td>
+      <td>{$contract_res['type']}</td>
+   </tr>
+    <tr>
+      <td>合同内容：</td>
+      <td  colspan="3">{$contract_res['content']}</td>
+   </tr>
+	<tr>
+      <td>生效日期：</td>
+      <td>{$contract_res['star_time']}</td>
+	  <td>终止日期：</td>
+		<td >{$contract_res['end_time']}</td>
+	</tr>
+	<tr>
+      <td>终止提示日期：</td>
+      <td>{$contract_res['end_prompt_time']}</td>
+		<td>终止提示人员：</td>
+		<td >{$contract_res['end_prompt_user_name']}</td>
+	</tr>
+	<tr>
+      <td>买方签约人：</td>
+      <td>{$contract_res['buyer']}</td>
+		<td>买方签约人电话：</td>
+		<td >{$contract_res['buyer_phone']}</td>
+	</tr>
+	<tr>
+      <td>卖方签约人：</td>
+      <td>{$contract_res['USER_NAME']}</td>
+	  <td>卖方签约人电话：</td>
+		<td >{$contract_res['seller_phone']}</td>
+	</tr>
+    <tr>
+      <td>备注：</td>
+      <td colspan="3">{$contract_res['notation']}
+      </td>
+   </tr>
+   <if condition="$sale_res">
+ 	<tr><th class="tdtit" colspan="4"><h4>销售记录</h4></th></tr>
+	<tr>
+      <td colspan="4">
+      	<table id="payment_record">
+	      	<tr>
+		      	<td>产品/服务</td>
+		      	<td>售价</td>
+		      	<td>数量</td>
+		      	<td>总计</td>
+		      	<td>销售日期</td>
+		      	<td>回款</td>
+		      	<td>未结款</td>
+	      	</tr>
+	      	<volist name="sale_res" id="pay_vo">
+	      	<tr>
+		      	<td>{$pay_vo['product_name']}</td>
+		      	<td>{$pay_vo['sale_price']}</td>
+		      	<td>{$pay_vo['sale_num']}</td>
+		      	<td>{$pay_vo['money_count']}</td>
+		      	<td>{$pay_vo['time_sale']}</td>
+		      	<td <gt name="pay_vo['payment']" value="0">style="color:red;"</gt>>{$pay_vo['payment']}</td>
+		      	<td <gt name="pay_vo['debt']" value="0">style="color:green;"</gt>>{$pay_vo['debt']}</td>
+	      	</tr>
+	      	<present name="pay_vo['pay_record']">
+	      	<tr><!--
+	      	<td></td>
+	      	<td>回款明细</td>-->
+		      	<td colspan="7">
+			      	<table  width="500" align="center">
+				      	<tr>
+					      	<td>回款明细</td>
+					      	<td>
+						      	<table>
+							      	<tr>
+								      	<td>回款</td>
+								      	<td>未结款</td>
+								      	<td>回款日期</td>
+							      	</tr>
+							      	<sublist name="pay_vo['pay_record']" id="vo">
+							      	<tr>
+								      	<td <gt name="vo['payment']" value="0">style="color:red;"</gt>>{$vo['payment']}</td>
+								      	<td <gt name="vo['no_payment']" value="0">style="color:green;"</gt>>{$vo['no_payment']}</td>
+								      	<td>{$vo['pay_time']}</td>
+							      	</tr>
+							      	</sublist>
+						      	</table>
+					      	</td>
+				      	</tr>
+			      	</table>
+		      	</td>
+	      	</tr>
+	      	</present>
+	      	</volist>
+      	</table>
+      </td>
+	</tr> 
+	</if>
+	</tbody>
+</table>
+
+
+</body></html>

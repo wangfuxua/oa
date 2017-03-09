@@ -1,0 +1,146 @@
+<?php 
+
+?>
+
+<html>
+<head>
+<title>状态</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="../Public/images/style.css">
+
+<SCRIPT LANGUAGE="JavaScript">
+function killErrors()
+{
+  return true;
+}
+window.onerror = killErrors;
+
+var ctroltime;
+
+function MyLoad()
+{
+  setTimeout("ref_new_letter1()",300000);
+  ctroltime=setTimeout("ref_sms1()",3000);
+}
+
+function ref_new_letter1()
+{
+  ref_new_letter.location.reload();
+  setTimeout("ref_new_letter1()",300000);
+}
+
+function ref_sms1()
+{
+  ctroltime=setTimeout("ref_sms1()",30000);
+  ref_sms.location="ref_sms.php";
+}
+
+//------------------------------------
+function show_sms()
+{
+   clearTimeout(ctroltime);
+   ctroltime=window.setTimeout('ref_sms1()',40000);
+
+   mytop=screen.availHeight;
+   myleft=0;
+   window.open("sms_show.php","auto_call_show","height=170,width=350,status=0,toolbar=no,menubar=no,location=no,scrollbars=yes,top="+mytop+",left="+myleft+",resizable=yes");
+}
+
+function show_email()
+{
+   parent.table_index.main.location="/general/email/inbox?BOX_ID=0";
+}
+
+function show_online()
+{
+   parent.callleftmenu.leftmenu_open();
+   parent.leftmenu.view_menu(2);
+}
+
+function main_refresh()
+{
+   parent.table_index.main.location.reload();
+}
+
+//-------------------- 菜单窗口控制 -----------------------
+menu_flag=0;
+var STATUS_BAR_MENU;
+
+function show_menu()
+{
+   mytop=screen.availHeight-480;
+   myleft=screen.availWidth-215;
+   if(menu_flag==0)
+       STATUS_BAR_MENU=window.open("/general/ipanel/menu.php?OA_SUB_WINDOW=1","STATUS_BAR_MENU","height=400,width=200,status=0,toolbar=no,menubar=no,location=no,scrollbars=yes,top="+mytop+",left="+myleft+",resizable=no");
+
+   STATUS_BAR_MENU.focus();
+}
+
+function MyUnload()
+{
+   if(menu_flag==1)
+   {
+     STATUS_BAR_MENU.focus();
+     STATUS_BAR_MENU.MAIN_CLOSE=1;
+     STATUS_BAR_MENU.close();
+   }
+}
+</script>
+</head>
+
+<body bgcolor="#264989" class="statusbar" topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" onload="MyLoad();" onunload="MyUnload();">
+
+<?php 
+
+/*
+$connection=OpenConnection();
+
+$query = "SELECT * from INTERFACE";
+
+$cursor= exequery($connection,$query);
+if($ROW=mysql_fetch_array($cursor))
+{
+   $STATUS_TEXT=$ROW["STATUS_TEXT"];
+
+   $STATUS_TEXT=str_replace("<","&lt",$STATUS_TEXT);
+   $STATUS_TEXT=str_replace(">","&gt",$STATUS_TEXT);
+   $STATUS_TEXT=stripslashes($STATUS_TEXT);
+   $STATUS_TEXT=str_replace(" ","&nbsp;",$STATUS_TEXT);
+   $STATUS_TEXT=str_replace("\n","<br>",$STATUS_TEXT);
+}
+*/
+?>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="0" class="small" bordercolorlight="#264989" bordercolordark="#264989">
+  <tr valign="top">
+    <td align="center" width="90">
+       <a href='#' onclick='javascript:show_online();' style='color:#FFFFFF;filter:dropshadow(color=#666666,offx=1,offy=1,positive=1); WIDTH: 100%;FONT-WEIGHT: bold;'>
+       共<input name="user_count1" style="width:20pt;height:12pt;text-align:center;color:#00FF40;FONT-WEIGHT: bold;background-color:transparent; border:0;cursor:hand">人在线
+       </a>
+    </td>
+    <td align="center" width="80">&nbsp;
+       <span id="new_sms"></span>
+    </td>
+    <td align="center" title="点击此处可刷新主操作区页面" style="cursor:hand" onclick="javascript:main_refresh();">
+       <span style="color:#FFFFFF;filter:dropshadow(color=#666666,offx=1,offy=1,positive=1); WIDTH: 100%;  FONT-WEIGHT: bold;">
+<?php 
+
+echo $STATUS_TEXT;
+?>
+       </span>
+    </td>
+    <td align="center" width="80">&nbsp;
+       <span id="new_leter"></span>
+    </td>
+    <td align="center" width="75">&nbsp;
+       <a href="javascript:show_menu();" style="color:#FFFFFF;filter:dropshadow(color=#666666,offx=1,offy=1,positive=1); WIDTH: 100%;FONT-WEIGHT: bold;">菜单</a>
+    </td>
+  </tr>
+</table>
+
+<iframe name="ref_new_letter" src="ref_new_letter.php" width="0" height="0"></iframe>
+<iframe name="ref_sms" src="" width="1" height="1"></iframe>
+
+</body>
+</html>

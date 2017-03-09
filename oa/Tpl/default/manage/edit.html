@@ -1,0 +1,252 @@
+<include file="Public:header2" /> 
+<link href="../Public/swfupload/css/default.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="../Public/swfupload/js/swfupload.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/fileprogress.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/handlers.js"></script> 
+<script type="text/javascript">
+		var swfu;
+
+		//window.onload = function() {
+		function UploadInit() {
+
+					var settings = {
+				flash_url : "../Public/swfupload/swfupload.swf",
+				upload_url: "__APP__/Swfupload/index",	// Relative to the SWF file
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+				file_size_limit : "{$upload_max_filesize} MB",
+				file_types : "*.*",
+				file_types_description : "All Files",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "../Public/swfupload/images/TestImageNoText_65x29.png",	// Relative to the Flash file
+				button_width: "65",
+				button_height: "29",
+				button_placeholder_id: "spanButtonPlaceHolder",
+				button_text: '<span class="theFont">添加附件</span>',
+				button_text_style: ".theFont { font-size: 12;font-color:#333aaa;border:1px solid #97b8cc; }",
+				button_text_left_padding: 7,
+				button_text_top_padding: 4,
+
+				// The event handler functions are defined in handlers.js
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess
+			};
+
+			swfu = new SWFUpload(settings);
+ 
+	     };
+	        
+$(document).ready(function(){
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#SUBJECT").formValidator({onshow:"请输入 公告通知的标题",onfocus:"公告通知的标题不能为空"});
+}); 
+</script>   
+<script language="JavaScript">
+function CheckForm()
+{ 
+
+   if(document.form1.SUBJECT.value=="")
+   { alert("公告通知的标题不能为空！");
+     return (false);
+   }
+/*
+   if(document.form1.CONTENT.value=="")
+   { alert("公告通知的内容不能为空！");
+     return (false);
+   }
+   */
+   document.form1.OP.value="1";
+   return (true);
+}
+function sendForm()
+{
+ if(CheckForm())
+   document.form1.submit();
+}
+function delete_attach(ATTACHMENT_ID,ATTACHMENT_NAME)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  { 
+  $.ajax({
+		type: "POST",
+		url: "__URL__/deleteAttach/NOTIFY_ID/{$ROW.NOTIFY_ID}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/from/edit/ATTACHMENT_NAME/"+ATTACHMENT_NAME,
+		success: function(){
+		alert("删除成功！");
+		$('#a_'+ATTACHMENT_ID).remove();
+		}
+	}); 
+  } 
+}
+function delete_attach_uploading(ATTACHMENT_ID,ATTACHMENT_NAME,fileid)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  {
+     $.ajax({
+		type: "POST",
+		url: "__URL__/deleteAttach/NOTIFY_ID/{$ROW.NOTIFY_ID}/ATTACHMENT_ID/"+ATTACHMENT_ID+"/from/edit/ATTACHMENT_NAME/"+ATTACHMENT_NAME,
+		success: function(){
+			$('#'+fileid).remove(); 
+		}
+	}); 
+  } 
+} 
+ 
+</script>
+
+
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+
+    <!-- Editor Start --> 
+    <script type="text/javascript" src="../Public/neweditor/tiny_mce.js"></script> 
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode: "exact",
+            elements: "CONTENT",          // 要显示编辑器的textarea容器ID
+            language: "zh",
+            theme: "advanced",
+            plugins: "table,emotions",
+            theme_advanced_toolbar_location: "top",
+            theme_advanced_toolbar_align: "left",
+            theme_advanced_buttons1: "formatselect,fontselect,fontsizeselect,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,separator,bullist,numlist,outdent,indent,separator,link,image,forecolor,backcolor,table,emotions",
+            theme_advanced_buttons2: ""
+        });
+    </script>
+    <!-- Editor End -->
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "公告通知管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 3,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "管理已发布的公告", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "添加公告", Url: "__URL__/news", Cls: "", IconCls: "ico ico-add" },
+            { Title: "修改公告", Url: "#", Cls: "", IconCls: "ico ico-edit" }
+        ]
+    });		   
+});
+</script>
+<body>
+
+
+	<div class="KDStyle" id="main">
+		<form enctype="multipart/form-data" action="__URL__/update"  method="post" name="form1">
+			<table>
+				<colgroup>
+					<col width="120"></col>
+					<col width=""></col>
+				</colgroup>
+				<tr>
+					<td>发布范围（部门）：</td>
+					<input type="hidden" name="TO_ID" id="TO_ID" value="{$ROW.TO_ID}">
+					<td><textarea cols="20" name=TO_NAME id="TO_NAME" rows="2" class="selectuser" wrap="yes" readonly>{$ROW.allname}</textarea> 
+					<button name="Abutton2"  type="button" onclick="setInput('TO_ID','TO_NAME','right_show1','true')">添加</button>
+					<!--<button name="Abutton3" onClick="chclear('TO')">清空</button>-->（留空则面向所有用户）</td>
+				</tr>
+				 
+				<tr>
+					<td>标题：</td>
+					<td><div style="float:left;"><input name="SUBJECT" id="SUBJECT" type="text" class="w300" value="{$ROW.SUBJECT}" /></div><div id="SUBJECTTip" style="width:50%;float:left;"></div> </td>
+				</tr>
+				<tr>
+					<td>有效期：</td>
+					<td>
+						<fieldset class="date">
+							<label>生效日期：</label>
+							<input name="BEGIN_DATE" type="text" value="<if condition='$ROW[BEGIN_DATE]'>{$ROW.BEGIN_DATE|date='Y-m-d H:i:s',###}</if>" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+							<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('BEGIN_DATE'),dateFmt:'yyyy-MM-dd HH:mm:ss'})"  />
+							<span>为空为立即生效</span>
+						</fieldset>
+						<fieldset class="date">
+							<label>终止日期：</label>
+							<input name="END_DATE" type="text" value="<if condition='$ROW[END_DATE]'>{$ROW.END_DATE|date='Y-m-d H:i:s',###}</if>" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+							<img src="../Public/images/ico/calendar.png" alt="选择时间" style="cursor:hand" onClick="WdatePicker({el:$dp.$('END_DATE'),dateFmt:'yyyy-MM-dd HH:mm:ss'})"  />
+							<span>为空为手动终止</span>
+						</fieldset>
+
+					</td>
+				</tr>
+				<tr>
+					<td>附件：</td>
+					<td>
+						<if condition="$ROW[ATTACHMENT_NAME] eq ''">无附件<else />
+						<volist name="listatt" id="vo">
+						<span  id="a_{$vo[attid]}" style="float:left"><img src="../Public/images/email_atta.gif">
+						<a href="__APP__/Attach/view/attid/{$vo[attid]}">{$vo[filename]}</a>&nbsp;&nbsp;({$vo[filesize]}字节)&nbsp;&nbsp;<a href="javascript:delete_attach('{$vo[attid]}','{$vo[filename]}');">删除</a><br>
+						<input type="hidden" name="oldattid[]" value="{$vo[attid]}">
+						<input type="hidden" name="oldattname[]" value="{$vo[filename]}"></span><br>
+						</volist>
+						</if>
+						<div style="float:left;display:inline;overflow:hidden;width:auto" id="fsUploadProgress"></div>
+						<div style="float:left;display:none;" id="divStatus"></div>						
+					</td>
+				</tr>				
+				<tr>
+					<td>上传：</td>
+					<td>
+						<div>
+							  	<div style="float:left;width:70px;"><span id="spanButtonPlaceHolder"></span></div> 
+								<input type="button" class="upBtn" value="开始上传" onClick="swfu.startUpload();"  />
+								&nbsp;&nbsp;(附件最大：{$upload_max_filesize})
+						</div>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>提醒：</td>
+					<td><input name="SMS_REMIND" type="checkbox" checked /><label>使用短信息提醒员工 </label></td>
+				</tr>
+				<tr>
+				    <td>内容：</td>
+					<td class="clearTable">
+						<!-- 这里插入编辑器 -->	
+						<textarea cols="" id="CONTENT" name="CONTENT" style="height:205px">{$ROW.CONTENT}</textarea>
+					</td>
+				</tr>
+				<tfoot>
+					<tr>
+						<th colspan="2">
+							
+							<input type="hidden" name="NOTIFY_ID" value="{$NOTIFY_ID}">
+							<input type="hidden" name="OP" value="">
+							<button name="Abutton1" onClick="sendForm()">修改</button>
+							<button name="Abutton1" onClick="location='__URL__/index'">返回</button>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+	</div>
+	
+ 
+<include file="Public:alert_lable" />
+<script type="text/javascript">
+UploadInit();
+</script>   
+ 
+						<ul id="right_show1" style="display:none;">	 
+							<volist name="listall" id="vod"> 
+						 	 	<if condition="$vod.id"><li class="{$vod.id}">{$vod.name}</li></if> 
+			 				</volist>   	 
+		  				</ul>        
+<include file="Public:footer" />

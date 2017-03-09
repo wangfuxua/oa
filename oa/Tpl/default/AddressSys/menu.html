@@ -1,0 +1,101 @@
+<include file="Public:header" />
+
+<body class="panel" topmargin="0" leftmargin="0">
+<!---------------------- 分组 -------------------------------->
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+<tr class="TableHeader" onclick="clickMenu('menu_1')" style="cursor:hand">
+<td nowrap colspan="5" align="center" title=""><b>联系人分组</b></td>
+</tr>
+</table>
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" id="menu_1" style="display:">
+<tr class="TableData" align="center">
+<td nowrap width="100%" id="group_1" onclick="view_group(this,0,1)" onmouseover="setGroupPointer(this, '{$COLOR3}',1)" onmouseout="setGroupPointer(this, '{$COLOR2}',1)" style="cursor:hand" BgColor="{$COLOR1}">默认</td>
+</tr>
+
+<volist name="list" id="vo" key="k">
+<tr class="TableData" align="center">
+<td nowrap width="100%" id="group_{$k}" onclick="view_group(this,{$vo.GROUP_ID},{$k})" onmouseover="setGroupPointer(this, '{$COLOR3}',{$k})" onmouseout="setGroupPointer(this, '{$COLOR2}',{$k})" style="cursor:hand">{$vo.GROUP_NAME}</td>
+</tr>
+</volist>
+
+</table>
+
+<script language="JavaScript">
+var td_id=1;
+
+function setGroupPointer(theRow, thePointerColor,td_id_over)
+{
+  if(td_id!=td_id_over)
+     theRow.bgColor = thePointerColor;
+}
+function clickMenu(ID)
+{
+    targetelement=document.all(ID);
+    if (targetelement.style.display=="none")
+        targetelement.style.display='';
+    else
+        targetelement.style.display="none";
+}
+
+function view_group(theRow,group_id,group_count)
+{
+   parent.main.location="address?GROUP_ID="+group_id;
+   td_id=group_count;
+<?php
+for($I=1;$I<=$k;$I++)
+   echo "     group_".$I.".bgColor='$COLOR2';\n"
+?>
+     theRow.bgColor='{$COLOR1}';
+}
+</script>
+
+<!---------------------- 索引 -------------------------------->
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+<tr class="TableHeader" onclick="clickMenu('menu_2')" style="cursor:hand">
+<td nowrap colspan="5" align="center"><b>索引(按姓氏)</b></td>
+</tr>
+</table>
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" id="menu_2" style="display:none">
+<volist name="names" id="vo" key="m">
+<tr class="TableData" align="center">
+<td width="100%" id="index_{$m}" onclick="view_index(this,'{$vo.ID_STR}','{$vo.TABLE_STR}',{$m})" onmouseover="setIndexPointer(this, '{$COLOR3}',{$m})" onmouseout="setIndexPointer(this, '{$COLOR2}',{$m})" style="cursor:hand">{$vo.TABLE_STR}</td>
+</tr>
+</volist>
+</table>
+
+<script language="JavaScript">
+var index_id=0;
+
+function setIndexPointer(theRow, thePointerColor,index_id_over)
+{
+  if(index_id!=index_id_over)
+     theRow.bgColor = thePointerColor;
+}
+
+function view_index(theRow,id_str,table_str,index_count)
+{
+   parent.main.location="__URL__/SearchSubmit/ID_STR/"+id_str+"/TABLE_STR/"+table_str;
+   index_id=index_count;
+<?php
+for($I=1;$I<=$m;$I++)
+   echo "     index_".$I.".bgColor='$COLOR2';\n"
+?>
+     theRow.bgColor='{$COLOR1}';
+}
+</script>
+
+<!---------------------- 查找 -------------------------------->
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+<tr class="TableHeader" onclick="parent.main.location='__URL__/search'" style="cursor:hand">
+<td nowrap colspan="5" align="center"><b>查找(关键字)</b></td>
+</tr>
+</table>
+
+<!---------------------- 管理分组 -------------------------------->
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+<tr class="TableHeader" onclick="parent.main.location='__URL__/group'" style="cursor:hand">
+<td nowrap colspan="5" align="center"><b>管理分组</b></td>
+</tr>
+</table>
+
+<include file="Public:footer" />

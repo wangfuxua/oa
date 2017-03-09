@@ -1,0 +1,131 @@
+<include file="Public:header" />
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_new.gif" align="absmiddle"><span class="big3">项目详细信息</span><br>
+    </td>
+  </tr>
+</table>
+<table border="0" width="100%" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+    <tr>
+      <td nowrap class="TableData" width="24%">项目名称：</td>
+      <td class="TableData" width="70%">{$row.MC}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">申报属性：</td>
+      <td class="TableData" width="70%">{$row.SX_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">部门属性：</td>
+      <td class="TableData" width="70%">{$row.BM_NAME}</td>
+    </tr>
+	<tr>
+      <td nowrap class="TableData" width="24%">主申请人员：</td>
+      <td class="TableData" width="70%">{$row.ZSBR_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">申请人员：</td>
+      <td class="TableData" width="70%">{$row.FSBR_ID|xmGetUsername}</td>
+	</tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">是否竞标：</td>
+      <td class="TableData" width="70%"><if condition="$row[JB] eq 1">是<else />否</if></tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">申报时间：</td>
+      <td class="TableData" width="70%">{$row.SJ} </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">计划完成时间：</td>
+      <td class="TableData" width="70%">{$row.WCSJ} </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">实际完成时间：</td>
+      <td class="TableData" width="70%">{$row.SJSJ} </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目来源：</td>
+      <td class="TableData" width="70%">{$row.XMLY}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目预算资金：</td>
+      <td class="TableData" width="70%">{$row.YSZJ}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目简介：</td>
+      <td class="TableData" width="70%">{$row.XMJJ}</td>
+    </tr>
+    <tr class="TableHeader">
+      <td colspan="2">申报附件列表</td>
+    </tr>
+    
+   <if condition="$row[FJ_NAME] eq ''">
+    <tr class="TableData"><td align=center colspan="2">无附件</td></tr>
+    <else />
+      <volist name="list" id="vo">
+       <tr class="TableLine1">
+       <td width="24%"><img src="../Public/images/netdisk/{$vo.ATTACH_IMAGE}" align="absmiddle"></td>
+       <td width="70%"><a href="__APP__/Attach/view/attid/{$vo[ATTACH_ID]}">{$vo[ATTACH_NAME]}</a></td>
+      </volist>
+    </if>
+   <?php if($row[XMZT] > $XMZT_UNCREATE)?> 
+   
+    
+   <tr>
+      <td nowrap class="TableData" width="24%">立项时间：</td>
+      <td class="TableData" width="70%">{$row1.LXSJ}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目属性：</td>
+      <td class="TableData" width="70%">{$row1.XMSX_DESC}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目编号：</td>
+      <td class="TableData" width="70%">{$row1.XMBH}</td>
+    </tr>
+	<tr>
+      <td nowrap class="TableData" width="24%">项目负责人：</td>
+      <td class="TableData" width="70%">{$row1.XMFZR_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目组成员：</td>
+      <td class="TableData" width="70%">{$row1.XMZ_IDS|xmGetUsername}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">项目资金：</td>
+      <td class="TableData" width="70%">{$row1.XMZJ}</td>
+	</tr>
+      <td nowrap class="TableData" width="24%">立项意见：</td>
+      <td class="TableData" width="70%">{$row1.LXYJ} </td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">立项部门：</td>
+      <td class="TableData" width="70%">{$row1.LXBM_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap class="TableData" width="24%">立项人员：</td>
+      <td class="TableData" width="70%">{$row1.LXRY_NAME}</td>
+    </tr>
+    <tr class="TableHeader">
+      <td colspan="2">立项附件列表</td>
+    </tr>
+    
+   <if condition="$row1[FJ_NAME] eq ''">
+    <tr class="TableData"><td align=center colspan="2">无附件</td></tr>
+    <else />
+      <volist name="list1" id="vo">
+       <tr class="TableLine1">
+       <td width="24%"><img src="../Public/images/netdisk/{$vo.ATTACH_IMAGE}" align="absmiddle"></td>
+       <td width="70%"><a href="__APP__/Attach/view/attid/{$vo[ATTACH_ID]}">{$vo[ATTACH_NAME]}</a></td>
+      </volist>
+    </if>
+    
+      <tr class="TableHeader">
+      <td colspan="2">项目实施附件列表</td>
+      </tr>
+      
+      <?php ?>
+      
+      </table>
+         
+
+<include file="Public:footer" />

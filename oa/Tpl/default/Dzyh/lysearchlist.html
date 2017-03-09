@@ -1,0 +1,74 @@
+<include file="Public:header_module2" />
+<script language="JavaScript">
+function detail(DZYH_ID)
+{
+ URL="__URL__/detail/DZYH_ID/"+DZYH_ID;
+ myleft=(screen.availWidth-500)/2;
+ window.open(URL,"read_notify","height=400,width=500,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+</script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "低值易耗品领用审核",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 4,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "待审核低值易耗品领用", Url: "__URL__/check/SH/0", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "未通过审核低值易耗品领用", Url: "__URL__/check/SH/1", Cls: "", IconCls: "ico ico-list" },
+            { Title: "已审核低值易耗品领用", Url: "__URL__/check/SH/2", Cls: "", IconCls: "ico ico-list" },
+            { Title: "领用查询", Url: "__URL__/lysearch", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">	
+<table>
+  <thead>
+      <tr>
+      <th>低值易耗品名称</th>
+      <th>编号</th>
+      <th>单价</th>
+      <th>领用人</th>
+      <th>申请时间</th>
+      <th>领用数量</th>		    		
+      <th>审核</th>
+      </tr>
+  </thead>
+  <tbody class="tcenter">
+  <volist name="list" id="vo" key="k" mod="2">
+    <tr>
+      <td>{$vo.MC}</td>
+      <td>{$vo.BH}</td>
+      <td>{$vo.DJ}</td>
+      <td>{$vo.USER_ID|getUsername}</td>
+      <td>{$vo.LYSJ}</td>
+      <td>{$vo.LYSL}</td>
+      <td> <if condition="$vo[SH] eq 2">通过审核<elseif condition="$vo[SH] eq 1" />未通过审核<else />待审核</if></td>
+    </tr>
+    </volist>
+  </tbody>
+ <tfoot> 
+ <tr><th colspan="7">{$page}</th>
+ </tr>
+ </tfoot>
+</table>  
+</div>
+<include file="Public:footer" />

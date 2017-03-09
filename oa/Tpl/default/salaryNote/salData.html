@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Jay" />
+<title>工资上报管理</title>
+
+<link href="../public/style/default/css/kdstyle.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KD.js"></script>
+<script type="text/javascript" src="../Public/style/default/js/main.js"></script>
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+</head>
+<body>
+<div class="KDStyle">
+<form action="__APP__/salaryNote/updateData" method="post" name="form1">
+		<table>
+			<caption>工资数据录入（{$userRow['USER_NAME']}）</caption>
+			<col width="200px" />
+			<thead>
+				<tr>
+					<th>工资项目</th><th>金额</th>
+				</tr>
+			</thead>
+			<tbody>
+					<iterate name="salItemList" id="vo">			
+					<tr>
+						<th>{$vo['ITEM_NAME']}</th><td>
+        <input type="text" name="s{$vo['ITEM_ID']}" size="17" maxlength="14" value=<if condition="$vo['s'] eq ''">0<else />{$vo['s']}</if> ></td>
+					</tr>
+					</iterate>
+					<input type="hidden" name="FLOW_ID" value="{$flowId}">
+					<input type="hidden" name="USER_ID" value="{$userRow['USER_ID']}">
+			</tbody>
+			<tfoot>
+					<tr>
+						<th colspan="2" class="dm_btnzan"><button type="submit"  value="上报" >上报</button>
+						</th>
+					</tr>
+			</tfoot>
+			</form>
+		</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<include file="Public:header" />
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>待办工作</span></a></li>
+		<li><a href="news" title=""><span>新建工作</span></a></li>
+		<li><a href="workControl" title=""><span>工作监控</span></a></li>
+	</ul>
+	<h2 class="dm_schedule">待办工作</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<tr>
+				<th>工作等级</th>
+				<th>工作创建时间</th>
+				<th>文号/说明</th>
+				<th>目前步骤</th>
+				<th>查看进程</th>
+				<th>执行</th>
+				<th>备注</th>
+			</tr>
+			<iterate name="workRow" id="vo">
+			<tr class="tdcenter">
+				<td>{$vo['grade']|workgrade}</td> 
+				<td>{$vo['zworkTime']|formatDate}</td>
+				<td>{$vo['zworkName']}</td>
+				<td>第{$vo['state']}步</td>
+				<td><a href="__APP__/ZworkFlow/flowView/workId/{$vo['zworkId']}">查看工作情况</a></td>
+				<td><a href="__APP__/ZworkFlow/execute/workId/{$vo['zworkId']}">办理</a></td>
+				<td>{$vo['tag']}</td>
+			</tr>
+			</iterate>	
+			<tr><td colspan="7">{$page}</td></tr>
+		</table>
+
+	</div>
+<include file="Public:footer" />

@@ -1,0 +1,9 @@
+					    <volist name="listmsg" id="vo">
+					    <if condition="$LOGIN_USER_ID eq $vo[user_name]">
+					    <p><span class='green'>我 </span> <span class='talkTime'>{$vo.dis_time}</span>
+						<br />{$vo.msg}</p>
+						<else />
+					    <p><span class='blue'>{$vo.user_name}</span> <span class='talkTime'>{$vo.dis_time}</span>
+						<br />{$vo.msg}</p>
+						</if>
+						</volist>

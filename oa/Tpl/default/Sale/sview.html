@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户view</title>
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src ="../Public/js/crm_common.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/Sale/lists/type/1" title=""><span>产品销售记录列表</span></a></li>
+		<li><a href="__APP__/Sale/lists" title=""><span>服务销售记录列表</span></a></li>
+<!--		<li><a href="__APP__/Sale/create/type/1" title=""><span><if condition="$update">修改<else/>新建</if>产品销售记录</span></a></li>
+		<li><a href="__APP__/Sale/create" title=""><span><if condition="$update">修改<else/>新建</if>服务销售记录</span></a></li>-->
+	</ul>
+<table>
+	<caption class="nostyle">
+			<form action="__APP__/Sale/del" method="post" id="form">
+				<input type="hidden" name="id" value="{$sale_res['id']}" />
+				<if condition="$builder eq 1" >
+				<button  onclick="location='__APP__/Sale/edit/id/{$sale_res['id']}/update/1'"  type="button"  title="编辑">编辑</button>
+				<!--<button onclick="location='__APP__/Sale/edit/id/{$sale_res['id']}'" type="button" title="复制">复制</button>-->
+				<button onclick="return confirm('确定要删除当前记录吗?')"  title="刪除" type="submit">删除</button>
+				</if>
+				<button onclick="location='__APP__/Sale/lists'" type="button">返回列表</button>
+			</form>
+	</caption>
+	<colgroup>
+		<col width="15%" />
+		<col width="" />
+		<col width="15%" />
+		<col width="" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="4">
+				服务记录: {$sale_res['id']}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><th class="tdtit" colspan="4"><h4>基本信息：</h4></th></tr>
+	<tr>
+      <td>记录号：</td>
+      <td>
+      	{$sale_res['record_num']}
+      </td>
+		<td>服务：</td>
+		<td >{$sale_res['product_name']}</td>
+	</tr>	
+    <tr>
+      <td>客户名称：</td>
+      <td>{$sale_res['account_name']}</td>
+      <td>总价：</td>
+      <td>{$sale_res['sale_price']}</td>
+   </tr>
+    <tr>
+      <td>销售员：</td>
+      <td >{$sale_res['USER_NAME']}</td>
+      <td>销售日期：</td>
+      <td>{$sale_res['time_sale']}
+      </td>
+   </tr>
+    <tr>
+      <td>备注：</td>
+      <td colspan="3">{$sale_res['notation']}</td>
+   </tr>
+      <tr><th class="tdtit" colspan="4"><h4>回款记录</h4></th></tr>
+  
+	<tr>
+      <td colspan="4">
+      	<table id="payment_record">
+      	<tr>
+      	<td>当前回款</td>
+      	<td>未结款</td>
+      	<td>回款日期</td>
+      	</tr>
+      	<volist name="payment_res" id="pay_vo" key="key">
+      	<tr>
+      	<td <gt name="pay_vo['payment']" value="0">style="color:red;"</gt>>{$pay_vo['payment']}</td>
+      	<td <gt name="pay_vo['no_payment']" value="0">style="color:green;"</gt>>{$pay_vo['no_payment']}</td>
+      	<td>{$pay_vo['pay_time']}</td>
+      	</tr>
+      	</volist>
+      	</table>
+      </td>
+	</tr> 
+	</tbody>
+</table>
+
+
+</body></html>

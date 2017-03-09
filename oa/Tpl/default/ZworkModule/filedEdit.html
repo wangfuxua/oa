@@ -1,0 +1,116 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>修改控件</title>
+<link href="../public/style/default/css/form.css" rel="stylesheet" type="text/css" />
+<link href="../public/style/default/css/table.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="../public/style/default/css/style.css" />
+<script type="text/javascript" src="../public/style/default/js/KD.js" ></script>
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<script type="text/javascript">
+$(function() { 
+    createHeader({
+        Title: "工作流设置",
+        Icon: "",
+        IconCls: "ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+        Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改控件", Url: "__URL__/filedEdit/filedId/{$row['filedId']}", Cls: "", Icon: "", IconCls: "ico ico-add" }
+            ]
+    });
+
+});
+</script>
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+    <script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+	<div class="KDStyle" id="main">
+		<form action="__URL__/filedUpdate"  method="post" name="form1" >	
+			<input name="modelId" type="hidden" value="{$row['modelId']}">
+			<input name="filedId" type="hidden" value="{$row['filedId']}">
+		<table>
+		
+		<thead><tr><th colspan="3">修改控件</th></tr></thead>
+		<tbody>
+		<tr>
+				<th valign="top" class="dm_zanal">
+					<font color="red">*</font> <strong>控件名</strong><br />
+	  			</th>
+				<td colspan="2">
+					<input name="name"  type="text" class="dm_blur3" value="{$row['name']}"/>
+				</td>
+		</tr>
+		<tr><th>控件类型</th><td colspan="2"><select name="formtype" onchange="selectChoose(this.value,this.name,'msg','__URL__/select')">
+       					<option value="">选择类型</option>
+						<option value="text" <eq name="row[formtype]" value="text">selected</eq> >单行文本</option>
+						<option value="textarea" <eq name="row[formtype]" value="textarea">selected</eq>>多行文本</option>
+						<option value="box" <eq name="row[formtype]" value="box">selected</eq>>选项</option>
+						<option value="datetime" <eq name="row[formtype]" value="datetime">selected</eq>>日期和时间</option>
+						
+	  				</select></td></tr>
+	  	    <tr><th><strong>相关参数</strong>
+设置表单相关属性</th><td colspan="2"><div id="msg"><?php include $form; ?></div></td></tr>		
+</tbody>
+<tfoot>
+<tr>
+				<th colspan="3" class="dm_btnzan">
+					<button name="submit" type="submit"><div><span>修改</span></div></button><button name="" onclick="window.history.go(-1)"><div><span>返回</span></div></button>
+				</th>
+			</tr>
+			</tfoot>	
+    </table>
+    </form>
+	</div>
+		</body>
+</html>

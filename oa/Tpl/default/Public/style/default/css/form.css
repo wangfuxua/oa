@@ -1,0 +1,130 @@
+﻿/* 
+ *  Name		: 	form style
+ *  Class		:	KDForm
+ *  Example	:
+ *		form		:	<form class="KDForm">
+ *		text / title	:	<input type="text" name="" class="text" />
+ *		button		:	<button><div><span>按钮</span></div></button>
+ */
+
+/* Reset
+-------------------------------------------------------------- */
+
+label       { font-weight: bold }
+fieldset    { padding:0.2em; margin: 0 0 5px 0; border: 0px solid #ccc; }
+legend      { font-weight: bold; font-size:12px; }
+button {margin:0;padding:0;text-indent:0}
+
+input.text:focus, input.title:focus,
+textarea:focus, select:focus {
+  border:1px solid #666;
+}
+/* KDForm fields
+-------------------------------------------------------------- */
+  
+ .KDForm , .KDForm form, form.KDForm,.KDStyle form {}
+ .KDForm input, .KDStyle input{}
+ .KDStyle input.text,	.KDStyle input.title {margin:auto 5px;font-size:12px;padding:2px;border:1px silver solid;background:url('../images/bg/KD_BG.png') repeat-x left -120px}
+ .KDStyle input									 { margin:auto 5px auto 0}
+ .KDStyle select									 {margin:auto 5px auto 0;font-size:12px;padding:2px;border:1px silver solid}
+ .KDStyle textarea								 {padding:5px}
+ .KDStyle label {padding:0 5px 0 0}
+ .KDStyle button.deep {
+		width:auto;
+		height:20px;
+		line-height:20px;
+		border:0px white solid;
+		color:white;
+		background:url("../images/bg/KD_BG.gif") repeat-x left -300px;
+		text-align:center;
+		padding:0 10px
+ }
+ .KDStyle button{
+	 	width:auto;
+		height:20px;
+		display:inline;
+		line-height:18px;
+		border:1px solid #B5D4F1;
+		background:url("../images/bg/KD_BG.gif") left repeat-x -333px;
+		cursor:pointer;
+		text-align:center;
+		vertical-align:baseline;
+		padding:0 5px;
+		margin:0 5px;
+		overflow:hidden;
+	 
+	 }
+.KDStyle .btn,	.KDStyle button.btn {
+		display:inline-block;
+		display:-moz-inline-stack;
+		*display:inline;
+		*height:22px;
+		zoom:1;
+		margin:0 5px 0 0;
+		border:0;
+		padding:0 5px 0 0;
+		text-align:center;
+		font-family:"微软雅黑",YaHei,"黑体";
+		vertical-align:middle;
+		font-size:12px;
+		color:#000;
+		text-decoration:none;
+		background:url("../images/bg/KD_Btn_r.gif") right center  no-repeat;
+	}
+	.KDStyle button.btn.mtop {margin-top:-7px}
+	
+.KDStyle button.btn,		.KDStyle .btn {
+		cursor:pointer;
+		width:auto;
+		*overflow:visible;
+		border:0 none;
+		background-color:none;
+		vertical-align:middle;
+	}
+.KDStyle button.btn div,	.KDStyle .btn div {
+		display:inline-block;
+		display:-moz-inline-stack;
+		*display:inline;
+		zoom:1;
+		padding:0 0 0 5px;
+		position:relative;
+		white-space:nowrap;
+		font-weight:normal;
+		height:22px;
+		line-height:22px;
+		background:url("../images/bg/KD_Btn_l.gif") left  no-repeat;
+	}
+.KDStyle button.btn div span,	.KDStyle .btn div span {
+		display:inline-block;
+		display:-moz-inline-stack;
+		*display:inline;
+		zoom:1;
+		_margin-top:1px;
+		padding:0px 8px;
+		height:22px;
+		line-height:22px;
+		cursor:pointer;
+		background:url("../images/bg/KD_Btn_bg.gif") left repeat-x;
+	}
+.KDStyle textarea.content      { width: 96%; height: 300px; padding:5px; }
+
+
+/* ////////////////////////////////////////// */
+
+
+
+
+
+/* Success, notice and error boxes
+-------------------------------------------------------------- */
+
+.error,
+.notice, 
+.success    { padding: 8px; margin-bottom: 10px; border: 2px solid #ddd; }
+
+.error      { background: #FBE3E4; color: #8a1f11; border-color: #FBC2C4; }
+.notice     { background: #FFF6BF; color: #514721; border-color: #FFD324; }
+.success    { background: #E6EFC2; color: #264409; border-color: #C6D880; }
+.error a    { color: #8a1f11; }
+.notice a   { color: #514721; }
+.success a  { color: #264409; }

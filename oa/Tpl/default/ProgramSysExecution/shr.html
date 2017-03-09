@@ -1,0 +1,32 @@
+<include file="Public:header" />
+<body class="bodycolor" topmargin="5">
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="../Public/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_open.gif" align="absmiddle"><span class="big3"> 管理项目维护流程</span><br>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="0" cellspacing="1" width="400" align="center" class="small" bgcolor="#000000" cellpadding="3">
+	<tr class="TableHeader">
+     	<td nowrap align="center">表单名称</td>
+      	<td nowrap align="center">操作</td>
+	</tr>
+    <volist name="list" id="vo" key="k" mod="2">
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td width="250" nowrap align="center">{$vo["value1"]}</td>
+      <td nowrap  align="center"><a href="__URL__/shrmanage/WH_ID/{$vo["id"]}/WH_NAME/{$vo["value1"]}">设置</a></td>
+    </tr>
+    </volist>
+</table>
+
+<include file="Public:footer" />	

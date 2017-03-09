@@ -1,0 +1,65 @@
+<include file="Public:header" />
+<script Language=JavaScript>
+window.setTimeout('this.location.reload();',60000);
+</script>
+	<body>
+		<div class="warp">
+			<div class="mail-path">
+				<h3>内部邮件</h3>
+			</div>
+			<div class="mail-menu">
+				<a href="__URL__/add" title="" target="" class="mail-btn-write">写新邮件</a>
+				<a href="__URL__/searchform" title="" target="" class="mail-btn-search">查询邮件</a>
+				<a href="__URL__/mailbox" title="" target="" class="mail-btn-manage">邮箱管理</a>
+			</div>
+			
+			<div class="mail-box">
+				<table>
+					<thead>
+					<tr>
+						<th>邮件箱</th>
+						<th>邮件数</th>
+						<th>占用空间</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="mailbox-tit">
+						<td class="inboxico"><a href="__URL__/inbox/BOX_ID/0" title="" target="">收件箱
+						<if condition="$NEW_LETER_COUNT gt 0"><img src="../Public/images/email_new.gif"></if></a>
+						</td>
+						<td class="mail-num">{$INBOX_COUNT}（{$NEW_LETER_COUNT}封新邮件）</td>
+						<td>{$EMAIL_SIZE1} 字节（约合{$EMAIL_SIZE1_M}M）</td>
+					</tr>
+					<tr>
+						<td class="outboxico"><a href="__URL__/outbox/BOX_ID/0" title="发件箱" >发件箱</a></td>
+						<td class="mail-num">{$OUTBOX_COUNT}</td>
+						<td>　{$EMAIL_SIZE2} 字节 （约合{$EMAIL_SIZE2_M}M）</td>
+					</tr>
+					<tr>
+						<td class="sentboxico"><a href="__URL__/sentbox/BOX_ID/0" title="已发送邮件箱">已发送邮件箱</a></td>
+						<td class="mail-num">{$SENTBOX_COUNT} （{$SENTBOX_COUNT1} 封收件人已删除）</td>
+						<td>{$EMAIL_SIZE3} 字节 （约合{$EMAIL_SIZE3_M}M）</td>
+					</tr>
+					<tr>
+						<td class="deleteboxico"><a href="__URL__/deletebox/BOX_ID/0" title="已删除邮件箱">已删除</a></td>
+						<td class="mail-num">{$DELETEBOX_COUNT}</td>
+						<td>{$EMAIL_SIZE4} 字节（约合{$EMAIL_SIZE4_M}M）</td>
+					</tr>
+				    <volist name="list" id="vo">
+				    <tr class="mail-box-tips">
+				      <td class="inboxico"><a href="__URL__/inbox/BOX_ID/{$vo.BOX_ID}">{$vo.BOX_NAME}</a> </td>
+				      <td>　{$vo.BOX_COUNT} （{$vo.NEW_LETER_COUNT} 封新邮件）</td>
+				      <td>　{$vo.EMAIL_SIZE1} 字节 （约合{$vo.EMAIL_SIZE1_M}M）</td>
+				    </tr>
+				    </volist>
+					<tr class="mail-box-tips">
+						<td><if condition="$EMAIL_CAPACITY neq ''">邮箱限制容量：{$EMAIL_CAPACITY}MB<else />合计</if></td>
+                        <td>　{$EMAIL_COUNT} （{$NEW_COUNT} 封新邮件）</td>
+                        <td>　{$EMAIL_SIZE} 字节 （约合{$EMAIL_SIZE_M}M）</td>
+					</tr>
+					</tbody>
+				</table>
+				<div class="mail-box-bg"> &nbsp;</div>
+			</div>
+		</div>
+<include file="Public:footer" />

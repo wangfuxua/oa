@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>1</id>
+<name>反馈后，立即修改</name>
+<sort>1</sort>
+</item>
+<item>
+<id>2</id>
+<name>反馈后，需下发产品单等待各部门建议后再修改</name>
+<sort>2</sort>
+</item>
+</document>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>工作流程设置</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>设计模型</span></a></li>
+		<li><a href="Procedure-flow.html" title=""><span>定义流程</span></a></li>
+	</ul>
+
+	<h2 class="dm_schedule">为（{$workRow['zworkName']}）创建流程</h2>
+	<h2 class="dm_schedule">管理流程</h2>
+	<div class="dm_conthree">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+			<tr>
+				<th>选择流程步骤</th>
+				<th><select name="flowNum" onchange="selectChoose(this.value,this.name,'msg','__APP__/ZWorkFlow/select')">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				</select></th>
+			</tr>
+		</table> 
+		<form action="__APP__/ZWorkFlow/flowAdd"  method="post" name="form1" >
+		<input name="workId" type="hidden" value="{$workRow['zworkId']}">
+		<div id="msg"></div>
+		</form>
+	</div>
+	<!--选择用户模块开始-->
+         <include file="Public:deptselect" />
+    <!--选择用户模块结束-->
+</body>
+</html>

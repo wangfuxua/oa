@@ -1,0 +1,40 @@
+ 
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.SORT_NAME.value=="")
+   { alert("文件夹名称不能为空！");
+     return (false);
+   }
+   return (true);
+}
+</script>
+
+<body onload="document.form1.SORT_NAME.focus();">
+<form action="__URL__/{$submit}"  method="post" name="form1" id="form1" onsubmit="return CheckForm();">
+ <table>
+<caption class="nostyle">{$des}</caption>
+    <tr>
+      <td nowrap class="TableData"> 文件夹名称：</td>
+      <td class="TableData">
+        <input type="text" name="SORT_NAME" id="sort_name" size="25" maxlength="100" class="BigInput" value="{$sort_name}"><span id="sort_nameTip" width="200" style="padding:5px;width:200px;"></span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" nowrap>
+        <input type="hidden" name="FILE_SORT" value="{$FILE_SORT}">
+        <input type="hidden" name="SORT_ID" value="{$SORT_ID}">
+        <p style="text-align:center;"><button type="submit" value="确定">确定</button>
+        <button type="button" value="返回"onClick="history.back();">返回</button></p>
+      </td>
+    </tr>
+    <tfoot><tr><td colspan="2"></td></tr>
+    </tfoot>
+  </table>
+</form>
+<script src="../Public/js/formValidator.js" type="text/javascript" charset="UTF-8"></script>
+<script src="../Public/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script>
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){alert(msg)}});
+	$("#sort_name").formValidator({onshow:"请输入文件夹名称",onfocus:"文件夹名称不能为空",oncorrect:"文件夹名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"文件夹名称两边不能有空符号"},onerror:"文件夹名称不能为空,请确认"});
+</script> 

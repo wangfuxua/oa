@@ -1,0 +1,61 @@
+/* MAIN NAV STYLES */
+.menu {
+	position:absolute;
+	display:none;
+	visibility:hidden;
+	background-color:#e6e6e6;
+	border: #bbb solid 1px;
+	filter:alpha(opacity=90);
+	-moz-opacity:0.9;
+	opacity: 0.9;
+	color: #000;
+/*	width:150px;*/
+}
+.subDmenu {
+	position:absolute;
+	display:none;
+	visibility:hidden;
+}
+.menuItem, .menuItemHilite, .menuItemX, .menuItemHiliteX,
+.menuItem:visited, .menuItemHilite:visited, .menuItem:hover, .menuItemHilite:hover,
+.menuItem:active, .menuItemHilite:active, .menuItem:link, .menuItemHilite:link,
+.menuItemX:visited, .menuItemHiliteX:visited, .menuItemX:hover, .menuItemHiliteX:hover,
+.menuItemX:active, .menuItemHiliteX:active, .menuItemX:link, .menuItemHiliteX:link {
+	font-family: Arial,Verdana, Helvetica, sans-serif ;
+	font-size: 12px;
+	font-style: normal;
+	line-height: 18px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 4px;
+	padding-right: 10px;
+	text-decoration: none;
+	width: 120px;
+	display: block;
+	border-left: #ddd solid 2px;
+}
+
+.menuItem:hover, .menuItemHilite:hover, .menuItem:active, .menuItemHilite:active,
+.menuItemX:hover, .menuItemHiliteX:hover, .menuItemX:active, .menuItemHiliteX:active {
+	color: #000;
+	border-left: #e81a11 solid 2px;
+}
+
+.menuItem {
+	background-color:#e6e6e6;
+	color: #000;
+}
+
+.menuItemHilite {
+	background-color:#FFFFFF;
+	border-bottom: #bbb;
+}
+
+.menuItemX {
+	background-color:#CCCCCC;
+}
+
+.menuItemHiliteX {
+	background-color:#999999;
+}
+/* UNUSED STYLES */

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>部门管理</title>
+<link href="../public/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript" src="../public/js/js.js"></script>
+		<script type="text/javascript">
+			////////////////////////////////
+$(document).ready(function() {
+    //var val = $("#userSearch input").val(); 
+    $("#userSearch input").keyup(function() {
+        var val = $(this).val();
+        var tree = $("#onlineTree");
+        var box = $("#searchResult");
+        if (val != "") {
+            tree.hide();
+            box.show();
+            box.empty();
+            var result = $(".sTreeNode:contains('" + $(this).val() + "')");
+           result.each(function(i) {
+                $(this).clone().appendTo(box);
+            });
+			$("#searchResult .oTree-bg").remove();
+	        $("#searchResult img[src$='empty.gif']").remove();
+        } else {
+            tree.show();
+            box.empty();
+            box.hide();
+        }
+
+
+
+    });
+});
+		</script>
+</head>
+
+<body>
+<table>
+	<colgroup>
+		<col width="150"></col>
+		<col width=""></col>
+	</colgroup>
+	<tr>
+		<td class="dm_personl tdtop">
+	<div id="userSearch" style="width:98%; margin-left:0px;padding-left:0px">
+		<form action="">
+			<input type="text" value="请输入部门名称" style="width:100%;margin-left:0px;padding-left:0px" />
+		</form>
+	</div>	
+			
+			<div class="userTree" id="onlineTree">
+			        <script type="text/javascript">
+				        <!--
+			            var online = new sTree('online');
+	                    online.config.folderLinks = true;
+			            online.icon = {
+					       root: '../public/images/ico/company-ico.gif', 			
+					        folder: '../public/img/folder.gif', 			
+					        folderOpen: '../public/img/folderopen.gif', 
+					        node: '../public/images/bg_4x7.gif', 		
+					        empty: '../public/img/empty.gif', 			
+					        line: '../public/img/line.gif', 			
+					        join: '../public/img/join.gif', 			
+					        joinBottom: '../public/img/joinbottom.gif', 		
+					        plus: '../public/img/plus.gif', 			
+					        plusBottom: '../public/img/plusbottom.gif',
+					        minus: '../public/img/minus.gif',
+					        minusBottom: '../public/img/minusbottom.gif',
+					        nlPlus: '../public/img/nolines_plus.gif',
+					        nlMinus: '../public/img/nolines_minus.gif'
+					    };
+				        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            online.add(0, -1, '金凯通达', '', '', '', '../public/images/ico/company-ico.gif', '../public/images/ico/company-ico.gif', '', 'user-root');
+					        
+			<volist name="deptlist" id="vo" key="k">
+			    online.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','__URL__/deptEdit/DEPT_ID/{$vo[DEPT_ID]}','dept','blank','../Public/images/treeicon/t_ini.gif','../Public/images/treeicon/t_ini.gif','','oTree-bg');
+			</volist>
+								        
+				        document.write(online);
+				        //-->
+			        </script>
+			    </div>
+<div id="searchResult">	</div>				    
+		</td>
+		<td class="tdtop">
+			<div class="dm_personr">
+			<script type="text/javascript">
+			    iframe('__URL__/blank', '100%', '400', 'blank');
+	        </script>
+</div>
+		</td>
+	</tr>
+</table>
+	
+
+</body>
+</html>

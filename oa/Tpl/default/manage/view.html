@@ -1,0 +1,60 @@
+<include file="Public:header2" />
+<body>
+	<div class="KDStyle" id="main">
+		<table>
+			<colgroup>
+				<col width="100"></col>
+				<col></col>
+			</colgroup>
+			<thead><tr><th colspan="2"></th></tr></thead>
+			<tr>
+				<th>发布人：</th>
+				<td>{$row['FROM_ID']|getUsername} </td>
+			</tr>
+			<tr>
+				<th>发布范围：</th>
+				<td>
+				<if condition="$row['allname']">
+				{$row['allname']}
+				<else />
+				全体
+				</if></td>
+			</tr>			
+			<tr>
+				<th>发布时间：</th>
+				<td>{$row.BEGIN_DATE|date='Y-m-d H:i:s',###}</td>
+			</tr>
+			<tr>
+				<th>标题：</th>
+				<td>{$row['SUBJECT']}</td>
+			</tr>
+			<tr>
+				<th>附件：</th>
+				<td>
+						<if condition="$row[ATTACHMENT_NAME] eq ''">无附件<else />
+						<volist name="listatt" id="vo">
+						<img src="../Public/images/email_atta.gif">
+						<a href="__APP__/Attach/view/attid/{$vo[attid]}">{$vo[filename]}</a>&nbsp;&nbsp;({$vo[filesize]}字节)<br>
+						</volist>
+						</if>
+										
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<p>
+						{$row['CONTENT']}
+					</p>
+				</td>
+			</tr>
+			<tfoot>
+				<tr>
+					<th colspan="2">
+						<button name="Abutton1" onClick="window.close()">关闭</button>
+					</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+<include file="Public:footer" />

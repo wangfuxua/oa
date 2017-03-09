@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+<item>
+<id>3</id>
+<name>A类，合作意向明确近期可实现签单</name>
+<sort>1</sort>
+</item>
+<item>
+<id>3</id>
+<name>B类，有合作潜力可长期跟进</name>
+<sort>2</sort>
+</item>
+<item>
+<id>3</id>
+<name>C类，目前暂时没有需求</name>
+<sort>3</sort>
+</item>
+<item>
+<id>4</id>
+<name>D类，没有合作意向</name>
+<sort>4</sort>
+</item>
+</document>

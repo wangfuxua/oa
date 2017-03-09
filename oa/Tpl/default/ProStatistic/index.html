@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<script language="JavaScript" type="text/javascript">
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  //window.open("/inc/calendar.php?FIELDNAME="+fieldname,"td_calendar","height=176,width=240,status=0,toolbar=no,menubar=no,location=no,scrollbars=no,top="+mytop+",left="+myleft+",resizable=yes");
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+</script> 
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_open.gif" align="absmiddle"><span class="big3"> 项目统计</span>
+    </td>
+  </tr>
+</table>
+<table border="0" cellspacing="1" width="450" class="small" bgcolor="#000000" cellpadding="3" align="center" >
+<form name="form1" action="list.php" method="post">
+	<tr>
+    <td nowrap class="TableData">项目名称： </td>
+    <td nowrap class="TableData">
+    <input type="text" name="XMMC" class="BigInput"/>
+    </td>
+	<tr>
+    <td nowrap class="TableData">立项部门： </td>
+    <td nowrap class="TableData">
+    <select name="BM_ID" class="BigSelect">
+		<option value="0">所有部门</option>
+		<?php
+			echo my_dept_tree(0,0,0);
+		?>
+       </select>
+    </td>
+    </tr>
+    <tr>
+    <td nowrap class="TableData">项目状态： </td>
+    <td nowrap class="TableData">
+    <select name="SXMZT" class="BigSelect">
+		<option value="0">所有状态</option>
+		<option value="(<?php echo XMZT_SUCCESS.",".XMZT_CREATE_SCIENCE.",".XMZT_CREATE_ORDER.",".XMZT_LX.",".XMZT_WH ?>)*已立项">已立项</option>
+		<option value="(<?php echo XMZT_CREATE.",".XMZT_CS.",".XMZT_ZS.",".XMZT_FH ?>)*正在审核">正在审核</option>	
+		<option value="(<?php echo XMZT_UNCREATE ?>)*未立项">未立项</option>
+		<option value="(<?php echo XMZT_CSREJECT.",".XMZT_ZSREJECT.",".XMZT_FHREJECT ?>)*未通过审核">未通过审核</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td nowrap class="TableData">申报时间： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="SJ1" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJ1');">
+         到
+        <input type="text" name="SJ2" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJ2');">
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">立项时间： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="LXSJ1" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.LXSJ1');">
+         到
+        <input type="text" name="LXSJ2" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.LXSJ2');">
+    </td>
+   </tr>
+    <tr>
+    <td nowrap class="TableData">计划完成时间： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="WCSJ1" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.WCSJ1');">
+         到
+        <input type="text" name="WCSJ2" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.WCSJ2');">
+    </td>
+   </tr>   
+   <tr>
+    <td nowrap  class="TableControl" colspan="2" align="center">
+        <input type="submit" value="统计" class="BigButton" title="" name="button">
+    </td>
+   </tr>
+  </form>
+</table>
+<include file="Public:footer" />

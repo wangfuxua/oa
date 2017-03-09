@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Search</title>
+<script type="text/javascript" src="../Public/js/js.js"></script> 
+<script type="text/javascript" src="../public/style/default/js/main.js" ></script>
+<link type="text/css" href="../Public/css/searchL.css" rel="stylesheet" media="all" />
+<script type="text/javascript">
+$(document).ready(function(){
+	
+   	setDomHeight(".auto_d", 220);
+ 
+	$(".seachL h3:first").addClass("active");
+	$(".seachL ul:not(:first)").hide();
+
+	$(".seachL h3").click(function(){
+		$(this).next("ul").slideToggle("fast")
+		.siblings("ul:visible").slideUp("fast");
+		$(this).toggleClass("active");
+		$(this).siblings("h3").removeClass("active");
+	});
+
+});
+function setDomHeight(id, h) {
+    var _H = $(window).height() - h;
+    $(id).height(_H);
+} 
+</script> 
+</head>
+
+<body style="overflow:hidden">
+	<div class="seachL">
+		<h3>公告通知</h3>
+		<ul>
+		<div class="auto_d">
+		<volist name="row_notify" id="vo"> 
+			<li><if condition="$vo.TO_ID neq ''">[部门公告]<else />[全体]</if>
+			<if condition="$vo.TO_ID neq ''">主题：<a href="/index.php/manage/viewUser/NOTIFY_ID/{$vo.NOTIFY_ID}/from/dept" target="_blank">{$vo.SUBJECT}</a><else />主题：<a href="/index.php/manage/viewUser/NOTIFY_ID/{$vo.NOTIFY_ID}/" target="_blank">{$vo.SUBJECT}</a></if>
+			(发布人：{$vo.FROM_ID|getUsername},时间：{$vo.SEND_TIME})</li>
+		</volist>
+		</div>
+		</ul> 
+		<h3>内部邮件（收件箱）</h3>
+		<ul> 
+		<div class="auto_d">
+		<volist name="row_email" id="vo"> 
+			<li>主题：<a href="/index.php/WebMail/" target="_blank">{$vo.SUBJECT}</a>(内容摘要：{$vo.CONTENT})</li>
+		</volist>
+		</div>
+		</ul>
+		<h3>网盘</h3>
+		<ul>
+		<div class="auto_d">
+		<volist name="row_file" id="vo">
+			<li>文件名：<a href="/index.php/File/fileread/sort_id/{$vo.SORT_ID}/CONTENT_ID/{$vo.CONTENT_ID}" target="_blank">{$vo.SUBJECT}</a>( 发表时间：{$vo.SEND_TIME})</li>
+		</volist>
+		</div>
+		</ul>
+	
+		<h3>工作流</h3>
+		<ul>
+		<div class="auto_d">
+		<volist name="zworkList" id="vo">
+			<li>[发起]名称：{$vo['zworkName']},状态：{$vo['state']|workState},操作：<a href="/index.php/ZworkFlow/flowView/workId/{$vo['zworkId']}" target="_blank">查看流程图</a></li> 
+		</volist>
+		<volist name="workflowList" id="vo">	
+			<li>[被指派]名称：<a href="/index.php/ZworkFlow/flowView/workId/{$vo['zworkId']}" target="_blank">{$vo['zworkName']}</a>,步骤：第{$vo['flowId']}步 {$vo['flowName']},完成情况：{$vo['state']|flowState}</li>
+		</volist>
+		</div>
+		</ul>
+		<h3>用户信息</h3> 
+		<ul> 
+		<div class="auto_d">
+		<volist name="row_address" id="vo">  
+		<if condition="$vo.PSN_NAME neq ''"><li><a href="/index.php/Address/detail/ADD_ID/{$vo.ADD_ID}" target="_blank">{$vo.PSN_NAME}</a>(<if condition="$vo.SEX eq 0">男<else />女</if>,生日:{$vo.BIRTHDAY},所在部门：{$vo.DEPT_NAME},角色：{$vo.MINISTRATION},手机：{$vo.MOBIL_NO},邮箱：{$vo.EMAIL} )</li></if>
+		</volist>
+		</div>	 
+		</ul>
+	
+		<h3>客户信息</h3>
+		<ul>
+		<div class="auto_d">
+		<volist name="account_record" id="vo">  
+		 <li>客户名称:<gt name="vo['flag']" value="1"><a href="/index.php/Account/view/id/{$vo['id']}"  target="_blank"></gt>&nbsp;{$vo['name']}<gt name="vo['flag']" value="1"></a></gt>,客户类型:{$vo['type']},地区:{$vo['province']}&nbsp;&nbsp;{$vo['city']},行业:{$vo['industry']},办公电话:{$vo['phone_work']},负责人{$vo['manager_name']}</li>
+		</volist>	
+		</div>
+		</ul>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿				<ul class="ul1 ul2" id="c3">
+				<if condition="$workRow">
+				<iterate name="workRow" id="vo">
+				<li><a href="__APP__/ZworkFlow/flowView/workId/{$vo['zworkId']}">{$vo['zworkName']}</a>第{$vo['state']}步&nbsp;&nbsp;&nbsp;<a href="__APP__/ZworkFlow/execute/workId/{$vo['zworkId']}">快速办理</a></li>
+				</iterate>
+				<else />
+				没有待办工作
+				</if>
+				</ul>

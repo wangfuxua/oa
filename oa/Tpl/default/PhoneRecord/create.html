@@ -1,0 +1,84 @@
+<include file="Public:header2" />
+<title>新建潜在客户</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/crm_common.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/PhoneRecord/lists" title=""><span>来电记录列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/PhoneRecord/create" title=""><span><if condition="$update">修改<else/>新建</if>来电记录</span></a></li>
+	</ul>
+<form  method="POST" name="form1" action='<if condition="$update">__APP__/PhoneRecord/update<else/>__APP__/PhoneRecord/save</if>' onSubmit="return idNull(Array('subject','phone'),Array('subject_msg','phone_msg'),Array('主题不能为空!','电话不能为空!'));">
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="current_id" value="{$phoneRecord_res['id']}" />
+			<button type="submit">保存</button>
+			<button  type="reset">重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>主题:<span style="color:red;">*</span></td>
+		<td>
+		     	<input name="subject" tabindex="1" size="35" maxlength="50" type="text" value="{$phoneRecord_res['subject']}" onBlur="return idNull('subject','subject_msg','主题不能为空!');" />
+		     	<span id="subject_msg"></span>
+     		</td>
+	     <td>电话:<span style="color:red;">*</span></td>
+	     <td><input name="phone"  tabindex="1" size="35" maxlength="50" type="text" value="{$phoneRecord_res['phone']}" onBlur="return idNull('phone','phone_msg','电话不能为空!');"><span id="phone_msg"></span></td>
+ 	</tr>  
+   	<tr>
+		<td >来电类型：</td>
+		<td>
+<!--			<script>
+			change_selected('phonerecord_type', phonerecord_type, "{$phoneRecord_res['phonerecord_type']}");
+			</script>		-->	
+		<input id="phonerecord_type_id" type="hidden" />
+		<input name='phonerecord_type' id="phonerecord_type" type="text" tabindex='2' size='20' maxlength='25' value="{$phoneRecord_res['phonerecord_type']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/phonerecord_type/to_id/phonerecord_type_id/to_name/phonerecord_type',400,300);">选择</button>
+		</td>
+		<td >是否处理：</td>
+		<td>
+<!--			<script>
+			change_selected('phonerecord_status', phonerecord_status, "{$phoneRecord_res['phonerecord_status']}");
+			</script>-->	
+		<input id="phonerecord_status_id" type="hidden" />
+		<input name='phonerecord_status' id="phonerecord_status" type="text" tabindex='2' size='20' maxlength='25' value="{$phoneRecord_res['phonerecord_status']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/phonerecord_status/to_id/phonerecord_status_id/to_name/phonerecord_status',400,300);">选择</button>			
+		</td>
+	</tr>
+	<tr>
+		<td>负责人:</td>
+	 	<td colspan="3">
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$phoneRecord_res['uid']}" />
+		<input id="manager_name" name='manager_name' type="text" value="{$phoneRecord_res['USER_NAME']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>选择</button>	
+	     </td>
+	</tr>
+
+	<tr>
+	     <td>描述:</td>
+	     <td colspan="3"><textarea name="description" cols="60" rows="8" tabindex="4">{$phoneRecord_res['description']}</textarea></td>
+	</tr>
+</tbody>
+</table>
+</form>
+
+<include file="Public:alert_lable" />
+</body></html>

@@ -1,0 +1,101 @@
+<include file="Public:header_module2" />
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "低值易耗品领用",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "低值易耗品列表", Url: "__URL__/requestlist/GLR_ID/all/SYBM_ID/all", Cls: "", Icon: "", IconCls: "ico ico-list" },
+			{ Title: "低值易耗品查询", Url: "__URL__/request", Cls: "", Icon: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+<div class="KDStyle" id="KDMain">		
+<table>
+<col width="120px" />
+  <form action="__URL__/requestlist" method="post" name="form1">
+   <tr>
+    <th>低值易耗品名称：</th>
+    <td>
+    	<input type="text" name="MC" size="33" maxlength="100" value="{$row.MC}">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>编号：</th>
+    <td>
+        <input type="text" name="BH" size="33" maxlength="100" value="{$row.BH}">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>所在地：</th>
+    <td>
+		<input type="text" name="SZD" size="33" maxlength="100" value="{$row.SZD}">&nbsp;
+    </td>
+   </tr>
+   
+   <tr>
+    <th>使用部门：</th>
+    <td>
+		<select name="SYBM_ID" class="BigSelect">
+		<if condition="$user[POST_PRIV] eq 1">
+		<option value="all">所有部门</option>
+		</if>
+		{$my_dept_tree}
+        </select>
+    </td>
+   </tr>
+   <tr>
+    <th>管理人：</th>
+    <td>
+       <select name="GLR_ID" class="BigSelect">
+       <option value="all">所有人</option>
+       {$my_user_list}
+        </select>
+    </td>
+   </tr>
+   <tr>
+    <th>开始使用日期：</th>
+    <td>
+        <input type="text" name="KSSYRQ" size="30" maxlength="30" value="{$row.KSSYRQ}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})">&nbsp;
+    </td>
+   </tr>
+   
+   <tfoot>
+   <tr>
+    <th colspan="2">
+        条件关系：
+   		<select name="RELATION">
+   			<option value="AND">与</option>
+   			<option value="OR">或</option>
+   		</select>
+   		
+        <button type="submit" value="查询" name="button" class="btnFnt">查询</button>
+        
+    </th>
+   </tr>
+   </tfoot>
+  </form>
+</table>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,117 @@
+<include file="Public:header_news" />
+
+<body>
+<script type="text/javascript">
+    $(function() {
+        createHeader({
+            Title: "工作流设置",
+            Icon: "",
+            IconCls: "ico ico-head-news",
+            Cls: "",
+            Active: 2,
+            Toolbar: [
+                { Title: "帮助", Url: "http://help.7e73.com", Icon: "/oa/Tpl/default/Public/style/default/images/ico/ico_help.gif", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false }
+            ],
+            Items: [
+                { Title: "设计模型", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-list" },
+                { Title: "修改控件", Url: "__URL__/filedEdit/filedId/{$row['filedId']}", Cls: "", Icon: "", IconCls: "ico ico-add" },
+                { Title: "预览模型", Url: "__URL__/view/modelId/{$modelId}", Cls: "", Icon: "", IconCls: "ico ico-view" }
+            ]
+        });
+
+    });
+</script>
+
+		<div class="KDStyle" id="main">
+		<form action="__URL__/flowSave"  method="post" name="form1" >	
+			<input name="moduleId" type="hidden" value="{$moduleId}">
+			<input name="flowId" type="hidden" value="{$flowId}">
+		<table width="80%">	
+		<col width="150px" />
+		<caption>修改流程</caption>	
+		<thead><tr><th colspan="2"></th></tr></thead>
+		<tbody>
+		<tr>
+				<th>
+					<font color="red">*</font> <strong>流程名称</strong><br />
+	  			</th>
+				<td>
+					<input name="flowName"  type="text" value="{$flowRow[flowName]}" />
+				</td>
+		</tr>
+		<tr>
+				<th>
+					<font color="red">*</font> <strong>添加流程操作内容</strong><br />
+	  			</th>
+				<td><input type="hidden" name="TO_ID" value="{$filedId}">
+					<input name="TO_NAME"  type="text" value="{$filed}" style="width:50%" readonly />
+					&nbsp;<button name="Abutton1" onClick="oWin('TO')" style="margin-top:-7px"><div><span>添加</span></div></button>
+					&nbsp;&nbsp;<button name="Abutton1" onClick="chclear('TO')" style="margin-top:-7px"><div><span>清空</span></div></button>
+				</td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr>
+				<th colspan="2">
+					<button name="submit" type="submit"><div><span>修改</span></div></button><button onClick="window.history.go(-1)"><div><span>返回</span></div></button>
+				</th>
+			</tr>
+			</tfoot>
+		</form>
+		</table>
+		</div>
+		
+		<!--选择控件开始-->
+         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<div id="mask"></div>
+		<script type="text/javascript" src="/oa/Tpl/default/Public/js/tree.js"></script>
+		<div class="win KDStyle" id="massage_box">
+	        <form action="" method="post">
+		        <table>
+					<thead><tr><th>选择控件</th></tr></thead>
+			        <tr>
+				        <td>
+				        <div class="usertree">
+				        <script type="text/javascript">
+			                <!--
+				            var filed = new sTree('filed');
+				            filed.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            filed.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');           
+				            {$treefiled};
+				            document.write(filed);
+			                //-->
+		                </script>
+				            </div>
+				            <input name="hiddenName" type="hidden" value="" id="hiddenName" />
+				        </td>
+			        </tr>
+			        <tfoot>
+				        <tr>
+					        <td>
+					            
+					            <button name="Abutton1" onClick="senddata()"><div><span>关闭</span></div></button>
+					        </td>
+				        </tr>
+			        </tfoot>
+		        </table>
+	        </form>
+        </div>
+        <script type="text/javascript" defer="defer" src="/oa/Tpl/default/Public/js/selectuser.js"></script>
+        <!--选择控件结束-->
+<include file="Public:footer" />

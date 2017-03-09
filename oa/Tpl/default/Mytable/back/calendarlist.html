@@ -1,0 +1,15 @@
+﻿	<div id="profile_content" class="widget-contentcalendar cB mContent">
+		  <ul>
+				<ul class="widget-contentcalendar ul1 ul3">
+					<volist name="calendarlist" id="vo">
+						<li>{$vo.CAL_TIME}-{$vo.END_TIME|getHi}&nbsp;<a href="#" onclick='javascript:my_notecal("{$vo.CAL_ID}");'>{$vo.CONTENT|str_cut=###,20}</a></li>
+					</volist>
+				</ul>
+				<ul class="ul1 ul3">
+					<volist name="affairlist" id="vo">
+						<li>{$vo.REMIND_TIME}&nbsp;<a href="#" onclick='javascript:my_noteaff("{$vo.AFF_ID}");'>{$vo.CONTENT|str_cut=###,20}</a></li>
+					</volist>
+				</ul>
+		  </ul>
+	</div>
+

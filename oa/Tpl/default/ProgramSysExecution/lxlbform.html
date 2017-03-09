@@ -1,0 +1,46 @@
+<include file="Public:header" />
+<SCRIPT language=javascript>
+function check_form()
+{
+  if(document.form1.LB_NAME.value == "")
+  {
+     alert("类别不能为空!");
+     return false;
+  }
+  
+  return true;	
+}
+</SCRIPT>
+
+
+<body class="bodycolor" topmargin="5" onload="document.form1.LB_NAME.focus();">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/edit.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> {$TITLE}</span><br>
+    </td>
+  </tr>
+</table>
+
+
+<hr width="95%" height="1" align="left" class="big1">
+
+<table border="0" width="450" cellpadding="2" cellspacing="1" align="center" bgcolor="#000000" class="small">
+  <form action="__URL__/lxlbsubmit" method="post" name="form1" onSubmit="return check_form();">
+    <tr> 
+      <td nowrap class="TableData">项目类别名称：</td>
+      <td class="TableData"> 
+        <input type="text" name="LB_NAME" size="30" maxlength="100" class="BigInput" value="{$vo.LB_NAME}">
+      </td>
+    </tr>
+    <tr align="center" class="TableControl"> 
+      <td colspan="2" nowrap>
+        <input type='hidden' value="{$vo.LB_ID}" name="LB_ID">
+        <input type="submit"  value="保存" class="BigButton" name="submit">&nbsp;&nbsp; 
+        <input type="button"  value="返回" class="BigButton" name="back" onClick="history.back();">
+      </td>
+    </tr>
+  </form>
+</table>
+
+
+<include file="Public:footer" />

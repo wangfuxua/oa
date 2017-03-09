@@ -1,0 +1,40 @@
+<include file="Public:header" />
+    <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+       <tr class="TableHeader" onclick="clickMenu('1')" style="cursor:hand" title="点击伸缩列表">
+         <td nowrap align="center"><b>在职人员</b></td>
+       </tr>
+    </table>
+    <table border="0" cellspacing="1" width="100%" class="small" cellpadding="3" id="1">
+    <tr>
+      <td>
+      {$html}
+       </td>
+     </tr>
+    </table>
+    <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+       <tr class="TableHeader" onclick="clickMenu('0')" style="cursor:hand" title="点击伸缩列表">
+         <td nowrap align="center"><b>离职人员/外部人员</b></td>
+       </tr>
+    </table>
+    <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" id="0" style="display:none">
+    <tr class="TableData" align="center">
+      <td nowrap width="80"><?=$USER_PRIV?></td>
+      <td nowrap><a href="user_edit.php?USER_ID=<?=$USER_ID?>&DEPT_ID=0" target="user_main"><?=$USER_NAME?></a></td>
+    </tr>
+    </table>
+
+<script language="JavaScript">
+function clickMenu(ID)
+{
+
+    targetelement=document.all(ID);
+    if (targetelement.style.display=="none")
+        targetelement.style.display='';
+    else
+        targetelement.style.display="none";
+    
+    if(ID==0)
+       parent.user_main.location="user_new.php?DEPT_ID="+ID;
+}
+</script>
+<include file="Public:footer" />

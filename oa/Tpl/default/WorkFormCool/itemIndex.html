@@ -1,0 +1,129 @@
+<include file="Public:header" />
+<script>
+function delete_item(ID)
+{
+ msg='确认要删除该字段么？';
+ if(window.confirm(msg))
+ {
+  URL="delete.php?FORM_ID=<?=$FORM_ID?>&ID="+ID;
+  window.location=URL;
+ }
+}
+</script>
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="/images/notify_new.gif" align="absmiddle"><span class="big3"> 新建表单字段 ({$flowFormType['FORM_NAME']})</span><br>
+    </td>
+  </tr>
+</table>
+
+<BR>
+<div align="center">
+<input type="button"  value="新建表单字段" class="BigButton" onClick="location='edit.php?FORM_ID={$flowFormType['FORM_ID']}';" title="新建表单字段">
+</div>
+
+<br>
+
+<table width="95%" border="0" cellspacing="0" cellpadding="0" height="3">
+ <tr>
+   <td background="/images/dian1.gif" width="100%"></td>
+ </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="/images/notify_open.gif" align="absmiddle"><span class="big3"> 管理表单字段 ({$flowFormType['FORM_NAME']})</span><br>
+    </td>
+  </tr>
+</table>
+<br>
+
+<?
+ //-------列出所有表单字段-------
+ $connection=OpenConnection();
+ $query = "SELECT * from FLOW_FORM_ITEM WHERE FORM_ID=$FORM_ID ORDER BY ITEM_ID";
+ $cursor = exequery($connection,$query);
+
+ $ITEM_COUNT=0;
+ while($ROW=mysql_fetch_array($cursor))
+ {
+    $ITEM_COUNT++;
+
+    $ID = $ROW["ID"];
+    $ITEM_ID = $ROW["ITEM_ID"];
+    $ITEM_NAME = $ROW["ITEM_NAME"];
+    
+    $ITEM_NAME=str_replace("<","&lt",$ITEM_NAME);
+    $ITEM_NAME=str_replace(">","&gt",$ITEM_NAME);
+    $ITEM_NAME=stripslashes($ITEM_NAME);
+    
+    $ITEM_TYPE = $ROW["ITEM_TYPE"];
+    $WIDTH = $ROW["WIDTH"];
+    $HEIGHT = $ROW["HEIGHT"];
+    $NEW_LINE = $ROW["NEW_LINE"];
+    
+    if($ITEM_TYPE=="1")
+       $ITEM_TYPE="单行输入框";
+    else
+       $ITEM_TYPE="多行输入框";
+
+    if($NEW_LINE=="1")
+       $NEW_LINE="是";
+    else
+       $NEW_LINE="否";
+
+    if($ITEM_COUNT==1)
+    {
+?>
+  <table border="0" cellspacing="1" width="95%" class="small" bgcolor="#000000" cellpadding="3">
+    <tr class="TableHeader">
+      <td nowrap align="center">序号</td>
+      <td nowrap align="center">字段名称</td>
+      <td nowrap align="center">类型</td>
+      <td nowrap align="center">宽度</td>
+      <td nowrap align="center">高度</td>
+      <td nowrap align="center">此字段之后换行</td>
+      <td nowrap align="center">操作</td>
+    </tr>
+<?
+    }
+
+    if($ITEM_COUNT%2==1)
+       $TableLine="TableLine1";
+    else
+       $TableLine="TableLine2";
+?>
+    <tr class="<?=$TableLine?>">
+      <td align="center"><?=$ITEM_ID?></td>
+      <td align="center"><?=$ITEM_NAME?></td>
+      <td align="center"><?=$ITEM_TYPE?></td>
+      <td align="center"><?=$WIDTH?></td>
+      <td align="center"><?=$HEIGHT?></td>
+      <td align="center"><?=$NEW_LINE?></td>
+      <td align="center">
+        <a href="edit.php?FORM_ID=<?=$FORM_ID?>&ID=<?=$ID?>">编辑</a>&nbsp;&nbsp;
+        <a href="javascript:delete_item('<?=$ID?>');">删除</a>
+      </td>
+    </tr>
+<?
+ }
+
+ if($ITEM_COUNT>0)
+ {
+?>
+  </table>
+<?
+ }
+ else
+    Message("","尚未定义表单字段");
+    
+?>
+
+<div align="center">
+<BR>
+<input type="button"  value="表单预览" class="BigButton" onClick="location='../preview.php?FORM_ID=<?=$FORM_ID?>';">&nbsp;&nbsp;
+<input type="button"  value="返回" class="BigButton" onClick="location='../';">
+</div>
+<include file="Public:footer" />

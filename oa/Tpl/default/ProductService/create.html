@@ -1,0 +1,149 @@
+<include file="Public:header2" />
+
+<title>产品保修</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" /> 
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.calendar{width:220px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+</style>
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/crm_common.js"></script>
+<script src="../Public/js/calendar.js"></script>
+<script src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<link href="../Public/style/default/css/KDailog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/style/default/js/KDailog.js"></script>
+<script type="text/javascript">
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked && (cal.sel.id == "sel1" || cal.sel.id == "sel3"))
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+</head>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__APP__/ProductService/lists" title=""><span>产品保修档案列表</span></a></li>
+		<li class="dm_on"><a href="__APP__/ProductService/create" title=""><span><if condition="$update">修改<else/>新建</if>产品保修档案</span></a></li>
+	</ul>
+<form  method="post" name="form1" action='<if condition="$update">__APP__/ProductService/update<else/>__APP__/ProductService/save</if>' onSubmit="return idNull(Array('name','account_name','product_name'),Array('name_msg','account_msg','product_msg'),Array('产品保修档案名称不能为空！','客户名称不能为空！','产品名称不能为空！'));">		
+<table>
+<colgroup>
+	<col width="15%" />
+	<col width="" />
+	<col width="15%" />
+	<col width="" />
+</colgroup>
+<thead>
+	<tr>
+		<td colspan="4" class="tdleft">
+			<input type="hidden" name="current_id" value="{$productService_res['id']}" />
+			<button type="submit" >保存</button>
+			<button  type="reset" >重置</button>
+			<label>*代表必填项</label>
+
+		</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>产品保修档案名称: <span style="color:red;">*</span></td>
+		<td>
+			<input name='name' id="name" tabindex='1' size='30' maxlength='50' type="text" value="{$productService_res['name']}" onBlur="return idNull('name','name_msg','产品保修档案名称不能为空！');" />
+			<input type="hidden" name="current_id" value="{$productService_res['id']}" /><span id="name_msg"></span>
+		</td>
+		<td> 客户名称: <span style="color:red;">*</span></td>
+		<td>
+			<input  id="parent_name" name='account_name' type="text" size='30' value="{$productService_res['account_name']}" readonly />
+			<input id='parent_id' name='account_id' type="hidden" value="{$productService_res['account_id']}" />
+			<button title="选择 [Alt+T]"  type="button" tabindex='1' onClick="KDwin('__APP__/Account/lists/to_id/parent_id/to_name/parent_name',500,400);">选择</button><span id="account_msg"></span>
+			</td>
+	</tr>
+
+	<tr>
+		<td> 产品名称: <span style="color:red;">*</span></td>
+		<td>
+		<input class="sqsEnabled" tabindex="1" autocomplete="off" id="product_name" name='product_name' type="text" size='30' value="{$productService_res['product_name']}" onBlur="return idNull('product_name','product_msg','产品名称不能为空！');" />
+		</td>
+		<td> 服务等级: </td>
+		<td>
+<!--			<script>
+			change_selected('service_grade', service_grade, "{$productService_res['service_grade']}");
+			</script>-->
+		<input id="service_grade_id" type="hidden" />
+		<input name='service_grade' id="service_grade" type="text" tabindex='2' size='20' maxlength='25' value="{$productService_res['service_grade']}" readonly />
+		<button title="选择"  type="button" onClick="KDwin('__APP__/XmlFile/lists/dis/service_grade/to_id/service_grade_id/to_name/service_grade',400,300);">选择</button>
+		</td>
+	</tr>
+
+	<tr>
+		<td> 产品购买日期:</td>
+		<td>
+			<input name='buy_time' id='sel1' type="text" tabindex='1' size='11' maxlength='10' value="{$productService_res['buy_time']}" readonly />
+			<button type="reset"  onclick="return showCalendar('sel1', '%Y-%m-%d');" >日历</button>
+			<span class="dateFormat">yyyy-mm-dd</span><span id="date_msg"></span>
+		</td>
+		<td>保修结束日期:</td>
+		<td>
+			<input name='maintenance_end_time' id='sel3' type="text" tabindex='1' size='11' maxlength='10' value="{$productService_res['maintenance_end_time']}" readonly />
+			<button type="reset"  onclick="return showCalendar('sel3', '%Y-%m-%d');" >日历</button>
+			<span class="dateFormat">yyyy-mm-dd</span><span id="date_msg"></span>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td >负责人：</td>
+		<td colspan="3">
+		<input id='one_or_more' type="hidden" value="y" />
+		<input id='manager_id' name='manager_id' type="hidden" value="{$productService_res['uid']}" />
+		<input id="manager_name" name='manager_name' type="text" value="{$productService_res['USER_NAME']}" readonly />
+		<button title="选择" type="button"  onclick="setInput('manager_id','manager_name','right_show1','true')"/>选择</button>	
+		</td>
+	</tr>
+
+	<tr>
+		<td>描述:</td>
+		<td colspan="3">
+			<textarea name='description' tabindex='3' cols="60" rows="8">{$productService_res['description']}</textarea>
+		</td>
+	</tr>	
+
+</tbody>
+</table>
+</form>
+
+<include file="Public:alert_lable" />
+</body></html>

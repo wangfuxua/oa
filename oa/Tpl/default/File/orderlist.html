@@ -1,0 +1,9 @@
+<table>
+<form action="__URL__/orderlistsubmit" method="POST">
+<tr><td width="10%">排序</td><td>文件夹名称</td></tr>
+<volist name="row" id="vo"> 
+<tr><td><input size="1" name="order_list[{$vo.SORT_ID}]" value="{$vo.ORDER_LIST}"></td><td>{$vo.SORT_NAME}</td></tr>
+</volist>
+<tr><td><button type="submit">更新</button></td><td></td></tr>
+</form>
+</table>

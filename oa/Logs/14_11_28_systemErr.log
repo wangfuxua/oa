@@ -1,0 +1,9 @@
+[ 14-11-28 11:20:25 ]
+
+错误信息：[ oa public login ]无法加载模块public
+错误页面：/index.php/public/login
+错误类型：ThinkException
+错误跟踪：
+[14-11-28 11:20:11] /www/web/oa/public_html/oa/Temp/~runtime.php (7) App->exec()
+[14-11-28 11:20:11] /www/web/oa/public_html/index.php (19) App->run()
+

@@ -1,0 +1,36 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="../Public/images/style.css">
+<link rel="stylesheet" type="text/css" href="../Public/images/menu.css">
+
+<script>
+function view_online()
+{
+  parent.user_online.location="/index.php/userOnline/index";
+  setTimeout('view_online();',60000);
+}
+
+setTimeout('view_online();',60000);
+</script>
+</head>
+
+<body topmargin="0" leftmargin="0"  onload="parent.init_menu()">
+
+<TABLE class="small" cellspacing="0" height="100%" width="100%" bgcolor="#EEEEEE" border="1" bordercolorlight="#000000" bordercolordark="#FFFFFF" cellpadding="0">
+ <TR>
+   <TD title="主菜单" id="menu_1" onclick="parent.view_menu(1)" onmouseover="parent.setPointer(this,1,1)" onmouseout="parent.setPointer(this,2,1)" align="center" style="cursor:hand">
+   主菜单
+   </TD>
+   <TD title="在线人员" id="menu_2" onclick="parent.view_menu(2)" onmouseover="parent.setPointer(this,1,2)" onmouseout="parent.setPointer(this,2,2)" align="center" style="cursor:hand">
+   在线人员
+   </TD>
+   <TD title="全部人员" id="menu_3" onclick="parent.view_menu(3)" onmouseover="parent.setPointer(this,1,3)" onmouseout="parent.setPointer(this,2,3)" align="center" style="cursor:hand">
+   全部人员
+   </TD>
+   </TR>
+</TABLE>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<include file="Public:header_module" />
+<script>
+function delete_sbsx(SX_ID)
+{
+ msg='确认要删除该申报属性吗？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/sbsxdelete/SX_ID/"+SX_ID;
+  window.location=URL;
+ }
+}
+</script>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="pro-manage.html" title=""><span>申报属性</span></a></li>
+		<li><a href="" title=""><span>申报流程</span></a></li>
+		<li><a href="" title=""><span>问题类型</span></a></li>
+		<li><a href="" title=""><span>模板管理</span></a></li>
+	</ul>
+
+<div align="center">
+<input type="button"  value="新建申报属性" class="dm_custo" onClick="location='__URL__/sbsxform';" title="新建申报属性">
+</div>
+	<div class="dm_conone">
+		<h2>管理申报属性</h2>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+    <tr>
+      <td class="dm_zanal">属性名称</td>
+      <td>操作</td>
+    </tr>
+    <volist name="list" id="vo" key="k" mod="2">
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td width="250">{$vo.SX_NAME}</td>
+      <td>
+          <a href="__URL__/sbsxform/SX_ID/{$vo.SX_ID}">编辑申报属性</a>&nbsp;&nbsp;
+          <a href="javascript:delete_sbsx({$vo.SX_ID});">删除</a>&nbsp;
+      </td>
+    </tr>
+    </volist>
+  </table>
+  </div>
+  
+<include file="Public:footer" />

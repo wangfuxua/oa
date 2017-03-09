@@ -1,0 +1,613 @@
+@charset "utf-8";
+#taskbar{
+	font-size:12px;
+	font-family:"lucida grande", tahoma, verdana, arial, sans-serif;
+	margin:0;
+	padding:0;
+}
+
+#taskbar ul, #taskbar li,#taskbar ol {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+#taskbar img {
+	border:none;
+}
+#taskbar a {
+	color:#3B5998;
+	text-decoration:none;
+}
+#taskbar .clear {
+	clear:both;
+}
+#taskbar .center {
+	text-align:center;
+}
+#taskbar .error {
+	color:red;
+}
+#taskbar {
+	position:fixed;
+	bottom:0;
+	right:15px;
+	height:24px;
+	width:0;
+	background:url(../images/bar_bg_bw.gif) repeat-x;
+	border-left:1px solid #b5b5b5;
+	border-bottom:none;
+	z-index:100;
+}
+#tasktray {
+	position:fixed;
+	bottom:0;
+	right:15px;
+	border:1px solid #b5b5b5;
+	border-bottom:none;
+	height:23px;
+	width:195px;
+}
+#trayFriend {
+	position:fixed;
+	bottom:0;
+	right:75px;
+	width:135px;
+	height:23px;
+	border-right:1px solid #b5b5b5;
+}
+#trayNotification {
+	position:fixed;
+	bottom:0;
+	right:45px;
+	width:29px;
+	height:23px;
+	border-right:1px solid #b5b5b5;
+}
+#trayChat {
+	position:fixed;
+	bottom:0;
+	right:16px;
+	width:29px;
+	height:23px;
+}
+#trayChat div.trayIcon {
+	background:url(../images/im_online.gif) center no-repeat;
+}
+#trayNotification div.trayIcon {
+	background:url(../images/notifications.gif) center no-repeat;
+}
+#taskbar div div div.trayIcon {
+	height:22px;
+	display:block;
+	cursor:pointer;
+}
+#tasktray #trayFriend div.trayIcon {
+	width:135px;
+}
+#taskbar div div div.trayIcon:hover {
+	background-color:#fff;
+}
+#taskbar div div.highlight div.trayIcon:hover {
+	background:transparent;
+}
+#tasktray div div.trayIcon div {
+	display:none;
+	position:absolute;
+	right:13px;
+	bottom:26px;
+	height:30px;
+	background:url(../images/dark-pointer.gif) 100% 100% no-repeat;
+}
+#tasktray div div.trayIcon div strong {
+	font-size:12px;
+	font-weight:400;
+	background:#000;
+	color:#FFF;
+	display:block;
+	text-align:center;
+	width:40px;
+	margin-right:-5px;
+	padding:4px;
+}
+#tasktray div#trayNotification div.trayIcon div strong {
+	width:60px;
+}
+#tasktray div div.trayIcon:hover div {
+	display:block;
+}
+#tasktray .tab_count {
+	right:0;
+	bottom:17px;
+}
+#taskbar div div div div.trayIcon {
+	position:absolute;
+	z-index:1000;
+	background-color:#fff;
+	bottom:0;
+	left:-1px;
+	height:22px;
+	width:28px;
+	border:1px solid #666;
+	border-top:none;
+}
+#tasktray #trayChat div div.trayIcon {
+	left:0;
+}
+#taskbar div div div div.trayPanel {
+	position:fixed;
+	z-index:999;
+	background:#fff url(../images/status_menu_bg.gif) right bottom no-repeat;
+	bottom:23px;
+	right:15px;
+	width:195px;
+	border:1px solid #666;
+	border-bottom:none;
+	overflow:hidden;
+}
+#tasktray div#trayNotification div div.trayPanel {
+	background:#fff url(../images/status_menu_bg.gif) 164px bottom repeat-x;
+}
+#tasktray div#trayFriend div div.trayPanel {
+	background:#fff;
+	border-bottom:1px solid #666;
+}
+#trayFriend div.trayIcon span {
+	display:block;
+	font-size:12px;
+	color:#333;
+	height:22px;
+	line-height:22px;
+	text-indent:20px;
+	background:url(../images/buddy_list.gif) left 4px no-repeat;
+	border-top:none;
+	margin:0 5px;
+}
+#trayFriend div.trayIcon span span {
+	font-size:11px;
+}
+#trayNotification .trayNotiSeeAll {
+	height:20px;
+	background:#eee;
+}
+#trayNotification .trayNotiSeeAll a {
+	float:right;
+}
+#trayNotification .trayPanelBoty ul li {
+	margin:5px 5px 5px 10px;
+}
+#trayNotification .trayPanelBoty ul li div.icon {
+	float:left;
+	font-size:1px;
+	line-height:1px;
+	margin-top:3px;
+	text-align:center;
+	width:16px;
+	padding-top:3px;
+}
+#trayNotification .trayPanelBoty ul li p {
+	border-top:1px solid #b0b0b0;
+	margin-left:25px;
+	padding:2px 0;
+}
+*:first-child+html #trayNotification .trayPanelBoty ul li p {
+	margin-top:-17px;
+	width:140px;
+}
+#trayNotification .trayPanelBoty ul li div.close {
+	background:transparent url(../images/x_to_hide_gray.gif) no-repeat scroll center top;
+	cursor:pointer;
+	float:right;
+	height:16px;
+	width:16px;
+	margin-top:6px;
+	visibility:hidden;
+}
+#trayNotification .trayPanelBoty ul li:hover div {
+	visibility:visible;
+}
+#trayNotification .trayPanelBoty ul li:hover div.close:hover {
+	background-image:url(../images/x_to_hide_hover.gif);
+}
+#trayNotification .timeSpan {
+	font-size:9px;
+	color:#999;
+}
+#trayChat .trayPanelBody div.available, #trayChat .trayPanelBody div.status_updates {
+	display:block;
+	clear:both;
+	margin:0 15px;
+	padding:10px 0;
+}
+#trayChat .trayPanelBody div.available a {
+	padding:0 13px;
+}
+#trayChat .trayPanelBody div.status_updates a.imgcontainer {
+	float:left;
+	padding:6px;
+}
+#trayChat .trayPanelBody div.available span, #trayChat .trayPanelBody div.status_updates span {
+	line-height:14px;
+	height:14px;
+}
+#trayChat .trayPanelBody div.available {
+	border-bottom:1px solid #ccc;
+}
+#trayChat .trayPanelBody div.status_updates input {
+	border:1px solid #9fafbb;
+}
+#am_doing input {
+	line-height:12px;
+}
+#doing {
+	width:110px;
+	min-height:20px;
+	display:block;
+	color:#666;
+}
+#trayChatSetting {
+	display:none;
+	text-align:left;
+	border-top:1px solid #aaa;
+}
+#trayChatSetting li {
+	margin:4px 5px;
+}
+#trayChatSetting input {
+	margin-right:6px;
+	margin-left:5px;
+}
+#trayChatSetting img {
+	display:none;
+	margin-right:5px;
+	margin-left:3px;
+}
+.trayPanelTitle {
+	background:#428E05 url(../images/minimize.gif) 175px -1px no-repeat;
+	color:#FFF;
+	cursor:pointer;
+	font-size:12px;
+	padding:3px 10px;
+}
+.trayPanelTitle.hover {
+	background-position:175px -17px;
+	color:#FFF;
+}
+.trayPanelTitle a, .trayPanelTitle a:link, .trayPanelTitle a:visited {
+	color:#ccc;
+}
+.trayPanelTitle a:hover {
+	color:#fff;
+}
+#trayChatMenu {
+	text-align:right;
+	background:#e8e8e8;
+}
+#trayFriend .trayFriendList li {
+	cursor:pointer;
+	padding:3px 15px;
+}
+#trayFriend .trayFriendList li:hover {
+	background:#e5ebfe no-repeat;
+}
+#trayFriend .trayFriendList li.online {
+	background-image:url(../images/im_online_dot.gif);
+	background-repeat:no-repeat;
+	background-position:90% 5px;
+}
+#trayFriend .trayFriendList li img {
+	float:left;
+	width:30px;
+	height:30px;
+}
+#trayFriend .trayFriendList li span.info {
+	color:gray;
+	font-size:12px;
+	display:block;
+	margin-left:35px;
+}
+#trayFriend .trayFriendList li span.info span {
+	font-size:9px;
+}
+#trayFriend .trayFriendList li span.name {
+	color:#526EA6;
+	margin-left:5px;
+}
+#chatbar {
+	position:relative;
+	bottom:0;
+	right:198px;
+}
+.chatting {
+	position:relative;
+	width:135px;
+	height:23px;
+	border-left:1px solid #b5b5b5;
+	display:none;
+	float:right;
+	bottom:-1px;
+}
+#chatbar div.highlight {
+	background:url(../images/bar_bg.gif);
+	color:#FFF;
+}
+#chatbar div.highlight .trayIcon span strong {
+	color:#FFF;
+	background-image:url(../images/im_online_dot_alt.gif);
+}
+#chatbar div.highlight .trayCloseTab {
+	background-position:center center;
+}
+.chatting div.trayIcon span {
+	display:block;
+	font-size:12px;
+	color:#333;
+	height:22px;
+	line-height:22px;
+	border-top:none;
+	margin:0 5px;
+}
+.chatting div.trayIcon span strong {
+	color:#666;
+	padding-right:10px;
+	background:url(../images/im_online_dot.gif) no-repeat right center;
+}
+.tab_count {
+	background:url(../images/new_msg_badge_bg.gif) no-repeat center top;
+	position:absolute;
+	bottom:10px;
+	right:10px;
+	width:20px;
+	height:20px;
+	text-align:center;
+	font-size:9px;
+	color:#FFF;
+}
+#chatbar .chatting .trayCloseTab {
+	background:url(../images/close_tab.gif) no-repeat center top;
+	position:absolute;
+	bottom:3px;
+	right:3px;
+	width:17px;
+	height:17px;
+	z-index:1001;
+	cursor:pointer;
+}
+#chatbar .chatting .trayPanel .trayCloseTab {
+	top:3px;
+	background-image:url(../images/close_window.gif);
+}
+#chatbar .chatting .trayPanel .trayCloseTab:hover {
+	background-position:center 50%;
+}
+#chatbar div.chatting div div.trayPanel {
+	position:absolute;
+	background:#fff;
+	border-bottom:1px solid #666;
+	height:auto;
+	width:230px;
+	right:0;
+}
+.chatting .trayPanelTitle {
+	background-position:195px 2px;
+	text-indent:50px;
+}
+.chatting .trayPanelTitle.hover {
+	background-position:195px -14px;
+}
+.chatting .trayPanel .trayPanelTitleGray {
+	min-height:40px;
+	width:170px;
+	background:#eee;
+	border-bottom:1px solid #ccc;
+	padding-left:60px;
+	color:#666;
+}
+.chatting .trayPanel .trayPanelTitleGray span {
+	font-size:9px;
+	color:#999;
+	margin-left:5px;
+}
+.chatting .trayPanel .title_img {
+	border:none;
+	position:absolute;
+	left:5px;
+	top:6px;
+}
+.chatting .trayPanel a.title_img img {
+	height:48px;
+	width:48px;
+	border:1px solid #333;
+	border-top-color:#fff;
+	border-left-color:#fff;
+}
+.chatting .trayPanel .trayPanelBody {
+	height:395px;
+	overflow:auto;
+	width:230px;
+}
+.chatting .trayPanel .trayPanelBody div.clearChatHistory {
+	border-bottom:1px solid #E0E0E0;
+	color:#3B5998;
+	padding:4px 6px;
+}
+.chatting .trayPanel .trayPanelBody div.clearChatHistory span {
+	font-size:10px;
+	cursor:pointer;
+}
+.chatting .trayPanel .trayPanelBody .dateDivider {
+	color:#777;
+	font-size:9px;
+	font-weight:700;
+	margin-top:10px;
+	padding-left:6px;
+}
+.chatting .trayPanel .trayPanelBody .dateDivider.first {
+	margin-top:2px;
+}
+.chatting .trayPanelBody .chatContent h5 {
+	border-top:1px solid #EEE;
+	font-size:11px;
+	margin:2px 0 0;
+	padding:3px 6px 1px;
+}
+.chatting .trayPanelBody .chatContent h5.self {
+	color:#777;
+}
+.chatting .trayPanelBody .chatContent h5 .timeStamp {
+	color:#999;
+	float:right;
+	font-size:9px;
+	font-weight:400;
+	padding:1px 0;
+}
+.chatting .trayPanelBody .chatContent p {
+	color:#000;
+	line-height:14px;
+	margin:0 4px;
+	padding:2px 3px;
+}
+.chatting .trayPanel textarea {
+	width:220px;
+	height:60px;
+	line-height:14px;
+	/*
+	border:none;
+	border-top:1px solid #93A2C1;
+	*/
+	background-color:#fff;
+	
+	border:0px solid #93A2C1;
+	overflow-y:auto;
+	margin:0;
+	padding:4px 4px 4px 4px;
+}
+
+.chatting .trayPanel .webim_input_top {
+	background: transparent url(../images/im.gif) no-repeat 3px;
+	background-color:#93A2C1;
+	padding:4px 4px 4px 24px;
+	height:20px;
+}
+.chatting .trayPanel .webim_input_button {
+	background-color:#93A2C1;
+	padding:4px 4px 4px 4px;
+	height:28px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.sm {
+	width:16px;
+	height:16px;
+	background:url(../images/emote.gif) no-repeat;
+	display:inline-block;
+	overflow:hidden;
+	text-indent:-1000px;
+}
+.sm strong {
+	display:inline-block;
+	padding-left:2000px;
+	line-height:100px;
+	visibility:hide;
+}
+.s1 {
+	background-position:0 0;
+}
+.s2 {
+	background-position:-16px 0;
+}
+.s3 {
+	background-position:-32px 0;
+}
+.s4 {
+	background-position:-48px 0;
+}
+.s5 {
+	background-position:-64px 0;
+}
+.s6 {
+	background-position:-80px 0;
+}
+.s7 {
+	background-position:-96px 0;
+}
+.s8 {
+	background-position:-112px 0;
+}
+.s9 {
+	background-position:-128px 0;
+}
+.s10 {
+	background-position:-144px 0;
+}
+.s11 {
+	background-position:-160px 0;
+}
+.s12 {
+	background-position:-176px 0;
+}
+.s13 {
+	background-position:-192px 0;
+}
+.s14 {
+	background-position:-208px 0;
+}
+.s15 {
+	background-position:-224px 0;
+}
+.s16 {
+	background-position:-240px 0;
+}
+.s17 {
+	background-position:-256px 0;
+}
+.s18 {
+	background-position:-272px 0;
+}
+.s19 {
+	background-position:-288px 0;
+}
+.s20 {
+	background-position:-304px 0;
+}
+.s21 {
+	background-position:-320px 0;
+}
+#taskbar.offline {
+	width:60px;
+	right:15px;
+}
+#taskbar.offline #tasktray {
+	width:59px;
+}
+#taskbar.offline #trayChat .trayIcon {
+	background:url(../images/im_offline.gif) center no-repeat;
+}
+a:hover, #taskbar div div.highlight div.trayIcon:hover strong, .chatting .trayPanel .trayPanelBody div.clearChatHistory span:hover {
+	text-decoration:underline;
+}
+.hide, #tasktray div div.trayIcon, #tasktray div div.trayPanelWrapper, #chatbar .chatting div.trayPanelWrapper, #taskbar.offline #chatbar, #taskbar.offline #trayFriend {
+	display:none;
+}
+#tasktray #trayFriend div div.trayIcon, #chatbar .chatting div.trayPanelWrapper div.trayIcon {
+	width:134px;
+	height:23px;
+}
+#trayFriend div div.trayIcon span, div.trayPanelWrapper div.trayIcon {
+	cursor:pointer;
+}
+#am_doing, #trayChatMenu img {
+	float:left;
+}
+#chatbar .chatting .trayPanel .trayCloseTab:active, #chatbar .chatting .trayCloseTab:hover {
+	background-position:center 100%;
+}

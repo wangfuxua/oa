@@ -1,0 +1,207 @@
+<include file="Public:header" /> 
+<title>销售统计</title>
+<link href="../Public/css/addcentcater.css" rel="stylesheet" type="text/css" />  
+<link href="../Public/css/default.css" rel="stylesheet" type="text/css" />
+<script src ="../Public/js/selectuser.js"></script>
+<script type="text/javascript" src="../Public/js/dialog/dialog.js"></script>
+<script src ="../Public/js/crm_common.js"></script>
+<script src="../Public/js/crm_data.js"></script>
+<script src="../Public/js/calendar.js"></script>
+<script src="../Public/js/calendar-zh.js"></script>
+<script type="text/javascript">
+function select_dept() {
+	$('#priv_head').hide();
+	$('#renyuan').hide();
+	$('#dept_head').show();
+	$('#bumen').show();
+	setInput('sale_dept_ID','sale_dept_NAME','right_show1','true')
+}
+
+function selected_memb() {
+	$('#dept_head').hide();
+	$('#bumen').hide();
+	$('#priv_head').show();
+	$('#renyuan').show();
+	setInput('seller_id','seller_name','right_show1','true')
+}
+
+function selected(cal, date) {
+  cal.sel.value = date; 
+  if (cal.dateClicked)
+    cal.callCloseHandler();
+}
+
+function closeHandler(cal) {
+  cal.hide();         
+  _dynarch_popupCalendar = null;
+}
+
+function showCalendar(id, format, showsTime, showsOtherMonths) {
+  var el = document.getElementById(id);
+  if (_dynarch_popupCalendar != null) {
+    _dynarch_popupCalendar.hide();                 
+  } else {
+    var cal = new Calendar(1, null, selected, closeHandler);
+    if (typeof showsTime == "string") {
+      cal.showsTime = true;
+      cal.time24 = (showsTime == "24");
+    }
+    if (showsOtherMonths) {
+      cal.showsOtherMonths = true;
+    }
+    _dynarch_popupCalendar = cal;                  
+    cal.setRange(1900, 2070);        
+    cal.create();
+  }
+  _dynarch_popupCalendar.setDateFormat(format);    
+  _dynarch_popupCalendar.parseDate(el.value);      
+  _dynarch_popupCalendar.sel = el;                 
+
+  _dynarch_popupCalendar.showAtElement(el.nextSibling, "Br");        
+
+  return false;
+}
+</script>
+<style type="text/css">
+.calendar{width:220px;height:100px}
+.calendar td,.calendar th{padding:0px;height:16px;line-height:18px;text-align:center;cursor:pointer}
+
+</style>
+</head>
+
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="###" title=""><span>销售统计</span></a></li>
+	</ul>
+
+<form action="__URL__/statistics" method="post">
+<table>
+	<caption class="nostyle">统计方式</caption>
+	<colgroup>
+		<col width="10%" />
+		<col width="78%" />
+	</colgroup>
+	<thead>
+	</thead>
+	<tr>
+	<td>销售时间：</td>
+	<td><input name='statistics_type' type="radio" id="year" value="year" checked />年份&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='statistics_type' type="radio" id="month" value="month" />月份</td>
+	</tr>
+	<tr>
+	<td>销售部门/人员：</td>
+	<td><input name='statistics_type' type="radio" id="dept" value="dept" />销售部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='statistics_type' type="radio" id="seller" value="seller" />销售人员</td>
+	</tr>
+	<tr>
+	<td>产品：</td>
+	<td><input name='statistics_type' type="radio" id="product" value="product"/>产品名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='statistics_type' type="radio" id="product_type" value="product_type" />产品类型</td>
+	</tr>
+	<tr>
+	<td>服务：</td>
+	<td><input name='statistics_type' type="radio" id="service" value="service" />服务名称</td>
+	</tr>
+	<tr>
+	<td>客户：</td>
+	<td><input name='statistics_type' type="radio" id="area" value="area" />客户所在地区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='statistics_type' type="radio" id="account_type" value="account_type" />客户类型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name='statistics_type' type="radio" id="account_industry" value="account_industry" />客户所属行业</td>
+	</tr>
+</table>
+<table>
+	<caption class="nostyle">统计范围</caption>
+	<colgroup>
+		<col width="10%" />
+		<col width="25%" />
+		<col width="9%" />
+		<col width="20%" />
+		<col width="9%" />
+		<col width="27%" />
+	</colgroup>
+<tbody>
+	<tr>
+	<td>销售部门：</td>
+	<td nowrap>
+	<input type="hidden" name="sale_dept_ID" id="sale_dept_ID">
+	<textarea style="width:200px;height:80px;" name="sale_dept_NAME" id="sale_dept_NAME" wrap="yes" readonly></textarea>
+	<button title="添加" type="button"  onclick="select_dept()"/>添加</button>
+	<button title="清除"  type="button" onclick="clear_data(Array('sale_dept_ID','sale_dept_NAME'));">清除</button></td>
+	<td>销售人员：</td>
+	<td colspan="3" nowrap>
+		<input id='one_or_more' type="hidden" value="n" />
+		<input id='seller_id' name='seller_id' type="hidden" value="" />
+		<textarea name="seller_name" id="seller_name" style="width:200px;height:80px;" readonly></textarea>
+		<button title="添加" type="button"  onclick="selected_memb()"/>添加</button>
+		<button title="清除"  type="button" onclick="clear_data(Array('seller_id','seller_name'));">清除</button></td>
+	</tr>
+	<tr>
+	<td>产品名称：</td>
+	<td nowrap><input name='pro_name' type="text" value="" /></td>
+	<td>产品类型：</td>
+	<td nowrap>
+	<select name="pro_type">
+		<option value="">请选择</option>
+		<volist name="xml_pro_type" id="cate_vo">
+		<option value="{$cate_vo['name']}">{$cate_vo['name']}</option>
+		</volist>
+		</select>
+	</td>
+	<td>产品编码：</td>
+	<td nowrap><input name='pro_encode' type="text" value="" /></td>
+	</tr>
+	<tr>
+	<td>服务名称：</td>
+	<td nowrap><input name='ser_name' type="text" value="" /></td>
+	<td>服务描述：</td>
+	<td nowrap><input name='ser_dec' type="text" value="" /></td>
+	<td>销售日期：</td>
+	<td nowrap><fieldset class="date">
+		      	<input type="text" name="date_from" id="sel1" size="1" /><img src="../Public/images/ico/calendar.png" alt=""  onclick="return showCalendar('sel1', '%Y-%m-%d');"  /> <span>到</span> <input type="text" name="date_to" id="sel3" size="1" /><img src="../Public/images/ico/calendar.png" alt="" onclick="return showCalendar('sel3', '%Y-%m-%d');"  />
+		 </fieldset></td>
+	</tr>
+	<tr>
+	<td>客户名称：</td>
+	<td nowrap><input name='account_name' type="text" value="" /></td>
+	<td>客户类型：</td>
+	<td nowrap>		
+<!--	<script>
+		change_selected('type', account_type, "");
+		</script>-->
+			<select name="type">
+			<option value="">请选择</option>
+			<volist name="xml_type" id="vo_type">
+			<option value="{$vo_type['name']}">{$vo_type['name']}</option>
+			</volist>
+			</select>
+		</td>
+	<td>客户所属行业：</td>
+	<td nowrap>
+<!--		<script>
+		change_selected('industry', industry, "");
+		</script>-->
+			<select name="industry">
+			<option value="">请选择</option>
+			<volist name="xml_ind" id="vo_ind">
+			<option value="{$vo_ind['name']}">{$vo_ind['name']}</option>
+			</volist>
+			</select>
+		</td>
+	</tr>
+	<tr>
+	<td>客户所属地区：</td>
+	<td nowrap><script>showprovince('province');</script></td>
+	<td>街道地址：</td>
+	<td nowrap><input name='street' type="text" value="" /></td>
+	<td>客户描述：</td>
+	<td nowrap><input name='description' type="text" value="" /></td>
+	</tr>
+	<tfoot>
+		<tr>
+			<th colspan="6" class="tdleft" align="center">
+				<button type="submit" >开始统计</button>
+			</th>
+		</tr>
+	</tfoot>
+
+</table>
+</form>
+<include file="Public:deptselect" />
+
+<include file="Public:alert_lable" />	 
+</body></html>

@@ -1,0 +1,68 @@
+<include file="Public:header2" />
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+
+		createHeader({
+
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+				<if condition="$USER_ID neq ''">
+            { Title: "日志列表", Url: "__URL__/infolist/USER_ID/{$USER_ID}", Cls: "", Icon: "", IconCls: "ico ico-view" },
+            { Title: "日志查询", Url: "__URL__/infosearch/USER_ID/{$USER_ID}", Cls: "", IconCls: "ico ico-query" },
+            { Title: "周报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/week", Cls: "", IconCls: "ico ico-list" },
+            { Title: "月报", Url: "__URL__/statistics/USER_ID/{$USER_ID}/type/month", Cls: "", IconCls: "ico ico-list2" }
+			</if>
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="main" >
+
+    <table>
+			<caption class="nostyle">{$desc}</caption>
+			<colgroup>
+				<col width="120"></col>
+				<col width=""></col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>日志标题</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+			<iterate name="list" id="vo" key="k">
+				<tr>
+					<td>{$vo.DIA_DATE}</td>
+					<td><a href="__URL__/infodetail/DIA_ID/{$vo.DIA_ID}">{$vo.SUBJECT|strip_tags|csubstr=###,0,50} </a></td>
+				</tr>
+			</iterate>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="2">{$page}</th>
+				</tr>
+			</tfoot>
+    </tr>
+    
+   </table>
+
+
+</div>
+</div>
+
+<include file="Public:footer" />

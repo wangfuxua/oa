@@ -1,0 +1,100 @@
+<style>
+form input{ border:none}
+#addfile{padding:10px 0 0 0px; position:relative; height:16px; overflow:hidden;}
+#addfile a{ color:#005DAA; text-decoration:none}
+#addfile a:hover{color:#005DAA;}
+#myfile{position:absolute;left:-18px;*left:-40px;top:4px; height:20px;cursor:pointer;opacity:0;filter:alpha(opacity=0)}
+#addfilebox{ display:none; height:30px; padding:0 10px 5px; margin:5px 0 0;background:#f6fcff; border:1px solid #ccc; overflow-y:scroll}
+#addfilebox span{ float:left; margin-right:5px; margin-top:5px; padding:2px 8px; border:1px solid #ccc; background:#f9f9f9; cursor:pointer}
+</style>
+<div id="title" class="clearfix">
+      <h2>收件箱</h2>
+      <span class="rtact">全局查询
+      <input type="text" />
+      <button type="button">搜索</button>
+      </span>
+      </div>
+    <div id="active" class="active">
+     <span id="back-btm"><a href="#">返回</a></span> 
+     <span id="re-mail-btm"><a href="#">回复</a></span>    
+      <span id="z-mail-btm"><a href="#">转发</a></span> 
+     <span id="mail-del-btm"><a href="#">删除</a></span> 
+     
+      <p class="goupordown">
+      
+      {$nextpre}
+      
+      </p>
+     </div>
+<div id="mail-centens" class="clearfix" style="padding:0;border:none">
+    <div class="mailfrom"> 
+      <h3>{$row.hsubject}</h3> 
+       <ul class="clearfix">
+          <li style="position:relative"><strong id="sjr">发件人：</strong><span>{$row.hfrom|parse_email_address=###}</span></li>
+          <li><strong id="zt">日 &nbsp;期：</strong><span>{$row.hdate_sent} </span></li>         
+          <li><strong id="cs">收件人：</strong><span>{$row.hto|parse_email_address=###}</span></li>
+          
+          <if condition="$attcount">
+          <li><strong id="cs">附件：</strong><span>
+          <volist name="attlist" id="vo"> 
+          <a href="__URL__/viewAtt/idx/{$row[idx]}/viewatt/1/part/{$vo.linkkey}">{$vo.name}</a>
+          </volist>
+          </span>
+          </li>
+          </if>
+          
+      </ul>
+      </div>
+      <div class="mailctn">
+       {$mailbody}
+      </div>
+</div>
+
+<script type="text/javascript">
+//查看邮件
+function view_att(part){
+		   $("#mail-act").html('');
+		   $("#mail-act").load("__URL__/viewAtt/idx/{$row[idx]}/viewatt/1/part/"+part);
+		   /*
+		   var tp=document.createElement("img");
+			tp.src="__URL__/viewAtt/idx/{$row[idx]}/viewatt/1/part/"+part;
+			document.getElementById("addDrug").appendChild(tp);
+			*/
+}
+
+</script>
+
+<script Language="JavaScript">
+
+$("#re-mail-btm").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("__URL__/writeMail/reply/1/idx/{$row[idx]}/setid/set{$row[meta_profile]}");
+});
+
+$("#z-mail-btm").click(function(){
+$("#mail-act").html('');
+$("#mail-act").load("__URL__/writeMail/fw/1/idx/{$row[idx]}/setid/set{$row[meta_profile]}");
+});
+
+$("#mail-del-btm").click(function(){
+var msg="真得要删除此邮件吗？"
+if(confirm(msg)==1){
+	$("#mail-act").html('');
+    $("#mail-act").load("__URL__/delete/ret/1/DELETE_STR/{$row[idx]},");
+}
+});
+
+$("#back-btm").click(function(){
+$("#mail-act").html('');
+
+<if condition="$from eq 'sent'">
+$("#mail-act").load("__URL__/sent/setid/{$setid}");
+<elseif condition="$from eq 'waste'" />
+$("#mail-act").load("__URL__/waste/setid/{$setid}");
+<else />
+$("#mail-act").load("__URL__/inbox/setid/{$setid}");
+</if>
+});
+
+</script>
+

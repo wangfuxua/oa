@@ -1,0 +1,81 @@
+<include file="Public:header2" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("main", 56);
+        setDomHeight("blank",56);
+        setDomWidth("mainPannel", 200);
+		createHeader({
+        Title: "工资上报录入",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "工资上报", Url: "#", Cls: "", Icon: "", IconCls: "ico ico-up" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("main", 56); 
+        setDomHeight("blank",56);
+        setDomWidth("mainPannel", 200);   
+    
+    });
+
+</script>
+<body>
+<div class="KDStyle" id="main">
+	<div id="leftPanel">
+		<div class="leftPanelbox">
+			       <script type="text/javascript">
+				        <!--
+			            var online = new sTree('online');
+			            online.icon = {
+					       root: '../Public/img/empty.gif', 			
+					        folder: '../Public/img/folder.gif', 			
+					        folderOpen: '../Public/img/folderopen.gif', 
+					        node: '../Public/images/bg_4x7.gif', 		
+					        empty: '../Public/img/empty.gif', 			
+					        line: '../Public/img/line.gif', 			
+					        join: '../Public/img/join.gif', 			
+					        joinBottom: '../Public/img/joinbottom.gif', 		
+					        plus: '../Public/img/plus.gif', 			
+					        plusBottom: '../Public/img/plusbottom.gif',
+					        minus: '../Public/img/minus.gif',
+					        minusBottom: '../Public/img/minusbottom.gif',
+					        nlPlus: '../Public/img/nolines_plus.gif',
+					        nlMinus: '../Public/img/nolines_minus.gif'
+					    };
+				        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            online.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+			            
+			<volist name="deptlist" id="vo" key="k">
+			    online.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','javascript:;','','','../Public/images/treeicon/t_ini.gif','','','');
+			    <sublist name="vo[user]" id="user">
+			      online.add('{$user[USER_ID]}',{$vo[DEPT_ID]},'{$user.USER_NAME}','__URL__/salData/USER_ID/{$user.USER_ID}/FLOW_ID/{$FLOW_ID}','','blank','../Public/images/ico/user.png','','','');
+			    </sublist>
+			</volist>
+						            
+			            document.write(online);
+				        //-->
+			        </script>
+			</div>
+	</div>
+	<div id="mainPanel">
+			<script type="text/javascript">
+			    iframe('__URL__/blank', '100%', '100%', 'blank');
+	        </script>	</div>
+</div>
+
+
+
+</div>
+<include file="Public:footer" />

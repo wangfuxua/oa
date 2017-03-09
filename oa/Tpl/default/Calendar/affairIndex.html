@@ -1,0 +1,116 @@
+<include file="Public:header_module2" />
+<script>
+function delete_affair(AFF_ID)
+{
+ msg='确认要删除该事务么？';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/affairdelete/AFF_ID/" + AFF_ID;
+  window.location=URL;
+ }
+}
+
+function my_note(AFF_ID)
+{
+  my_left=document.body.scrollLeft+event.clientX-event.offsetX-50;
+  my_top=document.body.scrollTop+event.clientY-event.offsetY+150;
+
+  window.open("__URL__/affairnote/AFF_ID/"+AFF_ID,"note_win"+AFF_ID,"height=170,width=180,status=0,toolbar=no,menubar=no,location=no,scrollbars=auto,top="+ my_top +",left="+ my_left +",resizable=no");
+}
+</script>
+
+<script type="text/javascript">
+$(function(){
+		setDomHeight("main", 56);
+		createHeader({
+        Title: "日程安排",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 2,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "日程安排", Url: "__URL__/index", Cls: "", Icon: "", IconCls: "ico ico-calendar" },
+            { Title: "日常事务", Url: "__URL__/affairIndex", Cls: "", IconCls: "ico ico-clock" },
+            { Title: "新建日常事务", Url: "__URL__/affairform", Cls: "", IconCls: "ico ico-add" }
+        ]
+    });		   
+});
+</script>
+<body>
+
+<div class="KDStyle" id="main">
+	<div class="mainpanelHead">
+		<h2>日常事务管理</h2>
+		<p>
+<button type="button" onClick="location='__URL__/affairform';">新建日常事务</button>
+		</p>
+<!--<input type="button" value="" class="btnFnt" title="新建日常事务">-->
+</div>
+
+    <table>
+
+   <thead>
+   <tr>
+      <th width="150">起始时间 <img border=0 src="../Public/images/arrow_down.gif" width="11" height="10"></th>
+      <th width="80">提醒类型</th>
+      <th width="80">提醒日期</th>
+      <th width="80">提醒时间</th>
+      <th>日志内容</td>
+      <th width="80">操作</th>
+    </tr>  
+   </thead>
+   <volist name="list" id="vo">
+       <tr class="TableLine1">
+      <td>{$vo.BEGIN_TIME}</td>
+      <td>
+      <switch name="vo[TYPE]">
+      <case value="2">按日提醒</case>
+      <case value="3">按周提醒
+      <if condition="$vo[REMIND_DATE] eq 1">
+      <?php $vo[REMIND_DATE]="周一";?>
+      <elseif condition="$vo[REMIND_DATE] eq 2" />
+      <?php $vo[REMIND_DATE]="周二";?>
+      <elseif condition="$vo[REMIND_DATE] eq 3" />
+      <?php $vo[REMIND_DATE]="周三";?>
+      <elseif condition="$vo[REMIND_DATE] eq 4" />
+      <?php $vo[REMIND_DATE]="周四";?>
+      <elseif condition="$vo[REMIND_DATE] eq 5" />
+      <?php $vo[REMIND_DATE]="周五";?>
+      <elseif condition="$vo[REMIND_DATE] eq 6" />
+      <?php $vo[REMIND_DATE]="周六";?>
+      <elseif condition="$vo[REMIND_DATE] eq 7" />
+      <?php $vo[REMIND_DATE]="周日";?>
+      </if>
+      </case>
+      <case value="4">按月提醒
+      <?php $vo[REMIND_DATE].="日";?>
+      </case>
+      <case value="5">按年提醒
+      <?php $vo[REMIND_DATE]=str_replace("-","月",$vo[REMIND_DATE])."日";?>
+      </case>
+      </switch>
+      </td>
+      <td>{$vo[REMIND_DATE]}</td>
+      <td>{$vo.REMIND_TIME}</td>
+      <td><a href="#" onclick="my_note({$vo.AFF_ID});">
+      {$vo.CONTENT|strip_tags|csubstr=###,0,80}</td>
+      <td>
+          <a href="__URL__/affairform/AFF_ID/{$vo.AFF_ID}"> 修改</a>&nbsp;
+          <a href="javascript:delete_affair({$vo.AFF_ID});"> 删除</a>
+      </td>
+    </tr>
+  </volist>
+  <tfoot>
+  <tr>
+  <th colspan="6">{$page}</th>
+  </tr>
+  </tfoot>
+ </table>
+</div>
+
+
+<include file="Public:footer" />

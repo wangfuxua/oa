@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script language="javascript" type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/iframe.js" ></script>
+
+<script type="text/javascript" src="js/tree.js"></script>
+<title>金凯通达OA系统3.3</title>
+</head>
+
+<body>
+<!--head  strat-->
+<div class="h_bor">
+	<a href="#" class="logo"></a>
+	<div class="h_1">
+		<form class="form1">
+			<input type="text" class="gjz" />
+			<select class="sel1">
+				<option>Baidu</option>
+			</select>
+			<input type="button" value="搜索" class="ss" />
+		</form>
+		<div class="h_2">
+			<p class="p1">未读短消息(<a href="#" class="str">10</a>)</p>
+			<p class="p2">2008年12月12日 星期五 10:30:45</p>
+			<p class="p3">-2℃～7℃ 微风</p>
+			<p class="p4">用户：<em class="str">***</em></p>
+			<p class="p5">身份：<em class="str">OA管理员</em></p>
+			<p class="p6"><a href="#">注销</a></p>
+		</div>
+	</div>
+</div>
+<!--head  end-->
+<div class="d_1">
+	<!--// 左侧 开始 //-->
+	<div class="nav_bor">
+		<div class="n_1" id="n_1">
+			<a id="a1" class="a1 over1" href="javascript:void(0);" onclick="changeNav(1)">主菜单</a>
+			<a id="a2" class="a2" href="javascript:void(0);" onclick="changeNav(2)">在线(100)</a>
+			<a id="a3" class="a3" href="javascript:void(0);" onclick="changeNav(3)">全体</a>
+		</div>
+		<div class="c_con1">
+		<div id="con1">
+			<form class="form2">
+				<input type="text" class="gjz1" />
+				<input type="button" value="搜索" class="ss1" />
+			</form>
+			<div class="n_2">
+				<div class="nav_ul">
+					<div class="tree">
+						<script type="text/javascript">
+							<!--
+							var d = new sTree('d');		
+							d.selectedNode=1010;
+							d.selectedFound=false;
+							// id, pid, name, url, title, target, icon, iconOpen, open, cls
+							d.add(0,-1,'','javascript:test(\'jay\')','','','','','','tree-root');
+								d.add(1,0,'我的办公桌','javascript:','','','','','','menuBg');
+									d.add(101,1,'电子邮件','javascript:','','','images/c_b1.gif','images/c_b1.gif');
+										d.add(1010,101,'内部邮件','con1.html','内部邮件','icontent');
+										d.add(1011,101,'Internet邮件','con2.html','Internet邮件','icontent');
+									d.add(102,1,'短信息','javascript:','','','images/c_b2.gif','images/c_b2.gif');
+										d.add(1012,102,'内部短信息','con3.html','内部短信息','icontent');
+										d.add(1013,102,'个人手机短信','con4.html','内部短信息','icontent');
+										d.add(1014,102,'公费手机短信','con5.html','内部短信息','icontent');
+									d.add(103,1,'公告通知','javascript:','','','images/c_b3.gif','images/c_b3.gif');
+									d.add(104,1,'个人考勤','javascript:','','','images/c_b4.gif','images/c_b4.gif');
+									d.add(105,1,'日程安排','javascript:','','','images/c_b5.gif','images/c_b5.gif');
+									d.add(106,1,'工作日志','javascript:','','','images/c_b6.gif','images/c_b6.gif');
+									d.add(107,1,'通信簿','javascript:','','','images/c_b7.gif','images/c_b7.gif');
+									d.add(108,1,'个人文件柜','javascript:','','','images/c_b8.gif','images/c_b8.gif');
+									d.add(109,1,'个人设置','javascript:','','','images/c_b9.gif','images/c_b9.gif');
+								d.add(2,0,'公共事务','javascript:test(\'jay\')','','','','','','menuBg');
+									d.add(201,2,'test');
+								d.add(3,0,'项目','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(4,0,'ISO0900管理','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(5,0,'交流','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(6,0,'资产管理','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(7,0,'商业','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(8,0,'系统','javascript:test(\'jay\')','','','','','','menuBg');
+								d.add(9,0,'附件','javascript:test(\'jay\')','','','','','','menuBg');
+							document.write(d);
+							//-->
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 这里是在线人员的详细内容-->
+		<div id="con2" class="con">
+			在线人员(100)
+		</div>
+		
+		<!-- 全体人员部分 -->
+		<div id="con3" class="con">
+			全体人员
+		</div>
+		
+		<!-- 快捷组内容 -->
+		<div id="con4" class="con">快捷组内容</div>
+			
+		<!-- 短信息内容 -->
+		<div id="con5" class="con">短信息内容</div>
+		
+		<!-- 收藏夹内容 -->
+		<div id="con6" class="con">收藏夹内容</div>
+		
+		</div>	<!-- End for : <div class="c_con1"> -->
+		
+		<ul class="n_3">
+			<li><a href="javascript:void(0);" onclick="changeNav(4)">快捷组</a></li>
+			<li><a href="javascript:void(0);" onclick="changeNav(5)">短信息</a></li>
+			<li><a href="javascript:void(0);" onclick="changeNav(6)">收藏夹</a></li>
+		</ul>
+	</div>
+	<!--// 左侧 结束 //-->
+	<div class="right">
+		<!-- // 标签部分 //-->
+		<ul class="tabs"><li><em id="myem">桌面</em></li></ul>
+		
+		<!-- 第1块内容 -->
+		<div id="main_c1">
+		<script type="text/javascript">
+	    // <![CDATA[
+	    iframe('con1.html','100%','','icontent');
+	    // ]]>
+	    </script>
+		</div>
+
+
+	</div>
+</div>
+<div class="foot">
+	<p>Copyright &copy; 2008 金凯通达</p>
+	<em>页面执行时间 0.01445 秒</em>
+</div>
+<script>
+	
+	// JavaScript Document
+
+function removeC(){
+	for(var i=1; i<=6; i++){
+		$("#n_1").removeClass("n_1" + i);
+		$("#a" + i).removeClass("over1");
+		$("#con" + i).slideUp("fast");
+	}
+}
+function changeNav(a){
+	switch(a){
+		case 1:
+			removeC();
+			$("#n_1").addClass("n_11");
+			$("#a1").addClass("over1");
+			$("#con1").slideDown("fast");
+			break;
+		case 2:
+			removeC();
+			$("#n_1").addClass("n_12");
+			$("#a2").addClass("over1");
+			$("#con2").slideDown("fast");
+			break;
+		case 3:
+			removeC();
+			$("#n_1").addClass("n_13");
+			$("#a3").addClass("over1");
+			$("#con3").slideDown("fast");
+			break;
+		case 4:
+			removeC();
+			$("#n_1").addClass("n_0");
+			$("#con4").slideDown("fast");
+			break;
+		case 5:
+			removeC();
+			$("#n_1").addClass("n_0");
+			$("#con5").slideDown("fast");
+			break;
+		case 6:
+			removeC();
+			$("#n_1").addClass("n_0");
+			$("#con6").slideDown("fast");
+			break;
+	}
+}
+
+function changeText(str,b){
+	$("#myem").text(str);
+	for(var j=1; j<=7; j++){
+		$("#main_c" + j).css("display","none");
+	}
+	$("#main_c" + b).css("display","block");
+}
+	</script>
+</body>
+</html>

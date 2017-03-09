@@ -1,0 +1,154 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0; margin:0; font-size:12px;}
+body{}
+li{ list-style:none}
+input,label{ border:none; cursor:pointer}
+a,img{ text-decoration:none; color:#000; border:none}
+form{ border:none}
+/*个人文件柜*/
+#mail-box{ position:relative; padding-left:200px; border:1px solid #B8C9DD; border-top:none;}
+#mail-box{ border-bottom:1px solid #B8C9DD; height:580px;}
+/*邮件列表*/
+#mail-info{position:absolute; top:0; left:0;height:580px; border-right:1px solid #B8C9DD;width:200px;background:#f6fcff}
+/**/
+.mainact{height:40px; background:url(../images/bg/bgf1.gif) repeat-x left -30px;border-bottom:1px solid #fff; padding:0px;}
+.mainact span{ text-align:center; font-size:14px; font-weight:bold; height:40px;line-height:40px; color:#333366; cursor:pointer }
+.mainact #re-mail{ float:left; width:81px;padding-left:18px; border-right:1px solid #c3dbea}
+.mainact #rt-mail{ float:left; width:81px;padding-left:18px;border-left:1px solid #e6f5ff}
+.mainact #re-mail em{float:left; padding-left:25px;  font-style:normal; background:url(../newimg/mail_inbox1.gif) no-repeat left center}
+.mainact #rt-mail em{float:left;padding-left:30px;font-style:normal; background:url(../newimg/mail_write1.gif) no-repeat left center;}
+.mainact .overbg{background:url(../images/bg/bgf1.gif) repeat-x bottom; color:#333366}
+/**/
+.myfodertitle{height:25px; padding:1px 0 2px; margin-bottom:5px;line-height:25px; border:none;border-bottom:1px solid #8da7c5; background:url(../images/bg/bgf1.gif) repeat-x;}
+.myfodertitle h2{ float:left; font-size:12px; padding-left:10px; color:#005DAA}
+.myfodertitle span{ float:right; padding:0 10px 0 17px; color:#666; background:url(../newimg/mail_manage01.gif) no-repeat left}
+/**/
+.foldername{ padding:0px 20px; background:#f6fcff}
+.foldername ul li{ padding:8px 0 8px; color:#666}
+.foldername ul li img{ padding-right:5px;}
+.foldername ul li strong{ font-weight:normal}
+.mailtype{ height:12px;  border-top:none; padding:10px 0 8px 7px; background:#f6fcff}
+.mailtype h3{float:left; padding-left:13px; background: url(../images/bg_9_1.gif) no-repeat left 2px; font-size:12px; color:#003399; cursor:pointer}
+.mailtype span{ float:right; padding-right:8px; }
+.mailtype span a{color:#036}
+.mailtype h3.downlist{background:url(../images/bg_9.gif) no-repeat left 1px;}
+.mailtype h3.uplist{background: url(../images/bg_9_1.gif) no-repeat left 1px;}
+/*个人文件柜 文件信息*/
+#mail-act{height:580px;}
+/*邮箱名称及简略信息*/
+#title{height:40px; background:url(../images/bg/bgf1.gif) repeat-x left -30px;line-height:40px;border-bottom:1px solid #fff; padding:0px 10px 0;}
+#title h2{ float:left; height:40px; line-height:40px;font-size:14px; padding-left:23px; background:url(../newimg/notify_open.gif) no-repeat left; color:#666}
+#title p{float:left; padding-left:10px; color:#666}
+#title p em{ font-style:normal; color: #36C}
+#title p span#allmail{font-family:Arial, Helvetica, sans-serif;}
+#title p span#newmail{ font-weight:bold; font-family:Arial, Helvetica, sans-serif; color:#f60}
+#title span.rtact{float:right;padding-top:0; _padding-top:8px;  font-size:12px;}
+#title span.rtact input{ width:100px; margin:0 5px; height:18px; border:1px solid #ccc; background:#fff;}
+#title span.rtact button{ border:none; height:20px; margin:0; color:#fff; padding:0 8px; background:url(../images/bg/TabBg2.gif) repeat-x;}
+/*用户邮件操作工具条*/
+.active{ height:25px; padding:1px 0 2px ;line-height:25px; border:none;border-bottom:1px solid #8da7c5; background:url(../images/bg/bgf1.gif) repeat-x;}
+.active span{ float:left; margin-left:15px; padding:5px 0 0px 25px; height:20px; line-height:20px; display:inline; cursor:pointer}
+.active span#mail-moveto{ padding-left:26px; background: url(../newimg/ico_move.gif) no-repeat left center}
+.active span#mail-del,.active span#mail-del-btm{  background: url(../newimg/ico_delmail.gif) no-repeat left center}
+.active span#mail-sc{padding-left:21px;  background:url(../newimg/folder_search.gif) no-repeat left center}
+.active span#maill-delAll{ background:url(../newimg/deleteAll.gif) no-repeat left center}
+.active span#mail-send{ padding-left:27px; background:url(../newimg/send_mail.gif) no-repeat left center}
+.active span#mail-st{ padding-left:18px;background:url(../newimg/st_mail.gif) no-repeat left center}
+.active span#mail-cl{padding-left:19px; background:url(../newimg/cl_mail.gif) no-repeat left center}
+
+.active span#back,.active span#back-btm{padding-left:20px; background:url(../newimg/ico_back.gif) no-repeat left center}
+.active span#re-mail,.active span#re-mail-btm{padding-left:27px; background:url(../newimg/ico_remail.gif) no-repeat left center}
+.active span#z-mail,.active span#z-mail-btm{ padding-left:27px;background: url(../newimg/ico_zf.gif) no-repeat left center}
+.active span#mail-m,.active span#mail-m-btm{ position:relative; width:150px;}
+.active span#mail-m strong,.active span#mail-m-btm strong{position:absolute; left:73px; top:4px;_top:3px}
+.active .goupordown{ float:right; padding-right:10px;}
+.active .goupordown a{ padding:0 6px;}
+/*当前文件内容*/
+#mail-centens{ padding:10px; border-bottom:1px solid #B8C9DD; border-top:none}
+/*表格数据*/
+table#mail-date{ width:100%; border:none; border-right:1px solid #B8C9DD; border-bottom:1px solid #B8C9DD; margin:0;padding:0}
+table#mail-date thead{ padding:0; margin:0; border:none; }
+table#mail-date td{ color:#666}
+table#mail-date td,table#mail-date th{ padding:4px 5px; *padding:2px 5px; border:none; border-top:1px solid #B8C9DD; border-left:1px solid #B8C9DD}
+table#mail-date thead th{color:#005DAA;background:#E3E9F5 url(../images/bg/bgf1.gif) repeat-x 0 -52px; font-size:12px; font-weight:normal; text-align:left; padding:4px 5px; *padding:0px 5px}
+table#mail-date .fuj{ position:relative;}
+table#mail-date .fuj span{ position:absolute; left:0; top:-4px; text-align:center; border:1px solid #ccc;}
+table#mail-date .readnow{ display:block; height:14px; width:14px; text-indent:-999px; background:url(../images/bg_10x60.gif) no-repeat top}
+table#mail-date .readed{display:block; height:14px; width:14px; text-indent:-999px; background:url(../images/bg_10x60.gif) no-repeat bottom}
+.til{ font-weight:bold; color:#336}
+.til a{ color:#336}
+.til a:hover{ color:#036; text-decoration:underline;}
+/*table for new mail*/
+.mailto{padding:10px;background:#f6fcff}
+.mailto ul li{ float:left; height:25px; line-height:25px; margin-top:5px; width:100%}
+.mailto ul li strong{ float:left; width:60px; height:25px; text-align:right; font-weight:normal; /*background:url(../newimg/mailtotitlebg.gif); */cursor:pointer}
+.mailto ul li span{ float:left; width:90%; height:23px; background:#fff; border:1px solid #B8C9DD; overflow:hidden}
+.mailto ul li span input{ padding-left:5px; width:100%; height:23px; font-size:12px; line-height:23px; color:#666;}
+.mailto ul li span input:hover{ background:#FFFFCC;}
+.mailto ul li strong.mailtoover{background:url(../newimg/mailtotitlebg.gif) no-repeat left -25px}
+.mailto ul li strong.mailtodown{ background:url(../newimg/mailtotitlebg.gif) no-repeat left -50px}
+
+#senderlist{position:absolute;width:300px; left:60px; background:#fff; border:1px solid #ccc; border-top:none; top:23px; color:#000}
+#senderlist li{ padding:0; margin:0; background:f9f9f9; text-indent:10px; height:18px; border-top:1px solid #ccc; line-height:18px; color:#ccc; cursor:pointer}
+#senderlist li a{display:block; border-bottom:1px solid #ccc; background:#f0f0f0}
+.mailselection{ padding:3px; height:20px; overflow:hidden;border:1px solid #ccc;background:#f6fcff}
+.mailselection input{ vertical-align:middle}
+.mailbutton{padding:20px; text-align:center;border:1px solid #ccc; border-top:none; border-bottom:none;background:#f6fcff}
+/*mailfrom*/
+.mailfrom{padding:10px;background:#f6fcff}
+.mailfrom h3{ font-size:14px;}
+.mailfrom ul{ padding-top:5px;}
+.mailfrom ul li{float:left; height:20px; line-height:20px; margin-top:px; width:100%; color:#666}
+.mailfrom ul li strong{ float:left; width:50px; height:20px; text-align:right; font-weight:normal;}
+.mailfrom ul li em{ float:left; padding:0 3px; height:20px; line-height:20px; font-style:normal; color:#003366; background:none; white-space:nowrap}
+.mailfrom ul li em a{ color:#336699}
+.mailfrom ul li span{ float:left; height:20px; font-family:Arial, Helvetica, sans-serif;overflow:hidden; color:#999999}
+#senderlist{position:absolute;width:300px; left:60px; background:#fff; border:1px solid #ccc; border-top:none; top:23px; color:#000}
+#senderlist li{ padding:0; margin:0; background:f9f9f9; text-indent:10px; height:18px; border-top:1px solid #ccc; line-height:18px; color:#ccc; cursor:pointer}
+#senderlist li a{display:block; border-bottom:1px solid #ccc; background:#f0f0f0}
+.mailselection{ padding:3px; height:20px; overflow:hidden;border:1px solid #ccc;background:#f6fcff}
+.mailselection input{ vertical-align:middle}
+.mailbutton{padding:20px; text-align:center;border:1px solid #ccc; border-top:none; border-bottom:none;background:#f6fcff}
+/*mailctn*/
+.mailctn{ border-top:1px solid #ccc; padding:10px; height:358px; overflow-y:scroll}
+
+/*下侧工具条*/
+.tab-ft{
+	height:20px;
+	 line-height:20px;
+	padding:5px;
+	border:1px solid #B8C9DD;
+	border-top:none;
+	color:#005DAA;
+	background: url(../newimg/tfoot_bg.gif) repeat-x bottom;
+	
+}
+.tab-ft #check-all{ float:left}
+.tab-ft .btm-act{ float:left; height:18px;padding:0px;}
+.tab-ft .btm-act span{ float:left; margin-left:0px; display:inline; cursor:pointer}
+.tab-ft .btm-act span img{ padding-right:3px;}
+.tab-ft .btm-act #selecto{ height:16px}
+.tab-ft .btm-act #selecto {}
+.tab-ft #page-Num{float:right}
+
+/*清浮动*/
+.clearfix:after{
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+}
+.clearfix {
+   display: inline-block;
+}
+/* Hides from IE-mac */
+* html .clearfix {
+   height: 1%;
+}
+.clearfix {
+   display: block;
+}
+/* End hide from IE-mac */ 
+form input[type=checkbox]{ min-width:15px; width:15px;}

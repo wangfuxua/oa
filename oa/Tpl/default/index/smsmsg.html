@@ -1,0 +1,28 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="../Public/css/style.css" />
+		<meta http-equiv="refresh" content="60" />
+		<style type="text/css">
+		.msg {background:url(../Public/images/ico/msg.gif) white no-repeat left;padding-left:20px;line-height:40px}
+		.msg em { font-weight:bold}
+		.msg-unread {color:red; font-weight:normal}
+		</style>
+        <script type="text/javascript">
+            function ct() {
+                var obj = document.getElementById("msg");
+                obj.className = obj.className == "" ? "msg-unread" : "";
+                setTimeout("ct()", 1000);
+            }  
+        </script>
+    <body>
+		<div class="msg"><a href="__APP__/Sms" title="" target="icontent" id="msg">
+		<if condition="$count gt 0">
+		<span>未读短信息</span>（<em>{$count}条</em>）
+		<else />
+		<span>我的短信息</span>
+		</if>
+		</a>
+		
+		</div>
+        <!-- 当有短信息时 执行下面的内容 -->
+        <script type="text/javascript">ct();</script>
+<include file="Public:footer" />

@@ -1,0 +1,58 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<div id="mask"></div>
+		<script type="text/javascript" src="../Public/js/tree.js"></script>
+		<div class="win" id="massage_box">
+	        <form action="" method="post">
+		        <table>
+			        <caption>选择用户</caption>
+			        <tr>
+				        <td>
+				        <div class="usertree">
+				        <script type="text/javascript">
+			                <!--
+				            var user = new sTree('user');
+				            user.icon = {
+				                root: '../Public/img/empty.gif',
+				                folder: '../Public/img/folder.gif',
+				                folderOpen: '../Public/img/folderopen.gif',
+				                node: '../images/bg_4x7.gif',
+				                empty: '../Public/img/empty.gif',
+				                line: '../Public/img/line.gif',
+				                join: '../Public/img/join.gif',
+				                joinBottom: '../Public/img/joinbottom.gif',
+				                plus: '../Public/img/plus.gif',
+				                plusBottom: '../Public/img/plusbottom.gif',
+				                minus: '../Public/img/minus.gif',
+				                minusBottom: '../Public/img/minusbottom.gif',
+				                nlPlus: '../Public/img/nolines_plus.gif',
+				                nlMinus: '../Public/img/nolines_minus.gif'
+				            };
+				            // id, pid, name, url, title, target, icon, iconOpen, open, cls
+				            user.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+			 user.add('admin',0,'系统管理员','javascript:ch(\'系统管理员\',\'admin\')','','','../Public/images/ico/user.png','','','');	            
+			<volist name="deptuserlist" id="vo" key="k">
+			    user.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','javascript:;','','','../Public/images/treeicon/t_ini.gif','../Public/images/treeicon/t_ini.gif','','oTree-bg');
+			    <sublist name="vo[user]" id="user">
+			      user.add('{$user[USER_ID]}',{$vo[DEPT_ID]},'{$user.USER_NAME}','javascript:ch({$user.USER_NAME|addDyh},{$user[USER_ID]|addDyh})','','','../Public/images/ico/user{$user[SEX]}.png','','','');
+			    </sublist>
+			</volist>
+                     
+				            document.write(user);
+			                //-->
+		                </script>
+				            </div>
+				            <input name="hiddenName" type="hidden" value="" id="hiddenName" />
+				        </td>
+			        </tr>
+			        <tfoot>
+				        <tr>
+					        <td>
+					            
+					            <button name="Abutton1" onclick="senddata()">关闭</button>
+					        </td>
+				        </tr>
+			        </tfoot>
+		        </table>
+	        </form>
+        </div>
+        <script type="text/javascript" defer="defer" src="../Public/js/selectuser.js"></script>

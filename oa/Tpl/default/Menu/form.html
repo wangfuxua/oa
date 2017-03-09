@@ -1,0 +1,86 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.name.value=="")
+   { alert("菜单名称不能！");
+     return (false);
+   }
+   
+   return (true);
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li><a href="__URL__/index" title=""><span>菜单管理</span></a></li>
+		<if condition="$menuid eq ''">
+		<li class="dm_on"><a href="__URL__/form" title=""><span>添加菜单</span></a></li>
+		<elseif condition="$menuid neq ''" />
+		<li><a href="__URL__/form" title=""><span>添加菜单</span></a></li>
+		<li class="dm_on"><a href="#" title=""><span>修改菜单</span></a></li>
+		</if>
+	</ul>
+<div>	
+<form action="__URL__/submit"  method="post" name="form1" onsubmit="return CheckForm();">
+  <table>
+				<colgroup>
+					<col width="80"></col>
+					<col></col>
+				</colgroup>
+<tbody>				  
+    <tr>
+      <td>上级菜单：</td>
+      <td>
+        <select name="parentid">
+         <option value="0">无</option>
+          <volist name="list" id="vo">
+            <if condition="$vo[menuid] eq $parentid">
+            <option value="{$vo.menuid}" selected>{$vo.name}</option>
+            <else />
+            <option value="{$vo.menuid}">{$vo.name}</option>
+            </if>
+          </volist>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>菜单名称：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="name" size="30" maxlength="100"  value="{$row.name}">
+      </fieldset>  
+      </td>
+    </tr>
+    <tr>
+      <td>菜单路径：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="path" size="30" maxlength="200"  value="{$row.path}">
+      </fieldset>  
+      </td>
+    </tr>
+    <tr>
+      <td>菜单排序：</td>
+      <td>
+      <fieldset>
+        <input type="text" name="listorder" size="10" maxlength="8"  value="{$row.listorder}">
+      </fieldset>  
+      </td>
+    </tr>
+        
+    <tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2" nowrap>
+        <input type="hidden" name="menuid" value="{$row.menuid}">
+        <button type="submit" value="保存" class="btnFnt">保存</button>
+        <button type="button" value="返回" class="btnFnt" onClick="location='__URL__/index'">返回</button>
+      </td>
+    </tr>
+    <tfoot>
+  </table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

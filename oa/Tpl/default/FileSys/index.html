@@ -1,0 +1,58 @@
+<include file="Public:header" /> 
+<script>
+function delete_sort(SORT_ID)
+{
+ msg='确认要删除该文件夹么？这将删除该文件夹中的所有文件且不可恢复！';
+ if(window.confirm(msg))
+ {
+  URL="__URL__/delete/SORT_ID/"+SORT_ID;
+  window.location=URL;
+ }
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>管理文件夹</span></a></li>
+		<li><a href="__URL__/form" title=""><span>新建文件夹</span></a></li>
+	</ul>
+<div style="width:800px;">	
+<table> 
+<thead>
+    <tr> 
+      <th colspan="3">管理文件夹</th>
+    <tr>      
+   </thead>
+			<colgroup>
+				<col width="20%"></col>
+				<col width="20%"></col>
+				<col width="20%"></col>
+			</colgroup>	
+   <thead>
+    <tr> 
+      <td>文件夹名称</th>
+      <td>文件夹开放范围</th>
+      <td>操作</th>
+    <tr>      
+   </thead>
+   <tbody>
+     <volist name="list" id="vo">
+   <tr>
+      <th>{$vo.SORT_NAME}</th>
+      <td><if condition="$vo[SORT_TYPE] eq 1">全体<elseif condition="$vo[SORT_TYPE] eq 2" />{$vo[DEPT_ID]|getDeptname}</if></td>
+      <td> 
+          <a href="__URL__/form/SORT_ID/{$vo.SORT_ID}"> 编辑</a>&nbsp;&nbsp;
+          <a href="javascript:delete_sort({$vo.SORT_ID});"> 删除</a>&nbsp;&nbsp;  
+      </td>
+    </tr>  
+      </volist>
+   </tbody>
+   
+   <tfoot>   
+   <tr>
+      <td colspan="3">共{$count}个文件夹</td>
+   </tr>
+   </tfoot>
+</table>
+</div>
+  
+<include file="Public:footer" />

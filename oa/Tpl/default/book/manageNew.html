@@ -1,0 +1,242 @@
+<include file="Public:header2" />
+<link href="../Public/swfupload/css/default.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="../Public/swfupload/js/swfupload.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/fileprogress.js"></script>
+<script type="text/javascript" src="../Public/swfupload/js/handlers.js"></script>
+<script src="../public/js/formValidator.js" type="text/javascript" charset="UTF-8"></script>
+<script src="../public/js/formValidatorRegex.js" type="text/javascript" charset="UTF-8"></script>
+<script language="JavaScript">
+
+$(document).ready(function(){
+	//$.formValidator.initConfig({onerror:function(){alert("校验没有通过，具体错误请看错误提示")}});
+	$.formValidator.initConfig({formid:"form1",onerror:function(msg){}});
+
+	$("#password1").formValidator({onshow:"*",onfocus:"名称不能为空",oncorrect:"名称合法"}).inputValidator({min:1,empty:{leftempty:false,rightempty:false,emptyerror:"名称两边不能有空符号"},onerror:"名称不能为空,请确认"});
+	
+
+
+});
+
+function delete_attach(ATTACHMENT_ID,ATTACHMENT_NAME)
+{
+  msg="确定要删除文件 '"+ ATTACHMENT_NAME +"' 吗?";
+  if(window.confirm(msg))
+  {
+
+  $.ajax({
+		type: "POST",
+		url: "__URL__/deleteattach/ATTACHMENT_ID/"+ATTACHMENT_ID+"/ATTACHMENT_NAME/"+ATTACHMENT_NAME+"/BOOK_ID/{$_REQUEST[BOOK_ID]}",
+		success: function(){
+		alert("删除成功！");
+		$('#a_'+ATTACHMENT_ID).remove();
+		}
+	});
+
+  }
+
+}
+
+</script>
+<script type="text/javascript" src="../Public/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+        setDomHeight("KDMain", 56);
+
+		createHeader({
+        Title: "图书信息录入管理",
+        Icon: "",
+        IconCls:"ico ico-head-news",
+        Cls: "",
+        Active: 1,
+        Toolbar: [
+            { Title: "帮助", Url: "http://help.7e73.com", Icon: "", IconCls: "ico ico-help", Cls: "", Target: "_blank", TextHide: false },
+			{ Title: "刷新", Url: "javascript:",Action:"location.reload()", Icon: "", IconCls: "ico ico-refresh", Cls: "", Target: "_self", TextHide: false }
+        ],
+        Items: [
+            { Title: "图书信息录入管理", Url: "__URL__/manageIndex", Cls: "", Icon: "", IconCls: "ico ico-list" },
+            { Title: "图书信息查询", Url: "__URL__/manageQuery", Cls: "", IconCls: "ico ico-query" }
+        ]
+    });		   
+});
+
+
+    $(window).resize(function() { 
+        setDomHeight("KDMain", 56); 
+    
+    });
+
+</script>
+<body>
+
+	<div class="KDStyle" id="KDMain">
+	<form name=form1 action="__URL__/manageSubmit" method="POST" id="form1">
+		<table>
+		<colgroup>
+		<col width="120"></col>
+		<col></col>
+		</colgroup>
+			<thead>
+				<tr>
+					<th colspan="2" >{$desc}</th>
+				</tr>
+			</thead>
+			<tbody>
+					<tr>
+						<th>部门</td><th>
+						<select name="DEPT_ID">
+                           {$deptlist}
+					   </select>
+					</td>
+					</tr>
+					<tr>
+						<th>书名：</th><td><input name="BOOK_NAME" id="password1" type="text" class="dm_blur3" value="{$row.BOOK_NAME}" /><span id="password1Tip" style="width:250px"></span></td>
+					</tr>
+					<tr>
+						<th>图书类别：</th><td>
+						<select name="TYPE_ID">
+						<volist name="typelist" id="vo">
+						<option value="{$vo[TYPE_ID]}" <if condition="$vo[TYPE_ID] eq $row[TYPE_ID]">selected</if>>{$vo.TYPE_NAME}</option>
+						</volist>
+					</select></td>
+					</tr>
+					<tr>
+						<th>作者：</th><td><input name="AUTHOR" type="text" class="dm_blur3" value="{$row.AUTHOR}" /></td>
+					</tr>
+					<tr>
+						<th>ISBN号：</th><td><input name="ISBN" type="text" class="dm_blur3" value="{$row.ISBN}" /></td>
+					</tr>
+					<tr>
+						<th>出版社：</th><td><input name="PUB_HOUSE" type="text" class="dm_blur3" value="{$row.PUB_HOUSE}" /></td>
+					</tr>
+					<tr>
+						<th>出版日期：</th><td><input name="PUB_DATE" type="text" class="dm_blur3" value="{$row.PUB_DATE}" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+						
+						</td>
+					</tr>
+					<tr>
+						<th>存放地点：</th><td><input name="AREA" type="text" class="dm_blur3" value="{$row.AREA}" /></td>
+					</tr>
+					<tr>
+						<th>数量：</th><td><input name="AMT" type="text" class="dm_blur3" value="{$row.AMT}"/></td>
+					</tr>
+					<tr>
+						<th>价格：</th><td><input name="PRICE" type="text" class="dm_blur3" value="{$row.PRICE}" /></td>
+					</tr>
+					<tr>
+						<th>内容简介：</th><td><textarea name="BRIEF">{$row.BRIEF}</textarea></td>
+					</tr>
+					<tr>
+						<th>借阅范围：</th><td>
+					<select name="OPEN">
+						<option value="0" <if condition="$row[OPEN] eq 0">selected</if>>本部门</option>
+						<option value="1" <if condition="$row[OPEN] eq 1">selected</if>>全体</option>
+					</select></td>
+					</tr>
+					<tr>
+						<th>借阅状态：</th><td>
+						<select name="LEND">
+						<option value="0" <if condition="$row[LEND] eq 0">selected</if>>未借出</option>
+						<option value="1" <if condition="$row[LEND] eq 1">selected</if>>已借出</option>
+					</select></td>
+					</tr>
+					<tr>
+						<th>借阅人：</th><td><input name="BORR_PERSON" type="text" class="dm_blur3" value="{$row[BORR_PERSON]}"/></td>
+					</tr>
+					<tr>
+						<th>备注：</th><td><input name="MEMO" type="text" class="dm_blur3" value="{$row[MEMO]}" /></td>
+					</tr>
+<script type="text/javascript">
+		var swfu;
+
+		//window.onload = function() {
+		function UploadInit() {
+
+					var settings = {
+				flash_url : "../Public/swfupload/swfupload.swf",
+				upload_url: "__APP__/Swfupload/index",	// Relative to the SWF file
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+				file_size_limit : "100 MB",
+				file_types : "*.*",
+				file_types_description : "All Files",
+				file_upload_limit : 100,
+				file_queue_limit : 0,
+				custom_settings : {
+					progressTarget : "fsUploadProgress",
+					cancelButtonId : "btnCancel"
+				},
+				debug: false,
+
+				// Button settings
+				button_image_url: "../Public/swfupload/images/TestImageNoText_65x29.png",	// Relative to the Flash file
+				button_width: "65",
+				button_height: "29",
+				button_placeholder_id: "spanButtonPlaceHolder",
+				button_text: '<span class="theFont">添加附件</span>',
+				button_text_style: ".theFont { font-size: 12;font-color:#333aaa;border:1px solid #97b8cc; }",
+				button_text_left_padding: 7,
+				button_text_top_padding: 4,
+
+				// The event handler functions are defined in handlers.js
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				upload_start_handler : uploadStart,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess
+			};
+
+			swfu = new SWFUpload(settings);
+
+
+
+	     };
+
+	</script>
+						
+ 	<tr>
+      <th>图片：</th>
+      <td>
+						<if condition="$row[ATTACHMENT_NAME] eq ''"><else />
+						<volist name="listatt" id="vo">
+						<span  id="a_{$vo[attid]}" style="float:left"><img src="../Public/images/email_atta.gif"><a href="__APP__/Attach/view/attid/{$vo[attid]}">{$vo[filename]}</a>&nbsp;&nbsp;({$vo[filesize]}字节)&nbsp;&nbsp;<a href="javascript:delete_attach('{$vo[attid]}','{$vo[filename]}')">删除</a>
+						<input type="hidden" name="oldattid[]" value="{$vo[attid]}">
+						<input type="hidden" name="oldattname[]" value="{$vo[filename]}"></span><br>
+						</volist>
+						</if>
+				<div style="float:left;display:inline;overflow:hidden;width:auto" id="fsUploadProgress"></div>
+				<div style="float:left;display:none;" id="divStatus"></div>
+      </td>
+    </tr>
+	<tr>
+			<th> 图片上传：</th>
+			<td>
+						<div>
+							  <div style="float:left;width:70px;"><span id="spanButtonPlaceHolder"></span></div>
+			<button type="button" onClick="swfu.startUpload();"  />开始上传</button>
+								&nbsp;&nbsp;(附件最大：{$upload_max_filesize})
+						</div>
+				   </td>
+
+    </tr>
+    					
+					</tbody>
+					<tfoot>
+					<tr>
+						<th colspan="2" ><p align="center">
+						<input type="hidden" name="BOOK_ID" value="{$row.BOOK_ID}">
+						<if condition="$row[BOOK_ID]">
+						<button name="Abutton1" type="submit">修改</button>
+						<else />
+						<button name="Abutton1" type="submit">添加</button>
+						</if>
+						<button name="Abutton1" onClick="javascript:window.history.back();s">返回</button>
+						</p></th>
+					</tr>
+			      </tfoot>
+		</table>
+</form>
+</div>
+<script>
+UploadInit();
+</script>
+<include file="Public:footer" />

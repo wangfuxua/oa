@@ -1,0 +1,57 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function delete_gdzc(GDZC_ID)
+{
+ msg='确认要删除该项目么？';
+ if(window.confirm(msg))
+ {
+  URL="applydelete/XM_ID/"+GDZC_ID;
+  window.location=URL;
+ }
+}
+
+</script>
+<body class="bodycolor" topmargin="5" >
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/book.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 需要修改的项目 </span><br>
+    </td>
+    <td valign="bottom">
+    {$page}
+    </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3">
+  <tr class="TableHeader">
+      <td nowrap align="center">项目名称</td>
+      <td nowrap align="center">申报时间</td>
+      <td nowrap align="center">计划完成时间</td>
+      <td nowrap align="center">是否竞标</td>
+      <td nowrap align="center">评定</td>
+      <td nowrap align="center">评定时间</td>
+      <td nowrap align="center">问题类型</td>
+      <td nowrap align="center">操作</td>
+  </tr>
+  
+     <volist name="list" id="vo" key="k" mod="2">
+    <tr class='
+    <eq name="mod" value="1">TableLine1</eq>
+    <eq name="mod" value="0">TableLine2</eq>
+    '>
+      <td nowrap align="center">{$vo.MC}</td>
+      <td nowrap align="center">{$vo.SJ}</td>
+      <td nowrap align="center">{$vo.WCSJ}</td>
+      <td nowrap align="center"><if condition="$vo[JB] eq 1">是</if><if condition="$vo[JB] eq 0">否</if></td>
+      <td nowrap align="center">{$vo[ZJPD]|str_replace='#',':',###}</td>
+      <td nowrap align="center">{$vo.PDSJ}</td>
+      <td nowrap align="center">{$vo.WT_NAME}</td>
+      <td nowrap align="center">
+		<a href="applyedit/XM_ID/{$vo.XM_ID}"> 查看并编辑</a>&nbsp;&nbsp;
+        <a href="javascript:delete_gdzc({$vo.XM_ID});"> 删除 </a>
+      </td>
+    </tr>
+    </volist>
+    
+</table>      
+<include file="Public:footer" />

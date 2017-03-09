@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>快速回复</title>
+</head>
+<link type="text/css" rel="stylesheet" href="http://image2.sina.com.cn/book/forum/s1/css/emote.css" />
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/base.js"></script>
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/dialog.js"></script>
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/func.js"></script>
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/cardtips.js"></script>
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/winks.js" title="MyShow表情"></script>
+<script language="javascript" src="http://d1.sina.com.cn/myshow/data/misc/gif/conf.js" title="MyShow表情"></script>
+<script language="javascript" src="http://image2.sina.com.cn/book/forum/s2/js/myshow_v2.js" title="MyShow表情"></script>
+<script language="javascript">
+var def_domain = "bbs.book.sina.com.cn" ;
+var gid = 2;
+var bbs_id = 9;
+var bbs_subid = 0;
+var vcode = "2,2";
+var is_login=0;
+</script>
+
+<style type="text/css">
+html, body{margin:0px;padding:0px;}
+table{font-size:12px;}
+.text{color:#1577BA;}
+.pointer{cursor:pointer;}
+table .inpt{height:30px;}
+table .inpt input{border:1px #C0DBF9 solid;width:70px;height:17px;line-height:17px;}
+.bd_0{border:#C1DCFA 1px solid;}
+.bd_1{position:relative;}
+.bd_1 div{height:25px;line-height:25px;text-align:right;padding-right:15px;color:#878787;/*position:absolute;top:85px;right:5px;*/}
+.bd_1 div span{color:#F00;}
+.bd_2{border:#C1DCFA 1px solid;border-left:0px;}
+.bd_3{background:#F2FAFD;border-bottom:1px #C1DCFA solid;border-top:1px #FFF solid;}
+table textarea{border:0px;}
+a.reg{color:#F00;}
+</style>
+<style type="text/css">
+/* 登录提示相关样式*/
+#userPosition {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    z-index: 999;
+}
+
+#sinaNote {
+    position: absolute;
+    z-index: 999999;
+    width: auto;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #CCCCCC;
+    background: #ffffff;
+text-align:left;
+}
+
+#sinaNote li {
+    font-size: 12px;
+    list-style: none;
+    margin: 0 1px;
+    height: 20px;
+    padding: 0 5px;
+    clear: both;
+    line-height: 20px;
+    cursor: pointer;
+    color: #999999;
+}
+
+#sinaNote li.note {
+    text-align: left;
+    color: #999999;
+}
+/* end登录提示相关样式*/
+
+/*登录窗口相关样式*/
+.passCard {
+    position: absolute;
+    width: 360px;
+    font-size: 12px;
+    z-index: 100;
+    top: 100px;
+    left: 200px;
+    padding-left: 5px;
+		background-color: #fff;
+}
+
+.passCard .cardbg {
+    width: 358px;
+    padding-bottom: 15px;
+    border: solid 1px #999999;
+    margin-top: 4px;
+    background: #fffdf4;
+    position: relative;
+    top: -4px;
+    left: -4px;
+}
+
+.passCard .cardshade {
+    background: #DFDFDF;
+    position: relative;
+}
+
+.passCard .topicon {
+    width: 11px;
+    height: 6px;
+    position: relative;
+    z-index: 99999999;
+    top: 1px;
+    left: 21%;
+}
+
+.passCard .tit {
+    margin: 10px;
+    text-align: left;
+    font-size: 12px;
+    padding: 0;
+    border: 0;
+    height: 20px
+}
+
+.passCard .row {
+    margin: 0 0 5px 41px;
+
+* margin:
+    0 0 3px 41px !important;
+
+* margin:
+    0 0 3px 41px;
+
+clear:both;
+
+font-size:
+    12px
+}
+
+.passCard .row1 {
+    margin: 8px 0 0 97px;
+    text-align: left;
+    color: #CC0000;
+    line-height: 20px;
+}
+
+.passCard .row2 {
+    clear: both;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding-left: 94px;
+}
+
+.passCard .k {
+    width: 143px;
+    height: 17px;
+    border: 1px solid #CCCCCC;
+    line-height: 17px;
+    color: #999999;
+}
+
+.passCard .k2 {
+    width: 87px;
+    height: 17px;
+    border: 1px solid #CCCCCC;
+    line-height: 17px;
+    margin-right: 5px;
+}
+
+.passCard .c {
+    margin-left: 0;
+
+* margin-left:
+    -4px !important;
+
+* margin-left:
+    -4px;
+}
+
+.passCard .btn1 {
+    font-size: 12px;
+    background-image: url(images/btn.gif);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 0 0;
+    width: 56px;
+    height: 22px;
+    cursor: pointer;
+    float: left;
+    border: 0;
+}
+
+.passCard .btn2 {
+    width: 56px;
+    height: 22px;
+    cursor: pointer;
+    background: url(images/btn_2.gif) no-repeat;
+    border: 0;
+}
+
+.passCard .cDBlue, .passCard a.ccDBlue:link, .passCard a.cDBlue:visited, .passCard a.cDBlue:hover, .passCard a.cDBlue:active {
+    color: #003399;
+    text-decoration: underline;
+}
+</style>
+<script language="javascript">
+function checklen(_this, limit, num_obj){
+	var len = _this.value.cn_length();
+	if (len > limit){
+		_this.value = _this.value.cn_substring(limit);
+		num_obj.innerHTML = 0;
+		show_win("回帖内容不能超过20000个字符");
+		return false;
+	}
+	else{
+		num_obj.innerHTML = limit - len;
+		return true;
+	}
+}
+function show_error(str, func){
+	reset();
+	show_win(str, func)
+}
+function show_frame(Url, sWidth, sHeight, bkgrd, sScroll){
+	reset();
+	dialog.iframe(Url, sWidth, sHeight, bkgrd, sScroll, true);
+}
+function form_post(evt, _this){
+	if (evt.ctrlKey && evt.keyCode == 13){
+		BbsSubmit();
+	}
+}
+function getReplyData()
+{
+    return encode2Url($('fms_body').value);
+}
+function encode2Url(v)
+{
+    var r = [' ','?','&','=','#',"\r","\n"];
+    for(var i = 0; i< r.length; i++)
+    {
+        var reg = r[i]=='?' ? /\?/gi : new RegExp(r[i],'ig');
+        v = v.replace(reg, escape(r[i]));
+    }
+    return v;
+}
+//去掉ubb发表
+function show_stripubb()
+{
+    show_confirm('您还不能使用修改字体等功能！请到<a href=\"/forum/myhome.php\" target=\"_blank\" style="color:red">我的家当</a>购买，或者点击确定按钮去掉这些样式后发表。','strip_ubb()');
+}
+function strip_ubb()
+{
+    $('stripubb').value=1;
+    BbsSubmit();
+}
+function BbsSubmit()
+{
+    show_send('帖子正在发表中,请耐心等待.如果2分钟后页面没有自动刷新,请点击确定按钮后<a href="about:resubmit" onclick="BbsSubmit();return false;" style="color:blue">重新发表</a>');
+    var f = $('postform');
+    if( check_form(f) == true)
+    {
+        f.submit();
+   }
+    return false;
+}
+//发帖检查
+function check_form(f)
+{
+    if (f.fid.value == '' || f.tbid.value == ''){
+        show_error("系统错误！");
+        return false;
+    }
+    
+        
+    if ($("loginname").value == ""){
+    	show_win("请您输入用户名", '$("loginname").focus()');
+    	return false;
+    }
+	if ($("passwd").value == ""){
+		show_win("请您输入密码", '$("passwd").focus()');
+    	return false;
+    }
+    
+        
+    if(f.fms_body.value == '')
+    {
+        
+        show_error("内容不能为空(不含引用内容)", "$('fms_body').focus()");
+        return false;
+    }
+    document.body.focus();
+    return true;
+}
+
+//-- 高级回复
+function hight_reply(_url, _content)
+{
+    var obj = null;
+    try{
+        if(!parent ||!parent.document ||!parent.document.getElementById || !parent.document.getElementById('ihight_form'))
+        {
+            throw 1;
+        }
+        else
+        {
+            obj = parent.document.getElementById('ihight_form');
+        }
+    }
+    catch(e)
+    {
+        var submitForm = parent.document.createElement("FORM");
+        submitForm.id = "ihight_form";
+        parent.document.body.appendChild(submitForm);
+        obj = parent.document.getElementById('ihight_form');
+    }
+    if(obj != null)
+    {
+        obj.method = "POST";
+        obj.target = '_blank';
+        obj.action = _url;
+        obj.innerHTML = '<input type="hidden" name="fms_body" value="'+_content+'"  />';
+        obj.submit();
+     }
+}
+function op_login_zone(){
+	if ($("login_zone").style.display == "none"){
+		parent.resize(null, 510);
+		$("login_zone").style.display = "";
+		$("__pot").src = "http://image2.sina.com.cn/book/forum/s2/images/btn_up.gif";
+	}
+	else{
+		$("login_zone").style.display = "none";
+		parent.resize(null, 480);
+		$("__pot").src = "http://image2.sina.com.cn/book/forum/s2/images/btn_down.gif";
+	}
+}
+function register_user(){
+	parent.resize(590, 410);
+	show_frame("/forum/register.html", 590, 410, false, "no", true);
+}
+function resume(){
+	reset();
+	if ($("login_zone").style.display == "none"){
+		parent.resize(640, 480);
+	}
+	else{
+		parent.resize(640, 510);
+	}
+}
+function nologin(){
+	$("login_zone").style.display = "";
+	$("__pot").src = "http://image2.sina.com.cn/book/forum/s2/images/btn_up.gif";
+	$("loginname").onfocus = $("passwd").onfocus = function(){
+		this.style.background = "#E3EFFD";
+	}
+	$("loginname").onblur = $("passwd").onblur = function(){
+		this.style.background = "#FFF";
+	}
+	$("loginname").focus();
+	parent.resize(640, 510);
+}
+parent.resize(640, 480);
+</script>
+
+<body>
+<form id="postform" onkeyup="form_post(event, this);" action="form_request.html" method="post" target="iframe_data" onSubmit=" BbsSubmit();return false"> 
+<input type="hidden" name="bbsid" value="9" />
+<input type="hidden" name="subid" value="0" />
+<input type="hidden" name="fid" value="546748" />
+<input type="hidden" name="tbid" value="8072" />
+<input type="hidden" name="replyid" value="27280" />
+<input type="hidden" name="fms_emote" value="1" />
+<input type="hidden" name="quickaction" value="1" />
+<input type="hidden" name="fms_title" value="RE:%C3%F1%B9%A4%BA%F4%D3%F5%A3%BA%C5%A9%B4%E5%B9%C3%C4%EF%C3%C7%A3%AC%BC%DE%B8%F8%C5%A9%B4%E5%C4%D0%C8%CB%B0%C9" />
+<input type="hidden" name="checkwd" id="checkwd" />
+<input type="hidden" name="stripubb" id="stripubb" value="0" />
+<input type="hidden" name="ismain" value="0" />
+<input type="hidden" name="jump" value="0" />
+<input type="hidden" name="mytmp" id="mytmp" value="" title="记录一些发帖时对比的数据" />
+
+<!-- replytype add by wujie 2008-3-18 -->
+<input type="hidden" name="replytype" value="1" />
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="25">&nbsp;<img src="http://image2.sina.com.cn/book/forum/s1/images/btn_28.gif" width="67" height="13" /> <img src="http://image2.sina.com.cn/book/forum/s1/images/dot_15.gif" width="3" height="14" /> <a  href="javascript:void(0);" onclick="hight_reply('/tableforum/App/newreply.php?bbsid=9&subid=0&ismain=0&fid=546748&fms_title=%C3%F1%B9%A4%BA%F4%D3%F5%A3%BA%C5%A9%B4%E5%B9%C3%C4%EF%C3%C7%A3%AC%BC%DE%B8%F8%C5%A9%B4%E5%C4%D0%C8%CB%B0%C9&tbid=8072&replyid=27280', $('fms_body').value);parent.reset();return false;"><img src="http://image2.sina.com.cn/book/forum/s1/images/btn_29.gif" width="48" height="13" border="0" /></a></td>
+  </tr>
+  <tr>
+    <td height="25" valign="middle"><span class="text pointer" onclick="op_login_zone();">&nbsp;&nbsp;您还没有登录，请登录 <img id="__pot" src="http://image2.sina.com.cn/book/forum/s2/images/btn_up.gif" width="13" height="13" alt="" align="absmiddle" /></span></td>
+  </tr>
+  <tr id="login_zone" style="display:none";>
+    <td class="inpt">
+    	&nbsp;&nbsp;<span class="text">用户名：</span><input name="loginname" id="loginname" type="text" autocomplete="off"  /> <span class="text">密码：</span><input name="passwd" id="passwd" type="password" /> 
+    	<script language="JavaScript" type="text/javascript">
+			
+			 <!--
+					passcardOBJ.init(
+							// FlashSoft 注意,最好这个input的autocomplete设定为off
+							
+							// 需要有下拉框的input对象
+							$("loginname"),
+							{
+							// 鼠标经过字体颜色
+							overfcolor: "#999",
+							// 鼠标经过背景颜色
+							overbgcolor: "#e8f4fc",
+							// 鼠标离开字体颜色
+							outfcolor: "#000000",
+							// 鼠标离开背景颜色
+							outbgcolor: ""
+							},
+							// 输入完成后,自动需要跳到的input对象[备选]
+							$("passwd"),
+							parent);
+			 //-->
+			 
+			 </script>
+    	</td>
+  </tr>
+  <tr>
+    <td valign="top" class="bd_0">
+	<div class="bd_1">
+		  <textarea style="width:630px;height:170px;" name="fms_body" id="fms_body" onpropertychange="checklen(this, 20000, $('str_len'));"></textarea>
+		  <div>[Ctrl+Enter发帖]  您还可以输入<span id="str_len">20000</span>字</div>
+		</div>
+	</td>
+    </tr>
+  <tr>
+    <td class="bd_3">
+    <div class="d_4" id="emote_erea"style="height:175px;margin-bottom:10px"></div>
+<!-- 
+    <script src="http://image2.sina.com.cn/book/forum/editor/js/emotions.js" language="JavaScript"></script>
+		<script language="JavaScript"> emots_disp3(0, 5, $('emote_erea'),1.7, 4 );</script> -->
+<script type="text/javascript">
+<!--
+    myshow.main('emote_erea',1,0);
+//-->
+</script>
+
+  </td>
+  </tr>
+  <tr>
+    <td height="30" align="center"><input type="image" src="http://image2.sina.com.cn/book/forum/s1/images/btn_44.gif" width="337" height="23" alt="" /></td>
+  </tr>
+</table>
+</form>
+<script language="javascript">
+nologin();
+</script>
+<!-- 高级回复表单 -->
+<form method="post" action="" id="hight_form" target="_blank">
+<input type="hidden" id="hight_body" name="fms_body" value=""  />
+</form>
+</body>
+</html>

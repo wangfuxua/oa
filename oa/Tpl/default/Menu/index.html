@@ -1,0 +1,94 @@
+<include file="Public:header" />
+<SCRIPT>
+function check_all()
+{
+ for (i=0;i<document.all("menu_select").length;i++)
+ {
+   if(document.all("all").checked)
+      document.all("menu_select").item(i).checked=true;
+   else
+      document.all("menu_select").item(i).checked=false;
+ }
+ 
+ if(i==0)
+ {
+   if(document.all("all").checked)
+      document.all("menu_select").checked=true;
+   else
+      document.all("menu_select").checked=false;
+ }
+}
+
+function check_one(el)
+{
+   if(!el.checked)
+      document.all("allbox").checked=false;
+}
+
+</SCRIPT>
+
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.name.value=="")
+   { alert("菜单名称不能！");
+     return (false);
+   }
+   if(document.form1.path.value=="")
+   { alert("菜单路径不能！");
+     return (false);
+   }
+   
+   return (true);
+}
+</script>
+<body>
+	<ul class="dm_submenuul">
+		<li class="dm_on"><a href="__URL__/index" title=""><span>菜单管理</span></a></li>
+		<li><a href="__URL__/form" title=""><span>添加菜单</span></a></li>
+	</ul>
+<div>	
+<form action="__URL__/listorder"  method="post" name="form1">
+  <table>
+				<colgroup>
+					<col width="80"></col>
+					<col width="80"></col>
+					<col></col>
+					<col></col>
+					<col width="120"></col>
+				</colgroup>
+	<thead>	
+	 <tr>
+	  <th>ID</th>
+	  <th>排序</th>
+	  <th>名称</th>
+	  <th>路径</th>
+	  <th>操作</th>
+	 </tr>
+	<thead>
+    <tbody>				  
+	<volist name="list" id="vo">
+	 <tr>
+	  <td>{$vo.menuid}</td>
+	  <td>{$vo.listorder}</td>
+	  <td>{$vo.name}</td>
+	  <td>{$vo.path}</td>
+	  <td><a href="__URL__/form/?menuid={$vo[menuid]}">编辑</a>&nbsp;<a href="__URL__/delete/?menuid={$vo[menuid]}">删除</a></td>
+	 </tr>
+	</volist>
+    <tbody>
+    
+    <tfoot>
+    <tr>
+      <!--<td><input type="submit" name="all" value="排序" class="btnFnt"></td>-->
+      <td colspan="5">
+        {$page}
+      </td>
+    </tr>
+    <tfoot>
+  </table>
+</form>
+</div>
+
+
+<include file="Public:footer" />

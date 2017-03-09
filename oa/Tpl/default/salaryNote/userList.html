@@ -1,0 +1,26 @@
+<include file="Public:header" />
+    <table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center">
+       <tr class="TableHeader" onclick="clickMenu('1')" style="cursor:hand" title="点击伸缩列表">
+         <td nowrap align="center"><b>在职人员</b></td>
+       </tr>
+    </table>
+    <table border="0" cellspacing="1" width="100%" class="small" cellpadding="3" id="1">
+    <tr>
+      <td>
+{$html}
+       </td>
+     </tr>
+    </table>
+
+<script language="JavaScript">
+function clickMenu(ID)
+{
+
+    targetelement=document.all(ID);
+    if (targetelement.style.display=="none")
+        targetelement.style.display='';
+    else
+        targetelement.style.display="none";
+}
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,136 @@
+<include file="Public:header_module" />
+
+<body>
+<div>
+<table>
+  <tr>
+    <td class="Big"><img src="../Public/images/MENU/address.gif" align="absmiddle"><span class="big3"> 联系人详情 —— {$row.PSN_NAME}</span><br>
+    </td>
+    </tr>
+</table>
+ <table>
+    <thead>
+      <td nowrap  colspan="2"><b>&nbsp;个人信息</b></td>
+    </thead>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 姓名：</td>
+      <td class="TableData">{$row.PSN_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 性别：</td>
+      <td class="TableData">{$row.SEX}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80">生日：</td>
+      <td class="TableData">{$row.BIRTHDAY}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 昵称：</td>
+      <td class="TableData">{$row.NICK_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 单位（部门）：</td>
+      <td class="TableData">{$row.DEPT_NAME}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 职务：</td>
+      <td class="TableData">{$row.MINISTRATION}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 配偶：</td>
+      <td class="TableData">{$row.MATE}</td>
+    </tr>
+    <tr>
+      <td nowrap  align="right" width="80"> 子女：</td>
+      <td class="TableData">{$row.CHILD}</td>
+    </tr>
+
+    <thead>
+      <td nowrap  colspan="2"><b>&nbsp;联系方式（单位）</b></td>
+    </thead>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 单位名称：</td>
+      <td class="TableData">{$row.DEPT_NAME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80">单位地址：</td>
+      <td class="TableData">{$row.ADD_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 单位邮编：</td>
+      <td class="TableData">{$row.POST_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 单位电话：</td>
+      <td class="TableData">{$row.TEL_NO_DEPT}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 单位传真：</td>
+      <td class="TableData">{$row.FAX_NO_DEPT}</td>
+    </tr>
+
+    <thead>
+      <td nowrap  colspan="2"><b>&nbsp;联系方式（家庭）</b></td>
+    </thead>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 家庭住址：</td>
+      <td class="TableData">{$row.ADD_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 家庭邮编：</td>
+      <td class="TableData">{$row.POST_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 家庭电话：</td>
+      <td class="TableData">{$row.TEL_NO_HOME}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 手机：</td>
+      <td class="TableData">{$row.MOBIL_NO}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 寻呼机：</td>
+      <td class="TableData">{$row.BP_NO}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 电子邮件：</td>
+      <td class="TableData">{$row.EMAIL}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> OICQ号码：</td>
+      <td class="TableData">{$row.OICQ_NO}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> ICQ号码：</td>
+      <td class="TableData">{$row.ICQ_NO}</td>
+    </tr>
+
+    <tr>
+      <td nowrap  align="right" width="80"> 备 注：</td>
+      <td class="TableData">{$row.NOTES}</td>
+    </tr>
+    <tfoot>
+      <td colspan="2" nowrap>
+        <input type="button" value="打印" class="BigButton" onclick="document.execCommand('Print');" title="直接打印表格页面">&nbsp;&nbsp;&nbsp;&nbsp;
+           <input type="button" value="关闭" class="BigButton" onClick="window.close();" title="关闭窗口">
+      </td>
+    </tfoot>
+    
+  </table>
+<div>
+
+<include file="Public:footer" />

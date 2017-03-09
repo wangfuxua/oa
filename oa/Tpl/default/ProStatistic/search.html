@@ -1,0 +1,63 @@
+<include file="Public:header" />
+<script Language="JavaScript">
+function detail(XM_ID)
+{
+ URL="__URL__/detail/XM_ID/"+XM_ID;
+ myleft=(screen.availWidth-800)/2;
+ window.open(URL,"read_notify","height=600,width=800,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");
+}
+function print(URL){
+	myleft=(screen.availWidth-800)/2;
+ 	window.open(URL,"read_notify","height=600,width=800,status=1,toolbar=no,menubar=no,location=no,scrollbars=yes,top=150,left="+myleft+",resizable=yes");	
+}
+</script>
+
+<body class="bodycolor" topmargin="5" >
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big">
+    <img src="../Public/images/menu/book.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 项目统计结果 </span><br>
+    </td>
+    </tr>
+</table>
+
+<table border="0" cellspacing="1" width="95%" class="small" bgcolor="#000000" cellpadding="3">
+  <tr class="TableHeader">
+      <td nowrap align="center">项目名称</td>
+      <td nowrap align="center">申报时间</td>
+      <td nowrap align="center">立项时间</td>
+      <td nowrap align="center">计划完成时间</td>
+      <td nowrap align="center">实际完成时间</td>
+      <td nowrap align="center">项目负责人</td>
+      <td nowrap align="center">立项部门</td>
+      <td nowrap align="center">项目资金</td>
+      <td nowrap align="center">项目状态</td>
+      <td nowrap align="center">操作</td>
+  </tr>
+  <volist name="list" id="vo" key="k" mod="2">
+      <tr class='<eq name="mod" value="1">TableLine1</eq><eq name="mod" value="0">TableLine2</eq>'>
+      <td nowrap align="center">{$vo.MC}</td>
+      <td nowrap align="center">{$vo.SJ}</td>
+      <td nowrap align="center">{$vo.LXSJ}</td>
+      <td nowrap align="center">{$vo.WCSJ}</td>
+      <td nowrap align="center">{$vo.SJSJ}</td>
+      <td nowrap align="center">{$vo.USER_NAME}</td>
+      <td nowrap align="center">{$vo.BM_NAME}</td>      
+      <td nowrap align="center">{$vo.XMZJ}</td>
+      <td nowrap align="center">{$vo.XMZT_DESC}</td>
+      <td nowrap align="center" nowrap>
+		<a href="javascript:detail('{$vo.XM_ID}');"> 查看详细</a>
+      </td>
+    </tr>
+  </volist>  
+    </table>
+<br>
+<div align="center">
+ <input type="button"  value="返回" class="BigButton" onClick="location='index.php';">
+ <input type="button"  value="打印" class="BigButton" onClick="print('print.php?SJ1={$_REQUEST.SJ1}&SJ2={$_REQUEST.SJ2}&WCSJ1={$_REQUEST.WCSJ1}&WCSJ2={$_REQUEST.WCSJ2}&LXSJ1={$_REQUEST.LXSJ1}&LXSJ2={$_REQUEST.LXSJ2}&XMMC={urlencode($_REQUEST[XMMC])}&BM_ID={$_REQUEST[BM_ID]}&SXMZT={urlencode($_REQUEST[SXMZT])}');">
+</div>
+
+
+
+
+<include file="Public:footer" />

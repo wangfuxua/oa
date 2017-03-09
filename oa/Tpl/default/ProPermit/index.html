@@ -1,0 +1,76 @@
+<include file="Public:header" />
+<script language="JavaScript" type="text/javascript">
+function td_calendar(fieldname)
+{
+  myleft=document.body.scrollLeft+event.clientX-event.offsetX-80;
+  mytop=document.body.scrollTop+event.clientY-event.offsetY+140;
+
+  //window.open("/inc/calendar.php?FIELDNAME="+fieldname,"td_calendar","height=176,width=240,status=0,toolbar=no,menubar=no,location=no,scrollbars=no,top="+mytop+",left="+myleft+",resizable=yes");
+  window.showModalDialog("/inc/calendar.php?FIELDNAME="+fieldname,self,"edge:raised;scroll:0;status:0;help:0;resizable:1;dialogWidth:280px;dialogHeight:205px;dialogTop:"+mytop+"px;dialogLeft:"+myleft+"px");
+}
+</script>
+  
+
+<body class="bodycolor" topmargin="5">
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_open.gif" align="absmiddle"><span class="big3"> 项目审批</span>
+    </td>
+  </tr>
+</table>
+<div align="center">
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3" align="center" >
+  <form action="__URL__/search"  method="post" name="form1" >  
+   <tr>
+    <td nowrap class="TableData">项目名称： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="MC" class="BigInput" size="33" maxlength="100">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">时间段： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="SJ1" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJ1');">
+         到
+        <input type="text" name="SJ2" class="BigInput" size="30" maxlength="11" value="<?php echo $KSSYRQ ?>">&nbsp;
+        <img src="../Public/images/menu/calendar.gif" border="0" style="cursor:hand" onclick="td_calendar('form1.SJ2');">
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">来源： </td>
+    <td nowrap class="TableData">
+        <input type="text" name="XMLY" class="BigInput" size="33" maxlength="100">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">组成员： </td>
+    <td nowrap class="TableData">
+        <select name="ZCY_ID" class="BigSelect">
+        	<option value="" selected>所有人</option>
+        	{$listuser}
+        </select>
+    </td>
+   </tr>
+   <tr>
+    <td nowrap class="TableData">项目简介： </td>
+    <td nowrap class="TableData">
+       <input type="text" name="XMJJ" class="BigInput" size="33" maxlength="100">&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <td nowrap  class="TableControl" colspan="2" align="center">
+   		条件关系：
+   		<select name="RELATION">
+   			<option value="AND">与</option>
+   			<option value="OR">或</option>
+   		</select>
+        <input type="submit" value="查询" class="BigButton" title="模糊查询" name="button">
+    </td>
+   </tr>
+  </form>
+</table>
+
+</div>
+
+<include file="Public:footer" />

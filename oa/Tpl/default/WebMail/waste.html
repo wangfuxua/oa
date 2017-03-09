@@ -1,0 +1,155 @@
+﻿<div id="title" class="clearfix">
+      <h2>{$curtitle}</h2>
+      <p>(共<span id="allmail"> {$COUNT}</span> 封，其中<em> 未读邮件</em> <span id="newmail">{$countnew}</span> 封)</p>
+      <span class="rtact">全局查询
+      <input type="hidden" id="setid" name="setid" value="{$setid}">
+      <input type="text" id="keyword" />
+      <button type="button" id="searchsub_wb">搜索</button>
+      </span>
+
+      </div>
+<div id="active" class="active">
+        <span id="mail-del-one"><a href="#">删除</a></span>
+        <span id="maill-delAll"><a href="#">全部删除</a></span> 
+       </div>     
+  <div id="mail-centens" style="border:none">
+      <table id="mail-date"  border="0" cellspacing="0" cellpadding="0">
+      <thead>
+          <th width="14"><input type="checkbox" name="topcheck" id="topcheck" onclick="checkAll()"/></th>
+          <th width="14"><img src="../Public/images/ico/mail_tit_1.gif" width="15" height="12" align="absmiddle" /></th>
+          <th width="160">发件人</th>
+          <th>主题</th>
+          <th width="30">附件</th>
+          <th width="30" >日期</th>
+          <th width="40">大小</th>
+          </thead>
+        <tr>
+		<tbody id="mail-list">
+		<volist name="list" id="vo">
+		<tr>
+          <td align="center"><input type="checkbox" name="email_select" value="{$vo.idx}" /></td>
+          <td><if condition="$vo[meta_read] eq 'r'"><span class="readed">已读</span><elseif condition="$vo[meta_read] eq 'u'" /><span class="readnow">未读</span></if></td>
+          <td><a href="javascript:view_mail('{$vo.idx}')">{$vo.hfrom|parse_email_address=###}</a></td>
+          <td><span class="til"><a href="javascript:view_mail('{$vo.idx}')">{$vo.hsubject}</a></span></td>
+          <td><if condition="$vo[attachments] eq 1"><img src="../Public/images/ico/mail_files.gif" width="14" height="12" align="absmiddle" /><else />&nbsp;</if></td>
+          <td align="center">{$vo.hdate_sent}</td>
+          <td align="center">{$vo.hsize|bitsize}</td>
+        </tr>
+       </volist>
+		</tbody>
+		</tr>
+      </table>
+      <div class="tab-ft">
+		<span id="check-all" style="width:50px;"><label for="btmcheck"><input type="checkbox" name="btmcheck" id="btmcheck" onclick="checkAll()"/>全选</label></span>
+        <div class="btm-act">
+				<span>转移到：		
+		<select name="BOX_IDS" onchange="change_box();" style="border:1px solid #ccc">
+         <volist name="boxlist" id="vo">
+         <option value="{$vo.idx}" <equal name="folderid" value='$vo[idx]'>selected</equal>>{$vo.friendly_name}</option>
+         </volist>
+		</select>
+		
+		</span>       </div>
+        <div id="page-Num">{$page}</div>
+      </div>
+    </div>
+<script type="text/javascript">
+
+$("#searchsub_wb").click(function(){
+	var keyword=$('#keyword').val();
+	//var setid=1;
+	var setid=$('#setid').val();
+	$("#mail-act").html('');
+	$("#mail-act").load("/index.php/WebMail/search/keyword/"+keyword+"/setid/"+setid);
+})
+
+//查看邮件
+function view_mail(mailid){
+		   $("#mail-act").html('');
+		   $("#mail-act").load("/index.php/WebMail/view/?setid={$setid}&from=waste&idx="+mailid);
+}
+
+$("#mail-del-one").click(function(){
+var gh=$("#mail-list").find("input");
+for(var i=0; i<gh.length; i++){
+   if(gh[i].checked==true){
+	   if(confirm("您确定要删所选文件吗？")==1)
+		for(var j=0; j<gh.length; j++){
+			if(gh[j].checked==true){
+		      var py=gh[j].parentNode;
+		     if(py.tagName!='tr')
+			    py=py.parentNode;				
+			   $(py).remove();	
+			   $.ajax({
+			   	type:'post',
+			   	url:'/index.php/WebMail/delete/folder/waste/idxs/'+gh[j].value+','
+			   })			   			   			   
+			 }
+		  }		 
+		  return 
+	    }
+	  }
+	if(i<1){
+	alert("文件为空");
+	return
+	}
+	alert("请选择你要删除的文件")
+})
+
+
+//删除邮件
+$("#maill-delAll").click(function(){
+if(confirm("您确定要删除全部邮件！")==1){
+$("#mail-list").find('tr').remove();
+$.ajax({
+   	type:'post',
+  	url:'/index.php/WebMail/deleteall/folderid/'+{$folderid}
+})	
+$("#page-Num").html("")
+}
+else return
+})
+
+function change_box()
+{
+  delete_str="";
+  for(i=0;i<document.all("email_select").length;i++)
+  {
+
+      el=document.all("email_select").item(i);
+      if(el.checked)
+      {  val=el.value;
+         delete_str+=val + ",";
+      }
+  }
+  
+  if(i==0)
+  {
+      el=document.all("email_select");
+      if(el.checked)
+      {  val=el.value;
+         delete_str+=val + ",";
+      }
+  }
+
+  if(delete_str=="")
+  {
+     alert("要转移邮件，请至少选择其中一封。");
+     //document.form1.reset();
+     return;
+  }
+  
+  box_id=document.all("BOX_IDS").value;
+ // window.location="__APP__/Email/change/EMAIL_ID_STR/"+ delete_str +"/BOX_ID/"+box_id;
+  //url="__APP__/WebMail/change/EMAIL_ID_STR/"+ delete_str +"/BOX_ID/"+box_id;
+  url="__APP__/WebMail/change/idxs/"+ delete_str +"/folderid/"+box_id;
+  
+  $("#mail-act").html('');
+  $("#mail-act").load(url);
+  
+  //window.location=URL;
+}
+
+</script>
+
+<script src="../Public/script/mudel.js" type="text/javascript"></script>

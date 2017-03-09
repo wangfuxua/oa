@@ -1,0 +1,79 @@
+<include file="Public:header_module2" />
+
+<body>
+<div class="KDStyle" id="KDMain">
+<table>
+<col width="120px" />
+<thead><tr><th colspan="2">{$row.MC} 的详细情况</th></tr></thead>
+   <tr>
+    <th>固定资产名称：</th>
+    <td>{$row.MC}</td>
+   </tr> 
+   <tr>
+    <th>编号：</th>
+    <td>{$row.BH}</td>
+   </tr>
+   <tr>
+    <th>资产类别：</th>
+    <td>{$row.LB}</td>
+   </tr>
+   <tr>
+    <th>数量：</th>
+    <td>{$row.SL}</td>
+   </tr>
+   <tr>
+    <th>规格型号：</th>
+    <td>{$row.GGXH}</td>
+   </tr>
+   <tr>
+    <th>单价：</th>
+    <td>{$row.DJ}</td>
+   </tr>
+   <tr>
+    <th>供货单位：</th>
+    <td>{$row.JZDW}</td>
+   </tr>
+   <tr>
+    <th>开始使用日期：</th>
+    <td>{$row.KSSYRQ}</td>
+   </tr>
+   <tr>
+    <th>预计使用年限：</th>
+    <td>{$row.YJSYNX}</td>
+   </tr>
+   <tr>
+    <th>使用部门：</th>
+    <td>{$row.SYBM_ID|getDeptname}</select>
+    </td>
+   </tr>
+   <tr>
+    <th>所在地：</th>
+    <td>{$row.SZD}</td>
+   </tr>
+   <tr>
+    <th>管理人：</th>
+    <td>{$row.GLR_ID|getUsername}</td>
+   </tr>
+   <tr>
+    <th>资产录入员：</th>
+    <td>
+        {$row.ZCLRY_ID|getUsername}&nbsp;
+    </td>
+   </tr>
+   <tr>
+    <th>审核：</th>
+    <td>
+        <if condition="$row[SH] eq 2">通过审核<elseif condition="$row[SH] eq 1" />未通过审核<else />待审核</if>
+    </td>
+   <tfoot> 
+   </tr>
+    <th colspan="2">
+        <button type="button" value="关闭" class="btnFnt" onClick="javascript:window.close();">关闭</button>
+    </th>
+   </tr>
+   </tfoot> 
+   
+</table>
+</div>
+
+<include file="Public:footer" />

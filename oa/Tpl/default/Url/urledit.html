@@ -1,0 +1,59 @@
+<include file="Public:header_module" />
+<script Language="JavaScript">
+function CheckForm()
+{
+   if(document.form1.URL_DESC.value=="")
+   { alert("说明不能为空！");
+     return (false);
+   }
+   if(document.form1.URL.value=="")
+   { alert("网址不能为空！");
+     return (false);
+   }
+}
+</script>
+<body onload="document.form1.URL_NO.focus();">
+
+<div class="person">
+<table>
+  <tr>
+    <td><img src="../Public/images/edit.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 编辑网址</span>
+    </td>
+  </tr>
+</table>
+<form action="__URL__/urlsubmit"  method="post" name="form1" onsubmit="return CheckForm();">  
+<table>
+  
+   <tr>
+    <td>序号：</td>
+    <td>
+        <input type="text" name="URL_NO" class="BigInput" size="10" maxlength="25" value="{$row.URL_NO}">
+    </td>
+   </tr>
+   <tr>
+    <td>说明：</td>
+    <td>
+        <input type="text" name="URL_DESC" class="BigInput" size="25" maxlength="200" value="{$row.URL_DESC}">
+    </td>
+   </tr>
+   <tr>
+    <td>网址：</td>
+    <td>
+        <input type="text" name="URL" class="BigInput" size="25" maxlength="200" value="{$row.URL}">
+    </td>
+   </tr>
+   <tfoot>
+   <tr>
+    <td nowrap  class="TableControl" colspan="2" align="center">
+        <input type="hidden" value="{$row.URL_ID}" name="URL_ID">
+        <button type="submit" value="确定">确定</button>
+        <button type="button" value="返回" onclick="location='__URL__/index'">返回</button>
+    </td>
+    </tr>
+    </tfoot>
+  
+</table>
+</form>
+</div>
+
+<include file="Public:footer" />

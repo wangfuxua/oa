@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>用户管理</title>
+<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+<script type="text/javascript">
+        /*  初始化Ajax */
+        if(!KD){
+            var KD = {
+                $: function(id) {
+                    return document.getElementById(id);
+                },
+                InitAjax: function() {
+                    var ajax = false;
+                    try {
+                        ajax = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                        try {
+                            ajax = new ActiveXObject("Microsoft.XMLHTTP");
+                        } catch (E) {
+                            ajax = false;
+                        }
+                    }
+                    if (!ajax && typeof XMLHttpRequest != 'undefined') {
+                        ajax = new XMLHttpRequest();
+                    }
+                    return ajax;
+                }
+            }
+        }
+
+        function selectChoose(value, name, divId, postUrl) {
+            var postStr = name+"=" + value;
+
+            var ajax = KD.InitAjax();
+            ajax.open("POST", postUrl, true);
+            ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            ajax.send(postStr);
+            ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                    KD.$(divId).innerHTML = ajax.responseText;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+<h2>工作流模板添加</h2>
+		
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="dm_tablezana">
+		<form action="__URL__/add"  method="post" name="form1" >	
+		<tr>
+				<td valign="top" class="dm_zanal">模板名称（中文）：</td>
+				<td>
+					<input name="modelName"  type="text" class="dm_blur3" />
+				</td>
+			</tr>
+			<tr>
+				<td valign="top" class="dm_zanal">模板名称（英文）：</td>
+				<td>
+					<input name="modelTableName"  type="text" class="dm_blur3" />*只能是英文
+				</td>
+			</tr>
+
+		
+			<tr>
+				<td colspan="2" class="dm_btnzan">
+					<input name="submit" type="submit" value="下一步" />
+					
+				</td>
+			</tr></form>
+		</table>
+		</body>
+</html>

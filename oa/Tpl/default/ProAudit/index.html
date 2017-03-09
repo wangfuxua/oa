@@ -1,0 +1,67 @@
+<include file="Public:header" />
+
+<script Language="JavaScript">
+function set_page()
+{
+ PAGE_START=(PAGE_NUM.value-1);
+ location="index.php?PAGE_START="+PAGE_START;
+}
+function reject(ID,XMFZR_ID){
+	var YJ=window.prompt("请输入审核意见:","");
+	if(YJ != null){
+		location="__URL__/reject/ID/"+ID+"/YJ="+YJ+"/XMFZR_ID/"+XMFZR_ID;
+	}
+}
+function audit(ID,WH_ID,XMFZR_ID){
+	var el = document.getElementById(ID);
+	window.location.href="__URL__/audit/ID/"+ID+"/WH_ID/"+WH_ID+"/XMFZR_ID/"+XMFZR_ID+"/SHR/"+el.value;
+}
+</script>
+
+<body class="bodycolor" topmargin="5">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/notify_new.gif" align="absmiddle"><span class="big3">文件审核</span><br>
+    </td>
+  </tr>
+</table>
+
+<table border="0" width="100%" cellspacing="0" cellpadding="3" class="small">
+  <tr>
+    <td class="Big"><img src="../Public/images/menu/book.gif" WIDTH="22" HEIGHT="20" align="absmiddle"><span class="big3"> 待审核文件列表 </span><br>
+    </td>
+    <td valign="bottom">{$page}
+    </td>
+    </tr>
+</table>
+<table border="0" cellspacing="1" width="100%" class="small" bgcolor="#000000" cellpadding="3">
+  <tr class="TableHeader">
+      <td nowrap align="center">项目名称</td>
+      <td nowrap align="center">项目负责人</td>
+      <td nowrap align="center">立项时间</td>
+      <td nowrap align="center">维护类别</td>
+      <td nowrap align="center">项目维护文件</td>
+      <td nowrap align="center">操作</td>
+  </tr>
+  <volist name="list" id="vo" key="k" mod="2">
+    <tr class='<eq name="mod" value="1">TableLine1</eq><eq name="mod" value="0">TableLine2</eq>'>
+      <td nowrap align="center">{$vo.MC}</td>
+      <td nowrap align="center">{$vo.XMFZR_ID|getUsername=###}</td>
+      <td nowrap align="center">{$vo.LXSJ}</td>
+      <td nowrap align="center">{$vo.WH_NAME}</td>
+      <td nowrap align="left">{$att}</td>
+      <td nowrap align="center">
+      	<select id="{$vo.ID}" class="SmallSelect">
+      	  {$vo[WH_ID]|xmsh_userlist=###,$vo[sh],$LOGIN_USER_ID,1}
+        </select>
+      <a href="javascript:audit('{$vo.ID}','{$vo.WH_ID}','{$vo.XMFZR_ID }')">通过审核</a>&nbsp;&nbsp;
+      <a href="#" onclick="reject('{$vo.ID}','{$vo.XMFZR_ID }');">不通过审核</a>
+      
+      </td>
+      </tr>
+     </volist> 
+  </table>
+
+
+<include file="Public:footer" />

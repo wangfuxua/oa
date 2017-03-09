@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="JKTD-D-丁亚娟" />
+<title>人事档案</title>
+<link rel="stylesheet" type="text/css" href="../public/css/default.css" />
+<script type="text/javascript" src="../public/js/iframe.js" ></script>
+<script type="text/javascript" src="../public/js/tree.js"></script>
+</head>
+
+<body>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="dm_personl tdtop" valign="top">
+			    <div class="userTree">
+			        <div class="dm_menu_a"><b></b>在职人员</div>
+			        <script type="text/javascript">
+				        <!--
+			            var online = new sTree('online');
+			            online.icon = {
+					       root: '../Public/img/empty.gif', 			
+					        folder: '../Public/img/folder.gif', 			
+					        folderOpen: '../Public/img/folderopen.gif', 
+					        node: '../Public/images/bg_4x7.gif', 		
+					        empty: '../Public/img/empty.gif', 			
+					        line: '../Public/img/line.gif', 			
+					        join: '../Public/img/join.gif', 			
+					        joinBottom: '../Public/img/joinbottom.gif', 		
+					        plus: '../Public/img/plus.gif', 			
+					        plusBottom: '../Public/img/plusbottom.gif',
+					        minus: '../Public/img/minus.gif',
+					        minusBottom: '../Public/img/minusbottom.gif',
+					        nlPlus: '../Public/img/nolines_plus.gif',
+					        nlMinus: '../Public/img/nolines_minus.gif'
+					    };
+				        // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            online.add(0, -1, '金凯通达', '', '', '', '../Public/images/ico/company-ico.gif', '../Public/images/ico/company-ico.gif', '', 'tree-root');
+			            
+			<volist name="deptlist" id="vo" key="k">
+			    online.add({$vo[DEPT_ID]},{$vo[DEPT_PARENT]},'[{$vo.DEPT_NAME}]','javascript:;','','','../Public/images/treeicon/t_ini.gif','','','');
+			    <sublist name="vo[user]" id="user">
+			      online.add('{$user[USER_ID]}',{$vo[DEPT_ID]},'{$user.USER_NAME}','__URL__/form/USER_ID/{$user.USER_ID}','','hrms','../Public/images/ico/user.png','','','');
+			    </sublist>
+			</volist>
+			
+			            
+			            document.write(online);
+				        //-->
+			        </script>
+			        <div class="dm_menu_a"><b></b>离职/外部人员</div>
+			        
+			        <script type="text/javascript">
+				        <!--
+			            var outuser = new sTree('outuser');
+			            outuser.config.folderLinks = true;
+			            outuser.icon = {
+					       root: '../public/img/empty.gif', 			
+					        folder: '../public/img/folder.gif', 			
+					        folderOpen: '../public/img/folderopen.gif', 
+					        node: '../public/images/bg_4x7.gif', 		
+					        empty: '../public/img/empty.gif', 			
+					        line: '../public/img/line.gif', 			
+					        join: '../public/img/join.gif', 			
+					        joinBottom: '../public/img/joinbottom.gif', 		
+					        plus: '../public/img/plus.gif', 			
+					        plusBottom: '../public/img/plusbottom.gif',
+					        minus: '../public/img/minus.gif',
+					        minusBottom: '../public/img/minusbottom.gif',
+					        nlPlus: '../public/img/nolines_plus.gif',
+					        nlMinus: '../public/img/nolines_minus.gif'
+					    };
+				       // id, pid, name, url, title, target, icon, iconOpen, open, cls
+			            outuser.add(0, -1, '金凯通达', '', '', '', '../public/images/ico/company-ico.gif', '../public/images/ico/company-ico.gif', '', 'tree-root');
+			            {$treeoutuser}
+			            document.write(outuser);
+				        //-->
+			        </script>
+			        			        
+			    </div>
+			</td>
+			<td class="dm_personr tdtop" >
+			
+			<script type="text/javascript">
+			    iframe('__URL__/blank', '100%', '1000', 'hrms');
+	        </script>
+	        
+		
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

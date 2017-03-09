@@ -1,0 +1,184 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*{margin:0; padding:0; border:0;}
+html,body{background:#fff; font-size:12px; color:#000; font-family:"宋体";}
+div{margin:0 auto;}
+ul,li{padding:0; margin:0; list-style-type:none;}
+form{padding:0; margin:0;}
+em{font-style:normal;}
+.str{font-weight:bold;}
+h1,h2,h3,h4,h5,h6{font-size:14px; text-align:left;}
+a{color:#000; text-decoration:none;}a:hover{color:#d12700;}
+td{vertical-align:top; text-align:left;}
+.clear {height:0;font-size:0px;line-height:0px;clear:both;float:none;overflow:hidden}
+/**********  font    *************/
+.b,    a.b{ font-weight:bold}
+.b_blue,    a.b_blue{ font-weight:bold; color:blue}
+.b_green,  a.b_green{font-weight:bold; color:green}
+.b_red,     a.b_red { font-weight:bold; color:red}
+.b_purple, a.b_purple{ font-weight:bold; color:purple}
+/**********  table  *************/
+/*table {height:auto;border-collapse:collapse;border:1px #B8C9DD solid;margin:10px auto;font-size:12px;background-color:white}*/
+table caption {height:24px;line-height:24px;background-color:#A1C3E6;color:white;text-align:left;padding-left:10px}
+table th, table td,table tbody th, table tbody td {border:1px #B8C9DD solid;padding:2px 5px;vertical-align:middle;}
+table thead th, table thead td, 
+table tfoot th, table tfoot td {text-align:center}
+table thead th {color:#005DAA;background:#E3E9F5 url(../images/bg/bgf1.gif) repeat-x 0 -57px}
+table tfoot th {color:#005DAA;background-color:#E3E9F5}
+table thead td, table tfoot td {color:#000000;background-color:#F2F5FC;font-weight:bold}
+table td.tdcenter,table tr.tdcenter td,table tbody.tdcenter td {vertical-align:middle;text-align:center}
+table tr td.tdright {text-align:right}
+table tr td.tdleft,table tr th.tdleft {text-align:left}
+table caption.nostyle {background:none;color:black;font-weight:bold;font-size:14px;line-height:40px;height:40px;padding:0}
+table th.acc {background:#E3E9F5 url(../images/bg/bgf1.gif) repeat-x 0 -57px;text-align:left;color:black}
+table th.acc .button {text-align:center}
+table td.tdtop {vertical-align:top}
+table th.tdtit { background:#E3E9F5}
+optgroup{ font-style:normal; font-weight:bold}
+.formAdd {}
+.formAdd tbody th,.smalltable tbody th {background-color:#F2F5FC;text-align:left;font-weight:normal}
+.smalltable {width:90%}
+.smalltable caption {background:none;color:black;font-weight:bold;font-size:14px;line-height:40px;height:40px;padding:0}
+/* form */
+form input,textarea {border:1px silver solid}
+form input {height:20px;padding:2px;min-width:200px;}
+	*+html form input {height:16px}  /*IE7*/
+	* html form input {height:16px}  /*IE6*/
+textarea {width:98%;height:80px}
+form .radio, form .check {border:none}
+
+textarea.selectuser {width:300px;height:20px}
+input.title {width:98%}
+input.w300  {width:300px}
+input.date  {width:120px}
+input.focus{border:1px solid #a0b3de;background:#fbf1c0;}
+.focus{border:1px solid #a0b3de;background:#fbf1c0;}
+/* fieldset */
+fieldset.date {clear:left;margin:2px 0}
+fieldset.date input {width:100px;float:left}
+fieldset.date label {width:auto;float:left}
+fieldset.date span {width:auto;float:left;margin:0 10px}
+fieldset.date img    {float:left;margin:2px 5px; cursor:pointer}
+fieldset.date button.selectDate {width:16px;height:20px;line-height:20px;float:left;margin:0 5px;border:0;background:white url('../images/ico/calendar.png') no-repeat 0 2px}
+fieldset.files {}
+fieldset.files input {width:70%}
+fieldset.files label,fieldset.files input,fieldset.files button,fieldset.files select {width:auto;float:left;margin:0 5px 0 0}
+fieldset.radio input {border:0 none}
+fieldset.check input {border:0 none}
+fieldset.checkUser {}
+fieldset.checkUser textarea {width:70%;height:40px;line-height:16px;background-color:#F6F6F6;float:left}
+fieldset.checkUser button {float:left;margin-top:10px}
+fieldset.textContent textarea{width:100%;height:100%}
+fieldset.HtmlContet textarea{width:100%; height:300px}
+.btnFnt,button {padding:0 6px;margin:0 5px;min-width:auto;background:#DDF0FF url(../images/bg/bgf1.gif) repeat-x 0 -453px;border:1px solid #87A3C1;color:#174B73;font-weight:bold;height:22px;line-height:22px;cursor:pointer !important}
+
+/*  */
+p.date {color:#999999}
+.font-blue {color:#004C88}
+.font-green{color:#089B02}
+.font-red  {color:#CC0000}
+.formdate {}
+.formdate span,.formdate input, .formdate b {display:block;float:left}
+.formdate span {padding:0 5px;margin:0 5px}
+b{background:url(../images/ico.gif) no-repeat;width:15px;height:16px;margin:3px 9px;cursor:pointer}
+b.dm_dateicon, b.dm_dateicon{background-position:-257px -97px;}
+b.dm_timeicon{background-position:-291px -97px;}
+
+.warp {width:auto;height:auto;overflow:hidden;padding:10px;margin:0 auto}
+/* Loading... */
+.loading {width:400px;height:60px;margin:0 auto;line-height:30px;padding:10px;border:1px silver solid;position:absolute; top:50%; left:50%;margin:-30px 0 0 -200px}
+.loading h1 {height:30px;width:80px;float:left;padding-left:40px;color:gray;background:url(../images/ico/loading2.gif) no-repeat 10px 5px}
+.loading p {padding-left:40px}
+.loading span {font-weight:bold;margin:0 5px}
+.loading a {color:blue}.loading a:hover {color:#CC0000}
+.loading p.erro {color:red;font-size:14px;font-weight:bold}
+.loading p.ok	{color:#009900;font-size:14px;font-weight:bold}
+.loading p.tips {color:gray}
+/* tree */
+
+
+#userSearch input {width:104px;margin-left:0px;min-width:90px;background:white url('../images/ico/ico_user_search.gif') no-repeat right 0}
+#searchResult{display:none;  width:164px; height:auto;/*float:left*/; margin-left:2px}
+#searchState{display:none;  width:164px; height:auto;/*float:left*/; margin-left:2px}
+
+/*  */
+.dm_submenuul{width:100%;border-bottom:1px solid #9eb4dd;height:25px;margin-top:1px;}
+.dm_submenuul li{float:left;margin:0 0 0 1px;display:inline;font-size:14px;font-weight:bold;line-height:25px;}
+.dm_submenuul li a{color:#004e8e;text-decoration:none;float:left;background:url(../images/dm_menulbg.gif) no-repeat;padding-left:8px;overflow:hidden;height:25px;cursor:pointer;}
+.dm_submenuul li a:hover,.dm_submenuul li.dm_on a{color:#d32502;background:url(../images/dm_hovermenulbg.gif) no-repeat;}
+.dm_submenuul li a span{background:url(../images/dm_menurbg.gif) no-repeat right top;padding-right:8px;float:left;}
+.dm_submenuul li a:hover span,.dm_submenuul li.dm_on a span{background:url(../images/dm_hovermenurbg.gif) no-repeat right top;}
+.dm_icon{float:left;background:url(../images/ico.gif) no-repeat;width:21px;height:17px;margin:3px 4px 0 0;height:25px;}
+.dm_send{background-position:-1471px -38px;}
+.dm_insen{background-position:-1471px -70px;}
+.dm_insenof{background-position:-1474px -103px;}
+.dm_mequ{background-position:-1474px -135px;}
+.oldico, .newico {width:14px;height:20px;line-height:20px;display:block;background-repeat:no-repeat;background-position:left center}
+.newico { background-image:url('../images/ico/mail_new.gif')}
+.oldico { background-image:url('../images/ico/mail_old.gif')}
+
+
+
+
+
+
+/* === Tree Start === */
+/* user-online */
+.sTree .tree-root { font-size:0;height:0;line-height:0;padding:0;margin:0;background:none;display:none;}
+.oTree{}
+.oTree-bg,.oTree-bg.sTreeNode:hover {background:url(../images/bg/usrtree_bg.gif) white no-repeat left top;line-height:20px;height:20px;font-weight:normal;padding:3px 10px}
+.oTree-bg.sTreeNode { padding:3px 10px}
+.oTree-bg.sTreeNode a {line-height:20px}
+.oTree-bg .node {line-height:20px}
+.oTree .sTreeNode {padding:0}
+
+.sTree .sTreeNode {padding:3px 10px;line-height:20px}
+
+.sTreeNode:hover{background:none;padding:3px 10px;line-height:20px}
+.sTree a.node, .sTree a.nodeSel {padding:0}
+.sTree a.node:hover, .sTree a.nodeSel:hover {text-decoration: none;font-weight:normal;padding:0}
+.sTree img {border: 0px; vertical-align: middle;}
+.menuOn {background:none}
+
+.sTree .user-root {font-size:14px;font-weight:bold;padding-left:10px}
+.sTree .user-root img {margin:0 5px}
+
+/*user tree manage*/
+
+.userTree {}
+.userTree .menuOn { background-color:white}
+/* === Tree End === */
+
+/* ===== User Start ===== */
+.userPage {}
+.userPage-tree {width:150px;height:auto;float:left}
+.ussrPage-main {width:auto;height:auto;float:left}
+
+/* ===== User End ===== */
+
+/* ===== file folder Start ===== */
+.filefoder {width:150px;float:left}
+.filemain {width:80%;float:left}
+
+.filefoder-files{}
+.filefoder-files em {width:22px;height:24px;float:left;clear:left;background-position:left center;background-repeat:no-repeat;background-image:url('../images/ico/files.gif')}
+.filefoder-files em.ppt {background-image:url('../images/ico/ppt.gif')}
+.filefoder-files a {margin:0 10px 0 0}
+.filefoder-btn a{width:auto;padding:0 20px;height:24px;line-height:24px;float:left;display:block;background-position:left 2px;background-repeat:no-repeat}
+.filefoder-btn a.file-add{ background-image:url('../images/ico/notify_new.gif')}
+.filefoder-btn a.file-search{ background-image:url('../images/ico/folder_search.gif')}
+.filefoder-btn a.file-copy{ background-image:url('../images/ico/copy.gif')}
+.filefoder-btn a.file-cut{ background-image:url('../images/ico/cut.gif')}
+.filefoder-btn a.file-paste{ background-image:url('../images/ico/paste.gif')}
+.filefoder-btn a.file-delete{ background-image:url('../images/ico/delete.gif')}
+.filefoder-btn a.file-folderedit{ background-image:url('../images/ico/folder_edit.gif')}
+.filefoder-btn a.file-newfolder{ background-image:url('../images/ico/newfolder.gif')}
+.filefoder-btn a.file-foldershare{ background-image:url('../images/ico/endnode_share.gif')}
+
+.filefoder-files a {width:auto;height:24px;line-height:24px;float:left;display:block}
+
+/* ===== file folder End ===== */
+.ifrMain {width:100%;height:300px}
+
+
+
